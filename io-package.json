@@ -14,7 +14,8 @@
         "loglevel":                 "info",
         "keywords":                 ["weather", "forecast", "temperature", "rain", "yr", "meteorology"],
         "main":                     "yr.js",
-        "icon":                     "yr.png"
+        "icon":                     "yr.png",
+        "readme":                   "https://github.com/hobbyquaker/ioBroker.yr/blob/master/README.md"
     },
     "native": {
         "location": "Germany/Baden-W%C3%BCrttemberg/Stuttgart"

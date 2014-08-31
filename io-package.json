@@ -1,8 +1,8 @@
 {
     "common": {
         "name":                     "yr",
-        "version":                  "0.0.1",
-        "title":                    "yr.no Adapter",
+        "version":                  "0.0.3",
+        "title":                    "yr.no",
         "desc":                     "fetches 48h weather forecast from yr.no",
         "authors": [
             "hobbyquaker <hq@ccu.io>"
@@ -10,8 +10,11 @@
         "license":                  "MIT",
         "platform":                 "Javascript/Node.js",
         "mode":                     "schedule",
-        "schedule":                 "0 0 * * *",
-        "loglevel":                 "info"
+        "schedule":                 "0 * * * *",
+        "loglevel":                 "info",
+        "keywords":                 ["weather", "forecast", "temperature", "rain", "yr", "meteorology"],
+        "main":                     "yr.js",
+        "icon":                     "logo.png"
     },
     "native": {
         "location": "Germany/Baden-W%C3%BCrttemberg/Stuttgart"
@@ -23,124 +26,121 @@
         {
             "_id": "rain_24",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "name": "Rain 24h",
                 "type": "boolean",
                 "role": "indicator.rain",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
             },
             "native": {}
         },
         {
-            "_id": "rain_24",
+            "_id": "rain_48",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "name": "Rain 48h",
                 "type": "boolean",
                 "role": "indicator.rain",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
             },
             "native": {}
         },
         {
             "_id": "temp_min_24",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "name": "min Temperature 24h",
                 "type": "number",
                 "unit": "°C",
                 "role": "value.temperature",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
             },
             "native": {}
         },
         {
             "_id": "temp_max_24",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "name": "max Temperature 24h",
                 "type": "number",
                 "unit": "°C",
                 "role": "value.temperature",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
-            },
+                "read": true,
+                "write": false
+        },
             "native": {}
         },
         {
             "_id": "temp_min_48",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "name": "min Temperature 48h",
                 "type": "number",
                 "unit": "°C",
                 "role": "value.temperature",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
             },
             "native": {}
         },
         {
             "_id": "temp_max_48",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "name": "max Temperature 48h",
                 "type": "number",
                 "unit": "°C",
                 "role": "value.temperature",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
             },
             "native": {}
         },
         {
             "_id": "forecast_object",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "type": "object",
                 "name": "forecast table",
                 "role": "table",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
             },
             "native": {}
         },
         {
             "_id": "forecast_html",
             "type": "state",
-            "parent": "yr_forecast",
+            "parent": "forecast",
             "common": {
                 "type": "object",
                 "name": "forecast html",
                 "role": "html",
-                "oper": {
-                    "read": true,
-                    "write": false
-                }
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "forecast_diagram",
+            "type": "state",
+            "parent": "forecast",
+            "common": {
+                "type": "object",
+                "name": "forecast diagram url",
+                "role": "text.url",
+                "read": true,
+                "write": false
             },
             "native": {}
         }

@@ -16,7 +16,9 @@ function main() {
     var tmp = adapter.config.location.split('/');
     var city = unescape(tmp.pop());
 
-    adapter.setObject('yr_forecast', {
+    adapter.setState('forecast_diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
+
+    adapter.setObject('forecast', {
         type: 'channel',
         role: 'forecast',
         common: {
@@ -27,7 +29,18 @@ function main() {
             country: unescape(tmp[0]),
             state: unescape(tmp[1]),
             city: city
-        }
+        },
+        children: [
+            "forecast.rain_24",
+            "forecast.rain_48",
+            "forecast.temp_min_24",
+            "forecast.temp_max_24",
+            "forecast.temp_min_48",
+            "forecast.temp_max_48",
+            "forecast.forecast_object",
+            "forecast.forecast_html",
+            "forecast.forecast_diagram"
+        ]
     });
 
     var reqOptions = {
@@ -48,7 +61,7 @@ function main() {
         });
 
         res.on('end', function () {
-            adapter.log.info('received data from yr.no');
+            adapter.log.debug('received data from yr.no');
             parseData(data.toString());
         });
 
@@ -158,7 +171,7 @@ function parseData(xml) {
                 }
             }
 
-            adapter.log.info('data succesfully parsed. setting states');
+            adapter.log.debug('data succesfully parsed. setting states');
 
             adapter.setState('rain_24',         {val: rain24, ack: true});
             adapter.setState('rain_48',         {val: rain48, ack: true});
@@ -171,6 +184,8 @@ function parseData(xml) {
                     process.exit(0);
                 }, 5000);
             });
+
+            // TODO forecast_object
 
         }
     });

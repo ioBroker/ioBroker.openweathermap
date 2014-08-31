@@ -1,10 +1,24 @@
 # ioBroker.yr
 
-fetches 48h weather forecast from [yr.no](yr.no) (Norwegian Meteorological Institute)
+fetches 48h weather forecast from [yr.no](yr.no)
+
+[yr.no](yr.no) is a joint service by the [Norwegian Meteorological Institute](met.no) and the [Norwegian Broadcasting Corporation](nrk.no)
 
 http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
+
+## 0.0.3
+* (hobbyquaker) settings ui with autocomplete for location
+* (hobbyquaker) renamed yr_forecast to forecast
+* (hobbyquaker) added children attribute
+* (hobbyquaker) decreased log verbosity
+* (hobbyquaker) fixes
+
+## 0.0.2
+
+* (hobbyquaker) fixes
+
 
 ## 0.0.1
 

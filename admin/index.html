@@ -1,0 +1,73 @@
+<html>
+
+    <link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
+    <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+
+    <script type="text/javascript">
+
+        systemDictionary = {
+            "yr.no adapter settings":   {"de": "yr.no Adapter Konfiguration"},
+            "place":                    {"de": "Ort"}
+        };
+
+        function load(settings) {
+            $('#place').val(settings['place']);
+        }
+
+        function save(callback) {
+            callback({place: $('#place')});
+        }
+
+        $(document).ready(function () {
+            $('#location').autocomplete({
+                source: function (req, callback) {
+                    console.log(req.term);
+                    var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + req.term;
+                    socket.emit('httpGet', {
+                        url: url,
+                        headers: {'Cookie': 'brp=spr=eng'}
+                    }, function (err, res) {
+                        if (!err && res.body) {
+                            var obj = JSON.parse(res.body.substr(10 + req.term.length, res.body.length - (11 + req.term.length)));
+                            console.log(obj);
+                            var arr = [];
+                            for (var i = 0; i < obj.length; i++) {
+                                var tmp = obj[i];
+                                console.log(tmp);
+                                arr.push({
+                                    label: tmp[0] + ', ' + tmp[2],
+                                    value: escape(tmp[1].substr(7, tmp[1].length - 8))
+                                });
+                            }
+                            callback(arr);
+                        } else {
+                            callback([]);
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <div id="adapter-container">
+        <table><tr>
+            <td><img src="logo.png"/></td>
+            <td><h3 class="translate">yr.no adapter settings</h3></td>
+        </tr></table>
+        <p style="padding-left: 12px">
+            <label for="location" class="translate">Place</label> <input class="value" type="text" id="location" size="80"/>
+        </p>
+        <h3 style="padding-left: 12px">
+            <a href="yr.no" target="_blank">yr.no</a> is a joint service by the <a href="met.no" target="_blank">Norwegian
+            Meteorological Institute</a> and the <a href="nrk.no" target="_blank">Norwegian Broadcasting Corporation</a>
+        </h3>
+    </div>
+
+</html>

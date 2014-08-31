@@ -13,15 +13,15 @@
 
         systemDictionary = {
             "yr.no adapter settings":   {"de": "yr.no Adapter Konfiguration"},
-            "place":                    {"de": "Ort"}
+            "location":                 {"de": "Ort"}
         };
 
         function load(settings) {
-            $('#place').val(settings['place']);
+            $('#location').val(settings['location']);
         }
 
         function save(callback) {
-            callback({place: $('#place')});
+            callback({location: $('#location')});
         }
 
         $(document).ready(function () {

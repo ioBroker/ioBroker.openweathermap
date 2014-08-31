@@ -14,7 +14,7 @@
         "loglevel":                 "info",
         "keywords":                 ["weather", "forecast", "temperature", "rain", "yr", "meteorology"],
         "main":                     "yr.js",
-        "icon":                     "logo.png"
+        "icon":                     "yr.png"
     },
     "native": {
         "location": "Germany/Baden-W%C3%BCrttemberg/Stuttgart"

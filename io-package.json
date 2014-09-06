@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "yr",
-        "version":                  "0.0.3",
+        "version":                  "0.0.4",
         "title":                    "yr.no",
         "desc":                     "fetches 48h weather forecast from yr.no",
         "authors": [
@@ -25,7 +25,7 @@
     ],
     "instanceObjects": [
         {
-            "_id": "rain_24",
+            "_id": "forecast.rain_24",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -38,7 +38,7 @@
             "native": {}
         },
         {
-            "_id": "rain_48",
+            "_id": "forecast.rain_48",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -51,7 +51,7 @@
             "native": {}
         },
         {
-            "_id": "temp_min_24",
+            "_id": "forecast.temp_min_24",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -65,7 +65,7 @@
             "native": {}
         },
         {
-            "_id": "temp_max_24",
+            "_id": "forecast.temp_max_24",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -79,7 +79,7 @@
             "native": {}
         },
         {
-            "_id": "temp_min_48",
+            "_id": "forecast.temp_min_48",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -93,7 +93,7 @@
             "native": {}
         },
         {
-            "_id": "temp_max_48",
+            "_id": "forecast.temp_max_48",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -107,7 +107,7 @@
             "native": {}
         },
         {
-            "_id": "forecast_object",
+            "_id": "forecast.object",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -120,7 +120,7 @@
             "native": {}
         },
         {
-            "_id": "forecast_html",
+            "_id": "forecast.html",
             "type": "state",
             "parent": "forecast",
             "common": {
@@ -133,7 +133,7 @@
             "native": {}
         },
         {
-            "_id": "forecast_diagram",
+            "_id": "forecast.diagram",
             "type": "state",
             "parent": "forecast",
             "common": {

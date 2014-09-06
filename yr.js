@@ -16,7 +16,7 @@ function main() {
     var tmp = adapter.config.location.split('/');
     var city = unescape(tmp.pop());
 
-    adapter.setState('forecast_diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
+    adapter.setState('diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
 
     adapter.setObject('forecast', {
         type: 'channel',
@@ -37,9 +37,9 @@ function main() {
             "forecast.temp_max_24",
             "forecast.temp_min_48",
             "forecast.temp_max_48",
-            "forecast.forecast_object",
-            "forecast.forecast_html",
-            "forecast.forecast_diagram"
+            "forecast.object",
+            "forecast.html",
+            "forecast.diagram"
         ]
     });
 
@@ -173,13 +173,13 @@ function parseData(xml) {
 
             adapter.log.debug('data succesfully parsed. setting states');
 
-            adapter.setState('rain_24',         {val: rain24, ack: true});
-            adapter.setState('rain_48',         {val: rain48, ack: true});
-            adapter.setState('temp_min_24',     {val: minTemp24, ack: true});
-            adapter.setState('temp_max_24',     {val: maxTemp24, ack: true});
-            adapter.setState('temp_min_48',     {val: minTemp48, ack: true});
-            adapter.setState('temp_max_48',     {val: maxTemp48, ack: true});
-            adapter.setState('forecast_html',   {val: table, ack: true}, function () {
+            adapter.setState('forecast.rain_24',         {val: rain24,       ack: true});
+            adapter.setState('forecast.rain_48',         {val: rain48,       ack: true});
+            adapter.setState('forecast.temp_min_24',     {val: minTemp24,    ack: true});
+            adapter.setState('forecast.temp_max_24',     {val: maxTemp24,    ack: true});
+            adapter.setState('forecast.temp_min_48',     {val: minTemp48,    ack: true});
+            adapter.setState('forecast.temp_max_48',     {val: maxTemp48,    ack: true});
+            adapter.setState('forecast.html',   {val: table,        ack: true}, function () {
                 setTimeout(function () {
                     process.exit(0);
                 }, 5000);

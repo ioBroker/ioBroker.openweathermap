@@ -8,6 +8,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.0.4
+* (hobbyquaker) prepend "forecast." to state IDs
+
 ## 0.0.3
 * (hobbyquaker) settings ui with autocomplete for location
 * (hobbyquaker) renamed yr_forecast to forecast

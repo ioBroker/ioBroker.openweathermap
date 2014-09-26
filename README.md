@@ -1,3 +1,4 @@
+![Logo](admin/yr.png)
 # ioBroker.yr
 
 fetches 48h weather forecast from [yr.no](yr.no)

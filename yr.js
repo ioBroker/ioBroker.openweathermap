@@ -84,25 +84,26 @@ var dictionary = {
     "Snow": {"en": "Snow", "de": "Schnee", "ru": "Снег"},
     "Partly cloudy": {"en": "Partly cloudy", "de": "Teils Wolkig cloudy", "ru": "Переменная облачность"},
     "Sleet": {"en": "Sleet", "de": "Schneeregen", "ru": "Снег с дождём"},
+    // TODO extend all possible weather
 
     "N": {"en": "N", "de": "N", "ru": "C"},
     "S": {"en": "S", "de": "S", "ru": "Ю"},
     "W": {"en": "W", "de": "W", "ru": "З"},
     "E": {"en": "E", "de": "O", "ru": "В"},
     
-    "NW": {"en": "NW", "de": "N", "ru": "CЗ"},
+    "NW":  {"en": "NW",  "de": "NW",  "ru": "CЗ"},
     "NNW": {"en": "NNW", "de": "NNW", "ru": "CСЗ"},
-    "NWW": {"en": "NWW", "de": "NWW", "ru": "CЗЗ"},
-    "NE": {"en": "NE", "de": "NO", "ru": "CВ"},
+    "WNW": {"en": "WNW", "de": "WNW", "ru": "ЗСЗ"},
+    "NE":  {"en": "NE",  "de": "NO",  "ru": "CВ"},
     "NNE": {"en": "NNE", "de": "NNO", "ru": "CСВ"},
-    "NEE": {"en": "NEE", "de": "NOO", "ru": "CВВ"},
+    "ENE": {"en": "ENE", "de": "ONO", "ru": "ВCВ"},
 
-    "SW": {"eS": "SW", "de": "S", "ru": "ЮЗ"},
-    "SSW": {"eS": "SSW", "de": "SSW", "ru": "ЮЮЗ"},
-    "SWW": {"eS": "SWW", "de": "SWW", "ru": "ЮЗЗ"},
-    "SE": {"eS": "SE", "de": "SO", "ru": "ЮВ"},
-    "SSE": {"eS": "SSE", "de": "SSO", "ru": "ЮЮВ"},
-    "SEE": {"eS": "SEE", "de": "SOO", "ru": "ЮВВ"}
+    "SW":  {"en": "SW",  "de": "SW",  "ru": "ЮЗ"},
+    "SSW": {"en": "SSW", "de": "SSW", "ru": "ЮЮЗ"},
+    "WSW": {"en": "WSW", "de": "WSW", "ru": "ЗЮЗ"},
+    "SE":  {"en": "SE",  "de": "SO",  "ru": "ЮВ"},
+    "SSE": {"en": "SSE", "de": "SSO", "ru": "ЮЮВ"},
+    "ESE": {"en": "ESE", "de": "OSO", "ru": "ВЮВ"}
 };
 
 function _(text) {
@@ -112,7 +113,7 @@ function _(text) {
         var newText = dictionary[text][adapter.config.language];
         if (newText) {
             return newText;
-        } else if (lang != 'en') {
+        } else if (adapter.config.language != 'en') {
             newText = dictionary[text].en;
             if (newText) {
                 return newText;
@@ -139,12 +140,6 @@ function parseData(xml) {
             adapter.log.info('got weather data from yr.no');
             var forecastArr = result.weatherdata.forecast.tabular.time;
 
-            // Set up icon for all states
-            for (var i = 0; i < forecastArr.length; i++) {
-                var period = forecastArr[i];
-                period.symbol.url = 'http://symbol.yr.no/grafikk/sym/b38/' + period.symbol.var + '.png';
-            }
-
             var tableDay =    '<table style="border-collapse: collapse; padding: 0; margin: 0"><tr class="yr-day">';
             var tableHead =   '</tr><tr class="yr-time">';
             var tableMiddle = '</tr><tr class="yr-img">';
@@ -163,7 +158,9 @@ function parseData(xml) {
                 // We want to process only today, tomorrow and the day after tomorrow
                 if (day == 3) break;
 
-                period.symbol.name = _(period.symbol.name);
+				period.symbol.url = 'http://symbol.yr.no/grafikk/sym/b38/' + period.symbol.var + '.png';
+                period.symbol.name        = _(period.symbol.name);
+                period.windDirection.code = _(period.windDirection.code);
 
                 if (i < 8) {
                     switch (i) {

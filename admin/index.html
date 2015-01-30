@@ -12,16 +12,27 @@
     <script type="text/javascript">
 
         systemDictionary = {
-            "yr.no adapter settings":   {"de": "yr.no Adapter Konfiguration"},
-            "location":                 {"de": "Ort"}
+            "yr.no adapter settings":   {"de": "yr.no Adapter Konfiguration", "ru": "yr.no Настройки"},
+            "Place":                    {"de": "Ort", "ru": "Место"},
+            "Language":                 {"de": "Sprache für Wetter", "ru": "Язык для погоды"},
+            "yrDescription":            {
+                "en": '<a href="yr.no" target="_blank">yr.no</a> is a joint service by the<a href="met.no" target="_blank">Norwegian Meteorological Institute</a> and the <a href="nrk.no" target="_blank">Norwegian Broadcasting Corporation</a>',
+                "de": '<a href="yr.no" target="_blank">yr.no</a> ist ein Dienst von <a href="met.no" target="_blank">Norwegian Meteorological Institute</a> und von <a href="nrk.no" target="_blank">Norwegian Broadcasting Corporation</a>',
+                "ru": '<a href="yr.no" target="_blank">yr.no</a> - сервис <a href="met.no" target="_blank">Норвежского Метеорологического Института</a> и <a href="nrk.no" target="_blank">Норвежской Широкрвещательной Корпорации</a>',
+            }
         };
 
-        function load(settings) {
-            $('#location').val(settings['location']);
+        function load(settings, onChange) {
+            $('#location').val(settings.location).change(onChange);
+            $('#language').val(settings.language).change(onChange);
+            onChange(false);
+
+            // Setup default language
+            if (!settings.language) $('#language').val(systemLang).trigger('change');
         }
 
         function save(callback) {
-            callback({location: $('#location')});
+            callback({location: $('#location').val(), language: $('#language').val()});
         }
 
         $(document).ready(function () {
@@ -64,10 +75,15 @@
         <p style="padding-left: 12px">
             <label for="location" class="translate">Place</label> <input class="value" type="text" id="location" size="80"/>
         </p>
-        <h3 style="padding-left: 12px">
-            <a href="yr.no" target="_blank">yr.no</a> is a joint service by the <a href="met.no" target="_blank">Norwegian
-            Meteorological Institute</a> and the <a href="nrk.no" target="_blank">Norwegian Broadcasting Corporation</a>
-        </h3>
+        <p style="padding-left: 12px">
+            <label for="language" class="translate">Language</label>
+            <select class="value" id="language">
+                <option value="en">English</option>
+                <option value="de">Deutsch</option>
+                <option value="ru">русский</option>
+            </select>
+        </p>
+        <h3 style="padding-left: 12px" class="translate">yrDescription</h3>
     </div>
 
 </html>

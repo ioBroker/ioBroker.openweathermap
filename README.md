@@ -9,6 +9,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.0
+* (bluefox) update yr on the new objects model
+
 ## 0.0.4
 * (hobbyquaker) prepend "forecast." to state IDs
 

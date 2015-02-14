@@ -9,6 +9,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.1
+* (bluefox) add translates for the weather states in other languages
+
 ## 0.1.0
 * (bluefox) update yr on the new objects model
 

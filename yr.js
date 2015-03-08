@@ -1,5 +1,9 @@
-var http = 	 require('http');
+/* jshint -W097 */// jshint strict:false
+/*jslint node: true */
+"use strict";
+
 var xml2js = require('xml2js');
+var http =   require('http');
 var utils =  require(__dirname + '/lib/utils'); // Get common adapter utils
 
 var adapter = utils.adapter({
@@ -15,7 +19,7 @@ adapter.on('ready', function () {
 function main() {
 
     var tmp  = adapter.config.location.split('/');
-    var city = unescape(tmp.pop());
+    var city = decodeURI(tmp.pop());
 
     adapter.config.language = adapter.config.language || 'en';
 
@@ -29,8 +33,8 @@ function main() {
         },
         native: {
             url:     adapter.config.location,
-            country: unescape(tmp[0]),
-            state:   unescape(tmp[1]),
+            country: decodeURI(tmp[0]),
+            state:   decodeURI(tmp[1]),
             city:    city
         }
     });
@@ -59,7 +63,7 @@ function main() {
 
     });
 
-    req.on('error', function(e) {
+    req.on('error', function (e) {
 
         //adapter.log.error(e.message);
         parseData(require('fs').readFileSync(__dirname + '/forecast.xml').toString());
@@ -194,7 +198,7 @@ function parseData(xml) {
             for (var i = 0; i < 12 && i < forecastArr.length; i++) {
                 var period = forecastArr[i];
 
-                if (period.period == 0) day++;
+                if (!period.period) day++;
 
                 // We want to process only today, tomorrow and the day after tomorrow
                 if (day == 3) break;
@@ -214,7 +218,7 @@ function parseData(xml) {
                                     daySwitch = true;
                                     tableDay += '<td colspan="' + i + '">' + _('Today') + '</td><td colspan="4">' + _('Tomorrow') + '</td>';
                                     if (i < 3) tableDay += '<td colspan="' + (4 - i) + '">' + _('After tomorrow') + '</td>';
-                                    tableHead += '<td>' + parseInt(period.from.substring(11 ,13), 10).toString() + '-' + parseInt(period.to.substring(11, 13), 10).toString() + '</td>';
+                                    tableHead += '<td>' + parseInt(period.from.substring(11, 13), 10).toString() + '-' + parseInt(period.to.substring(11, 13), 10).toString() + '</td>';
                                 } else {
                                     tableHead += '<td>' + parseInt(period.from.substring(11, 13), 10).toString() + '-' + parseInt(period.to.substring(11, 13), 10).toString() + '</td>';
                                 }
@@ -228,7 +232,7 @@ function parseData(xml) {
                     tableBottom += '<td><span class="">' + period.temperature.value + '°C</span></td>';
                 }
 
-                if (day == -1 && i == 0) day = 0;
+                if (day == -1 && !i) day = 0;
                 if (!days[day]) {
                     days[day] = {
                         date:                 new Date(period.from),
@@ -261,11 +265,11 @@ function parseData(xml) {
                     days[day].count++;
                 }
                 // Set actual temperature
-                if (day == 0 && i == 0) {
+                if (!day && !i) {
                     days[day].temperature_actual = period.temperature.value;
                 }
             }
-            var style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding:0; margin: 0;}\ntr.yr-img td {text-align: center; padding:0; margin: 0;}\ntr.yr-time td img {padding:0; margin: 0;}</style>'
+            var style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding:0; margin: 0;}\ntr.yr-img td {text-align: center; padding:0; margin: 0;}\ntr.yr-time td img {padding:0; margin: 0;}</style>';
             var table = style + tableDay + tableHead + tableMiddle + tableBottom + '</tr></table>';
             //console.log(JSON.stringify(result, null, "  "));
 

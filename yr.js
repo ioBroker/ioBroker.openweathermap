@@ -38,7 +38,10 @@ function main() {
             city:    city
         }
     });
-
+    
+	if (adapter.config.location.indexOf('%') == -1) adapter.config.location = encodeURI(adapter.config.location);
+	
+	
     var reqOptions = {
         hostname: 'www.yr.no',
         port:     80,
@@ -46,7 +49,7 @@ function main() {
         method:   'GET'
     };
 
-    adapter.log.info('get http://' + reqOptions.hostname + reqOptions.path);
+    adapter.log.debug('get http://' + reqOptions.hostname + reqOptions.path);
 
     var req = http.request(reqOptions, function (res) {
 
@@ -64,9 +67,8 @@ function main() {
     });
 
     req.on('error', function (e) {
-
-        //adapter.log.error(e.message);
-        parseData(require('fs').readFileSync(__dirname + '/forecast.xml').toString());
+        adapter.log.error(e.message);
+        //parseData(require('fs').readFileSync(__dirname + '/forecast.xml').toString());
     });
 
     req.end();

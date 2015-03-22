@@ -135,6 +135,8 @@ var dictionary = {
     "Fair": {"en": "Fair", "de": "Schönwetter", "ru": "Ясно"},
     "Clear sky": {"en": "Clear sky", "de": "Klarer Himmel", "ru": "Чистое небо"},
     "Rain": {"en": "Rain", "de": "Regen", "ru": "Дождь"},
+    "Light rain": {"en": "Light rain", "de": "Leichter Regen", "ru": "Слабый дождик"},
+    "Heavy rain": {"en": "Heavy rain", "de": "Heftiger Regen", "ru": "Сильный дождь"},
 
     "N": {"en": "N", "de": "N", "ru": "C"},
     "S": {"en": "S", "de": "S", "ru": "Ю"},

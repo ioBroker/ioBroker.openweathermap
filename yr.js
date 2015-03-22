@@ -38,7 +38,7 @@ function main() {
             city:    city
         }
     });
-    
+
 	if (adapter.config.location.indexOf('%') == -1) adapter.config.location = encodeURI(adapter.config.location);
 	
 	
@@ -132,6 +132,9 @@ var dictionary = {
     "Thundershowers": {"de": "Gewitterschauer", "ru": "Штормовой дождь"},
     "Snow showers": {"de": "Schneeregen", "ru": "Снег с дождем"},
     "Isolated thundershowers": {"de": "Vereinzelter Gewitterschauer", "ru": "Местами грозы"},
+    "Fair": {"en": "Fair", "de": "Schönwetter", "ru": "Ясно"},
+    "Clear sky": {"en": "Clear sky", "de": "Klarer Himmel", "ru": "Чистое небо"},
+    "Rain": {"en": "Rain", "de": "Regen", "ru": "Дождь"},
 
     "N": {"en": "N", "de": "N", "ru": "C"},
     "S": {"en": "S", "de": "S", "ru": "Ю"},
@@ -167,7 +170,7 @@ function _(text) {
             }
         }
     } else {
-        console.log('"' + text + '": {"en": "' + text + '", "de": "' + text + '", "ru": "' + text + '"},');
+        adapter.log.warn('Translate: "' + text + '": {"en": "' + text + '", "de": "' + text + '", "ru": "' + text + '"}, please send to developer');
     }
     return text;
 }
@@ -200,12 +203,12 @@ function parseData(xml) {
             for (var i = 0; i < 12 && i < forecastArr.length; i++) {
                 var period = forecastArr[i];
 
-                if (!period.period) day++;
+                if (!period.period || period.period == '0') day++;
 
                 // We want to process only today, tomorrow and the day after tomorrow
                 if (day == 3) break;
 
-				period.symbol.url = 'http://symbol.yr.no/grafikk/sym/b38/' + period.symbol.var + '.png';
+				period.symbol.url         = 'http://symbol.yr.no/grafikk/sym/b38/' + period.symbol.var + '.png';
                 period.symbol.name        = _(period.symbol.name);
                 period.windDirection.code = _(period.windDirection.code);
 
@@ -268,7 +271,7 @@ function parseData(xml) {
                 }
                 // Set actual temperature
                 if (!day && !i) {
-                    days[day].temperature_actual = period.temperature.value;
+                    days[day].temperature_actual = parseInt(period.temperature.value, 10);
                 }
             }
             var style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding:0; margin: 0;}\ntr.yr-img td {text-align: center; padding:0; margin: 0;}\ntr.yr-time td img {padding:0; margin: 0;}</style>';
@@ -282,11 +285,11 @@ function parseData(xml) {
                     days[day].wind_speed          /= days[day].count;
                     days[day].pressure            /= days[day].count;
                 }
-                days[day].temperature_min     = days[day].temperature_min.toFixed(0);
-                days[day].temperature_max     = days[day].temperature_max.toFixed(0);
-                days[day].precipitation_level = days[day].precipitation_level.toFixed(0);
-                days[day].wind_speed          = days[day].wind_speed.toFixed(1);
-                days[day].pressure            = days[day].pressure.toFixed(0);
+                days[day].temperature_min     = Math.round(days[day].temperature_min);
+                days[day].temperature_max     = Math.round(days[day].temperature_max);
+                days[day].precipitation_level = Math.round(days[day].precipitation_level);
+                days[day].wind_speed          = Math.round(days[day].wind_speed * 10) / 10;
+                days[day].pressure            = Math.round(days[day].pressure);
 
                 days[day].date = adapter.formatDate(days[day].date);
 

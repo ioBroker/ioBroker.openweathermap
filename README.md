@@ -9,6 +9,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.3 [2015-03-22]
+* (bluefox) fix error with tomorrow and day after tomorrow
+
 ## 0.1.2 [2015-03-08]
 * (bluefox) correct links to yr.no web site
 

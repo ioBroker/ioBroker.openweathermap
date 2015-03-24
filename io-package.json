@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "0.1.3",
+        "version": "0.1.4",
         "title":                    "yr.no",
         "desc":                     {
             "en":                   "Fetches 48h weather forecast from yr.no",
@@ -323,9 +323,6 @@
                 "role":  "indicator",
                 "read":  true,
                 "write": false,
-                "min":   "0",
-                "max":   "100",
-                "unit":  "%",
                 "desc":  "Forecast for rain or snow level in mm"
             },
             "native": {}
@@ -473,9 +470,6 @@
                 "role":  "indicator",
                 "read":  true,
                 "write": false,
-                "min":   "0",
-                "max":   "100",
-                "unit":  "%",
                 "desc":  "Forecast for rain or snow level in mm"
             },
             "native": {}

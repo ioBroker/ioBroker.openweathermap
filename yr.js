@@ -90,7 +90,6 @@ var dictionary = {
     "Snow": {"en": "Snow", "de": "Schnee", "ru": "Снег"},
     "Partly cloudy": {"en": "Partly cloudy", "de": "Teils Wolkig cloudy", "ru": "Переменная облачность"},
     "Sleet": {"en": "Sleet", "de": "Schneeregen", "ru": "Снег с дождём"},
-    // TODO extend all possible weather
     "Tornado": {"de": "Sitze Zuhause:)", "ru": "Торнадо - сиди дома!"},
     "Tropical storm": {"de": "Tropischer Sturm", "ru": "Тропический шторм"},
     "Hurricane": {"de": "Hurrikan", "ru": "Ураган"},
@@ -137,6 +136,8 @@ var dictionary = {
     "Rain": {"en": "Rain", "de": "Regen", "ru": "Дождь"},
     "Light rain": {"en": "Light rain", "de": "Leichter Regen", "ru": "Слабый дождик"},
     "Heavy rain": {"en": "Heavy rain", "de": "Heftiger Regen", "ru": "Сильный дождь"},
+    "Rain showers": {"en": "Rain showers", "de": "Regenschauer", "ru": "Ливневый дождь"},
+    "Light rain showers": {"en": "Light rain showers", "de": "Leichter Regenschauer", "ru": "Слабый ливневый дождь"},
 
     "N": {"en": "N", "de": "N", "ru": "C"},
     "S": {"en": "S", "de": "S", "ru": "Ю"},

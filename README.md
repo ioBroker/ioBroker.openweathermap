@@ -9,6 +9,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.5 [2015-03-26]
+* (bluefox) translations
+
 ## 0.1.4 [2015-03-24]
 * (bluefox) remove unit "%" for "wind direction"
 

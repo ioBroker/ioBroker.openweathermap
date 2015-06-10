@@ -108,7 +108,7 @@ var dictionary = {
     "Hail": {"de": "Hagel", "ru": "Град"},
     "Dust": {"de": "Staubig", "ru": "Пыльно"},
     "Foggy": {"de": "Neblig", "ru": "Туманно"},
-    "Haze": {"de": "Nebel", "ru": "Туман"},
+    "Haze": {"de": "Dunst", "ru": "Лёгкий туман"},
     "Smoky": {"de": "Qualmig", "ru": "Задымление"},
     "Blustery": {"de": "St&uuml;rmisch", "ru": "Порывистый ветер"},
     "Windy": {"de": "Windig", "ru": "Ветрянно"},
@@ -138,6 +138,7 @@ var dictionary = {
     "Heavy rain": {"en": "Heavy rain", "de": "Heftiger Regen", "ru": "Сильный дождь"},
     "Rain showers": {"en": "Rain showers", "de": "Regenschauer", "ru": "Ливневый дождь"},
     "Light rain showers": {"en": "Light rain showers", "de": "Leichter Regenschauer", "ru": "Слабый ливневый дождь"},
+    "Fog": {"en": "Fog", "de": "Nebel", "ru": "Туман"},
 
     "N": {"en": "N", "de": "N", "ru": "C"},
     "S": {"en": "S", "de": "S", "ru": "Ю"},

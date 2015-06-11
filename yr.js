@@ -139,6 +139,7 @@ var dictionary = {
     "Rain showers": {"en": "Rain showers", "de": "Regenschauer", "ru": "Ливневый дождь"},
     "Light rain showers": {"en": "Light rain showers", "de": "Leichter Regenschauer", "ru": "Слабый ливневый дождь"},
     "Fog": {"en": "Fog", "de": "Nebel", "ru": "Туман"},
+    "Heavy rain showers": {"en": "Heavy rain showers", "de": "Starke Regenschauer", "ru": "Сильный ливневый дождь"},
 
     "N": {"en": "N", "de": "N", "ru": "C"},
     "S": {"en": "S", "de": "S", "ru": "Ю"},

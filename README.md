@@ -9,6 +9,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.6 [2015-06-12]
+* (bluefox) translations
+
 ## 0.1.5 [2015-03-26]
 * (bluefox) translations
 

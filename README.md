@@ -9,6 +9,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.7 [2015-07-10]
+* (bluefox) make yr works with metro widgets
+
 ## 0.1.6 [2015-06-12]
 * (bluefox) translations
 

@@ -238,7 +238,7 @@ function parseData(xml) {
                             }
                     }
 
-                    tableMiddle += '<td><img src="' + period.symbol.url + '" alt="' + period.symbol.name + '" title="' + period.symbol.name + '"><br/>';
+                    tableMiddle += '<td><img style="position:relative;margin:0;padding:0;left:0;top:0;width:38px;height:38px;" src="' + period.symbol.url + '" alt="' + period.symbol.name + '" title="' + period.symbol.name + '"><br/>';
                     tableBottom += '<td><span class="">' + period.temperature.value + '°C</span></td>';
                 }
 
@@ -279,7 +279,7 @@ function parseData(xml) {
                     days[day].temperature_actual = parseInt(period.temperature.value, 10);
                 }
             }
-            var style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding:0; margin: 0;}\ntr.yr-img td {text-align: center; padding:0; margin: 0;}\ntr.yr-time td img {padding:0; margin: 0;}</style>';
+            var style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding: 0; margin: 0;}\ntr.yr-img td {text-align: center; padding: 0; margin: 0;}</style>';
             var table = style + tableDay + tableHead + tableMiddle + tableBottom + '</tr></table>';
             //console.log(JSON.stringify(result, null, "  "));
 

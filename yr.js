@@ -5,7 +5,7 @@
 var xml2js     = require('xml2js');
 var http       = require('http');
 var utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
-var dictionary = require(__dirname + '/lib/words');
+var dictionary = require(__dirname + '/lib/words').words;
 
 var adapter = utils.adapter({
     name:          'yr',       // adapter name

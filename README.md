@@ -7,7 +7,12 @@ fetches 48h weather forecast from [yr.no](yr.no)
 
 http://om.yr.no/verdata/free-weather-data/
 
+**Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation. 
+
 # Changelog
+
+## 0.1.9 [2015-10-28]
+* (bluefox) fix error with translations
 
 ## 0.1.8 [2015-10-27]
 * (bluefox) translations

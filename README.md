@@ -9,6 +9,10 @@ http://om.yr.no/verdata/free-weather-data/
 
 # Changelog
 
+## 0.1.8 [2015-10-27]
+* (bluefox) translations
+* (bluefox) automatically upload of missing translations to iobroker.net 
+
 ## 0.1.7 [2015-07-10]
 * (bluefox) make yr works with metro widgets
 

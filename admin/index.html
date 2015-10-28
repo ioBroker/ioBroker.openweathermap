@@ -15,10 +15,11 @@
             "yr.no adapter settings":   {"de": "yr.no Adapter Konfiguration", "ru": "yr.no Настройки"},
             "Place":                    {"de": "Ort", "ru": "Место"},
             "Language":                 {"de": "Sprache für Wetter", "ru": "Язык для погоды"},
+            "Send missing translations to iobroker.net": {"de": "Sende felende Übersetzungen zu iobroker.net", "ru": "Посылать непереведённые слова на iobroker.net"},
             "yrDescription":            {
                 "en": '<a href="http://www.yr.no/" target="_blank">yr.no</a> is a joint service by the<a href="http://met.no/" target="_blank">Norwegian Meteorological Institute</a> and the <a href="http://www.nrk.no" target="_blank">Norwegian Broadcasting Corporation</a>',
                 "de": '<a href="http://www.yr.no/" target="_blank">yr.no</a> ist ein Dienst von <a href="http://met.no/" target="_blank">Norwegian Meteorological Institute</a> und von <a href="http://www.nrk.no" target="_blank">Norwegian Broadcasting Corporation</a>',
-                "ru": '<a href="http://www.yr.no/" target="_blank">yr.no</a> - сервис <a href="http://met.no/" target="_blank">Норвежского Метеорологического Института</a> и <a href="http://www.nrk.no" target="_blank">Норвежской Широкрвещательной Корпорации</a>',
+                "ru": '<a href="http://www.yr.no/" target="_blank">yr.no</a> - сервис <a href="http://met.no/" target="_blank">Норвежского Метеорологического Института</a> и <a href="http://www.nrk.no" target="_blank">Норвежской Широкрвещательной Корпорации</a>'
             }
         };
 
@@ -26,6 +27,8 @@
             $('#location').val(settings.location).change(onChange).keyup(onChange);
             $('#language').val(settings.language).change(onChange);
             onChange(false);
+            if (settings.sendTranslations === undefined) settings.sendTranslations = true;
+            $('#sendTranslations').prop('checked', settings.sendTranslations).change(onChange);
 
             // Setup default language
             if (!settings.language) $('#language').val(systemLang).trigger('change');
@@ -82,6 +85,9 @@
                 <option value="de">Deutsch</option>
                 <option value="ru">русский</option>
             </select>
+        </p>
+        <p style="padding-left: 12px">
+            <label for="sendTranslations" class="translate">Send missing translations to iobroker.net</label> <input class="value" type="checkbox" id="sendTranslations"/>
         </p>
         <h3 style="padding-left: 12px" class="translate">yrDescription</h3>
     </div>

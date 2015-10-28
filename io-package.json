@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "0.1.7",
+        "version": "0.1.8",
         "title":                    "yr.no",
         "desc":                     {
             "en":                   "Fetches 48h weather forecast from yr.no",
@@ -26,7 +26,8 @@
     },
     "native": {
         "location": "Germany/Baden-Württemberg/Stuttgart",
-        "language": ""
+        "language": "",
+        "sendTranslations": true
     },
     "objects": [
 

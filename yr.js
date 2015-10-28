@@ -2,9 +2,10 @@
 /*jslint node: true */
 "use strict";
 
-var xml2js = require('xml2js');
-var http =   require('http');
-var utils =  require(__dirname + '/lib/utils'); // Get common adapter utils
+var xml2js     = require('xml2js');
+var http       = require('http');
+var utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
+var dictionary = require(__dirname + '/lib/words');
 
 var adapter = utils.adapter({
     name:          'yr',       // adapter name
@@ -22,6 +23,9 @@ function main() {
     var city = decodeURI(tmp.pop());
 
     adapter.config.language = adapter.config.language || 'en';
+    if (adapter.config.sendTranslations === undefined) adapter.config.sendTranslations = true;
+    if (adapter.config.sendTranslations === 'true')  adapter.config.sendTranslations = true;
+    if (adapter.config.sendTranslations === 'false') adapter.config.sendTranslations = false;
 
     adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
 
@@ -81,86 +85,6 @@ function main() {
 
 }
 
-var dictionary = {
-    'Now': {'de': 'Jetzt', 'ru': 'Cейчас'},
-    'Today': {'de': 'Heute', 'ru': 'Cегодня'},
-    'Tomorrow': {'de': 'Morgen', 'ru': 'Завтра'},
-    'After tomorrow': {'de': 'Übermorgen', 'ru': 'Послезавтра'},
-    "Cloudy": {"en": "Cloudy", "de": "Wolkig", "ru": "Облачно"},
-    "Snow": {"en": "Snow", "de": "Schnee", "ru": "Снег"},
-    "Partly cloudy": {"en": "Partly cloudy", "de": "Teils Wolkig cloudy", "ru": "Переменная облачность"},
-    "Sleet": {"en": "Sleet", "de": "Schneeregen", "ru": "Снег с дождём"},
-    "Tornado": {"de": "Sitze Zuhause:)", "ru": "Торнадо - сиди дома!"},
-    "Tropical storm": {"de": "Tropischer Sturm", "ru": "Тропический шторм"},
-    "Hurricane": {"de": "Hurrikan", "ru": "Ураган"},
-    "Severe thunderstorms": {"de": "Heftiges Gewitter", "ru": "Сильная непогода"},
-    "Thunderstorms": {"de": "Gewitter", "ru": "Грозы"},
-    "Mixed rain and snow": {"de": "Regen mit Schnee", "ru": "Дождь со снегом"},
-    "Mixed rain and sleet": {"de": "Regen mit Graupel", "ru": "Дождь с градом"},
-    "Mixed snow and sleet": {"de": "Schnee mit Graupel", "ru": "Снег с градом"},
-    "Freezing drizzle": {"de": "Eisnieselregen", "ru": "Изморозь"},
-    "Drizzle": {"de": "Nieselregen", "ru": "Моросящий дождь"},
-    "Freezing rain": {"de": "Eisregen", "ru": "Ледяной дождь"},
-    "Showers": {"de": "Regenschauer", "ru": "Ливень"},
-    "Snow flurries": {"de": "Schneetreiben", "ru": "Снегопад"},
-    "Light snow showers": {"de": "Leichter Regen mit Schnee", "ru": "Небольшой дождь со снегом"},
-    "Bowing snow": {"de": "Schnee", "ru": "Снег"},
-    "Hail": {"de": "Hagel", "ru": "Град"},
-    "Dust": {"de": "Staubig", "ru": "Пыльно"},
-    "Foggy": {"de": "Neblig", "ru": "Туманно"},
-    "Haze": {"de": "Dunst", "ru": "Лёгкий туман"},
-    "Smoky": {"de": "Qualmig", "ru": "Задымление"},
-    "Blustery": {"de": "St&uuml;rmisch", "ru": "Порывистый ветер"},
-    "Windy": {"de": "Windig", "ru": "Ветрянно"},
-    "Cold": {"de": "Kalt", "ru": "Холодно"},
-    "Mostly cloudy (night)": {"de": "&Uuml,berwiegend w&ouml;lkig", "ru": "В основном облачно"},
-    "Mostly cloudy (day)": {"de": "&Uuml,berwiegend w&ouml;lkig", "ru": "В основном облачно"},
-    "partly cloudy (night)": {"de": "Teilweise wolkig", "ru": "Местами облачно"},
-    "partly cloudy (day)": {"de": "Meistens sonnig", "ru": "Приемущественно солнечно"},
-    "Clear (night)": {"de": "Klar", "ru": "Ясно"},
-    "Sunny": {"de": "Sonnig", "ru": "Солнечно"},
-    "Fair (night)": {"de": "Sch&ouml;nwetter", "ru": "Прекрасная погода"},
-    "Fair (day)": {"de": "Sch&ouml;unwetter", "ru": "Прекрасная погода"},
-    "Mixed rain and hail": {"de": "Regen mit Hagel", "ru": "Снег с градом"},
-    "Hot": {"de": "Warm", "ru": "Жарко"},
-    "Isolated thunderstorms": {"de": "Vereinzeltes Gewitter", "ru": "Одиночные грозы"},
-    "scattered thunderstorms": {"de": "Verstreutes Gewitter", "ru": "Грозы"},
-    "scattered showers": {"de": "Verstreuter Regen", "ru": "Дождь"},
-    "Heavy snow": {"de": "Starker Schneefall", "ru": "Сильный снегопад"},
-    "Scattered snow showers": {"de": "Verstreuter Schneeregen", "ru": "Ливень с дождем"},
-    "Thundershowers": {"de": "Gewitterschauer", "ru": "Штормовой дождь"},
-    "Snow showers": {"de": "Schneeregen", "ru": "Снег с дождем"},
-    "Isolated thundershowers": {"de": "Vereinzelter Gewitterschauer", "ru": "Местами грозы"},
-    "Fair": {"en": "Fair", "de": "Schönwetter", "ru": "Ясно"},
-    "Clear sky": {"en": "Clear sky", "de": "Klarer Himmel", "ru": "Чистое небо"},
-    "Rain": {"en": "Rain", "de": "Regen", "ru": "Дождь"},
-    "Light rain": {"en": "Light rain", "de": "Leichter Regen", "ru": "Слабый дождик"},
-    "Heavy rain": {"en": "Heavy rain", "de": "Heftiger Regen", "ru": "Сильный дождь"},
-    "Rain showers": {"en": "Rain showers", "de": "Regenschauer", "ru": "Ливневый дождь"},
-    "Light rain showers": {"en": "Light rain showers", "de": "Leichter Regenschauer", "ru": "Слабый ливневый дождь"},
-    "Fog": {"en": "Fog", "de": "Nebel", "ru": "Туман"},
-    "Heavy rain showers": {"en": "Heavy rain showers", "de": "Starke Regenschauer", "ru": "Сильный ливневый дождь"},
-
-    "N": {"en": "N", "de": "N", "ru": "C"},
-    "S": {"en": "S", "de": "S", "ru": "Ю"},
-    "W": {"en": "W", "de": "W", "ru": "З"},
-    "E": {"en": "E", "de": "O", "ru": "В"},
-    
-    "NW":  {"en": "NW",  "de": "NW",  "ru": "CЗ"},
-    "NNW": {"en": "NNW", "de": "NNW", "ru": "CСЗ"},
-    "WNW": {"en": "WNW", "de": "WNW", "ru": "ЗСЗ"},
-    "NE":  {"en": "NE",  "de": "NO",  "ru": "CВ"},
-    "NNE": {"en": "NNE", "de": "NNO", "ru": "CСВ"},
-    "ENE": {"en": "ENE", "de": "ONO", "ru": "ВCВ"},
-
-    "SW":  {"en": "SW",  "de": "SW",  "ru": "ЮЗ"},
-    "SSW": {"en": "SSW", "de": "SSW", "ru": "ЮЮЗ"},
-    "WSW": {"en": "WSW", "de": "WSW", "ru": "ЗЮЗ"},
-    "SE":  {"en": "SE",  "de": "SO",  "ru": "ЮВ"},
-    "SSE": {"en": "SSE", "de": "SSO", "ru": "ЮЮВ"},
-    "ESE": {"en": "ESE", "de": "OSO", "ru": "ВЮВ"}
-};
-
 function _(text) {
     if (!text) return '';
 
@@ -175,7 +99,23 @@ function _(text) {
             }
         }
     } else {
-        adapter.log.warn('Translate: "' + text + '": {"en": "' + text + '", "de": "' + text + '", "ru": "' + text + '"}, please send to developer');
+        if (adapter.config.sendTranslations) {
+            var options = {
+                hostname: 'download.iobroker.net',
+                port: 80,
+                path: '/yr.php?word=' + encodeURIComponent(text)
+            };
+            var req = http.request(options, function(res) {
+                console.log('STATUS: ' + res.statusCode);
+                adapter.log.info('Missing translation sent to iobroker.net: "' + text + '"');
+            });
+            req.on('error', function(e) {
+                adapter.log.error('Cannot send to server missing translation for "' + text + '": ' + e.message);
+            });
+            req.end();
+        } else {
+            adapter.log.warn('Translate: "' + text + '": {"en": "' + text + '", "de": "' + text + '", "ru": "' + text + '"}, please send to developer');
+        }
     }
     return text;
 }
@@ -304,7 +244,7 @@ function parseData(xml) {
                 }
             }
                        
-            adapter.log.debug('data succesfully parsed. setting states');
+            adapter.log.debug('data successfully parsed. setting states');
 
             adapter.setState('forecast.html',   {val: table, ack: true});
             adapter.setState('forecast.object', {val: days,  ack: true}, function () {

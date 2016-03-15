@@ -1,5 +1,11 @@
 ![Logo](admin/yr.png)
 # ioBroker.yr
+=================================
+[![NPM version](http://img.shields.io/npm/v/iobroker.yr.svg)](https://www.npmjs.com/package/iobroker.yr)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.yr.svg)](https://www.npmjs.com/package/iobroker.yr)
+[![Tests](https://travis-ci.org/ioBroker/ioBroker.yr.svg?branch=master)](https://travis-ci.org/ioBroker/ioBroker.yr)
+
+[![NPM](https://nodei.co/npm/iobroker.yr.png?downloads=true)](https://nodei.co/npm/iobroker.yr/)
 
 fetches 48h weather forecast from [yr.no](yr.no)
 
@@ -10,6 +16,8 @@ http://om.yr.no/verdata/free-weather-data/
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation. 
 
 # Changelog
+## 1.0.0 [2016-03-15]
+* (bluefox) change parsing of cities
 
 ## 0.1.9 [2015-10-28]
 * (bluefox) fix error with translations

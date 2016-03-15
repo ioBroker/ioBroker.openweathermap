@@ -41,19 +41,21 @@
         $(document).ready(function () {
             $('#location').autocomplete({
                 source: function (req, callback) {
-                    console.log(req.term);
                     var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + req.term;
                     socket.emit('httpGet', {
                         url: url,
                         headers: {'Cookie': 'brp=spr=eng'}
                     }, function (err, res) {
                         if (!err && res.body) {
-                            var obj = JSON.parse(res.body.substr(10 + req.term.length, res.body.length - (11 + req.term.length)));
-                            console.log(obj);
+                            var obj = JSON.parse(res.body);
+                            if (!obj[1]) {
+                                console.warn('Invalid answer');
+                            } else {
+                                obj = obj[1];
+                            }
                             var arr = [];
                             for (var i = 0; i < obj.length; i++) {
                                 var tmp = obj[i];
-                                console.log(tmp);
                                 arr.push({
                                     label: decodeURI(tmp[0]) + ', ' + decodeURI(tmp[2]),
                                     value: tmp[1].substr(7, tmp[1].length - 8)

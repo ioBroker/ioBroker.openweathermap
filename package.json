@@ -1,7 +1,7 @@
 {
     "name": "iobroker.yr",
     "description": "Fetches 48h weather forecast from yr.no",
-    "version": "0.1.9",
+    "version": "1.0.0",
     "contributors": [
         "bluefox <bluefox@ccu.io>",
         "hobbyquaker <hq@ccu.io>"
@@ -27,22 +27,20 @@
         "xml2js": "^0.4.4"
     },
     "devDependencies": {
-        "grunt": "~0.4.4",
-        "grunt-replace": "~0.7.6",
-        "grunt-contrib-jshint": "~0.10.0",
-        "grunt-jscs": "~0.6.1",
-        "grunt-http": "~1.4.1",
-        "grunt-contrib-clean": "~0.5.0",
-        "grunt-contrib-compress": "~0.8.0",
-        "grunt-contrib-copy": "~0.5.0",
-        "grunt-exec": "~0.4.5"
+        "grunt": "^0.4.5",
+        "grunt-replace": "^0.9.3",
+        "grunt-contrib-jshint": "^0.11.2",
+        "grunt-jscs": "^2.0.0",
+        "grunt-http": "^1.6.0",
+        "mocha": "^2.3.4",
+        "chai": "^3.4.1"
     },
     "bugs": {
         "url": "https://github.com/ioBroker/ioBroker.yr/issues"
     },
     "main": "yr.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "node node_modules/mocha/bin/mocha"
     },
     "author": "hobbyquaker <hq@ccu.io>",
     "license": "MIT"

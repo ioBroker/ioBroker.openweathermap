@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "0.1.9",
+        "version": "1.0.0",
         "title":                    "yr.no",
         "desc":                     {
             "en":                   "Fetches 48h weather forecast from yr.no",
@@ -14,7 +14,7 @@
         "license":                  "MIT",
         "platform":                 "Javascript/Node.js",
         "mode":                     "schedule",
-        "schedule":                 "0 * * * *",
+        "schedule":                 "6 * * * *",
         "loglevel":                 "info",
         "keywords":                 ["weather", "forecast", "temperature", "rain", "yr", "meteorology"],
         "main":                     "yr.js",

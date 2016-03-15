@@ -27,62 +27,69 @@ function main() {
     if (adapter.config.sendTranslations === 'true')  adapter.config.sendTranslations = true;
     if (adapter.config.sendTranslations === 'false') adapter.config.sendTranslations = false;
 
-    adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
-
-    adapter.setObject('forecast', {
-        type: 'channel',
-        role: 'forecast',
-        common: {
-            name: 'yr.no forecast ' + city
-        },
-        native: {
-            url:     adapter.config.location,
-            country: decodeURI(tmp[0]),
-            state:   decodeURI(tmp[1]),
-            city:    city
+    adapter.getObject('forecast', function (err, obj) {
+        if (!obj || !obj.common || obj.common.name !== 'yr.no forecast ' + city) {
+            adapter.setObject('forecast', {
+                type: 'channel',
+                role: 'forecast',
+                common: {
+                    name: 'yr.no forecast ' + city
+                },
+                native: {
+                    url:     adapter.config.location,
+                    country: decodeURI(tmp[0]),
+                    state:   decodeURI(tmp[1]),
+                    city:    city
+                }
+            });
         }
     });
 
-	if (adapter.config.location.indexOf('%') == -1) adapter.config.location = encodeURI(adapter.config.location);
-	
-	
-    var reqOptions = {
-        hostname: 'www.yr.no',
-        port:     80,
-        path:     '/place/' + adapter.config.location + '/forecast.xml',
-        method:   'GET'
-    };
 
-    adapter.log.debug('get http://' + reqOptions.hostname + reqOptions.path);
+    if (adapter.config.location.indexOf('forecast.xml') === -1) {
+        if (adapter.config.location.indexOf('%') == -1) adapter.config.location = encodeURI(adapter.config.location);
 
-    var req = http.request(reqOptions, function (res) {
+        adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
 
-        var data = '';
+        var reqOptions = {
+            hostname: 'www.yr.no',
+            port:     80,
+            path:     '/place/' + adapter.config.location + '/forecast.xml',
+            method:   'GET'
+        };
 
-        res.on('data', function (chunk) {
-            data += chunk;
+        adapter.log.debug('get http://' + reqOptions.hostname + reqOptions.path);
+
+        var req = http.request(reqOptions, function (res) {
+
+            var data = '';
+
+            res.on('data', function (chunk) {
+                data += chunk;
+            });
+
+            res.on('end', function () {
+                adapter.log.debug('received data from yr.no');
+                parseData(data.toString());
+            });
+
         });
 
-        res.on('end', function () {
-            adapter.log.debug('received data from yr.no');
-            parseData(data.toString());
+        req.on('error', function (e) {
+            adapter.log.error(e.message);
+            parseData(null);
         });
 
-    });
-
-    req.on('error', function (e) {
-        adapter.log.error(e.message);
-        //parseData(require('fs').readFileSync(__dirname + '/forecast.xml').toString());
-    });
-
-    req.end();
+        req.end();
+    } else {
+        parseData(require('fs').readFileSync(adapter.config.location).toString());
+    }
 
     // Force terminate after 5min
     setTimeout(function () {
         adapter.log.error('force terminate');
         process.exit(1);
     }, 300000);
-
 }
 
 function _(text) {
@@ -122,7 +129,12 @@ function _(text) {
 
 
 function parseData(xml) {
-
+    if (!xml) {
+        setTimeout(function () {
+            process.exit(0);
+        }, 5000);
+        return;
+    }
     var options = {
         explicitArray: false,
         mergeAttrs: true

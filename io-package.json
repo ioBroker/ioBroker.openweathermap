@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "1.0.0",
+        "version": "1.0.1",
         "title":                    "yr.no",
         "desc":                     {
             "en":                   "Fetches 48h weather forecast from yr.no",

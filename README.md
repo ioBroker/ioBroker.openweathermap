@@ -16,6 +16,9 @@ http://om.yr.no/verdata/free-weather-data/
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation. 
 
 # Changelog
+## 1.0.2 [2016-05-16]
+* (bluefox) add translations
+
 ## 1.0.1 [2016-04-25]
 * (bluefox) add translations
 

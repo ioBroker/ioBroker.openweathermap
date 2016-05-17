@@ -1,7 +1,7 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "1.0.2",
+        "version": "1.0.3",
         "title":                    "yr.no",
         "desc":                     {
             "en":                   "Fetches 48h weather forecast from yr.no",
@@ -20,7 +20,7 @@
         "main":                     "yr.js",
         "icon":                     "yr.png",
         "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.yr/master/admin/yr.png",
-        "readme":                   "https://github.com/hobbyquaker/ioBroker.yr/blob/master/README.md",
+        "readme":                   "https://github.com/ioBroker/ioBroker.yr/blob/master/README.md",
 		"allowInit":                true,
 		"type":                     "weather"
     },

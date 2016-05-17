@@ -16,6 +16,9 @@ http://om.yr.no/verdata/free-weather-data/
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation. 
 
 # Changelog
+## 1.0.3 [2016-05-17]
+* (bluefox) change readme path
+
 ## 1.0.2 [2016-05-16]
 * (bluefox) add translations
 
@@ -83,7 +86,7 @@ http://om.yr.no/verdata/free-weather-data/
 
 The MIT License (MIT)
 
-Copyright (c) 2014 hobbyquaker <hq@ccu.io>
+Copyright (c) 2014-2016 hobbyquaker <hq@ccu.io>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

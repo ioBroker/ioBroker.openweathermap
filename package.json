@@ -1,7 +1,7 @@
 {
     "name": "iobroker.yr",
     "description": "Fetches 48h weather forecast from yr.no",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "contributors": [
         "bluefox <dogafox@gmail.com>",
         "hobbyquaker <hq@ccu.io>"

@@ -1,7 +1,14 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "1.0.3",
+        "version": "1.0.4",
+		"news": {
+            "1.0.4": {
+                "en": "fix link to readme",
+                "de": "fix link to readme",
+                "ru": "fix link to readme"
+            }
+        },
         "title":                    "yr.no",
         "desc":                     {
             "en":                   "Fetches 48h weather forecast from yr.no",

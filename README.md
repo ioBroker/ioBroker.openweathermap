@@ -16,6 +16,9 @@ http://om.yr.no/verdata/free-weather-data/
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation. 
 
 # Changelog
+## 1.0.5 [2016-10-10]
+* (bluefox) move weather widgets to this adapter
+
 ## 1.0.4 [2016-07-06]
 * (bluefox) fix link to readme
 

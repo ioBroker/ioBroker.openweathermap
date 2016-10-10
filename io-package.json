@@ -1,8 +1,13 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "1.0.4",
+        "version": "1.0.5",
 		"news": {
+			"1.0.5": {
+                "en": "move weather widgets to this adapter",
+                "de": "Verschiebe Wetter-Widgets ins Adapter",
+                "ru": "Добавлены виджеты"
+            },
             "1.0.4": {
                 "en": "fix link to readme",
                 "de": "fix link to readme",

@@ -4,3 +4,5 @@ forecast.xml
 server
 test
 tmp
+.travis.yml
+appveyor.yml

@@ -1,9 +1,14 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "1.0.5",
+        "version": "1.0.6",
 		"news": {
-			"1.0.5": {
+            "1.0.6": {
+                "en": "Update iconset",
+                "de": "Iconset geändert",
+                "ru": "Update iconset"
+            },
+            "1.0.5": {
                 "en": "move weather widgets to this adapter",
                 "de": "Verschiebe Wetter-Widgets ins Adapter",
                 "ru": "Добавлены виджеты"

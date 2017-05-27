@@ -13,9 +13,12 @@ fetches 48h weather forecast from [yr.no](yr.no)
 
 http://om.yr.no/verdata/free-weather-data/
 
-**Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation. 
+**Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation.
 
 # Changelog
+## 1.0.6 [2017-05-27]
+* (Andre) Update iconset
+
 ## 1.0.5 [2016-10-10]
 * (bluefox) move weather widgets to this adapter
 
@@ -39,7 +42,7 @@ http://om.yr.no/verdata/free-weather-data/
 
 ## 0.1.8 [2015-10-27]
 * (bluefox) translations
-* (bluefox) automatically upload of missing translations to iobroker.net 
+* (bluefox) automatically upload of missing translations to iobroker.net
 
 ## 0.1.7 [2015-07-10]
 * (bluefox) make yr works with metro widgets

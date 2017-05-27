@@ -165,7 +165,7 @@ function parseData(xml) {
                 // We want to process only today, tomorrow and the day after tomorrow
                 if (day == 3) break;
 
-				period.symbol.url         = 'http://symbol.yr.no/grafikk/sym/b38/' + period.symbol.var + '.png';
+				period.symbol.url         = 'http://symbol.yr.no/grafikk/sym/v2016/png/38/' + period.symbol.var + '.png';
                 period.symbol.name        = _(period.symbol.name);
                 period.windDirection.code = _(period.windDirection.code);
 

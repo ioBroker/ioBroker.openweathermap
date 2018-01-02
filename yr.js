@@ -7,7 +7,7 @@ var http       = require('http');
 var utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
 var dictionary = require(__dirname + '/lib/words').words;
 
-var adapter = utils.adapter({
+var adapter = utils.Adapter({
     name:          'yr',       // adapter name
     dirname:        __dirname, // say own position (optional)
     useFormatDate:  true       // read date format from config

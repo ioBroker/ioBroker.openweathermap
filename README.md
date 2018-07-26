@@ -15,87 +15,90 @@ http://om.yr.no/verdata/free-weather-data/
 
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation.
 
-# Changelog
-## 1.0.6 [2017-05-27]
+## Changelog
+### 2.0.0 [2018-07-26]
+* (bluefox) (Breaking changes) Rename roles and states
+
+### 1.0.6 [2017-05-27]
 * (Andre) Update iconset
 
-## 1.0.5 [2016-10-10]
+### 1.0.5 [2016-10-10]
 * (bluefox) move weather widgets to this adapter
 
 ## 1.0.4 [2016-07-06]
 * (bluefox) fix link to readme
 
-## 1.0.3 [2016-05-17]
+### 1.0.3 [2016-05-17]
 * (bluefox) change readme path
 
-## 1.0.2 [2016-05-16]
+### 1.0.2 [2016-05-16]
 * (bluefox) add translations
 
-## 1.0.1 [2016-04-25]
+### 1.0.1 [2016-04-25]
 * (bluefox) add translations
 
-## 1.0.0 [2016-03-15]
+### 1.0.0 [2016-03-15]
 * (bluefox) change parsing of cities
 
-## 0.1.9 [2015-10-28]
+### 0.1.9 [2015-10-28]
 * (bluefox) fix error with translations
 
-## 0.1.8 [2015-10-27]
+### 0.1.8 [2015-10-27]
 * (bluefox) translations
 * (bluefox) automatically upload of missing translations to iobroker.net
 
-## 0.1.7 [2015-07-10]
+### 0.1.7 [2015-07-10]
 * (bluefox) make yr works with metro widgets
 
-## 0.1.6 [2015-06-12]
+### 0.1.6 [2015-06-12]
 * (bluefox) translations
 
-## 0.1.5 [2015-03-26]
+### 0.1.5 [2015-03-26]
 * (bluefox) translations
 
-## 0.1.4 [2015-03-24]
+### 0.1.4 [2015-03-24]
 * (bluefox) remove unit "%" for "wind direction"
 
-## 0.1.3 [2015-03-22]
+### 0.1.3 [2015-03-22]
 * (bluefox) fix error with tomorrow and day after tomorrow
 
-## 0.1.2 [2015-03-08]
+### 0.1.2 [2015-03-08]
 * (bluefox) correct links to yr.no web site
 
-## 0.1.1
+### 0.1.1
 * (bluefox) add translates for the weather states in other languages
 
-## 0.1.0
+### 0.1.0
 * (bluefox) update yr on the new objects model
 
-## 0.0.4
+### 0.0.4
 * (hobbyquaker) prepend "forecast." to state IDs
 
-## 0.0.3
+### 0.0.3
 * (hobbyquaker) settings ui with autocomplete for location
 * (hobbyquaker) renamed yr_forecast to forecast
 * (hobbyquaker) added children attribute
 * (hobbyquaker) decreased log verbosity
 * (hobbyquaker) fixes
 
-## 0.0.2
+### 0.0.2
 
 * (hobbyquaker) fixes
 
 
-## 0.0.1
+### 0.0.1
 
 * (hobbyquaker) first release
 
-# Todo
+## Todo
 
 * setState forecast_object
 
-# License
+## License
 
 The MIT License (MIT)
 
-Copyright (c) 2014-2016 hobbyquaker <hq@ccu.io>
+Copyright (c) 2014-2018 hobbyquaker <hq@ccu.io>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -1,0 +1,122 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- Materialze style -->
+    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+    <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+    <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+    <script type="text/javascript" src="../../js/translate.js"></script>
+    <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+    <script type="text/javascript" src="words.js"></script>
+
+    <script type="text/javascript">
+        function fillCities(actualValue) {
+            var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + req.term;
+            socket.emit('httpGet', {
+                url: url,
+                headers: {'Cookie': 'brp=spr=eng'}
+            }, function (err, res) {
+                if (!err && res.body) {
+                    var obj = JSON.parse(res.body);
+                    if (!obj[1]) {
+                        console.warn('Invalid answer');
+                    } else {
+                        obj = obj[1];
+                    }
+                    var text = '<option value="">' + _('Select city') + '</option>';
+                    for (var i = 0; i < obj.length; i++) {
+                        var tmp = obj[i];
+                        text += '<option value="' + tmp[1].substr(7, tmp[1].length - 8) + '">' + decodeURI(tmp[0]) + ', ' + decodeURI(tmp[2]) + '</option>';
+                    }
+                    $('#location').html(tmp).val(actualValue);
+                } else {
+                    err && console.error(err);
+                    showToast(null, _('Cannot fetch cities!'));
+                }
+            });
+        }
+
+        function load(settings, onChange) {
+            var $language = $('#language');
+
+            $('#location')
+                .val(settings.location)
+                .on('change', onChange)
+                .on('keyup', onChange);
+
+            $language
+                .val(settings.language)
+                .on('change', onChange);
+
+
+            if (settings.sendTranslations === undefined) {
+                settings.sendTranslations = true;
+            }
+            $('#sendTranslations')
+                .prop('checked', settings.sendTranslations)
+                .on('change', onChange);
+
+            onChange(false);
+
+            // Setup default language
+            if (!settings.language){
+                $language
+                    .val(systemLang)
+                    .trigger('change');
+            }
+
+            fillCities(settings.location);
+        }
+
+        function save(callback) {
+            callback({
+                location: $('#location').val(),
+                language: $('#language').val(),
+                sendTranslations: $('#sendTranslations').prop('checked')
+            });
+        }
+
+    </script>
+</head>
+<body>
+<div id="adapter-container">
+    <div class="m adapter-container">
+        <div class="row">
+            <div class="col s12 m4 l2">
+                <img src="yr.png" class="logo">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m4">
+                <select class="value" id="location"></select>
+                <label for="location" class="translate autocomplete">Place</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m4">
+                <select class="value" id="language">
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ru">русский</option>
+                </select>
+                <label for="language" class="translate">Language</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m4">
+                <input class="value" type="checkbox" id="sendTranslations"/>
+                <span for="sendTranslations" class="translate">Send missing translations to iobroker.net</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12 m4">
+                <h3 style="padding-left: 12px" class="translate">yrDescription</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

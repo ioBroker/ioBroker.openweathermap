@@ -1,7 +1,7 @@
 {
   "name": "iobroker.yr",
   "description": "Fetches 48h weather forecast from yr.no",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "contributors": [
     "bluefox <dogafox@gmail.com>",
     "hobbyquaker <hq@ccu.io>"
@@ -24,21 +24,17 @@
     "yr.no"
   ],
   "dependencies": {
-    "xml2js": "^0.4.4"
+    "xml2js": "^0.4.19"
   },
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-replace": "^1.0.1",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-jscs": "^3.0.1",
-    "grunt-http": "^2.2.0",
-    "mocha": "^4.1.0",
+    "gulp": "^3.9.1",
+    "mocha": "^5.2.0",
     "chai": "^4.1.2"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.yr/issues"
   },
-  "main": "yr.js",
+  "main": "main.js",
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha --exit"
   },

@@ -1,33 +1,30 @@
 /* jshint -W097 */// jshint strict:false
 /*jslint node: true */
-"use strict";
+'use strict';
 
-var xml2js     = require('xml2js');
-var http       = require('http');
-var utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
-var dictionary = require(__dirname + '/lib/words').words;
+const xml2js     = require('xml2js');
+const http       = require('http');
+const utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
+const dictionary = require(__dirname + '/lib/words').words;
 
-var adapter = utils.Adapter({
+const adapter = utils.Adapter({
     name:          'yr',       // adapter name
-    dirname:        __dirname, // say own position (optional)
     useFormatDate:  true       // read date format from config
 });
 
-adapter.on('ready', function () {
-    main();
-});
+adapter.on('ready', main);
 
 function main() {
 
-    var tmp  = adapter.config.location.split('/');
-    var city = decodeURI(tmp.pop());
+    const tmp  = adapter.config.location.split('/');
+    const city = decodeURI(tmp.pop());
 
     adapter.config.language = adapter.config.language || 'en';
     if (adapter.config.sendTranslations === undefined) adapter.config.sendTranslations = true;
     if (adapter.config.sendTranslations === 'true')  adapter.config.sendTranslations = true;
     if (adapter.config.sendTranslations === 'false') adapter.config.sendTranslations = false;
 
-    adapter.getObject('forecast', function (err, obj) {
+    adapter.getObject('forecast', (err, obj) => {
         if (!obj || !obj.common || obj.common.name !== 'yr.no forecast ' + city) {
             adapter.setObject('forecast', {
                 type: 'channel',
@@ -45,13 +42,12 @@ function main() {
         }
     });
 
-
     if (adapter.config.location.indexOf('forecast.xml') === -1) {
-        if (adapter.config.location.indexOf('%') == -1) adapter.config.location = encodeURI(adapter.config.location);
+        if (adapter.config.location.indexOf('%') === -1) adapter.config.location = encodeURI(adapter.config.location);
 
         adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
 
-        var reqOptions = {
+        const reqOptions = {
             hostname: 'www.yr.no',
             port:     80,
             path:     '/place/' + adapter.config.location + '/forecast.xml',
@@ -60,22 +56,18 @@ function main() {
 
         adapter.log.debug('get http://' + reqOptions.hostname + reqOptions.path);
 
-        var req = http.request(reqOptions, function (res) {
+        const req = http.request(reqOptions, res => {
+            let data = '';
 
-            var data = '';
+            res.on('data', chunk => data += chunk);
 
-            res.on('data', function (chunk) {
-                data += chunk;
-            });
-
-            res.on('end', function () {
+            res.on('end', () => {
                 adapter.log.debug('received data from yr.no');
                 parseData(data.toString());
             });
-
         });
 
-        req.on('error', function (e) {
+        req.on('error', e => {
             adapter.log.error(e.message);
             parseData(null);
         });
@@ -86,7 +78,7 @@ function main() {
     }
 
     // Force terminate after 5min
-    setTimeout(function () {
+    setTimeout(() => {
         adapter.log.error('force terminate');
         process.exit(1);
     }, 300000);
@@ -96,10 +88,10 @@ function _(text) {
     if (!text) return '';
 
     if (dictionary[text]) {
-        var newText = dictionary[text][adapter.config.language];
+        let newText = dictionary[text][adapter.config.language];
         if (newText) {
             return newText;
-        } else if (adapter.config.language != 'en') {
+        } else if (adapter.config.language !== 'en') {
             newText = dictionary[text].en;
             if (newText) {
                 return newText;
@@ -107,16 +99,16 @@ function _(text) {
         }
     } else {
         if (adapter.config.sendTranslations) {
-            var options = {
+            const options = {
                 hostname: 'download.iobroker.net',
                 port: 80,
                 path: '/yr.php?word=' + encodeURIComponent(text)
             };
-            var req = http.request(options, function(res) {
+            const req = http.request(options, res => {
                 console.log('STATUS: ' + res.statusCode);
                 adapter.log.info('Missing translation sent to iobroker.net: "' + text + '"');
             });
-            req.on('error', function(e) {
+            req.on('error', e => {
                 adapter.log.error('Cannot send to server missing translation for "' + text + '": ' + e.message);
             });
             req.end();
@@ -130,42 +122,40 @@ function _(text) {
 
 function parseData(xml) {
     if (!xml) {
-        setTimeout(function () {
-            process.exit(0);
-        }, 5000);
+        setTimeout(() => process.exit(0), 5000);
         return;
     }
-    var options = {
+    const options = {
         explicitArray: false,
         mergeAttrs: true
     };
-    var parser = new xml2js.Parser(options);
-    parser.parseString(xml, function (err, result) {
+    const parser = new xml2js.Parser(options);
+    parser.parseString(xml, (err, result) => {
         if (err) {
             adapter.log.error(err);
         } else {
             adapter.log.info('got weather data from yr.no');
-            var forecastArr = result.weatherdata.forecast.tabular.time;
+            const forecastArr = result.weatherdata.forecast.tabular.time;
 
-            var tableDay =    '<table style="border-collapse: collapse; padding: 0; margin: 0"><tr class="yr-day">';
-            var tableHead =   '</tr><tr class="yr-time">';
-            var tableMiddle = '</tr><tr class="yr-img">';
-            var tableBottom = '</tr><tr class="yr-temp">';
-            var dateObj = new Date();
-            var dayEnd = dateObj.getFullYear() + '-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + dateObj.getDate()).slice(-2) + 'T24:00:00';
-            var daySwitch = false;
+            let tableDay =      '<table style="border-collapse: collapse; padding: 0; margin: 0"><tr class="yr-day">';
+            let tableHead =     '</tr><tr class="yr-time">';
+            let tableMiddle =   '</tr><tr class="yr-img">';
+            let tableBottom =   '</tr><tr class="yr-temp">';
+            const dateObj = new Date();
+            const dayEnd = dateObj.getFullYear() + '-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + dateObj.getDate()).slice(-2) + 'T24:00:00';
+            let daySwitch = false;
 
-            var day = -1; // Start from today
-            var days = [];
-            for (var i = 0; i < 12 && i < forecastArr.length; i++) {
-                var period = forecastArr[i];
+            let day = -1; // Start from today
+            const days = [];
+            for (let i = 0; i < 12 && i < forecastArr.length; i++) {
+                const period = forecastArr[i];
 
-                if (!period.period || period.period == '0') day++;
+                if (!period.period || period.period === '0') day++;
 
                 // We want to process only today, tomorrow and the day after tomorrow
-                if (day == 3) break;
+                if (day === 3) break;
 
-				period.symbol.url         = 'http://symbol.yr.no/grafikk/sym/v2016/png/38/' + period.symbol.var + '.png';
+				period.symbol.url         = 'http://symbol.yr.no/grafikk/sym/v2016/png/38/' + period.symbol.const + '.png';
                 period.symbol.name        = _(period.symbol.name);
                 period.windDirection.code = _(period.windDirection.code);
 
@@ -194,75 +184,79 @@ function parseData(xml) {
                     tableBottom += '<td><span class="">' + period.temperature.value + '°C</span></td>';
                 }
 
-                if (day == -1 && !i) day = 0;
+                if (day === -1 && !i) day = 0;
                 if (!days[day]) {
                     days[day] = {
-                        date:                 new Date(period.from),
-                        icon:                 period.symbol.url,
-                        text:                 period.symbol.name,
-                        temperature_min:      parseFloat(period.temperature.value),
-                        temperature_max:      parseFloat(period.temperature.value),
-                        precipitation_level:  parseFloat(period.precipitation.value),
-                        precipitation_chance: null,
-                        wind_direction:       period.windDirection.code,
-                        wind_speed:           parseFloat(period.windSpeed.mps) * 3.6,
-                        pressure:             parseFloat(period.pressure.value),
-                        count:                1
+                        date:                new Date(period.from),
+                        icon:                period.symbol.url,
+                        state:               period.symbol.name,
+                        temperatureMin:      parseFloat(period.temperature.value),
+                        temperatureMax:      parseFloat(period.temperature.value),
+                        precipitationLevel:  parseFloat(period.precipitation.value),
+                        precipitationChance: null,
+                        windDirection:       period.windDirection.code,
+                        windSpeed:           parseFloat(period.windSpeed.mps) * 3.6,
+                        pressure:            parseFloat(period.pressure.value),
+                        count:               1
                     };
                 } else {
                     // Summarize
 
                     // Take icon for day always from 12:00 to 18:00 if possible
-                    if (i == 2) {
-                        days[day].icon = period.symbol.url;
-                        days[day].text = period.symbol.name;
-                        days[day].wind_direction = period.windDirection.code;
+                    if (i === 2) {
+                        days[day].icon  = period.symbol.url;
+                        days[day].state = period.symbol.name;
+                        days[day].windDirection = period.windDirection.code;
                     }
-                    if (period.temperature.value < days[day].temperature_min) days[day].temperature_min = parseFloat(period.temperature.value);
-                    if (period.temperature.value > days[day].temperature_max) days[day].temperature_max = parseFloat(period.temperature.value);
+                    if (period.temperature.value < days[day].temperatureMin) {
+                        days[day].temperatureMin = parseFloat(period.temperature.value);
+                    }
+                    if (period.temperature.value > days[day].temperatureMax) {
+                        days[day].temperatureMax = parseFloat(period.temperature.value);
+                    }
 
-                    days[day].precipitation_level += parseFloat(period.precipitation.value);
-                    days[day].wind_speed          += parseFloat(period.windSpeed.mps) * 3.6;
+                    days[day].precipitationLevel  += parseFloat(period.precipitation.value);
+                    days[day].windSpeed           += parseFloat(period.windSpeed.mps) * 3.6;
                     days[day].pressure            += parseFloat(period.pressure.value);
                     days[day].count++;
                 }
                 // Set actual temperature
                 if (!day && !i) {
-                    days[day].temperature_actual = parseInt(period.temperature.value, 10);
+                    days[day].temperatureActual = parseInt(period.temperature.value, 10);
                 }
             }
-            var style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding: 0; margin: 0;}\ntr.yr-img td {text-align: center; padding: 0; margin: 0;}</style>';
-            var table = style + tableDay + tableHead + tableMiddle + tableBottom + '</tr></table>';
+            const style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding: 0; margin: 0;}\ntr.yr-img td {text-align: center; padding: 0; margin: 0;}</style>';
+            const table = style + tableDay + tableHead + tableMiddle + tableBottom + '</tr></table>';
             //console.log(JSON.stringify(result, null, "  "));
 
             for (day = 0; day < days.length; day++) {
                 // Take the average
                 if (days[day].count > 1) {
-                    days[day].precipitation_level /= days[day].count;
-                    days[day].wind_speed          /= days[day].count;
-                    days[day].pressure            /= days[day].count;
+                    days[day].precipitationLevel /= days[day].count;
+                    days[day].windSpeed          /= days[day].count;
+                    days[day].pressure           /= days[day].count;
                 }
-                days[day].temperature_min     = Math.round(days[day].temperature_min);
-                days[day].temperature_max     = Math.round(days[day].temperature_max);
-                days[day].precipitation_level = Math.round(days[day].precipitation_level);
-                days[day].wind_speed          = Math.round(days[day].wind_speed * 10) / 10;
-                days[day].pressure            = Math.round(days[day].pressure);
+                days[day].temperatureMin     = Math.round(days[day].temperatureMin);
+                days[day].temperatureMax     = Math.round(days[day].temperatureMax);
+                days[day].precipitationLevel = Math.round(days[day].precipitationLevel);
+                days[day].windSpeed          = Math.round(days[day].windSpeed * 10) / 10;
+                days[day].pressure           = Math.round(days[day].pressure);
 
                 days[day].date = adapter.formatDate(days[day].date);
 
                 delete days[day].count;
-                for (var name in days[day]) {
-                    adapter.setState('forecast.day' + day + '.' + name, {val: days[day][name], ack: true});
+                for (const name in days[day]) {
+                    if (days[day].hasOwnProperty(name)) {
+                        adapter.setState('forecast.day' + day + '.' + name, {val: days[day][name], ack: true});
+                    }
                 }
             }
                        
             adapter.log.debug('data successfully parsed. setting states');
 
             adapter.setState('forecast.html',   {val: table, ack: true});
-            adapter.setState('forecast.object', {val: days,  ack: true}, function () {
-                setTimeout(function () {
-                    process.exit(0);
-                }, 5000);
+            adapter.setState('forecast.object', {val: days,  ack: true}, () => {
+                setTimeout(() => process.exit(0), 5000);
             });
         }
     });

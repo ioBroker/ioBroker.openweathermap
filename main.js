@@ -5,7 +5,7 @@
 const xml2js     = require('xml2js');
 const http       = require('http');
 const utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
-const dictionary = require(__dirname + '/lib/words').words;
+const dictionary = require(__dirname + '/lib/words');
 
 const adapter = utils.Adapter({
     name:          'yr',       // adapter name
@@ -15,7 +15,6 @@ const adapter = utils.Adapter({
 adapter.on('ready', main);
 
 function main() {
-
     const tmp  = adapter.config.location.split('/');
     const city = decodeURI(tmp.pop());
 
@@ -24,10 +23,89 @@ function main() {
     if (adapter.config.sendTranslations === 'true')  adapter.config.sendTranslations = true;
     if (adapter.config.sendTranslations === 'false') adapter.config.sendTranslations = false;
 
+    adapter.getObject('forecast.day0.temperatureActual', (err, obj) => {
+        if (obj && obj.common && obj.common.unit) {
+            if (obj.common.unit === '°C' && adapter.config.nonMetric) {
+                obj.common.unit = '°F';
+                adapter.setObject(obj._id, obj, () => {
+                    adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                });
+            } else if (obj.common.unit !== '°C' && !adapter.config.nonMetric) {
+                obj.common.unit = '°C';
+                adapter.setObject(obj._id, obj, () => {
+                    adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                });
+            }
+        }
+    });
+
+    for (let d = 0; d < 3; d++) {
+        adapter.getObject('forecast.day' + d + '.windSpeed',      (err, obj) => {
+            if (obj && obj.common && obj.common.unit) {
+                if (obj.common.unit === 'km/h' && adapter.config.nonMetric) {
+                    obj.common.unit = 'm/h';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                } else if (obj.common.unit !== 'km/h' && !adapter.config.nonMetric) {
+                    obj.common.unit = 'km/h';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                }
+            }
+        });
+        adapter.getObject('forecast.day' + d + '.temperatureMin', (err, obj) => {
+            if (obj && obj.common && obj.common.unit) {
+                if (obj.common.unit === '°C' && adapter.config.nonMetric) {
+                    obj.common.unit = '°F';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                } else if (obj.common.unit !== '°C' && !adapter.config.nonMetric) {
+                    obj.common.unit = '°C';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                }
+            }
+        });
+        adapter.getObject('forecast.day' + d + '.temperatureMax', (err, obj) => {
+            if (obj && obj.common && obj.common.unit) {
+                if (obj.common.unit === '°C' && adapter.config.nonMetric) {
+                    obj.common.unit = '°F';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                } else if (obj.common.unit !== '°C' && !adapter.config.nonMetric) {
+                    obj.common.unit = '°C';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                }
+            }
+        });
+        adapter.getObject('forecast.day' + d + '.precipitation',  (err, obj) => {
+            if (obj && obj.common && obj.common.unit) {
+                if (obj.common.unit === 'mm' && adapter.config.nonMetric) {
+                    obj.common.unit = 'in';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                } else if (obj.common.unit !== 'mm' && !adapter.config.nonMetric) {
+                    obj.common.unit = 'mm';
+                    adapter.setObject(obj._id, obj, () => {
+                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
+                    });
+                }
+            }
+        });
+    }
+
     adapter.getObject('forecast', (err, obj) => {
         if (!obj || !obj.common || obj.common.name !== 'yr.no forecast ' + city) {
             adapter.setObject('forecast', {
-                type: 'channel',
+                type: 'device',
                 role: 'forecast',
                 common: {
                     name: 'yr.no forecast ' + city
@@ -45,7 +123,7 @@ function main() {
     if (adapter.config.location.indexOf('forecast.xml') === -1) {
         if (adapter.config.location.indexOf('%') === -1) adapter.config.location = encodeURI(adapter.config.location);
 
-        adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png');
+        adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png', true);
 
         const reqOptions = {
             hostname: 'www.yr.no',
@@ -119,6 +197,13 @@ function _(text) {
     return text;
 }
 
+function celsius2fahrenheit(degree, isConvert) {
+    if (isConvert) {
+        return degree * 9 / 5 + 32;
+    } else {
+        return degree;
+    }
+}
 
 function parseData(xml) {
     if (!xml) {
@@ -154,10 +239,10 @@ function parseData(xml) {
 
                 // We want to process only today, tomorrow and the day after tomorrow
                 if (day === 3) break;
-
-				period.symbol.url         = 'http://symbol.yr.no/grafikk/sym/v2016/png/38/' + period.symbol.const + '.png';
+				period.symbol.url         = '/adapter/yr/icons/' + period.symbol.var + '.svg';
                 period.symbol.name        = _(period.symbol.name);
                 period.windDirection.code = _(period.windDirection.code);
+                period.windDirection.name = _(period.windDirection.name);
 
                 if (i < 8) {
                     switch (i) {
@@ -180,7 +265,7 @@ function parseData(xml) {
                             }
                     }
 
-                    tableMiddle += '<td><img style="position:relative;margin:0;padding:0;left:0;top:0;width:38px;height:38px;" src="' + period.symbol.url + '" alt="' + period.symbol.name + '" title="' + period.symbol.name + '"><br/>';
+                    tableMiddle += '<td><img style="position: relative;margin: 0;padding: 0;left: 0;top: 0;width: 38px;height: 38px;" src="' + period.symbol.url + '" alt="' + period.symbol.name + '" title="' + period.symbol.name + '"><br/>';
                     tableBottom += '<td><span class="">' + period.temperature.value + '°C</span></td>';
                 }
 
@@ -190,39 +275,39 @@ function parseData(xml) {
                         date:                new Date(period.from),
                         icon:                period.symbol.url,
                         state:               period.symbol.name,
-                        temperatureMin:      parseFloat(period.temperature.value),
-                        temperatureMax:      parseFloat(period.temperature.value),
-                        precipitationLevel:  parseFloat(period.precipitation.value),
-                        precipitationChance: null,
+                        temperatureMin:      celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric),
+                        temperatureMax:      celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric),
+                        precipitation:  adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value),
                         windDirection:       period.windDirection.code,
-                        windSpeed:           parseFloat(period.windSpeed.mps) * 3.6,
+                        windSpeed:           adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6,
                         pressure:            parseFloat(period.pressure.value),
                         count:               1
                     };
                 } else {
                     // Summarize
-
+                    let t;
                     // Take icon for day always from 12:00 to 18:00 if possible
                     if (i === 2) {
                         days[day].icon  = period.symbol.url;
                         days[day].state = period.symbol.name;
                         days[day].windDirection = period.windDirection.code;
                     }
-                    if (period.temperature.value < days[day].temperatureMin) {
-                        days[day].temperatureMin = parseFloat(period.temperature.value);
-                    }
-                    if (period.temperature.value > days[day].temperatureMax) {
-                        days[day].temperatureMax = parseFloat(period.temperature.value);
+                    t = celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric);
+                    if (t < days[day].temperatureMin) {
+                        days[day].temperatureMin = t;
+                    } else
+                    if (t > days[day].temperatureMax) {
+                        days[day].temperatureMax = t;
                     }
 
-                    days[day].precipitationLevel  += parseFloat(period.precipitation.value);
-                    days[day].windSpeed           += parseFloat(period.windSpeed.mps) * 3.6;
+                    days[day].precipitation  += adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value);
+                    days[day].windSpeed           += adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6;
                     days[day].pressure            += parseFloat(period.pressure.value);
                     days[day].count++;
                 }
                 // Set actual temperature
                 if (!day && !i) {
-                    days[day].temperatureActual = parseInt(period.temperature.value, 10);
+                    days[day].temperatureActual = celsius2fahrenheit(parseInt(period.temperature.value, 10), adapter.config.nonMetric);
                 }
             }
             const style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding: 0; margin: 0;}\ntr.yr-img td {text-align: center; padding: 0; margin: 0;}</style>';
@@ -232,15 +317,15 @@ function parseData(xml) {
             for (day = 0; day < days.length; day++) {
                 // Take the average
                 if (days[day].count > 1) {
-                    days[day].precipitationLevel /= days[day].count;
+                    days[day].precipitation /= days[day].count;
                     days[day].windSpeed          /= days[day].count;
                     days[day].pressure           /= days[day].count;
                 }
-                days[day].temperatureMin     = Math.round(days[day].temperatureMin);
-                days[day].temperatureMax     = Math.round(days[day].temperatureMax);
-                days[day].precipitationLevel = Math.round(days[day].precipitationLevel);
-                days[day].windSpeed          = Math.round(days[day].windSpeed * 10) / 10;
-                days[day].pressure           = Math.round(days[day].pressure);
+                days[day].temperatureMin = Math.round(days[day].temperatureMin);
+                days[day].temperatureMax = Math.round(days[day].temperatureMax);
+                days[day].precipitation  = Math.round(days[day].precipitation);
+                days[day].windSpeed      = Math.round(days[day].windSpeed * 10) / 10;
+                days[day].pressure       = Math.round(days[day].pressure);
 
                 days[day].date = adapter.formatDate(days[day].date);
 

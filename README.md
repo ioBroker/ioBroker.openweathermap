@@ -15,6 +15,9 @@ http://om.yr.no/verdata/free-weather-data/
 
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation.
 
+## Icons
+Icons are taken from here [https://github.com/YR/weather-symbols](https://github.com/YR/weather-symbols) and belongs to yr.no.
+
 ## Changelog
 ### 2.0.0 [2018-07-26]
 * (bluefox) (Breaking changes) Rename roles and states

@@ -65,12 +65,22 @@
     "native": {
         "location": "Germany/Baden-Württemberg/Stuttgart",
         "language": "",
-        "sendTranslations": true
+        "sendTranslations": true,
+        "nonMetric": false
     },
     "objects": [
 
     ],
     "instanceObjects": [
+        {
+            "_id": "forecast",
+            "type": "device",
+            "common": {
+                "name":  "actual weather or forecast",
+                "role":  "weather"
+            },
+            "native": {}
+        },
         {
             "_id": "forecast.day0",
             "type": "channel",
@@ -120,22 +130,6 @@
             "native": {}
         },
         {
-            "_id": "forecast.day0.humidity",
-            "type": "state",
-            "common": {
-                "name":  "Actual humidity",
-                "type":  "number",
-                "role":  "value.humidity",
-                "read":  true,
-                "write": false,
-                "min":   0,
-                "max":   100,
-                "unit":  "%",
-                "desc":  "Humidity can be only actual"
-            },
-            "native": {}
-        },
-        {
             "_id": "forecast.day0.temperatureActual",
             "type": "state",
             "common": {
@@ -154,7 +148,7 @@
             "common": {
                 "name":  "Forecast of temperature for today",
                 "type":  "number",
-                "role":  "value.temperature.min",
+                "role":  "value.temperature.min.forecast.0",
                 "read":  true,
                 "write": false,
                 "unit":  "°C",
@@ -168,7 +162,7 @@
             "common": {
                 "name":  "Forecast of temperature for today",
                 "type":  "number",
-                "role":  "value.temperature.max",
+                "role":  "value.temperature.max.forecast.0",
                 "read":  true,
                 "write": false,
                 "unit":  "°C",
@@ -177,7 +171,7 @@
             "native": {}
         },
         {
-            "_id": "forecast.day0.precipitationLevel",
+            "_id": "forecast.day0.precipitation",
             "type": "state",
             "common": {
                 "name":  "Forecast of precipitation level for today (rain/snow)",
@@ -191,28 +185,12 @@
             "native": {}
         },
         {
-            "_id": "forecast.day0.precipitationChance",
-            "type": "state",
-            "common": {
-                "name":  "Forecast of precipitation chance for today",
-                "type":  "number",
-                "role":  "weather.precipitation.forecast.0",
-                "read":  true,
-                "write": false,
-                "min":   0,
-                "max":   100,
-                "unit":  "%",
-                "desc":  "Forecast of precipitation chance for today in percent"
-            },
-            "native": {}
-        },
-        {
             "_id": "forecast.day0.windDirection",
             "type": "state",
             "common": {
                 "name":  "Forecast for wind direction for today",
                 "type":  "string",
-                "role":  "value.direction.wind.forecast.0",
+                "role":  "weather.direction.wind.forecast.0",
                 "read":  true,
                 "write": false,
                 "desc":  "Forecast for wind direction for today"
@@ -324,7 +302,7 @@
             "native": {}
         },
         {
-            "_id": "forecast.day1.precipitationLevel",
+            "_id": "forecast.day1.precipitation",
             "type": "state",
             "common": {
                 "name":  "Forecast of precipitation level for tomorrow (rain/snow)",
@@ -338,31 +316,15 @@
             "native": {}
         },
         {
-            "_id": "forecast.day1.precipitationChance",
-            "type": "state",
-            "common": {
-                "name":  "Forecast of precipitation chance for tomorrow",
-                "type":  "number",
-                "role":  "value.precipitation.forecast.1",
-                "read":  true,
-                "write": false,
-                "min":   0,
-                "max":   100,
-                "unit":  "%",
-                "desc":  "Forecast for rain or snow level in mm"
-            },
-            "native": {}
-        },
-        {
             "_id": "forecast.day1.windDirection",
             "type": "state",
             "common": {
                 "name":  "Forecast for wind direction for tomorrow",
                 "type":  "string",
-                "role":  "value.direction.wind.forecast.1",
+                "role":  "weather.direction.wind.forecast.1",
                 "read":  true,
                 "write": false,
-                "desc":  "Forecast for rain or snow level in mm"
+                "desc":  "Forecast wind direction as text"
             },
             "native": {}
         },
@@ -471,7 +433,7 @@
             "native": {}
         },
         {
-            "_id": "forecast.day2.precipitationLevel",
+            "_id": "forecast.day2.precipitation",
             "type": "state",
             "common": {
                 "name":  "Forecast of precipitation level for the day after tomorrow (rain/snow)",
@@ -485,31 +447,15 @@
             "native": {}
         },
         {
-            "_id": "forecast.day2.precipitationChance",
-            "type": "state",
-            "common": {
-                "name":  "Forecast of precipitation chance for the day after tomorrow",
-                "type":  "number",
-                "role":  "value.precipitation.forecast.2",
-                "read":  true,
-                "write": false,
-                "min":   0,
-                "max":   100,
-                "unit":  "%",
-                "desc":  "Forecast of precipitation chance in mm"
-            },
-            "native": {}
-        },
-        {
             "_id": "forecast.day2.windDirection",
             "type": "state",
             "common": {
                 "name":  "Forecast for wind direction for the day after tomorrow",
                 "type":  "string",
-                "role":  "value.direction.wind.forecast.2",
+                "role":  "weather.direction.wind.forecast.2",
                 "read":  true,
                 "write": false,
-                "desc":  "Forecast for rain or snow level in mm"
+                "desc":  "Forecast for wind direction as text"
             },
             "native": {}
         },

@@ -17,7 +17,7 @@
         function fillCities(actualValue) {
             $('#location').on('change', function () {
                 var val = $(this).val();
-                var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + val;
+                var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + encodeURIComponent(val);
                 socket.emit('httpGet', {
                     url: url,
                     headers: {'Cookie': 'brp=spr=eng'}
@@ -33,9 +33,6 @@
                         for (var i = 0; i < obj.length; i++) {
                             var tmp = obj[i];
                             data[tmp[1].substr(7, tmp[1].length - 8)] = null;
-                            /*    label: decodeURI(tmp[0]) + ', ' + decodeURI(tmp[2]),
-                                value: tmp[1].substr(7, tmp[1].length - 8)
-                            });*/
                         }
                         $('#location').mautocomplete('updateData', data);
                     } else {
@@ -81,6 +78,37 @@
 
             fillCities(settings.location);
             M.updateTextFields();
+            if (!settings.location) {
+                socket.emit('getObject', 'system.config', function (err, config) {
+                    if (config && config.common && config.common.country && config.common.city) {
+
+                        var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + encodeURIComponent(config.common.city);
+                        socket.emit('httpGet', {
+                            url: url,
+                            headers: {'Cookie': 'brp=spr=eng'}
+                        }, function (err, res) {
+                            if (!err && res.body) {
+                                var obj = JSON.parse(res.body);
+                                if (!obj[1]) {
+                                    console.warn('Invalid answer');
+                                } else {
+                                    obj = obj[1];
+                                }
+                                var data = {};
+                                for (var i = 0; i < obj.length; i++) {
+                                    var tmp = obj[i];
+                                    var place = tmp[1].substr(7, tmp[1].length - 8);
+                                    if (place.indexOf(config.common.country) !== -1) {
+                                        $('#location').val(place).trigger('change');
+                                        M.updateTextFields();
+                                        break;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
         }
 
         function save(callback) {

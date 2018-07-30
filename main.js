@@ -123,7 +123,7 @@ function main() {
     if (adapter.config.location.indexOf('forecast.xml') === -1) {
         if (adapter.config.location.indexOf('%') === -1) adapter.config.location = encodeURI(adapter.config.location);
 
-        adapter.setState('forecast.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png', true);
+        adapter.setState('forecast.info.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png', true);
 
         const reqOptions = {
             hostname: 'www.yr.no',
@@ -339,8 +339,8 @@ function parseData(xml) {
                        
             adapter.log.debug('data successfully parsed. setting states');
 
-            adapter.setState('forecast.html',   {val: table, ack: true});
-            adapter.setState('forecast.object', {val: days,  ack: true}, () => {
+            adapter.setState('forecast.info.html',   {val: table, ack: true});
+            adapter.setState('forecast.info.object', {val: JSON.stringify(days),  ack: true}, () => {
                 setTimeout(() => process.exit(0), 5000);
             });
         }

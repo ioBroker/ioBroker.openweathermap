@@ -80,8 +80,12 @@
             M.updateTextFields();
             if (!settings.location) {
                 socket.emit('getObject', 'system.config', function (err, config) {
+                    if (config && config.common) {
+                        if (config.common.tempUnit.indexOf('F') !== -1) {
+                            $('#nonMetric').prop('checked', true).trigger('change');
+                        }
+                    }
                     if (config && config.common && config.common.country && config.common.city) {
-
                         var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + encodeURIComponent(config.common.city);
                         socket.emit('httpGet', {
                             url: url,

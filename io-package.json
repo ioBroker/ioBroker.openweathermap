@@ -488,9 +488,16 @@
             "native": {}
         },
         {
-            "_id": "forecast.object",
+            "_id": "forecast.info",
+            "type": "channel",
+            "common": {
+                "name": "forecast links and objects"
+            },
+            "native": {}
+        },
+        {
+            "_id": "forecast.info.object",
             "type": "state",
-            "parent": "forecast",
             "common": {
                 "type": "object",
                 "name": "forecast table",
@@ -501,9 +508,8 @@
             "native": {}
         },
         {
-            "_id": "forecast.html",
+            "_id": "forecast.info.html",
             "type": "state",
-            "parent": "forecast",
             "common": {
                 "type": "string",
                 "name": "forecast html",
@@ -514,13 +520,12 @@
             "native": {}
         },
         {
-            "_id": "forecast.diagram",
+            "_id": "forecast.info.diagram",
             "type": "state",
-            "parent": "forecast",
             "common": {
                 "type":  "string",
                 "name":  "forecast diagram url",
-                "role":  "weather.chart.url",
+                "role":  "weather.chart.url.forecast",
                 "read":  true,
                 "write": false
             },

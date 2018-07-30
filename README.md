@@ -19,7 +19,7 @@ http://om.yr.no/verdata/free-weather-data/
 Icons are taken from here [https://github.com/YR/weather-symbols](https://github.com/YR/weather-symbols) and belongs to yr.no.
 
 ## Changelog
-### 2.0.0 [2018-07-26]
+### 2.0.1 [2018-07-30]
 * (bluefox) Warning! Breaking changes! States are renamed.
 * (bluefox) Refactoring of states and roles
 

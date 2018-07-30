@@ -1,9 +1,9 @@
 {
     "common": {
         "name":                     "yr",
-        "version": "2.0.0",
+        "version": "2.0.1",
 		"news": {
-            "2.0.0": {
+            "2.0.1": {
                 "en": "Warning! Breaking changes!\nRefactoring of states and roles",
                 "de": "Warnung! Breaking Änderungen!\nRefactoring von Zuständen und Rollen",
                 "ru": "Предупреждение! Нарушение изменений!\nРефакторинг состояний и ролей",
@@ -60,10 +60,11 @@
         "platform":                 "Javascript/Node.js",
         "mode":                     "schedule",
         "schedule":                 "6 * * * *",
+        "enabled":                  true,
         "loglevel":                 "info",
         "materialize":              true,
         "keywords":                 ["weather", "forecast", "temperature", "rain", "yr", "meteorology"],
-        "main":                     "yr.js",
+        "main":                     "main.js",
         "icon":                     "yr.png",
         "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.yr/master/admin/yr.png",
         "readme":                   "https://github.com/ioBroker/ioBroker.yr/blob/master/README.md",

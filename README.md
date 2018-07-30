@@ -20,7 +20,8 @@ Icons are taken from here [https://github.com/YR/weather-symbols](https://github
 
 ## Changelog
 ### 2.0.0 [2018-07-26]
-* (bluefox) (Breaking changes) Rename roles and states
+* (bluefox) Warning! Breaking changes! States are renamed.
+* (bluefox) Refactoring of states and roles
 
 ### 1.0.6 [2017-05-27]
 * (Andre) Update iconset

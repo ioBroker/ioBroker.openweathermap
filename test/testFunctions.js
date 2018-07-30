@@ -96,7 +96,7 @@ describe('Test ' + name, function () {
         }, 500);
     });
 
-    it('Test ' + name + ': check warning', function (done) {
+    it('Test ' + name + ': check states', function (done) {
         this.timeout(5000);
 
         setTimeout(function () {

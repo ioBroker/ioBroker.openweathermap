@@ -1,12 +1,12 @@
-var expect  = require('chai').expect;
-var setup   = require(__dirname + '/lib/setup');
-var name    = __dirname.replace(/\\/g, '/').split('/');
+const expect  = require('chai').expect;
+const setup   = require(__dirname + '/lib/setup');
+let name    = __dirname.replace(/\\/g, '/').split('/');
 name = name[name.length - 2].split('.')[1];
 
-var objects = null;
-var states  = null;
-var onStateChanged = null;
-var onObjectChanged = null;
+let objects = null;
+let states  = null;
+let onStateChanged = null;
+let onObjectChanged = null;
 
 function checkConnectionOfAdapter(cb, counter) {
     counter = counter || 0;
@@ -49,17 +49,17 @@ function checkValueOfState(id, value, cb, counter) {
     });
 }
 
-describe('Test ' + name, function() {
+describe('Test ' + name, function () {
     before('Test ' + name + ': Start js-controller', function (_done) {
         this.timeout(600000); // because of first install from npm
         setup.setupController(function () {
-            var config = setup.getAdapterConfig();
+            const config = setup.getAdapterConfig();
             // enable adapter
             config.common.enabled  = true;
             config.common.loglevel = 'debug';
 
             config.native.location = __dirname + '/lib/forecast.xml';
-            config.native.language = "";
+            config.native.language = '';
             config.native.sendTranslations = false;
 
             setup.setAdapterConfig(config.common, config.native);
@@ -100,19 +100,19 @@ describe('Test ' + name, function() {
         this.timeout(5000);
 
         setTimeout(function () {
-            states.getState('yr.0.forecast.day0.temperature_min', function (err, state) {
+            states.getState('yr.0.forecast.day0.temperatureMin', function (err, state) {
                 expect(err).to.be.not.ok;
                 expect(state).to.be.ok;
                 expect(state.val).to.be.not.undefined;
                 expect(state.val).to.be.a('number');
 
-                states.getState('yr.0.forecast.day0.temperature_max', function (err, state) {
+                states.getState('yr.0.forecast.day0.temperatureMax', function (err, state) {
                     expect(err).to.be.not.ok;
                     expect(state).to.be.ok;
                     expect(state.val).to.be.not.undefined;
                     expect(state.val).to.be.a('number');
 
-                    states.getState('yr.0.forecast.day0.temperature_actual', function (err, state) {
+                    states.getState('yr.0.forecast.day0.temperatureActual', function (err, state) {
                         expect(err).to.be.not.ok;
                         expect(state).to.be.ok;
                         expect(state.val).to.be.not.undefined;

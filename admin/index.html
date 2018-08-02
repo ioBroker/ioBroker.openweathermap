@@ -1,98 +1,9 @@
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="../../lib/css/themes/jquery-ui/redmond/jquery-ui.min.css"/>
-    <script type="text/javascript" src="../../lib/js/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
-    <script type="text/javascript" src="../../lib/js/jquery-ui-1.10.3.full.min.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
-    <script type="text/javascript" src="../../js/translate.js"></script>
-    <script type="text/javascript" src="../../js/adapter-settings.js"></script>
-    <script type="text/javascript" src="words.js"></script>
-
-    <script type="text/javascript">
-        function load(settings, onChange) {
-            var $language = $('#language');
-
-            $('#location').val(settings.location).on('change', onChange).on('keyup', onChange);
-            $language.val(settings.language).on('change', onChange);
-
-            onChange(false);
-
-            if (settings.sendTranslations === undefined) {
-                settings.sendTranslations = true;
-            }
-            $('#sendTranslations').prop('checked', settings.sendTranslations).on('change', onChange);
-
-            // Setup default language
-            if (!settings.language){
-                $language.val(systemLang).trigger('change');
-            }
-        }
-
-        function save(callback) {
-            callback({
-                location: $('#location').val(),
-                language: $('#language').val(),
-                sendTranslations: $('#sendTranslations').prop('checked')
-            });
-        }
-
-        $(document).on('ready', function () {
-            $('#location').autocomplete({
-                source: function (req, callback) {
-                    var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + req.term;
-                    socket.emit('httpGet', {
-                        url: url,
-                        headers: {'Cookie': 'brp=spr=eng'}
-                    }, function (err, res) {
-                        if (!err && res.body) {
-                            var obj = JSON.parse(res.body);
-                            if (!obj[1]) {
-                                console.warn('Invalid answer');
-                            } else {
-                                obj = obj[1];
-                            }
-                            var arr = [];
-                            for (var i = 0; i < obj.length; i++) {
-                                var tmp = obj[i];
-                                arr.push({
-                                    label: decodeURI(tmp[0]) + ', ' + decodeURI(tmp[2]),
-                                    value: tmp[1].substr(7, tmp[1].length - 8)
-                                });
-                            }
-                            callback(arr);
-                        } else {
-                            callback([]);
-                        }
-                    });
-                }
-            });
-        });
-
-    </script>
 </head>
 <body>
     <div id="adapter-container">
-        <table><tr>
-            <td><img src="yr.png"/></td>
-            <td><h3 class="translate">yr.no adapter settings</h3></td>
-        </tr></table>
-        <p style="padding-left: 12px">
-            <label for="location" class="translate">Place</label> <input class="value" type="text" id="location" size="80"/>
-        </p>
-        <p style="padding-left: 12px">
-            <label for="language" class="translate">Language</label>
-            <select class="value" id="language">
-                <option value="en">English</option>
-                <option value="de">Deutsch</option>
-                <option value="ru">русский</option>
-            </select>
-        </p>
-        <p style="padding-left: 12px">
-            <label for="sendTranslations" class="translate">Send missing translations to iobroker.net</label> <input class="value" type="checkbox" id="sendTranslations"/>
-        </p>
-        <h3 style="padding-left: 12px" class="translate">yrDescription</h3>
+        Admin 2 is not supported. Please use it with Admin3 or higher.
     </div>
 </body>
 </html>

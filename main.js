@@ -2,347 +2,274 @@
 /*jslint node: true */
 'use strict';
 
-const xml2js     = require('xml2js');
-const http       = require('http');
-const utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
-const dictionary = require(__dirname + '/lib/words');
 
-const adapter = utils.Adapter({
-    name:          'yr',       // adapter name
-    useFormatDate:  true       // read date format from config
-});
+const utils      = require(__dirname + '/lib/utils'); // Get common adapter utils
+const request    = require('request');
+
+const adapter = utils.Adapter('openweathermap');
+const currentIds = [];
+const forecastIds = [];
+const tasks = [];
 
 adapter.on('ready', main);
 
+function processTasks() {
+    if (tasks.length) {
+        const task = tasks.shift();
+        if (task.val !== undefined) {
+            if (task.obj) {
+                adapter.getObject(task.id, (err, obj) => {
+                    if (!obj) {
+                        obj = JSON.parse(JSON.stringify(task.obj));
+                        obj._id = task.id;
+                        adapter.setObject(task.id, obj, err => {
+                            adapter.setState(task.id, task.val, true, err => setImmediate(processTasks));
+                        });
+                    } else {
+                        adapter.setState(task.id, task.val, true, err => setImmediate(processTasks));
+                    }
+                });
+            } else {
+                adapter.setState(task.id, task.val, true, err => setImmediate(processTasks));
+            }
+        } else if (task.obj !== undefined) {
+            adapter.setObject(task.id, task.obj, err => setImmediate(processTasks));
+        } else {
+            adapter.log.error('Unknown task: ' + JSON.stringify(task));
+            setImmediate(processTasks);
+        }
+    }
+}
+function extractValue(data, path, i) {
+    if (typeof path === 'string') {
+        path = path.split('.');
+    }
+    i = i || 0;
+    if (data.hasOwnProperty(path[i])) {
+        data = data[path[i]];
+        if (i === path.length - 1) {
+            return data;
+        } else {
+            if (typeof data === 'object') {
+                return extractValue(data, path, i + 1);
+            } else {
+                return null;
+            }
+        }
+    } else {
+        return null;
+    }
+}
+
+function extractValues(data, ids, day) {
+    const result = {};
+    for (let i = 0; i < ids.length; i++) {
+        result[ids[i]._id.split('.').pop()] = extractValue(data, ids[i].native.path);
+    }
+}
+
+function parseCurrent(data) {
+    const result = extractValues(data, currentIds);
+    const isStart = !tasks.length;
+    for (const attr in result) {
+        if (!result.hasOwnProperty(attr)) continue;
+        tasks.push({id: 'forecast.current.' + attr, val: result[attr]});
+    }
+    if (isStart) {
+        processTasks();
+    }
+}
+
+function calculateAverage(sum, day) {
+    const counts = {};
+
+    const result = {
+        date: new Date(sum[0].date)
+    };
+    for (let i = 0; i < sum.length; i++) {
+        if (new Date(sum[i].date).getHours() >= 12) {
+            if (!result.icon) {
+                result.icon = sum[i].icon;
+            }
+            if (!result.state) {
+                result.state = sum[i].state;
+            }
+            if (!result.title) {
+                result.title = sum[i].title;
+            }
+        }
+
+        if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
+            result.temperatureMin = sum[i].temperatureMin;
+        }
+        if (result.temperatureMax === undefined || result.temperatureMax < sum[i].temperatureMax) {
+            result.temperatureMax = sum[i].temperatureMax;
+        }
+        result.clouds = result.clouds || 0;
+        counts.clouds = counts.clouds || 0;
+        if (sum[i].clouds !== null) {
+            result.clouds += sum[i].clouds;
+            counts.clouds++;
+        }
+
+        result.humidity = result.humidity || 0;
+        counts.humidity = counts.humidity || 0;
+        if (sum[i].humidity !== null) {
+            result.humidity += sum[i].humidity;
+            counts.humidity++;
+        }
+
+        result.pressure = result.pressure || 0;
+        counts.pressure = counts.pressure || 0;
+        if (sum[i].pressure !== null) {
+            result.pressure += sum[i].pressure;
+            counts.pressure++;
+        }
+
+        result.precipitationRain = result.precipitationRain || 0;
+        counts.precipitationRain = counts.precipitationRain || 0;
+        if (sum[i].precipitationRain !== null) {
+            result.precipitationRain += sum[i].precipitationRain;
+            counts.precipitationRain++;
+        }
+
+        result.precipitationSnow = result.precipitationSnow || 0;
+        counts.precipitationRain = counts.precipitationSnow || 0;
+        if (sum[i].precipitationSnow !== null) {
+            result.precipitationSnow += sum[i].precipitationSnow;
+            counts.precipitationSnow++;
+        }
+
+        result.windDirection = result.windDirection || 0;
+        counts.windDirection = counts.windDirection || 0;
+        if (sum[i].windDirection !== null) {
+            result.windDirection += sum[i].windDirection;
+            counts.windDirection++;
+        }
+
+        if (result.windSpeed === undefined || result.windSpeed < sum[i].windSpeed) {
+            result.windSpeed = sum[i].windSpeed;
+        }
+    }
+    for (const attr in counts) {
+        if (!counts.hasOwnProperty(attr)) continue;
+        if (counts[attr] !== 0) {
+            result[attr] = Math.round(result[attr] / counts.count);
+        } else {
+            result[attr] = null;
+        }
+    }
+
+    const isStart = !tasks.length;
+    for (const attr in result) {
+        if (!result.hasOwnProperty(attr)) continue;
+        tasks.push({id: 'forecast.day' + day + '.' + attr, val: result[attr], obj: forecastIds.find(obj => obj._id.split('.').pop() === attr)});
+    }
+    if (isStart) {
+        processTasks();
+    }
+}
+
+function parseForecast(data) {
+    let sum = [];
+    let date = null;
+    let day = 0;
+    for (let period = 0; period < data.list.length; period++) {
+        const values = extractValues(data.list[period], forecastIds);
+        values.date = values.date * 1000;
+        const curDate = new Date(values.date).getDate();
+        if (date === null) {
+            date = curDate;
+        } else if (date !== curDate) {
+            calculateAverage(sum, day);
+            day++;
+            sum = [values];
+        }
+    }
+    if (sum.length) {
+        calculateAverage(sum, day);
+    }
+}
+
+function requestCurrent(query) {
+    return new Promise((resolve, reject) => {
+        const url = 'https://api.openweathermap.org/data/2.5/weather?';
+        request(url + query, (error, result, body) => {
+            if (body) {
+                parseCurrent(body, () => resolve());
+            } else if (error) {
+                reject('Error: ' + error);
+            } else {
+                reject('Error: no data received');
+            }
+        });
+    });
+}
+
+function requestForecast(query) {
+    return new Promise((resolve, reject) => {
+        const url = 'https://api.openweathermap.org/data/2.5/forecast?';
+
+        request(url + query, (error, result, body) => {
+            if (body) {
+                parseForecast(body, () => resolve());
+            } else if (error) {
+                reject('Error: ' + error);
+            } else {
+                reject('Error: no data received');
+            }
+        });
+    });
+}
+
+function checkUnits() {
+    const isStart = !tasks.length;
+    for (let i = 0; i < currentIds.length; i++) {
+        if (!currentIds[i].native.imperial) continue;
+        if (adapter.config.imperial) {
+            if (currentIds[i].common.unit !== currentIds[i].native.imperial) {
+                currentIds[i].common.unit = currentIds[i].native.imperial;
+                tasks.push({id: currentIds[i]._id, obj: currentIds[i]});
+            }
+        } else {
+            if (currentIds[i].common.unit !== currentIds[i].native.metric) {
+                currentIds[i].common.unit = currentIds[i].native.metric;
+                tasks.push({id: currentIds[i]._id, obj: currentIds[i]});
+            }
+        }
+    }
+    isStart && processTasks();
+}
+
 function main() {
-    const tmp  = adapter.config.location.split('/');
-    const city = decodeURI(tmp.pop());
+    let query = '';
+    if (parseInt(adapter.config.location, 10).toString() === adapter.config.location) {
+        query = 'id=' + adapter.config.location;
+    } else if (adapter.config.location && adapter.config.location[0] >= '0' && adapter.config.location[0] <= '9') {
+        const parts = adapter.config.location.split(',');
+        query = 'lat=' + parts[0] + '&lon=' + parts[1];
+    } else {
+        query = 'q=' + encodeURIComponent(adapter.config.location);
+    }
 
     adapter.config.language = adapter.config.language || 'en';
-    if (adapter.config.sendTranslations === undefined) adapter.config.sendTranslations = true;
-    if (adapter.config.sendTranslations === 'true')  adapter.config.sendTranslations = true;
-    if (adapter.config.sendTranslations === 'false') adapter.config.sendTranslations = false;
+    adapter.config.location = (adapter.config.location || '').trim();
 
-    adapter.getObject('forecast.day0.temperatureActual', (err, obj) => {
-        if (obj && obj.common && obj.common.unit) {
-            if (obj.common.unit === '°C' && adapter.config.nonMetric) {
-                obj.common.unit = '°F';
-                adapter.setObject(obj._id, obj, () => {
-                    adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                });
-            } else if (obj.common.unit !== '°C' && !adapter.config.nonMetric) {
-                obj.common.unit = '°C';
-                adapter.setObject(obj._id, obj, () => {
-                    adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                });
+    adapter.getStatesOf('forecast', '', (err, states) => {
+        for (let s = 0; s < states.length; s++) {
+            if (states[s].native.type === 'current') {
+                currentIds.push(states[s]);
+            } else if (states[s].native.type === 'forecast') {
+                const m = states[s]._id.match(/\.day(\d+)\./);
+                if (m && m[1] !== '0') continue;
+                forecastIds.push(states[s]);
             }
         }
-    });
 
-    for (let d = 0; d < 3; d++) {
-        adapter.getObject('forecast.day' + d + '.windSpeed',      (err, obj) => {
-            if (obj && obj.common && obj.common.unit) {
-                if (obj.common.unit === 'km/h' && adapter.config.nonMetric) {
-                    obj.common.unit = 'm/h';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                } else if (obj.common.unit !== 'km/h' && !adapter.config.nonMetric) {
-                    obj.common.unit = 'km/h';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                }
-            }
-        });
-        adapter.getObject('forecast.day' + d + '.temperatureMin', (err, obj) => {
-            if (obj && obj.common && obj.common.unit) {
-                if (obj.common.unit === '°C' && adapter.config.nonMetric) {
-                    obj.common.unit = '°F';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                } else if (obj.common.unit !== '°C' && !adapter.config.nonMetric) {
-                    obj.common.unit = '°C';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                }
-            }
-        });
-        adapter.getObject('forecast.day' + d + '.temperatureMax', (err, obj) => {
-            if (obj && obj.common && obj.common.unit) {
-                if (obj.common.unit === '°C' && adapter.config.nonMetric) {
-                    obj.common.unit = '°F';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                } else if (obj.common.unit !== '°C' && !adapter.config.nonMetric) {
-                    obj.common.unit = '°C';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                }
-            }
-        });
-        adapter.getObject('forecast.day' + d + '.precipitation',  (err, obj) => {
-            if (obj && obj.common && obj.common.unit) {
-                if (obj.common.unit === 'mm' && adapter.config.nonMetric) {
-                    obj.common.unit = 'in';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                } else if (obj.common.unit !== 'mm' && !adapter.config.nonMetric) {
-                    obj.common.unit = 'mm';
-                    adapter.setObject(obj._id, obj, () => {
-                        adapter.log.info(`Metrics changed for ${obj._id} to ${obj.common.unit}`);
-                    });
-                }
-            }
-        });
-    }
+        checkUnits();
 
-    adapter.getObject('forecast', (err, obj) => {
-        if (!obj || !obj.common || obj.common.name !== 'yr.no forecast ' + city) {
-            adapter.setObject('forecast', {
-                type: 'device',
-                role: 'forecast',
-                common: {
-                    name: 'yr.no forecast ' + city
-                },
-                native: {
-                    url:     adapter.config.location,
-                    country: decodeURI(tmp[0]),
-                    state:   decodeURI(tmp[1]),
-                    city:    city
-                }
-            });
-        }
-    });
-
-    if (adapter.config.location.indexOf('forecast.xml') === -1) {
-        if (adapter.config.location.indexOf('%') === -1) adapter.config.location = encodeURI(adapter.config.location);
-
-        adapter.setState('forecast.info.diagram', 'http://www.yr.no/place/' + adapter.config.location + '/avansert_meteogram.png', true);
-
-        const reqOptions = {
-            hostname: 'www.yr.no',
-            port:     80,
-            path:     '/place/' + adapter.config.location + '/forecast.xml',
-            method:   'GET'
-        };
-
-        adapter.log.debug('get http://' + reqOptions.hostname + reqOptions.path);
-
-        const req = http.request(reqOptions, res => {
-            let data = '';
-
-            res.on('data', chunk => data += chunk);
-
-            res.on('end', () => {
-                adapter.log.debug('received data from yr.no');
-                parseData(data.toString());
-            });
-        });
-
-        req.on('error', e => {
-            adapter.log.error(e.message);
-            parseData(null);
-        });
-
-        req.end();
-    } else {
-        parseData(require('fs').readFileSync(adapter.config.location).toString());
-    }
-
-    // Force terminate after 5min
-    setTimeout(() => {
-        adapter.log.error('force terminate');
-        process.exit(1);
-    }, 300000);
-}
-
-function _(text) {
-    if (!text) return '';
-
-    if (dictionary[text]) {
-        let newText = dictionary[text][adapter.config.language];
-        if (newText) {
-            return newText;
-        } else if (adapter.config.language !== 'en') {
-            newText = dictionary[text].en;
-            if (newText) {
-                return newText;
-            }
-        }
-    } else {
-        if (adapter.config.sendTranslations) {
-            const options = {
-                hostname: 'download.iobroker.net',
-                port: 80,
-                path: '/yr.php?word=' + encodeURIComponent(text)
-            };
-            const req = http.request(options, res => {
-                console.log('STATUS: ' + res.statusCode);
-                adapter.log.info('Missing translation sent to iobroker.net: "' + text + '"');
-            });
-            req.on('error', e => {
-                adapter.log.error('Cannot send to server missing translation for "' + text + '": ' + e.message);
-            });
-            req.end();
-        } else {
-            adapter.log.warn('Translate: "' + text + '": {"en": "' + text + '", "de": "' + text + '", "ru": "' + text + '"}, please send to developer');
-        }
-    }
-    return text;
-}
-
-function celsius2fahrenheit(degree, isConvert) {
-    if (isConvert) {
-        return degree * 9 / 5 + 32;
-    } else {
-        return degree;
-    }
-}
-
-function parseData(xml) {
-    if (!xml) {
-        setTimeout(() => process.exit(0), 5000);
-        return;
-    }
-    const options = {
-        explicitArray: false,
-        mergeAttrs: true
-    };
-    const parser = new xml2js.Parser(options);
-    parser.parseString(xml, (err, result) => {
-        if (err) {
-            adapter.log.error(err);
-        } else {
-            adapter.log.info('got weather data from yr.no');
-            const forecastArr = result.weatherdata.forecast.tabular.time;
-
-            let tableDay =      '<table style="border-collapse: collapse; padding: 0; margin: 0"><tr class="yr-day">';
-            let tableHead =     '</tr><tr class="yr-time">';
-            let tableMiddle =   '</tr><tr class="yr-img">';
-            let tableBottom =   '</tr><tr class="yr-temp">';
-            const dateObj = new Date();
-            const dayEnd = dateObj.getFullYear() + '-' + ('0' + (dateObj.getMonth() + 1)).slice(-2) + '-' + ('0' + dateObj.getDate()).slice(-2) + 'T24:00:00';
-            let daySwitch = false;
-
-            let day = -1; // Start from today
-            const days = [];
-            for (let i = 0; i < 12 && i < forecastArr.length; i++) {
-                const period = forecastArr[i];
-
-                if (!period.period || period.period === '0') day++;
-
-                // We want to process only today, tomorrow and the day after tomorrow
-                if (day === 3) break;
-				period.symbol.url         = '/adapter/yr/icons/' + period.symbol.var + '.svg';
-                period.symbol.name        = _(period.symbol.name);
-                period.windDirection.code = _(period.windDirection.code);
-                period.windDirection.name = _(period.windDirection.name);
-
-                if (i < 8) {
-                    switch (i) {
-                        case 0:
-                            tableHead += '<td>' + _('Now') + '</td>';
-                            break;
-                        default:
-                            if (period.from > dayEnd) {
-                                if (!daySwitch) {
-                                    daySwitch = true;
-                                    tableDay += '<td colspan="' + i + '">' + _('Today') + '</td><td colspan="4">' + _('Tomorrow') + '</td>';
-                                    if (i < 3) tableDay += '<td colspan="' + (4 - i) + '">' + _('After tomorrow') + '</td>';
-                                    tableHead += '<td>' + parseInt(period.from.substring(11, 13), 10).toString() + '-' + parseInt(period.to.substring(11, 13), 10).toString() + '</td>';
-                                } else {
-                                    tableHead += '<td>' + parseInt(period.from.substring(11, 13), 10).toString() + '-' + parseInt(period.to.substring(11, 13), 10).toString() + '</td>';
-                                }
-
-                            } else {
-                                tableHead += '<td>' + parseInt(period.from.substring(11, 13), 10).toString() + '-' + parseInt(period.to.substring(11, 13), 10).toString() + '</td>';
-                            }
-                    }
-
-                    tableMiddle += '<td><img style="position: relative;margin: 0;padding: 0;left: 0;top: 0;width: 38px;height: 38px;" src="' + period.symbol.url + '" alt="' + period.symbol.name + '" title="' + period.symbol.name + '"><br/>';
-                    tableBottom += '<td><span class="">' + period.temperature.value + '°C</span></td>';
-                }
-
-                if (day === -1 && !i) day = 0;
-                if (!days[day]) {
-                    days[day] = {
-                        date:                new Date(period.from),
-                        icon:                period.symbol.url,
-                        state:               period.symbol.name,
-                        temperatureMin:      celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric),
-                        temperatureMax:      celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric),
-                        precipitation:  adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value),
-                        windDirection:       period.windDirection.code,
-                        windSpeed:           adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6,
-                        pressure:            parseFloat(period.pressure.value),
-                        count:               1
-                    };
-                } else {
-                    // Summarize
-                    let t;
-                    // Take icon for day always from 12:00 to 18:00 if possible
-                    if (i === 2) {
-                        days[day].icon  = period.symbol.url;
-                        days[day].state = period.symbol.name;
-                        days[day].windDirection = period.windDirection.code;
-                    }
-                    t = celsius2fahrenheit(parseFloat(period.temperature.value), adapter.config.nonMetric);
-                    if (t < days[day].temperatureMin) {
-                        days[day].temperatureMin = t;
-                    } else
-                    if (t > days[day].temperatureMax) {
-                        days[day].temperatureMax = t;
-                    }
-
-                    days[day].precipitation  += adapter.config.nonMetric ? parseFloat(period.precipitation.value) / 25.4 : parseFloat(period.precipitation.value);
-                    days[day].windSpeed           += adapter.config.nonMetric ? parseFloat(period.windSpeed.mps) : parseFloat(period.windSpeed.mps) * 3.6;
-                    days[day].pressure            += parseFloat(period.pressure.value);
-                    days[day].count++;
-                }
-                // Set actual temperature
-                if (!day && !i) {
-                    days[day].temperatureActual = celsius2fahrenheit(parseInt(period.temperature.value, 10), adapter.config.nonMetric);
-                }
-            }
-            const style = '<style type="text/css">tr.yr-day td {font-family: sans-serif; font-size: 9px; padding:0; margin: 0;}\ntr.yr-time td {text-align: center; font-family: sans-serif; font-size: 10px; padding:0; margin: 0;}\ntr.yr-temp td {text-align: center; font-family: sans-serif; font-size: 12px; padding: 0; margin: 0;}\ntr.yr-img td {text-align: center; padding: 0; margin: 0;}</style>';
-            const table = style + tableDay + tableHead + tableMiddle + tableBottom + '</tr></table>';
-            //console.log(JSON.stringify(result, null, "  "));
-
-            for (day = 0; day < days.length; day++) {
-                // Take the average
-                if (days[day].count > 1) {
-                    days[day].precipitation /= days[day].count;
-                    days[day].windSpeed          /= days[day].count;
-                    days[day].pressure           /= days[day].count;
-                }
-                days[day].temperatureMin = Math.round(days[day].temperatureMin);
-                days[day].temperatureMax = Math.round(days[day].temperatureMax);
-                days[day].precipitation  = Math.round(days[day].precipitation);
-                days[day].windSpeed      = Math.round(days[day].windSpeed * 10) / 10;
-                days[day].pressure       = Math.round(days[day].pressure);
-
-                days[day].date = adapter.formatDate(days[day].date);
-
-                delete days[day].count;
-                for (const name in days[day]) {
-                    if (days[day].hasOwnProperty(name)) {
-                        adapter.setState('forecast.day' + day + '.' + name, {val: days[day][name], ack: true});
-                    }
-                }
-            }
-                       
-            adapter.log.debug('data successfully parsed. setting states');
-
-            adapter.setState('forecast.info.html',   {val: table, ack: true});
-            adapter.setState('forecast.info.object', {val: JSON.stringify(days),  ack: true}, () => {
-                setTimeout(() => process.exit(0), 5000);
-            });
-        }
+        requestCurrent(query)
+            .then(() => requestForecast(query))
+            .catch(e => adapter.log.error(e));
     });
 }

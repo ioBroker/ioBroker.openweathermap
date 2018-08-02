@@ -1,22 +1,22 @@
-![Logo](admin/yr.png)
-# ioBroker.yr
+![Logo](admin/openweathermap.png)
+# ioBroker.openweathermap
 =================================
-[![NPM version](http://img.shields.io/npm/v/iobroker.yr.svg)](https://www.npmjs.com/package/iobroker.yr)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.yr.svg)](https://www.npmjs.com/package/iobroker.yr)
-[![Tests](https://travis-ci.org/ioBroker/ioBroker.yr.svg?branch=master)](https://travis-ci.org/ioBroker/ioBroker.yr)
+[![NPM version](http://img.shields.io/npm/v/iobroker.openweathermap.svg)](https://www.npmjs.com/package/iobroker.openweathermap)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.openweathermap.svg)](https://www.npmjs.com/package/iobroker.openweathermap)
+[![Tests](https://travis-ci.org/ioBroker/ioBroker.openweathermap.svg?branch=master)](https://travis-ci.org/ioBroker/ioBroker.openweathermap)
 
-[![NPM](https://nodei.co/npm/iobroker.yr.png?downloads=true)](https://nodei.co/npm/iobroker.yr/)
+[![NPM](https://nodei.co/npm/iobroker.openweathermap.png?downloads=true)](https://nodei.co/npm/iobroker.openweathermap/)
 
-fetches 48h weather forecast from [yr.no](yr.no)
+fetches 48h weather forecast from [openweathermap.org](openweathermap.org)
 
-[yr.no](yr.no) is a joint service by the [Norwegian Meteorological Institute](met.no) and the [Norwegian Broadcasting Corporation](nrk.no)
+[openweathermap.org](openweathermap.org) is a joint service by the [Norwegian Meteorological Institute](met.no) and the [Norwegian Broadcasting Corporation](nrk.no)
 
-http://om.yr.no/verdata/free-weather-data/
+http://om.openweathermap.org/verdata/free-weather-data/
 
 **Note** - if _"Send missing translations to iobroker.net"_ is activated (default) missing translations will be sent to iobroker.net server. No ips or any additional info will be stored or analysed. Just missing translation.
 
 ## Icons
-Icons are taken from here [https://github.com/YR/weather-symbols](https://github.com/YR/weather-symbols) and belongs to yr.no.
+Icons are taken from here [https://github.com/openweathermap/weather-symbols](https://github.com/openweathermap/weather-symbols) and belongs to openweathermap.org.
 
 ## Changelog
 ### 2.0.1 [2018-07-30]
@@ -52,7 +52,7 @@ Icons are taken from here [https://github.com/YR/weather-symbols](https://github
 * (bluefox) automatically upload of missing translations to iobroker.net
 
 ### 0.1.7 [2015-07-10]
-* (bluefox) make yr works with metro widgets
+* (bluefox) make openweathermap works with metro widgets
 
 ### 0.1.6 [2015-06-12]
 * (bluefox) translations
@@ -67,13 +67,13 @@ Icons are taken from here [https://github.com/YR/weather-symbols](https://github
 * (bluefox) fix error with tomorrow and day after tomorrow
 
 ### 0.1.2 [2015-03-08]
-* (bluefox) correct links to yr.no web site
+* (bluefox) correct links to openweathermap.org web site
 
 ### 0.1.1
 * (bluefox) add translates for the weather states in other languages
 
 ### 0.1.0
-* (bluefox) update yr on the new objects model
+* (bluefox) update openweathermap on the new objects model
 
 ### 0.0.4
 * (hobbyquaker) prepend "forecast." to state IDs

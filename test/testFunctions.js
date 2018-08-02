@@ -58,9 +58,8 @@ describe('Test ' + name, function () {
             config.common.enabled  = true;
             config.common.loglevel = 'debug';
 
-            config.native.location = __dirname + '/lib/forecast.xml';
-            config.native.language = '';
-            config.native.sendTranslations = false;
+            config.native.location = 'file://' + __dirname + '/lib/forecast.json';
+            config.native.language = 'de';
 
             setup.setAdapterConfig(config.common, config.native);
 
@@ -87,10 +86,10 @@ describe('Test ' + name, function () {
 
     it('Test ' + name + ': channel must have name of city', function (done) {
         setTimeout(function () {
-            objects.getObject('yr.0.forecast', function (err, obj) {
+            objects.getObject('openweathermap.0.forecast', function (err, obj) {
                 expect(err).to.be.not.ok;
                 expect(obj).to.be.ok;
-                expect(obj.common.name).to.be.equal('yr.no forecast forecast.xml');
+                expect(obj.common.name).to.be.equal('openweathermap.no forecast forecast.xml');
                 done();
             });
         }, 500);
@@ -100,19 +99,19 @@ describe('Test ' + name, function () {
         this.timeout(5000);
 
         setTimeout(function () {
-            states.getState('yr.0.forecast.day0.temperatureMin', function (err, state) {
+            states.getState('openweathermap.0.forecast.day0.temperatureMin', function (err, state) {
                 expect(err).to.be.not.ok;
                 expect(state).to.be.ok;
                 expect(state.val).to.be.not.undefined;
                 expect(state.val).to.be.a('number');
 
-                states.getState('yr.0.forecast.day0.temperatureMax', function (err, state) {
+                states.getState('openweathermap.0.forecast.day0.temperatureMax', function (err, state) {
                     expect(err).to.be.not.ok;
                     expect(state).to.be.ok;
                     expect(state.val).to.be.not.undefined;
                     expect(state.val).to.be.a('number');
 
-                    states.getState('yr.0.forecast.day0.temperatureActual', function (err, state) {
+                    states.getState('openweathermap.0.forecast.day0.pressure', function (err, state) {
                         expect(err).to.be.not.ok;
                         expect(state).to.be.ok;
                         expect(state.val).to.be.not.undefined;

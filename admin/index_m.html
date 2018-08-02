@@ -14,58 +14,26 @@
     <script type="text/javascript" src="words.js"></script>
 
     <script type="text/javascript">
-        function fillCities(actualValue) {
-            $('#location').on('change', function () {
-                var val = $(this).val();
-                var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + encodeURIComponent(val);
-                socket.emit('httpGet', {
-                    url: url,
-                    headers: {'Cookie': 'brp=spr=eng'}
-                }, function (err, res) {
-                    if (!err && res.body) {
-                        var obj = JSON.parse(res.body);
-                        if (!obj[1]) {
-                            console.warn('Invalid answer');
-                        } else {
-                            obj = obj[1];
-                        }
-                        var data = {};
-                        for (var i = 0; i < obj.length; i++) {
-                            var tmp = obj[i];
-                            data[tmp[1].substr(7, tmp[1].length - 8)] = null;
-                        }
-                        $('#location').mautocomplete('updateData', data);
-                    } else {
-                        err && console.error(err);
-                        showToast(null, _('Cannot fetch cities!'));
-                    }
-                });
-            }).on('keyup', function () {
-                $(this).trigger('change');
-            }).mautocomplete({
-                data: {}
-            });
-        }
-
+        var defaultLocation = '';
+        var defaultImperial = false;
         function load(settings, onChange) {
             var $language = $('#language');
 
-            $('#location')
-                .val(settings.location)
-                .on('change', onChange)
-                .on('keyup', onChange);
-
-            $language
-                .val(settings.language)
-                .on('change', onChange).select();
-
-
-            if (settings.sendTranslations === undefined) {
-                settings.sendTranslations = true;
+            for (var key in settings) {
+                if (!settings.hasOwnProperty(key)) continue;
+                var $value = $('#' + key + '.value');
+                if ($value.attr('type') === 'checkbox') {
+                    $value.prop('checked', settings[key]).on('change', function() {
+                        onChange();
+                    });
+                } else {
+                    $value.val(settings[key]).change(function() {
+                        onChange();
+                    }).on('keyup', function () {
+                        $(this).trigger('change');
+                    })
+                }
             }
-            $('#sendTranslations')
-                .prop('checked', settings.sendTranslations)
-                .on('change', onChange);
 
             onChange(false);
 
@@ -76,51 +44,53 @@
                     .trigger('change').select();
             }
 
-            fillCities(settings.location);
             M.updateTextFields();
-            if (!settings.location) {
-                socket.emit('getObject', 'system.config', function (err, config) {
-                    if (config && config.common) {
-                        if (config.common.tempUnit.indexOf('F') !== -1) {
-                            $('#nonMetric').prop('checked', true).trigger('change');
+            socket.emit('getObject', 'system.config', function (err, config) {
+                if (config && config.common && !settings.location) {
+                    if (config.common.tempUnit.indexOf('F') !== -1) {
+                        defaultImperial = true;
+                        if (!settings.location) {
+                            $('#imperial').prop('checked', true).trigger('change');
                         }
+                    } else {
+                        defaultImperial = false;
                     }
-                    if (config && config.common && config.common.country && config.common.city) {
-                        var url = 'http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=' + encodeURIComponent(config.common.city);
-                        socket.emit('httpGet', {
-                            url: url,
-                            headers: {'Cookie': 'brp=spr=eng'}
-                        }, function (err, res) {
-                            if (!err && res.body) {
-                                var obj = JSON.parse(res.body);
-                                if (!obj[1]) {
-                                    console.warn('Invalid answer');
-                                } else {
-                                    obj = obj[1];
-                                }
-                                var data = {};
-                                for (var i = 0; i < obj.length; i++) {
-                                    var tmp = obj[i];
-                                    var place = tmp[1].substr(7, tmp[1].length - 8);
-                                    if (place.indexOf(config.common.country) !== -1) {
-                                        $('#location').val(place).trigger('change');
-                                        M.updateTextFields();
-                                        break;
-                                    }
-                                }
-                            }
-                        });
+                }
+                if (config && config.common && config.common.longitude && config.common.latitude) {
+                    defaultLocation = config.common.latitude + ',' + config.common.longitude;
+                    if (!settings.location) {
+                        $('#location').val(config.common.latitude + ',' + config.common.longitude).trigger('change');
                     }
-                });
-            }
+                }
+                if (!defaultLocation) {
+                    $('.take-system').hide();
+                } else {
+                    $('.take-system').on('click', function () {
+                        if (defaultLocation !== $('#location').val()) {
+                            $('#location').val(defaultLocation).trigger('change');
+                        }
+                        if ($('#imperial').prop('checked') !== defaultImperial) {
+                            $('#imperial').prop('checked', defaultImperial).trigger('change');
+                        }
+                    });
+                }
+            });
         }
 
         function save(callback) {
-            callback({
-                location: $('#location').val(),
-                language: $('#language').val(),
-                sendTranslations: $('#sendTranslations').prop('checked')
+            var settings = {};
+            $('.value').each(function () {
+                var $this = $(this);
+                var id = $this.attr('id');
+
+                if ($this.attr('type') === 'checkbox') {
+                    settings[id] = $this.prop('checked');
+                } else {
+                    settings[id] = $this.val();
+                }
             });
+
+            callback(settings);
         }
 
     </script>
@@ -134,36 +104,41 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12 m4">
-                <input class="value autocomplete" id="location" type="text"/>
-                <label for="location" class="translate">Place</label>
+            <div class="input-field col s12 m6">
+                <input class="value" id="apikey" type="text"/>
+                <label for="apikey" class="translate">API key</label>
+                <span class="translate">Get your key here</span>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m6">
+                <input class="value" id="location" type="text"/>
+                <label for="location" class="translate">Place</label>
+            </div>
+            <div class="input-field col s12 m1">
+                <a class="btn-floating waves-effect waves-light blue take-system"><i class="material-icons">gps_fixed</i><span class="translate">Take system settings</span></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 m6">
                 <select class="value" id="language">
                     <option value="en">English</option>
                     <option value="de">Deutsch</option>
                     <option value="ru">русский</option>
+                    <option value="pt">Portugues</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="fr">français</option>
+                    <option value="it">Italiano</option>
+                    <option value="es">Espanol</option>
+                    <option value="pl">Polski</option>
                 </select>
                 <label for="language" class="translate">Language</label>
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s12 m4">
-                <input class="value" type="checkbox" id="nonMetric"/>
-                <span for="nonMetric" class="translate">Use english metric system</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m4">
-                <input class="value" type="checkbox" id="sendTranslations"/>
-                <span for="sendTranslations" class="translate">Send missing translations to iobroker.net</span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m4">
-                <span style="padding-left: 12px; font-size: 16px" class="translate">yrDescription</span>
+            <div class="input-field col s12 m6">
+                <input class="value" type="checkbox" id="imperial"/>
+                <span for="imperial" class="translate">Use english metric system</span>
             </div>
         </div>
     </div>

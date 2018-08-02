@@ -22,6 +22,7 @@ function processTasks() {
                     if (!obj) {
                         obj = JSON.parse(JSON.stringify(task.obj));
                         obj._id = task.id;
+                        obj.common.role = obj.common.role.replace(/\.\d+$/, task.day);
                         adapter.setObject(task.id, obj, err => {
                             adapter.setState(task.id, task.val, true, err => setImmediate(processTasks));
                         });
@@ -40,6 +41,7 @@ function processTasks() {
         }
     }
 }
+
 function extractValue(data, path, i) {
     if (typeof path === 'string') {
         path = path.split('.');
@@ -64,8 +66,20 @@ function extractValue(data, path, i) {
 function extractValues(data, ids, day) {
     const result = {};
     for (let i = 0; i < ids.length; i++) {
-        result[ids[i]._id.split('.').pop()] = extractValue(data, ids[i].native.path);
+        if (ids[i].native.path) {
+            result[ids[i]._id.split('.').pop()] = extractValue(data, ids[i].native.path);
+        }
     }
+    if (result.precipitationRain === null && result.precipitationSnow === null) {
+        result.precipitation = null;
+    } else {
+        result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
+    }
+    if (result.icon) {
+        result.icon = 'https://openweathermap.org/img/w/' + result.icon + '.png';
+    }
+
+    return result;
 }
 
 function parseCurrent(data) {
@@ -84,7 +98,7 @@ function calculateAverage(sum, day) {
     const counts = {};
 
     const result = {
-        date: new Date(sum[0].date)
+        date: new Date(sum[0].date).getTime()
     };
     for (let i = 0; i < sum.length; i++) {
         if (new Date(sum[i].date).getHours() >= 12) {
@@ -153,17 +167,23 @@ function calculateAverage(sum, day) {
     }
     for (const attr in counts) {
         if (!counts.hasOwnProperty(attr)) continue;
-        if (counts[attr] !== 0) {
-            result[attr] = Math.round(result[attr] / counts.count);
+        if (counts[attr]) {
+            result[attr] = Math.round(result[attr] / counts[attr]);
         } else {
             result[attr] = null;
         }
     }
 
+    if (result.precipitationRain === null && result.precipitationSnow === null) {
+        result.precipitation = null;
+    } else {
+        result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
+    }
+
     const isStart = !tasks.length;
     for (const attr in result) {
         if (!result.hasOwnProperty(attr)) continue;
-        tasks.push({id: 'forecast.day' + day + '.' + attr, val: result[attr], obj: forecastIds.find(obj => obj._id.split('.').pop() === attr)});
+        tasks.push({id: 'forecast.day' + day + '.' + attr, val: result[attr], obj: forecastIds.find(obj => obj._id.split('.').pop() === attr), day});
     }
     if (isStart) {
         processTasks();
@@ -179,11 +199,15 @@ function parseForecast(data) {
         values.date = values.date * 1000;
         const curDate = new Date(values.date).getDate();
         if (date === null) {
+            sum.push(values);
             date = curDate;
         } else if (date !== curDate) {
+            date = curDate;
             calculateAverage(sum, day);
             day++;
             sum = [values];
+        } else {
+            sum.push(values);
         }
     }
     if (sum.length) {
@@ -193,10 +217,25 @@ function parseForecast(data) {
 
 function requestCurrent(query) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.openweathermap.org/data/2.5/weather?';
+        const url = 'https://api.openweathermap.org/data/2.5/weather?APPID=' + adapter.config.apikey + '&';
         request(url + query, (error, result, body) => {
             if (body) {
-                parseCurrent(body, () => resolve());
+                try  {
+                    body = JSON.parse(body);
+                } catch (e) {
+                    return reject('Cannot parse answer: ' + e);
+                }
+            }
+            if (!result || result.statusCode !== 200) {
+                if (body) {
+                    reject(body.message);
+                } else {
+                    reject('Error: ' + result.statusCode);
+                }
+            } else
+            if (body) {
+                parseCurrent(body);
+                resolve();
             } else if (error) {
                 reject('Error: ' + error);
             } else {
@@ -208,11 +247,25 @@ function requestCurrent(query) {
 
 function requestForecast(query) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.openweathermap.org/data/2.5/forecast?';
+        const url = 'https://api.openweathermap.org/data/2.5/forecast?APPID=' + adapter.config.apikey + '&';
 
         request(url + query, (error, result, body) => {
             if (body) {
-                parseForecast(body, () => resolve());
+                try  {
+                    body = JSON.parse(body);
+                } catch (e) {
+                    return reject('Cannot parse answer: ' + e);
+                }
+            }
+            if (!result || result.statusCode !== 200) {
+                if (body) {
+                    reject(body.message);
+                } else {
+                    reject('Error: ' + result.statusCode);
+                }
+            } else if (body) {
+                parseForecast(body);
+                resolve();
             } else if (error) {
                 reject('Error: ' + error);
             } else {
@@ -239,6 +292,14 @@ function checkUnits() {
         }
     }
     isStart && processTasks();
+}
+
+function stop() {
+    if (!tasks.length) {
+        adapter.stop()
+    } else {
+        setTimeout(() => stop(), 2000);
+    }
 }
 
 function main() {
@@ -268,8 +329,18 @@ function main() {
 
         checkUnits();
 
-        requestCurrent(query)
-            .then(() => requestForecast(query))
-            .catch(e => adapter.log.error(e));
+        if (adapter.config.location.startsWith('file:')) {
+            const json = JSON.parse(require('fs').readFileSync(adapter.config.location));
+            parseForecast(json);
+            stop();
+        } else {
+            requestCurrent(query)
+                .then(() => requestForecast(query))
+                .catch(e => adapter.log.error(e))
+                .then(() => {
+                    stop();
+                });
+
+        }
     });
 }

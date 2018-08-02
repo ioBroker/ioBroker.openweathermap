@@ -81,7 +81,7 @@
             "type": "state",
             "common": {
                 "name":  "Actual date",
-                "type":  "string",
+                "type":  "number",
                 "role":  "date",
                 "read":  true,
                 "write": false,
@@ -273,7 +273,7 @@
             "type": "state",
             "common": {
                 "name":  "Today sunrise",
-                "type":  "string",
+                "type":  "number",
                 "role":  "date.sunrise",
                 "read":  true,
                 "write": false,
@@ -289,7 +289,7 @@
             "type": "state",
             "common": {
                 "name":  "Today sunset",
-                "type":  "string",
+                "type":  "number",
                 "role":  "date.sunrise",
                 "read":  true,
                 "write": false,
@@ -371,7 +371,7 @@
             "type": "state",
             "common": {
                 "name":  "Actual date",
-                "type":  "string",
+                "type":  "number",
                 "role":  "date.forecast.0",
                 "read":  true,
                 "write": false,

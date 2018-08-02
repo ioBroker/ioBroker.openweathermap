@@ -78,7 +78,12 @@ function extractValues(data, ids, day) {
     if (result.icon) {
         result.icon = 'https://openweathermap.org/img/w/' + result.icon + '.png';
     }
-
+    if (result.sunrise) {
+        result.sunrise *= 1000;
+    }
+    if (result.sunset) {
+        result.sunset *= 1000;
+    }
     return result;
 }
 

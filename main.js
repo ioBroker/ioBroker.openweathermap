@@ -22,7 +22,7 @@ function processTasks() {
                     if (!obj) {
                         obj = JSON.parse(JSON.stringify(task.obj));
                         obj._id = task.id;
-                        obj.common.role = obj.common.role.replace(/\.\d+$/, task.day);
+                        obj.common.role = obj.common.role.replace(/\.\d+$/, '.' + task.day);
                         adapter.setObject(task.id, obj, err => {
                             adapter.setState(task.id, task.val, true, err => setImmediate(processTasks));
                         });
@@ -75,14 +75,17 @@ function extractValues(data, ids, day) {
     } else {
         result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
     }
-    if (result.icon) {
-        result.icon = 'https://openweathermap.org/img/w/' + result.icon + '.png';
-    }
+
+    result.icon = result.icon ? 'https://openweathermap.org/img/w/' + result.icon + '.png' : null;
+
     if (result.sunrise) {
         result.sunrise *= 1000;
     }
     if (result.sunset) {
         result.sunset *= 1000;
+    }
+    if (result.date) {
+        result.date = result.date * 1000;
     }
     return result;
 }
@@ -103,7 +106,6 @@ function calculateAverage(sum, day) {
     const counts = {};
 
     const result = {
-        date: new Date(sum[0].date).getTime()
     };
     for (let i = 0; i < sum.length; i++) {
         if (new Date(sum[i].date).getHours() >= 12) {
@@ -115,6 +117,9 @@ function calculateAverage(sum, day) {
             }
             if (!result.title) {
                 result.title = sum[i].title;
+            }
+            if (!result.date) {
+                result.date = sum[i].date;
             }
         }
 
@@ -179,6 +184,19 @@ function calculateAverage(sum, day) {
         }
     }
 
+    if (!result.icon) {
+        result.icon = sum[sum.length - 1].icon;
+    }
+    if (!result.state) {
+        result.state = sum[sum.length - 1].state;
+    }
+    if (!result.title) {
+        result.title = sum[sum.length - 1].title;
+    }
+    if (!result.date) {
+        result.date = sum[sum.length - 1].date;
+    }
+
     if (result.precipitationRain === null && result.precipitationSnow === null) {
         result.precipitation = null;
     } else {
@@ -201,7 +219,6 @@ function parseForecast(data) {
     let day = 0;
     for (let period = 0; period < data.list.length; period++) {
         const values = extractValues(data.list[period], forecastIds);
-        values.date = values.date * 1000;
         const curDate = new Date(values.date).getDate();
         if (date === null) {
             sum.push(values);
@@ -222,7 +239,7 @@ function parseForecast(data) {
 
 function requestCurrent(query) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.openweathermap.org/data/2.5/weather?APPID=' + adapter.config.apikey + '&';
+        const url = 'https://api.openweathermap.org/data/2.5/weather?';
         request(url + query, (error, result, body) => {
             if (body) {
                 try  {
@@ -252,7 +269,7 @@ function requestCurrent(query) {
 
 function requestForecast(query) {
     return new Promise((resolve, reject) => {
-        const url = 'https://api.openweathermap.org/data/2.5/forecast?APPID=' + adapter.config.apikey + '&';
+        const url = 'https://api.openweathermap.org/data/2.5/forecast?';
 
         request(url + query, (error, result, body) => {
             if (body) {
@@ -317,9 +334,13 @@ function main() {
     } else {
         query = 'q=' + encodeURIComponent(adapter.config.location);
     }
-
     adapter.config.language = adapter.config.language || 'en';
+
     adapter.config.location = (adapter.config.location || '').trim();
+    query +=
+        '&lang=' + adapter.config.language +
+        '&APPID=' + adapter.config.apikey +
+        '&units=' + (adapter.config.imperial ? 'imperial': 'metric');
 
     adapter.getStatesOf('forecast', '', (err, states) => {
         for (let s = 0; s < states.length; s++) {

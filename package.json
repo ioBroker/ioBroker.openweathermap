@@ -1,6 +1,6 @@
 {
   "name": "iobroker.openweathermap",
-  "description": "Fetches 48h weather forecast from openweathermap.org",
+  "description": "Fetches 60h weather forecast from openweathermap.org",
   "version": "0.1.0",
   "contributors": [
     "bluefox <dogafox@gmail.com>"

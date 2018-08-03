@@ -20,15 +20,15 @@
             "pl": "openweathermap.org pogody"
         },
         "desc":                     {
-            "en": "Fetches 48h weather forecast from openweathermap.org",
-            "de": "Holt 48h Wettervorhersage von openweathermap.org",
-            "ru": "Получает прогноз погоды на 48h с openweathermap.org",
-            "pt": "Fetches 48h previsão do tempo a partir de openweathermap.org",
-            "nl": "Haal 48h weersvoorspelling op van openweathermap.org",
-            "fr": "Fetchs 48h météo de openweathermap.org",
-            "it": "Calcola le previsioni del tempo a 48 ore dall'anno n",
-            "es": "Obtiene 48h pronóstico del tiempo de openweathermap.org",
-            "pl": "Pobiera 48-godzinną prognozę pogody z openweathermap.org"
+            "en": "Fetches 60h weather forecast from openweathermap.org",
+            "de": "Holt 60h Wettervorhersage von openweathermap.org",
+            "ru": "Получает прогноз погоды на 60h с openweathermap.org",
+            "pt": "Fetches 60h previsão do tempo a partir de openweathermap.org",
+            "nl": "Haal 60h weersvoorspelling op van openweathermap.org",
+            "fr": "Fetchs 60h météo de openweathermap.org",
+            "it": "Calcola le previsioni del tempo a 60 ore dall'anno n",
+            "es": "Obtiene 60h pronóstico del tiempo de openweathermap.org",
+            "pl": "Pobiera 60-godzinną prognozę pogody z openweathermap.org"
         },
         "authors": [
             "bluefox <dogafox@gmail.com>"

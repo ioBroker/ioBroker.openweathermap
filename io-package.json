@@ -252,7 +252,7 @@
             "_id": "forecast.current.visibility",
             "type": "state",
             "common": {
-                "name":  "Actual humidity",
+                "name":  "Actual Visibility",
                 "type":  "number",
                 "role":  "value.distance.visibility",
                 "read":  true,

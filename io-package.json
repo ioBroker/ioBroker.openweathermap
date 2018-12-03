@@ -204,12 +204,12 @@
                 "role":  "value.speed.wind",
                 "read":  true,
                 "write": false,
-                "unit":  "km/h",
-                "desc":  "Forecast for wind speed in km/h"
+                "unit":  "m/s",
+                "desc":  "Forecast for wind speed in m/s"
             },
             "native": {
                 "path": "wind.speed",
-                "metric": "km/h",
+                "metric": "m/s",
                 "imperial": "m/h",
                 "type": "current"
             }
@@ -569,12 +569,12 @@
                 "role":  "value.speed.wind.forecast.0",
                 "read":  true,
                 "write": false,
-                "unit":  "km/h",
-                "desc":  "Forecast for wind speed in km/h"
+                "unit":  "m/s",
+                "desc":  "Forecast for wind speed in m/s"
             },
             "native": {
                 "path": "wind.speed",
-                "metric": "km/h",
+                "metric": "m/s",
                 "imperial": "m/h",
                 "type": "forecast"
             }

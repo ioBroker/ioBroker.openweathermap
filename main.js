@@ -158,7 +158,7 @@ function calculateAverage(sum, day) {
         }
 
         result.precipitationSnow = result.precipitationSnow || 0;
-        counts.precipitationRain = counts.precipitationSnow || 0;
+        counts.precipitationSnow = counts.precipitationSnow || 0;
         if (sum[i].precipitationSnow !== null) {
             result.precipitationSnow += sum[i].precipitationSnow;
             counts.precipitationSnow++;

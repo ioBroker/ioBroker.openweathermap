@@ -408,7 +408,7 @@
             "_id": "forecast.day0.date",
             "type": "state",
             "common": {
-                "name":  "Actual date",
+                "name":  "Forecast date",
                 "type":  "number",
                 "role":  "date.forecast.0",
                 "read":  true,
@@ -510,7 +510,7 @@
             "_id": "forecast.day0.clouds",
             "type": "state",
             "common": {
-                "name":  "Actual clouds",
+                "name":  "Forecast clouds",
                 "type":  "number",
                 "role":  "value.clouds.forecast.0",
                 "unit":  "%",
@@ -518,7 +518,7 @@
                 "write": false,
                 "min": 0,
                 "max": 100,
-                "desc":  "Actual clouds state 0 - clear sky, 100 - clouds"
+                "desc":  "Forecast clouds state in percent (0 - clear sky, 100 - clouds)"
             },
             "native": {
                 "path": "clouds.all",

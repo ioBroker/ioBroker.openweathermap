@@ -201,7 +201,7 @@
             "_id": "forecast.current.clouds",
             "type": "state",
             "common": {
-                "name":  "Actual clouds for today",
+                "name":  "Actual Cloudiness for today",
                 "type":  "number",
                 "role":  "value.clouds",
                 "unit": "%",
@@ -209,7 +209,7 @@
                 "write": false,
                 "min": 0,
                 "max": 100,
-                "desc":  "Actual clouds state in percent 0 - clear sky, 100 - clouds"
+                "desc":  "Actual Cloudiness in percent 0 - clear sky, 100 - clouds"
             },
             "native": {
                 "path": "clouds.all",
@@ -247,6 +247,25 @@
             },
             "native": {
                 "path": "wind.speed",
+                "metric": "m/s",
+                "imperial": "m/h",
+                "type": "current"
+            }
+        },
+	{
+            "_id": "forecast.current.windGust",
+            "type": "state",
+            "common": {
+                "name":  "Actual wind gust",
+                "type":  "number",
+                "role":  "value.gust.wind",
+                "read":  true,
+                "write": false,
+                "unit":  "m/s",
+                "desc":  "Actual wind gust in m/s"
+            },
+            "native": {
+                "path": "wind.gust",
                 "metric": "m/s",
                 "imperial": "m/h",
                 "type": "current"

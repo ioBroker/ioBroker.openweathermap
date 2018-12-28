@@ -347,7 +347,7 @@
             "common": {
                 "name":  "Today sunset",
                 "type":  "number",
-                "role":  "date.sunrise",
+                "role":  "date.sunset",
                 "read":  true,
                 "write": false,
                 "desc":  "Time of sunset for today"

@@ -23,13 +23,13 @@
     "openweathermap.org"
   ],
   "dependencies": {
-    "request": "^2.87.0"
+    "request": "^2.87.0",
+    "@iobroker/adapter-core": "^1.0.3"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
     "mocha": "^6.0.2",
-    "chai": "^4.1.2",
-    "@iobroker/adapter-core": "^1.0.3"
+    "chai": "^4.1.2"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.openweathermap/issues"

@@ -1,7 +1,7 @@
 ![Logo](admin/openweathermap.png)
 # ioBroker.openweathermap
 =================================
-[![NPM version](http://img.shields.io/npm/v/iobroker.openweathermap.svg)](https://www.npmjs.com/package/iobroker.openweathermap)
+![Number of Installations](http://iobroker.live/badges/openweathermap-installed.svg) ![Number of Installations](http://iobroker.live/badges/openweathermap-stable.svg) [![NPM version](http://img.shields.io/npm/v/iobroker.openweathermap.svg)](https://www.npmjs.com/package/iobroker.openweathermap)
 [![Downloads](https://img.shields.io/npm/dm/iobroker.openweathermap.svg)](https://www.npmjs.com/package/iobroker.openweathermap)
 [![Tests](https://travis-ci.org/ioBroker/ioBroker.openweathermap.svg?branch=master)](https://travis-ci.org/ioBroker/ioBroker.openweathermap)
 

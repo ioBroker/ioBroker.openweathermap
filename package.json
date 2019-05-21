@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://github.com/ioBroker/ioBroker.openweathermap"
   },
-  "licenses": [
+  "license": [
     {
       "type": "MIT",
       "url": "https://github.com/ioBroker/ioBroker.openweathermap/blob/master/LICENSE"

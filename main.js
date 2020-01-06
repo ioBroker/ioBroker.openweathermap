@@ -217,6 +217,8 @@ function parseForecast(data) {
     let sum = [];
     let date = null;
     let day = 0;
+    
+	const isStart = !tasks.length;
     for (let period = 0; period < data.list.length; period++) {
         const values = extractValues(data.list[period], forecastIds);
         const curDate = new Date(values.date).getDate();
@@ -231,9 +233,20 @@ function parseForecast(data) {
         } else {
             sum.push(values);
         }
+        
+		Object.keys(values).forEach(attr => 
+            tasks.push({
+				id: 'forecast.period' + period + '.' + attr, 
+				val: values[attr], 
+				obj: forecastIds.find(obj => obj._id.split('.').pop() === attr), 
+				period
+			}));
     }
     if (sum.length) {
         calculateAverage(sum, day);
+    }
+    if (isStart) {
+        processTasks();
     }
 }
 

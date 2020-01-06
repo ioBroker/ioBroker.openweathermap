@@ -234,10 +234,13 @@ function parseForecast(data) {
             sum.push(values);
         }
         
-        for (const attr in values) {
-            if (!values.hasOwnProperty(attr)) continue;
-            tasks.push({id: 'forecast.period' + period + '.' + attr, val: values[attr], obj: forecastIds.find(obj => obj._id.split('.').pop() === attr), period});        
-        }
+		Object.keys(values).forEach(attr => 
+            tasks.push({
+				id: 'forecast.period' + period + '.' + attr, 
+				val: values[attr], 
+				obj: forecastIds.find(obj => obj._id.split('.').pop() === attr), 
+				period
+			}));
     }
     if (sum.length) {
         calculateAverage(sum, day);

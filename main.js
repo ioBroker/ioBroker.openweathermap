@@ -24,6 +24,8 @@ class Openweathermap extends utils.Adapter {
     }
 
     async onReady() {
+        this.log.debug('Starting');
+
         let query = '';
         if (parseInt(this.config.location, 10).toString() === this.config.location) {
             query = 'id=' + this.config.location;
@@ -33,14 +35,16 @@ class Openweathermap extends utils.Adapter {
         } else {
             query = 'q=' + encodeURIComponent(this.config.location);
         }
+        this.log.debug('Query: ' + query);
+
         this.config.language = this.config.language || 'en';
-    
+
         this.config.location = (this.config.location || '').trim();
         query +=
             '&lang=' + this.config.language +
             '&APPID=' + this.config.apikey +
             '&units=' + (this.config.imperial ? 'imperial': 'metric');
-    
+
         this.getStatesOf('forecast', '', (err, states) => {
             for (let s = 0; s < states.length; s++) {
                 if (states[s].native.type === 'current') {
@@ -51,9 +55,9 @@ class Openweathermap extends utils.Adapter {
                     this.forecastIds.push(states[s]);
                 }
             }
-    
+
             this.checkUnits();
-    
+
             if (this.config.location.startsWith('file:')) {
                 const json = JSON.parse(require('fs').readFileSync(this.config.location));
                 this.parseForecast(json);
@@ -65,7 +69,7 @@ class Openweathermap extends utils.Adapter {
                     .then(() => {
                         this.end();
                     });
-    
+
             }
         });
     }
@@ -98,7 +102,7 @@ class Openweathermap extends utils.Adapter {
             }
         }
     }
-    
+
     extractValue(data, path, i) {
         if (typeof path === 'string') {
             path = path.split('.');
@@ -119,7 +123,7 @@ class Openweathermap extends utils.Adapter {
             return null;
         }
     }
-    
+
     extractValues(data, ids, day) {
         const result = {};
         for (let i = 0; i < ids.length; i++) {
@@ -132,9 +136,9 @@ class Openweathermap extends utils.Adapter {
         } else {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
         }
-    
+
         result.icon = result.icon ? 'https://openweathermap.org/img/w/' + result.icon + '.png' : null;
-    
+
         if (result.sunrise) {
             result.sunrise *= 1000;
         }
@@ -146,7 +150,7 @@ class Openweathermap extends utils.Adapter {
         }
         return result;
     }
-    
+
     parseCurrent(data) {
         const result = this.extractValues(data, this.currentIds);
         const isStart = !this.tasks.length;
@@ -158,10 +162,10 @@ class Openweathermap extends utils.Adapter {
             this.processTasks();
         }
     }
-    
+
     calculateAverage(sum, day) {
         const counts = {};
-    
+
         const result = {
         };
         for (let i = 0; i < sum.length; i++) {
@@ -179,7 +183,7 @@ class Openweathermap extends utils.Adapter {
                     result.date = sum[i].date;
                 }
             }
-    
+
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
                 result.temperatureMin = sum[i].temperatureMin;
             }
@@ -192,42 +196,42 @@ class Openweathermap extends utils.Adapter {
                 result.clouds += sum[i].clouds;
                 counts.clouds++;
             }
-    
+
             result.humidity = result.humidity || 0;
             counts.humidity = counts.humidity || 0;
             if (sum[i].humidity !== null) {
                 result.humidity += sum[i].humidity;
                 counts.humidity++;
             }
-    
+
             result.pressure = result.pressure || 0;
             counts.pressure = counts.pressure || 0;
             if (sum[i].pressure !== null) {
                 result.pressure += sum[i].pressure;
                 counts.pressure++;
             }
-    
+
             result.precipitationRain = result.precipitationRain || 0;
             counts.precipitationRain = counts.precipitationRain || 0;
             if (sum[i].precipitationRain !== null) {
                 result.precipitationRain += sum[i].precipitationRain;
                 counts.precipitationRain++;
             }
-    
+
             result.precipitationSnow = result.precipitationSnow || 0;
             counts.precipitationSnow = counts.precipitationSnow || 0;
             if (sum[i].precipitationSnow !== null) {
                 result.precipitationSnow += sum[i].precipitationSnow;
                 counts.precipitationSnow++;
             }
-    
+
             result.windDirection = result.windDirection || 0;
             counts.windDirection = counts.windDirection || 0;
             if (sum[i].windDirection !== null) {
                 result.windDirection += sum[i].windDirection;
                 counts.windDirection++;
             }
-    
+
             if (result.windSpeed === undefined || result.windSpeed < sum[i].windSpeed) {
                 result.windSpeed = sum[i].windSpeed;
             }
@@ -240,7 +244,7 @@ class Openweathermap extends utils.Adapter {
                 result[attr] = null;
             }
         }
-    
+
         if (!result.icon) {
             result.icon = sum[sum.length - 1].icon;
         }
@@ -253,13 +257,13 @@ class Openweathermap extends utils.Adapter {
         if (!result.date) {
             result.date = sum[sum.length - 1].date;
         }
-    
+
         if (result.precipitationRain === null && result.precipitationSnow === null) {
             result.precipitation = null;
         } else {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
         }
-    
+
         const isStart = !this.tasks.length;
         for (const attr in result) {
             if (!result.hasOwnProperty(attr)) continue;
@@ -269,13 +273,13 @@ class Openweathermap extends utils.Adapter {
             this.processTasks();
         }
     }
-    
+
     parseForecast(data) {
         let sum = [];
         let date = null;
         let day = 0;
-        
-    	const isStart = !this.tasks.length;
+
+        const isStart = !this.tasks.length;
         for (let period = 0; period < data.list.length; period++) {
             const values = this.extractValues(data.list[period], this.forecastIds);
             const curDate = new Date(values.date).getDate();
@@ -290,14 +294,15 @@ class Openweathermap extends utils.Adapter {
             } else {
                 sum.push(values);
             }
-            
-    		Object.keys(values).forEach(attr => 
+
+            Object.keys(values).forEach(attr =>
                 this.tasks.push({
-    				id: 'forecast.period' + period + '.' + attr, 
-    				val: values[attr], 
-    				obj: this.forecastIds.find(obj => obj._id.split('.').pop() === attr), 
-    				period
-    			}));
+                    id: 'forecast.period' + period + '.' + attr,
+                    val: values[attr],
+                    obj: this.forecastIds.find(obj => obj._id.split('.').pop() === attr),
+                    period
+                })
+            );
         }
         if (sum.length) {
             this.calculateAverage(sum, day);
@@ -306,7 +311,7 @@ class Openweathermap extends utils.Adapter {
             this.processTasks();
         }
     }
-    
+
     requestCurrent(query) {
         return new Promise((resolve, reject) => {
             const url = 'https://api.openweathermap.org/data/2.5/weather?';
@@ -336,11 +341,11 @@ class Openweathermap extends utils.Adapter {
             });
         });
     }
-    
-    this.requestForecast(query) {
+
+    requestForecast(query) {
         return new Promise((resolve, reject) => {
             const url = 'https://api.openweathermap.org/data/2.5/forecast?';
-    
+
             request(url + query, (error, result, body) => {
                 if (body) {
                     try  {
@@ -366,7 +371,7 @@ class Openweathermap extends utils.Adapter {
             });
         });
     }
-    
+
     checkUnits() {
         const isStart = !this.tasks.length;
         for (let i = 0; i < this.currentIds.length; i++) {
@@ -388,20 +393,30 @@ class Openweathermap extends utils.Adapter {
 
     end() {
         if (!this.tasks.length) {
-            this.stop()
+            this.stop();
         } else {
-            setTimeout(() => stop(), 2000);
+            setTimeout(() => this.stop(), 2000);
         }
     }
 
     onUnload(callback) {
         try {
-
-
             this.log.debug('cleaned everything up...');
             callback();
         } catch (e) {
             callback();
         }
     }
+}
+
+// @ts-ignore parent is a valid property on module
+if (module.parent) {
+    // Export the constructor in compact mode
+    /**
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
+    module.exports = (options) => new Openweathermap(options);
+} else {
+    // otherwise start the instance directly
+    new Openweathermap();
 }

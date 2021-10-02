@@ -1,10 +1,31 @@
 {
     "common": {
         "name": "openweathermap",
-        "version": "0.1.0",
+        "version": "0.2.0",
         "news": {
+            "0.2.0": {
+                "en": "updated everything",
+                "de": "alles aktualisiert",
+                "ru": "обновил все",
+                "pt": "atualizou tudo",
+                "nl": "alles geüpdatet",
+                "fr": "tout mis à jour",
+                "it": "aggiornato tutto",
+                "es": "actualizado todo",
+                "pl": "zaktualizowałem wszystko",
+                "zh-cn": "更新了一切"
+            },
             "0.1.0": {
-                "en": "initial commit"
+                "en": "initial commit",
+                "de": "anfängliches Commit",
+                "ru": "начальная фиксация",
+                "pt": "commit inicial",
+                "nl": "initiële commit",
+                "fr": "validation initiale",
+                "it": "impegno iniziale",
+                "es": "Compromiso inicial",
+                "pl": "początkowe zatwierdzenie",
+                "zh-cn": "初始提交"
             }
         },
         "title": "openweathermap.org",

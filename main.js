@@ -29,15 +29,21 @@ class Openweathermap extends utils.Adapter {
 
         let queryParams = {};
         if (parseInt(this.config.location, 10).toString() === this.config.location) {
+            // City ID. List of city ID 'city.list.json.gz' can be downloaded here: http://bulk.openweathermap.org/sample/
+
             this.log.debug('Request by "ID": ' + this.config.location);
             queryParams.id = + this.config.location;
         } else if (this.config.location && this.config.location[0] >= '0' && this.config.location[0] <= '9') {
+            // Geographical coordinates (latitude, longitude)
+
             const parts = this.config.location.split(',');
             this.log.debug('Request by "lon/lat" - lat: ' + parts[0] + ' / lon: ' + parts[1]);
 
             queryParams.lat = parts[0];
             queryParams.lon = parts[1];
         } else {
+            // City name, state code and country code divided by comma, Please, refer to ISO 3166 for the state codes or country codes.
+
             this.log.debug('Request by "q": ' + this.config.location);
 
             queryParams.q = this.config.location;

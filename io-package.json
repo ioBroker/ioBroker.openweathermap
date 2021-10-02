@@ -1,13 +1,13 @@
 {
     "common": {
-        "name":                     "openweathermap",
+        "name": "openweathermap",
         "version": "0.1.0",
-		"news": {
+        "news": {
             "0.1.0": {
                 "en": "initial commit"
             }
         },
-        "title":                    "openweathermap.org",
+        "title": "openweathermap.org",
         "titleLang":  {
             "en": "openweathermap.org weather",
             "de": "openweathermap.org Wetter",
@@ -33,20 +33,20 @@
         "authors": [
             "bluefox <dogafox@gmail.com>"
         ],
-        "license":                  "MIT",
-        "platform":                 "Javascript/Node.js",
-        "mode":                     "schedule",
-        "schedule":                 "23 * * * *",
-        "enabled":                  true,
-        "loglevel":                 "info",
-        "materialize":              true,
-        "keywords":                 ["weather", "forecast", "temperature", "rain", "openweathermap", "meteorology"],
-        "main":                     "main.js",
-        "icon":                     "openweathermap.png",
-        "extIcon":                  "https://raw.githubusercontent.com/ioBroker/ioBroker.openweathermap/master/admin/openweathermap.png",
-        "readme":                   "https://github.com/ioBroker/ioBroker.openweathermap/blob/master/README.md",
-		"allowInit":                true,
-		"type":                     "weather"
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "mode": "schedule",
+        "schedule": "23 * * * *",
+        "enabled": true,
+        "loglevel": "info",
+        "materialize": true,
+        "keywords": ["weather", "forecast", "temperature", "rain", "openweathermap", "meteorology"],
+        "main": "main.js",
+        "icon": "openweathermap.png",
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.openweathermap/master/admin/openweathermap.png",
+        "readme": "https://github.com/ioBroker/ioBroker.openweathermap/blob/master/README.md",
+        "allowInit": true,
+        "type": "weather"
     },
     "native": {
         "apikey": "",
@@ -159,7 +159,7 @@
                 "type": "current"
             }
         },
-		{
+        {
             "_id": "forecast.current.temperatureMin",
             "type": "state",
             "common": {
@@ -178,7 +178,7 @@
                 "type": "current"
             }
         },
-		{
+        {
             "_id": "forecast.current.temperatureMax",
             "type": "state",
             "common": {
@@ -252,7 +252,7 @@
                 "type": "current"
             }
         },
-	{
+        {
             "_id": "forecast.current.windGust",
             "type": "state",
             "common": {
@@ -322,7 +322,6 @@
                 "metric": "meters",
                 "imperial": "miles",
                 "type": "current"
-
             }
         },
         {

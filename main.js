@@ -85,20 +85,20 @@ class Openweathermap extends utils.Adapter {
                             obj._id = task.id;
                             obj.common.role = obj.common.role.replace(/\.\d+$/, '.' + task.day);
                             this.setObject(task.id, obj, err => {
-                                this.setState(task.id, task.val, true, err => setImmediate(this.processTasks));
+                                this.setState(task.id, task.val, true, err => setImmediate(this.processTasks.bind(this)));
                             });
                         } else {
-                            this.setState(task.id, task.val, true, err => setImmediate(this.processTasks));
+                            this.setState(task.id, task.val, true, err => setImmediate(this.processTasks.bind(this)));
                         }
                     });
                 } else {
-                    this.setState(task.id, task.val, true, err => setImmediate(this.processTasks));
+                    this.setState(task.id, task.val, true, err => setImmediate(this.processTasks.bind(this)));
                 }
             } else if (task.obj !== undefined) {
-                this.setObject(task.id, task.obj, err => setImmediate(this.processTasks));
+                this.setObject(task.id, task.obj, err => setImmediate(this.processTasks.bind(this)));
             } else {
                 this.log.error('Unknown task: ' + JSON.stringify(task));
-                setImmediate(this.processTasks);
+                setImmediate(this.processTasks.bind(this));
             }
         }
     }

@@ -4,7 +4,7 @@
 'use strict';
 
 const utils = require('@iobroker/adapter-core');
-const request = require('request');
+const axios = require('axios');
 const adapterName = require('./package.json').name.split('.').pop();
 
 class Openweathermap extends utils.Adapter {
@@ -24,26 +24,28 @@ class Openweathermap extends utils.Adapter {
     }
 
     async onReady() {
-        this.log.debug('Starting');
+        this.config.language = this.config.language || 'en';
+        this.config.location = (this.config.location || '').trim();
 
-        let query = '';
+        let queryParams = {};
         if (parseInt(this.config.location, 10).toString() === this.config.location) {
-            query = 'id=' + this.config.location;
+            this.log.debug('Request by "ID": ' + this.config.location);
+            queryParams.id = + this.config.location;
         } else if (this.config.location && this.config.location[0] >= '0' && this.config.location[0] <= '9') {
             const parts = this.config.location.split(',');
-            query = 'lat=' + parts[0] + '&lon=' + parts[1];
+            this.log.debug('Request by "lon/lat" - lat: ' + parts[0] + ' / lon: ' + parts[1]);
+
+            queryParams.lat = parts[0];
+            queryParams.lon = parts[1];
         } else {
-            query = 'q=' + encodeURIComponent(this.config.location);
+            this.log.debug('Request by "q": ' + this.config.location);
+
+            queryParams.q = this.config.location;
         }
-        this.log.debug('Query: ' + query);
 
-        this.config.language = this.config.language || 'en';
-
-        this.config.location = (this.config.location || '').trim();
-        query +=
-            '&lang=' + this.config.language +
-            '&APPID=' + this.config.apikey +
-            '&units=' + (this.config.imperial ? 'imperial': 'metric');
+        queryParams.lang = this.config.language;
+        queryParams.appid = this.config.apikey;
+        queryParams.units = (this.config.imperial ? 'imperial': 'metric');
 
         this.getStatesOf('forecast', '', (err, states) => {
             for (let s = 0; s < states.length; s++) {
@@ -63,8 +65,8 @@ class Openweathermap extends utils.Adapter {
                 this.parseForecast(json);
                 this.end();
             } else {
-                this.requestCurrent(query)
-                    .then(() => this.requestForecast(query))
+                this.requestCurrent(queryParams)
+                    .then(() => this.requestForecast(queryParams))
                     .catch(e => this.log.error(e))
                     .then(() => {
                         this.end();
@@ -312,62 +314,60 @@ class Openweathermap extends utils.Adapter {
         }
     }
 
-    requestCurrent(query) {
+    requestCurrent(queryParams) {
+        // Documentation: https://openweathermap.org/current
         return new Promise((resolve, reject) => {
-            const url = 'https://api.openweathermap.org/data/2.5/weather?';
-            request(url + query, (error, result, body) => {
-                if (body) {
-                    try  {
-                        body = JSON.parse(body);
-                    } catch (e) {
-                        return reject('Cannot parse answer: ' + e);
-                    }
-                }
-                if (!result || result.statusCode !== 200) {
-                    if (body) {
-                        reject(body.message);
-                    } else {
-                        reject('Error: ' + result.statusCode);
-                    }
-                } else
-                if (body) {
-                    this.parseCurrent(body);
-                    resolve();
-                } else if (error) {
-                    reject('Error: ' + error);
-                } else {
+            axios({
+                method: 'get',
+                baseURL: 'https://api.openweathermap.org/data/2.5/weather',
+                params: queryParams,
+                timeout: 5000,
+                responseType: 'json',
+                validateStatus: function (status) {
+                    return status == 200;
+                },
+            }).then((response) => {
+                this.log.debug('Received current response: ' + JSON.stringify(response.data));
+                this.parseCurrent(response.data);
+                resolve();
+            }).catch((error) => {
+                if (error.response) {
+                    reject('Error: ' + error.response.status);
+                } else if (error.request) {
                     reject('Error: no data received');
+                } else {
+                    reject('Error: ' + error.message);
                 }
+                console.log(error.config);
             });
         });
     }
 
-    requestForecast(query) {
+    requestForecast(queryParams) {
+        // Documentation: https://openweathermap.org/forecast5
         return new Promise((resolve, reject) => {
-            const url = 'https://api.openweathermap.org/data/2.5/forecast?';
-
-            request(url + query, (error, result, body) => {
-                if (body) {
-                    try  {
-                        body = JSON.parse(body);
-                    } catch (e) {
-                        return reject('Cannot parse answer: ' + e);
-                    }
-                }
-                if (!result || result.statusCode !== 200) {
-                    if (body) {
-                        reject(body.message);
-                    } else {
-                        reject('Error: ' + result.statusCode);
-                    }
-                } else if (body) {
-                    this.parseForecast(body);
-                    resolve();
-                } else if (error) {
-                    reject('Error: ' + error);
-                } else {
+            axios({
+                method: 'get',
+                baseURL: 'https://api.openweathermap.org/data/2.5/forecast',
+                params: queryParams,
+                timeout: 5000,
+                responseType: 'json',
+                validateStatus: function (status) {
+                    return status == 200;
+                },
+            }).then((response) => {
+                this.log.debug('Received forecast response: ' + JSON.stringify(response.data));
+                this.parseForecast(response.data);
+                resolve();
+            }).catch((error) => {
+                if (error.response) {
+                    reject('Error: ' + error.response.status);
+                } else if (error.request) {
                     reject('Error: no data received');
+                } else {
+                    reject('Error: ' + error.message);
                 }
+                console.log(error.config);
             });
         });
     }

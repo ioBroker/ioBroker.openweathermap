@@ -12,41 +12,59 @@
             "en": "openweathermap.org weather",
             "de": "openweathermap.org Wetter",
             "ru": "openweathermap.org погода",
-            "pt": "openweathermap.org tempo",
-            "nl": "openweathermap.nr weer",
-            "fr": "openweathermap.org météo",
-            "it": "anno vecchio",
-            "es": "openweathermap.org tiempo",
-            "pl": "openweathermap.org pogody"
+            "pt": "clima openweathermap.org",
+            "nl": "openweathermap.org weer",
+            "fr": "météo openweathermap.org",
+            "it": "openweathermap.org meteo",
+            "es": "tiempo en openweathermap.org",
+            "pl": "openweathermap.org pogoda",
+            "zh-cn": "openweathermap.org 天气"
         },
         "desc":                     {
             "en": "Fetches 60h weather forecast from openweathermap.org",
-            "de": "Holt 60h Wettervorhersage von openweathermap.org",
-            "ru": "Получает прогноз погоды на 60h с openweathermap.org",
-            "pt": "Fetches 60h previsão do tempo a partir de openweathermap.org",
-            "nl": "Haal 60h weersvoorspelling op van openweathermap.org",
-            "fr": "Fetchs 60h météo de openweathermap.org",
-            "it": "Calcola le previsioni del tempo a 60 ore dall'anno n",
-            "es": "Obtiene 60h pronóstico del tiempo de openweathermap.org",
-            "pl": "Pobiera 60-godzinną prognozę pogody z openweathermap.org"
+            "de": "Ruft die 60-Stunden-Wettervorhersage von openweathermap.org ab",
+            "ru": "Получает прогноз погоды на 60 часов с openweathermap.org",
+            "pt": "Obtém a previsão do tempo de 60 horas em openweathermap.org",
+            "nl": "Haalt 60 uur weersvoorspelling van openweathermap.org",
+            "fr": "Récupère les prévisions météo à 60h de openweathermap.org",
+            "it": "Recupera le previsioni del tempo a 60 ore da openweathermap.org",
+            "es": "Obtiene el pronóstico del tiempo a 60 horas de openweathermap.org",
+            "pl": "Pobiera 60-godzinną prognozę pogody z openweathermap.org",
+            "zh-cn": "从 openweathermap.org 获取 60 小时天气预报"
         },
         "authors": [
-            "bluefox <dogafox@gmail.com>"
+            "bluefox <dogafox@gmail.com>",
+            "Matthias Kleine <info@haus-automatisierung.com>"
+        ],
+        "keywords": [
+            "weather",
+            "forecast",
+            "temperature",
+            "rain",
+            "openweathermap",
+            "meteorology"
         ],
         "license": "MIT",
         "platform": "Javascript/Node.js",
-        "mode": "schedule",
-        "schedule": "23 * * * *",
-        "enabled": true,
-        "loglevel": "info",
-        "materialize": true,
-        "keywords": ["weather", "forecast", "temperature", "rain", "openweathermap", "meteorology"],
         "main": "main.js",
         "icon": "openweathermap.png",
         "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.openweathermap/master/admin/openweathermap.png",
+        "enabled": true,
         "readme": "https://github.com/ioBroker/ioBroker.openweathermap/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "schedule",
         "allowInit": true,
-        "type": "weather"
+        "schedule": "23 * * * *",
+        "type": "weather",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "materialize": true,
+        "dependencies": [
+            {
+                "js-controller": ">=3.3.0"
+            }
+        ]
     },
     "native": {
         "apikey": "",

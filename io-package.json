@@ -75,7 +75,7 @@
         "loglevel": "info",
         "mode": "schedule",
         "allowInit": true,
-        "schedule": "23 * * * *",
+        "schedule": "*/15 * * * *",
         "type": "weather",
         "compact": true,
         "connectionType": "cloud",

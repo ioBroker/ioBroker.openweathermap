@@ -27,7 +27,7 @@ class Openweathermap extends utils.Adapter {
         this.config.language = this.config.language || 'en';
         this.config.location = (this.config.location || '').trim();
 
-        let queryParams = {};
+        const queryParams = {};
         if (parseInt(this.config.location, 10).toString() === this.config.location) {
             // City ID. List of city ID 'city.list.json.gz' can be downloaded here: http://bulk.openweathermap.org/sample/
 
@@ -54,6 +54,9 @@ class Openweathermap extends utils.Adapter {
         queryParams.units = (this.config.imperial ? 'imperial': 'metric');
 
         this.getStatesOf('forecast', '', (err, states) => {
+            if (err || !states) {
+                return;
+            }
             for (let s = 0; s < states.length; s++) {
                 if (states[s].native.type === 'current') {
                     this.currentIds.push(states[s]);
@@ -67,7 +70,7 @@ class Openweathermap extends utils.Adapter {
             this.checkUnits();
 
             if (this.config.location.startsWith('file:')) {
-                const json = JSON.parse(require('fs').readFileSync(this.config.location));
+                const json = JSON.parse(require('fs').readFileSync(this.config.location, 'utf-8'));
                 this.parseForecast(json);
                 this.end();
             } else {

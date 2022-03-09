@@ -1,0 +1,8 @@
+{
+    "API key": "API-Schlüssel",
+    "Get your key here": "Holen Sie sich Ihren Schlüssel hier <a href=\"https://home.openweathermap.org/api_keys\">OpenWeatherMap</a>",
+    "Language": "Sprache",
+    "Place": "Ort",
+    "Send missing translations to iobroker.net": "Senden Sie fehlende Übersetzungen an iobroker.net",
+    "Use english metric system": "Verwenden Sie das Imperial-System (°F, Meilen)"
+}

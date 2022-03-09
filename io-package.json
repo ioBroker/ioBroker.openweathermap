@@ -29,7 +29,7 @@
             }
         },
         "title": "openweathermap.org",
-        "titleLang":  {
+        "titleLang": {
             "en": "openweathermap.org weather",
             "de": "openweathermap.org Wetter",
             "ru": "openweathermap.org погода",
@@ -41,7 +41,7 @@
             "pl": "openweathermap.org pogoda",
             "zh-cn": "openweathermap.org 天气"
         },
-        "desc":                     {
+        "desc": {
             "en": "Fetches 60h weather forecast from openweathermap.org",
             "de": "Ruft die 60-Stunden-Wettervorhersage von openweathermap.org ab",
             "ru": "Получает прогноз погоды на 60 часов с openweathermap.org",
@@ -99,15 +99,14 @@
         "language": "",
         "imperial": false
     },
-    "objects": [
-    ],
+    "objects": [],
     "instanceObjects": [
         {
             "_id": "forecast",
             "type": "device",
             "common": {
-                "name":  "Actual weather or forecast",
-                "role":  "weather"
+                "name": "Actual weather or forecast",
+                "role": "weather"
             },
             "native": {}
         },
@@ -115,8 +114,8 @@
             "_id": "forecast.current",
             "type": "channel",
             "common": {
-                "name":  "Actual weather for today",
-                "role":  "weather.current"
+                "name": "Actual weather for today",
+                "role": "weather.current"
             },
             "native": {}
         },
@@ -124,12 +123,12 @@
             "_id": "forecast.current.date",
             "type": "state",
             "common": {
-                "name":  "Actual date",
-                "type":  "number",
-                "role":  "date",
-                "read":  true,
+                "name": "Actual date",
+                "type": "number",
+                "role": "date",
+                "read": true,
                 "write": false,
-                "desc":  "Actual date as string"
+                "desc": "Actual date as string"
             },
             "native": {
                 "path": "dt",
@@ -140,12 +139,12 @@
             "_id": "forecast.current.icon",
             "type": "state",
             "common": {
-                "name":  "Actual icon",
-                "type":  "string",
-                "role":  "weather.icon",
-                "read":  true,
+                "name": "Actual icon",
+                "type": "string",
+                "role": "weather.icon",
+                "read": true,
                 "write": false,
-                "desc":  "URL to icon"
+                "desc": "URL to icon"
             },
             "native": {
                 "path": "weather.0.icon",
@@ -156,12 +155,12 @@
             "_id": "forecast.current.state",
             "type": "state",
             "common": {
-                "name":  "Actual state",
-                "type":  "string",
-                "role":  "weather.state",
-                "read":  true,
+                "name": "Actual state",
+                "type": "string",
+                "role": "weather.state",
+                "read": true,
                 "write": false,
-                "desc":  "Description of current weather"
+                "desc": "Description of current weather"
             },
             "native": {
                 "path": "weather.0.description",
@@ -172,12 +171,12 @@
             "_id": "forecast.current.title",
             "type": "state",
             "common": {
-                "name":  "Actual title",
-                "type":  "string",
-                "role":  "weather.title",
-                "read":  true,
+                "name": "Actual title",
+                "type": "string",
+                "role": "weather.title",
+                "read": true,
                 "write": false,
-                "desc":  "Title of current weather"
+                "desc": "Title of current weather"
             },
             "native": {
                 "path": "weather.0.main",
@@ -188,13 +187,13 @@
             "_id": "forecast.current.temperature",
             "type": "state",
             "common": {
-                "name":  "Actual temperature for today",
-                "type":  "number",
-                "role":  "value.temperature",
-                "read":  true,
+                "name": "Actual temperature for today",
+                "type": "number",
+                "role": "value.temperature",
+                "read": true,
                 "write": false,
-                "unit":  "°C",
-                "desc":  "Actual temperature"
+                "unit": "°C",
+                "desc": "Actual temperature"
             },
             "native": {
                 "path": "main.temp",
@@ -207,13 +206,13 @@
             "_id": "forecast.current.temperatureMin",
             "type": "state",
             "common": {
-                "name":  "Minimal temperature for today",
-                "type":  "number",
-                "role":  "value.temperature.min",
-                "read":  true,
+                "name": "Minimal temperature for today",
+                "type": "number",
+                "role": "value.temperature.min",
+                "read": true,
                 "write": false,
-                "unit":  "°C",
-                "desc":  "Minimal temperature for today"
+                "unit": "°C",
+                "desc": "Minimal temperature for today"
             },
             "native": {
                 "path": "main.temp_min",
@@ -226,13 +225,13 @@
             "_id": "forecast.current.temperatureMax",
             "type": "state",
             "common": {
-                "name":  "Maximal temperature for today",
-                "type":  "number",
-                "role":  "value.temperature.max",
-                "read":  true,
+                "name": "Maximal temperature for today",
+                "type": "number",
+                "role": "value.temperature.max",
+                "read": true,
                 "write": false,
-                "unit":  "°C",
-                "desc":  "Maximal temperature for today"
+                "unit": "°C",
+                "desc": "Maximal temperature for today"
             },
             "native": {
                 "path": "main.temp_max",
@@ -245,15 +244,15 @@
             "_id": "forecast.current.clouds",
             "type": "state",
             "common": {
-                "name":  "Actual Cloudiness for today",
-                "type":  "number",
-                "role":  "value.clouds",
+                "name": "Actual Cloudiness for today",
+                "type": "number",
+                "role": "value.clouds",
                 "unit": "%",
-                "read":  true,
+                "read": true,
                 "write": false,
                 "min": 0,
                 "max": 100,
-                "desc":  "Actual Cloudiness in percent 0 - clear sky, 100 - clouds"
+                "desc": "Actual Cloudiness in percent 0 - clear sky, 100 - clouds"
             },
             "native": {
                 "path": "clouds.all",
@@ -264,13 +263,13 @@
             "_id": "forecast.current.windDirection",
             "type": "state",
             "common": {
-                "name":  "Actual wind direction",
-                "type":  "number",
-                "role":  "value.direction.wind",
-                "unit":  "°",
-                "read":  true,
+                "name": "Actual wind direction",
+                "type": "number",
+                "role": "value.direction.wind",
+                "unit": "°",
+                "read": true,
                 "write": false,
-                "desc":  "Actual wind direction"
+                "desc": "Actual wind direction"
             },
             "native": {
                 "path": "wind.deg",
@@ -281,13 +280,13 @@
             "_id": "forecast.current.windSpeed",
             "type": "state",
             "common": {
-                "name":  "Actual wind speed",
-                "type":  "number",
-                "role":  "value.speed.wind",
-                "read":  true,
+                "name": "Actual wind speed",
+                "type": "number",
+                "role": "value.speed.wind",
+                "read": true,
                 "write": false,
-                "unit":  "m/s",
-                "desc":  "Actual wind speed in m/s"
+                "unit": "m/s",
+                "desc": "Actual wind speed in m/s"
             },
             "native": {
                 "path": "wind.speed",
@@ -300,13 +299,13 @@
             "_id": "forecast.current.windGust",
             "type": "state",
             "common": {
-                "name":  "Actual wind gust",
-                "type":  "number",
-                "role":  "value.gust.wind",
-                "read":  true,
+                "name": "Actual wind gust",
+                "type": "number",
+                "role": "value.gust.wind",
+                "read": true,
                 "write": false,
-                "unit":  "m/s",
-                "desc":  "Actual wind gust in m/s"
+                "unit": "m/s",
+                "desc": "Actual wind gust in m/s"
             },
             "native": {
                 "path": "wind.gust",
@@ -319,13 +318,13 @@
             "_id": "forecast.current.pressure",
             "type": "state",
             "common": {
-                "name":  "Actual pressure",
-                "type":  "number",
-                "role":  "value.pressure",
-                "read":  true,
+                "name": "Actual pressure",
+                "type": "number",
+                "role": "value.pressure",
+                "read": true,
                 "write": false,
-                "unit":  "hPa",
-                "desc":  "Aktual pressure in hPa"
+                "unit": "hPa",
+                "desc": "Aktual pressure in hPa"
             },
             "native": {
                 "path": "main.pressure",
@@ -336,13 +335,13 @@
             "_id": "forecast.current.humidity",
             "type": "state",
             "common": {
-                "name":  "Actual humidity",
-                "type":  "number",
-                "role":  "value.humidity",
-                "read":  true,
+                "name": "Actual humidity",
+                "type": "number",
+                "role": "value.humidity",
+                "read": true,
                 "write": false,
-                "unit":  "%",
-                "desc":  "Actual humidity in %"
+                "unit": "%",
+                "desc": "Actual humidity in %"
             },
             "native": {
                 "path": "main.humidity",
@@ -353,13 +352,13 @@
             "_id": "forecast.current.visibility",
             "type": "state",
             "common": {
-                "name":  "Actual visibility",
-                "type":  "number",
-                "role":  "value.distance.visibility",
-                "read":  true,
+                "name": "Actual visibility",
+                "type": "number",
+                "role": "value.distance.visibility",
+                "read": true,
                 "write": false,
-                "unit":  "m",
-                "desc":  "Actual visibility in meters"
+                "unit": "m",
+                "desc": "Actual visibility in meters"
             },
             "native": {
                 "path": "visibility",
@@ -372,12 +371,12 @@
             "_id": "forecast.current.sunrise",
             "type": "state",
             "common": {
-                "name":  "Today sunrise",
-                "type":  "number",
-                "role":  "date.sunrise",
-                "read":  true,
+                "name": "Today sunrise",
+                "type": "number",
+                "role": "date.sunrise",
+                "read": true,
                 "write": false,
-                "desc":  "Time of sunrise for today"
+                "desc": "Time of sunrise for today"
             },
             "native": {
                 "path": "sys.sunrise",
@@ -388,12 +387,12 @@
             "_id": "forecast.current.sunset",
             "type": "state",
             "common": {
-                "name":  "Today sunset",
-                "type":  "number",
-                "role":  "date.sunset",
-                "read":  true,
+                "name": "Today sunset",
+                "type": "number",
+                "role": "date.sunset",
+                "read": true,
                 "write": false,
-                "desc":  "Time of sunset for today"
+                "desc": "Time of sunset for today"
             },
             "native": {
                 "path": "sys.sunset",
@@ -404,13 +403,13 @@
             "_id": "forecast.current.precipitation",
             "type": "state",
             "common": {
-                "name":  "Actual rain and snow precipitation level",
-                "type":  "number",
-                "role":  "weather.precipitation",
-                "read":  true,
+                "name": "Actual rain and snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation",
+                "read": true,
                 "write": false,
-                "unit":  "mm",
-                "desc":  "Actual rain and snow volume in mm"
+                "unit": "mm",
+                "desc": "Actual rain and snow volume in mm"
             },
             "native": {
                 "metric": "mm",
@@ -422,13 +421,13 @@
             "_id": "forecast.current.precipitationRain",
             "type": "state",
             "common": {
-                "name":  "Rain precipitation level",
-                "type":  "number",
-                "role":  "weather.precipitation.rain",
-                "read":  true,
+                "name": "Rain precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.rain",
+                "read": true,
                 "write": false,
-                "unit":  "mm",
-                "desc":  "Actual rain volume in mm"
+                "unit": "mm",
+                "desc": "Actual rain volume in mm"
             },
             "native": {
                 "path": "rain.1h",
@@ -441,13 +440,13 @@
             "_id": "forecast.current.precipitationSnow",
             "type": "state",
             "common": {
-                "name":  "Snow precipitation level",
-                "type":  "number",
-                "role":  "weather.precipitation.snow",
-                "read":  true,
+                "name": "Snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.snow",
+                "read": true,
                 "write": false,
-                "unit":  "mm",
-                "desc":  "Actual snow volume in mm"
+                "unit": "mm",
+                "desc": "Actual snow volume in mm"
             },
             "native": {
                 "path": "snow.1h",
@@ -460,22 +459,21 @@
             "_id": "forecast.day0",
             "type": "channel",
             "common": {
-                "name":  "Actual weather or forecast",
-                "role":  "weather.forecast"
+                "name": "Actual weather or forecast",
+                "role": "weather.forecast"
             },
-            "native": {
-            }
+            "native": {}
         },
         {
             "_id": "forecast.day0.date",
             "type": "state",
             "common": {
-                "name":  "Forecast date",
-                "type":  "number",
-                "role":  "date.forecast.0",
-                "read":  true,
+                "name": "Forecast date",
+                "type": "number",
+                "role": "date.forecast.0",
+                "read": true,
                 "write": false,
-                "desc":  "Actual date as string"
+                "desc": "Actual date as string"
             },
             "native": {
                 "path": "dt",
@@ -486,12 +484,12 @@
             "_id": "forecast.day0.icon",
             "type": "state",
             "common": {
-                "name":  "Forecast icon",
-                "type":  "string",
-                "role":  "weather.icon.forecast.0",
-                "read":  true,
+                "name": "Forecast icon",
+                "type": "string",
+                "role": "weather.icon.forecast.0",
+                "read": true,
                 "write": false,
-                "desc":  "URL to icon"
+                "desc": "URL to icon"
             },
             "native": {
                 "path": "weather.0.icon",
@@ -502,12 +500,12 @@
             "_id": "forecast.day0.state",
             "type": "state",
             "common": {
-                "name":  "Forecast state",
-                "type":  "string",
-                "role":  "weather.state.forecast.0",
-                "read":  true,
+                "name": "Forecast state",
+                "type": "string",
+                "role": "weather.state.forecast.0",
+                "read": true,
                 "write": false,
-                "desc":  "Description of weather"
+                "desc": "Description of weather"
             },
             "native": {
                 "path": "weather.0.description",
@@ -518,12 +516,12 @@
             "_id": "forecast.day0.title",
             "type": "state",
             "common": {
-                "name":  "Forecast title",
-                "type":  "string",
-                "role":  "weather.title.forecast.0",
-                "read":  true,
+                "name": "Forecast title",
+                "type": "string",
+                "role": "weather.title.forecast.0",
+                "read": true,
                 "write": false,
-                "desc":  "Title weather"
+                "desc": "Title weather"
             },
             "native": {
                 "path": "weather.0.main",
@@ -534,13 +532,13 @@
             "_id": "forecast.day0.temperatureMin",
             "type": "state",
             "common": {
-                "name":  "Forecast of temperature",
-                "type":  "number",
-                "role":  "value.temperature.min.forecast.0",
-                "read":  true,
+                "name": "Forecast of temperature",
+                "type": "number",
+                "role": "value.temperature.min.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "°C",
-                "desc":  "Forecast of temperature. Minimum value."
+                "unit": "°C",
+                "desc": "Forecast of temperature. Minimum value."
             },
             "native": {
                 "path": "main.temp_min",
@@ -553,13 +551,13 @@
             "_id": "forecast.day0.temperatureMax",
             "type": "state",
             "common": {
-                "name":  "Forecast of temperature",
-                "type":  "number",
-                "role":  "value.temperature.max.forecast.0",
-                "read":  true,
+                "name": "Forecast of temperature",
+                "type": "number",
+                "role": "value.temperature.max.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "°C",
-                "desc":  "Forecast of temperature. Maximum value."
+                "unit": "°C",
+                "desc": "Forecast of temperature. Maximum value."
             },
             "native": {
                 "path": "main.temp_max",
@@ -572,15 +570,15 @@
             "_id": "forecast.day0.clouds",
             "type": "state",
             "common": {
-                "name":  "Forecast clouds",
-                "type":  "number",
-                "role":  "value.clouds.forecast.0",
-                "unit":  "%",
-                "read":  true,
+                "name": "Forecast clouds",
+                "type": "number",
+                "role": "value.clouds.forecast.0",
+                "unit": "%",
+                "read": true,
                 "write": false,
                 "min": 0,
                 "max": 100,
-                "desc":  "Forecast clouds state in percent (0 - clear sky, 100 - clouds)"
+                "desc": "Forecast clouds state in percent (0 - clear sky, 100 - clouds)"
             },
             "native": {
                 "path": "clouds.all",
@@ -591,13 +589,13 @@
             "_id": "forecast.day0.precipitation",
             "type": "state",
             "common": {
-                "name":  "Forecast of rain and snow precipitation level",
-                "type":  "number",
-                "role":  "weather.precipitation.forecast.0",
-                "read":  true,
+                "name": "Forecast of rain and snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "mm",
-                "desc":  "Forecast for rain or snow level in mm"
+                "unit": "mm",
+                "desc": "Forecast for rain or snow level in mm"
             },
             "native": {
                 "metric": "mm",
@@ -609,13 +607,13 @@
             "_id": "forecast.day0.precipitationRain",
             "type": "state",
             "common": {
-                "name":  "Forecast of rain precipitation level",
-                "type":  "number",
-                "role":  "weather.precipitation.rain.forecast.0",
-                "read":  true,
+                "name": "Forecast of rain precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.rain.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "mm",
-                "desc":  "Forecast for rain level in mm"
+                "unit": "mm",
+                "desc": "Forecast for rain level in mm"
             },
             "native": {
                 "path": "rain.3h",
@@ -628,13 +626,13 @@
             "_id": "forecast.day0.precipitationSnow",
             "type": "state",
             "common": {
-                "name":  "Forecast of snow precipitation level",
-                "type":  "number",
-                "role":  "weather.precipitation.snow.forecast.0",
-                "read":  true,
+                "name": "Forecast of snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.snow.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "mm",
-                "desc":  "Forecast for snow level in mm"
+                "unit": "mm",
+                "desc": "Forecast for snow level in mm"
             },
             "native": {
                 "path": "snow.3h",
@@ -647,13 +645,13 @@
             "_id": "forecast.day0.windDirection",
             "type": "state",
             "common": {
-                "name":  "Forecast for wind direction",
-                "type":  "number",
-                "role":  "value.direction.wind.forecast.0",
-                "unit":  "°",
-                "read":  true,
+                "name": "Forecast for wind direction",
+                "type": "number",
+                "role": "value.direction.wind.forecast.0",
+                "unit": "°",
+                "read": true,
                 "write": false,
-                "desc":  "Forecast for wind direction"
+                "desc": "Forecast for wind direction"
             },
             "native": {
                 "path": "wind.deg",
@@ -664,13 +662,13 @@
             "_id": "forecast.day0.windSpeed",
             "type": "state",
             "common": {
-                "name":  "Forecast for wind speed",
-                "type":  "number",
-                "role":  "value.speed.wind.forecast.0",
-                "read":  true,
+                "name": "Forecast for wind speed",
+                "type": "number",
+                "role": "value.speed.wind.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "m/s",
-                "desc":  "Forecast for wind speed in m/s"
+                "unit": "m/s",
+                "desc": "Forecast for wind speed in m/s"
             },
             "native": {
                 "path": "wind.speed",
@@ -683,13 +681,13 @@
             "_id": "forecast.day0.pressure",
             "type": "state",
             "common": {
-                "name":  "Forecast for pressure",
-                "type":  "number",
-                "role":  "value.pressure.forecast.0",
-                "read":  true,
+                "name": "Forecast for pressure",
+                "type": "number",
+                "role": "value.pressure.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "hPa",
-                "desc":  "Forecast for pressure in hPa"
+                "unit": "hPa",
+                "desc": "Forecast for pressure in hPa"
             },
             "native": {
                 "path": "main.pressure",
@@ -700,13 +698,13 @@
             "_id": "forecast.day0.humidity",
             "type": "state",
             "common": {
-                "name":  "Forecast for humidity",
-                "type":  "number",
-                "role":  "value.humidity.forecast.0",
-                "read":  true,
+                "name": "Forecast for humidity",
+                "type": "number",
+                "role": "value.humidity.forecast.0",
+                "read": true,
                 "write": false,
-                "unit":  "%",
-                "desc":  "Forecast for humidity in %"
+                "unit": "%",
+                "desc": "Forecast for humidity in %"
             },
             "native": {
                 "path": "main.humidity",

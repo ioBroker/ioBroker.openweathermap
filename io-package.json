@@ -80,12 +80,18 @@
         "compact": true,
         "connectionType": "cloud",
         "dataSource": "poll",
+        "tier": 2,
         "materialize": true,
         "dependencies": [
             {
                 "js-controller": ">=3.3.0"
             }
-        ]
+        ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://bc7b672977224d73935e25afee3bdc87@sentry.iobroker.net/175"
+            }
+        }
     },
     "native": {
         "apikey": "",
@@ -94,7 +100,6 @@
         "imperial": false
     },
     "objects": [
-
     ],
     "instanceObjects": [
         {

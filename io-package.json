@@ -3,18 +3,6 @@
         "name": "openweathermap",
         "version": "0.2.0",
         "news": {
-            "0.2.0": {
-                "en": "updated everything",
-                "de": "alles Currentisiert",
-                "ru": "обновил все",
-                "pt": "atualizou tudo",
-                "nl": "alles geüpdatet",
-                "fr": "tout mis à jour",
-                "it": "aggiornato tutto",
-                "es": "actualizado todo",
-                "pl": "zCurrentizowałem wszystko",
-                "zh-cn": "更新了一切"
-            },
             "0.1.0": {
                 "en": "initial commit",
                 "de": "anfängliches Commit",

@@ -18,12 +18,12 @@ You need an api key to access the data. The api key you can get for free after r
 
 ## Changelog
 
-### 0.2.0
-
+### __WORK IN PROGRESS__
+* (Apollon77) Move schedule if default is used and adjust to once an hour to better spread the requests over time to prevent peaks; Additionally add a random delay in the start minute
 * (klein0r) updated everything
+* (Apollon77) updated unload/stop handling
 
 ### 0.1.0
-
 * (bluefox) first release
 
 ## License

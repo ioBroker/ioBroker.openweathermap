@@ -5,14 +5,14 @@
         "news": {
             "0.2.0": {
                 "en": "updated everything",
-                "de": "alles aktualisiert",
+                "de": "alles Currentisiert",
                 "ru": "обновил все",
                 "pt": "atualizou tudo",
                 "nl": "alles geüpdatet",
                 "fr": "tout mis à jour",
                 "it": "aggiornato tutto",
                 "es": "actualizado todo",
-                "pl": "zaktualizowałem wszystko",
+                "pl": "zCurrentizowałem wszystko",
                 "zh-cn": "更新了一切"
             },
             "0.1.0": {
@@ -75,7 +75,7 @@
         "loglevel": "info",
         "mode": "schedule",
         "allowInit": true,
-        "schedule": "*/15 * * * *",
+        "schedule": "11 * * * *",
         "type": "weather",
         "compact": true,
         "connectionType": "cloud",
@@ -324,7 +324,7 @@
                 "read": true,
                 "write": false,
                 "unit": "hPa",
-                "desc": "Aktual pressure in hPa"
+                "desc": "Current pressure in hPa"
             },
             "native": {
                 "path": "main.pressure",

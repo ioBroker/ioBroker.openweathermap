@@ -18,12 +18,34 @@ class Openweathermap extends utils.Adapter {
         this.currentIds = [];
         this.forecastIds = [];
         this.tasks = [];
+        this.unloaded = false;
 
         this.on('ready', this.onReady.bind(this));
         this.on('unload', this.onUnload.bind(this));
     }
 
+    sleep(ms) {
+        return new Promise(resolve => setTimeout(() => !this.unloaded && resolve(), ms));
+    }
+
     async onReady() {
+        try {
+            const instObj = await this.getForeignObjectAsync(`system.adapter.${this.namespace}`);
+            if (instObj && instObj.common && instObj.common.schedule && (instObj.common.schedule === '11 * * * *' || instObj.common.schedule === '*/15 * * * *')) {
+                instObj.common.schedule = `${Math.floor(Math.random() * 60)} * * * *`;
+                this.log.info(`Default schedule found and adjusted to spread calls better over the full hour!`);
+                await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, instObj);
+                this.terminate ? this.terminate() : process.exit(0);
+                return;
+            }
+        } catch (err) {
+            this.log.error(`Could not check or adjust the schedule: ${err.message}`);
+        }
+
+        const delay = Math.floor(Math.random() * 30000);
+        this.log.debug(`Delay execution by ${delay}ms to better spread API calls`);
+        await this.sleep(delay);
+
         this.config.language = this.config.language || 'en';
         this.config.location = (this.config.location || '').trim();
 
@@ -80,12 +102,14 @@ class Openweathermap extends utils.Adapter {
                     .then(() => {
                         this.end();
                     });
-
             }
         });
     }
 
     processTasks() {
+        if (this.unloaded) {
+            this.tasks = []; // Clear pot still existing tasks
+        }
         if (this.tasks.length) {
             const task = this.tasks.shift();
             if (task.val !== undefined) {
@@ -341,11 +365,11 @@ class Openweathermap extends utils.Adapter {
                 resolve();
             }).catch((error) => {
                 if (error.response) {
-                    reject('Error: ' + error.response.status);
+                    reject(`Error: ${error.response.status}`);
                 } else if (error.request) {
-                    reject('Error: no data received');
+                    reject(`Error: no data received for Current Weather data: ${JSON.stringify(error.request)}`);
                 } else {
-                    reject('Error: ' + error.message);
+                    reject(`Error: ${error.message}`);
                 }
                 console.log(error.config);
             });
@@ -370,11 +394,11 @@ class Openweathermap extends utils.Adapter {
                 resolve();
             }).catch((error) => {
                 if (error.response) {
-                    reject('Error: ' + error.response.status);
+                    reject(`Error: ${error.response.status}`);
                 } else if (error.request) {
-                    reject('Error: no data received');
+                    reject(`Error: no data received for Forecast: ${JSON.stringify(error.request)}`);
                 } else {
-                    reject('Error: ' + error.message);
+                    reject(`Error: ${error.message}`);
                 }
                 console.log(error.config);
             });
@@ -401,6 +425,7 @@ class Openweathermap extends utils.Adapter {
     }
 
     end() {
+        if (this.unloaded) return;
         if (!this.tasks.length) {
             this.stop();
         } else {
@@ -409,6 +434,7 @@ class Openweathermap extends utils.Adapter {
     }
 
     onUnload(callback) {
+        this.unloaded = true;
         try {
             this.log.debug('cleaned everything up...');
             callback();

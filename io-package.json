@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "Fix crash case (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "de": "Absturzfall behoben (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "ru": "Исправить случай сбоя (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "pt": "Corrigir caso de falha (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "nl": "Crashgeval repareren (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "fr": "Correction du cas de plantage (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "it": "Risolto crash case (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "es": "Solucionar caso de bloqueo (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "pl": "Napraw przypadek awarii (Sentry IOBROKER-OPENWEATHERMAP-1)",
+        "zh-cn": "修复崩溃案例 (Sentry IOBROKER-OPENWEATHERMAP-1)"
+      },
       "0.2.1": {
         "en": "Move schedule if default is used and adjust to once an hour to better spread the requests over time to prevent peaks; Additionally add a random delay in the start minute\nupdated everything\nupdated unload/stop handling",
         "de": "Verschieben Sie den Zeitplan, wenn der Standard verwendet wird, und passen Sie ihn auf einmal pro Stunde an, um die Anfragen besser über die Zeit zu verteilen und Spitzen zu vermeiden; Fügen Sie zusätzlich eine zufällige Verzögerung in der Startminute hinzu\nalles aktualisiert\naktualisiertes Entladen/Stopp-Handling",

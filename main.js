@@ -367,7 +367,7 @@ class Openweathermap extends utils.Adapter {
                 if (error.response) {
                     reject(`Error: ${error.response.status}`);
                 } else if (error.request) {
-                    reject(`Error: no data received for Current Weather data: ${JSON.stringify(error.request)}`);
+                    reject(`Error: no data received for Current Weather data`);
                 } else {
                     reject(`Error: ${error.message}`);
                 }
@@ -396,7 +396,7 @@ class Openweathermap extends utils.Adapter {
                 if (error.response) {
                     reject(`Error: ${error.response.status}`);
                 } else if (error.request) {
-                    reject(`Error: no data received for Forecast: ${JSON.stringify(error.request)}`);
+                    reject(`Error: no data received for Forecast`);
                 } else {
                     reject(`Error: ${error.message}`);
                 }

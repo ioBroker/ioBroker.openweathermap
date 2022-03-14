@@ -354,11 +354,9 @@ class Openweathermap extends utils.Adapter {
                 method: 'get',
                 baseURL: 'https://api.openweathermap.org/data/2.5/weather',
                 params: queryParams,
-                timeout: 5000,
+                timeout: 10000,
                 responseType: 'json',
-                validateStatus: function (status) {
-                    return status == 200;
-                },
+                validateStatus: status => status === 200
             }).then((response) => {
                 this.log.debug('Received current response: ' + JSON.stringify(response.data));
                 this.parseCurrent(response.data);
@@ -383,11 +381,9 @@ class Openweathermap extends utils.Adapter {
                 method: 'get',
                 baseURL: 'https://api.openweathermap.org/data/2.5/forecast',
                 params: queryParams,
-                timeout: 5000,
+                timeout: 10000,
                 responseType: 'json',
-                validateStatus: function (status) {
-                    return status == 200;
-                },
+                validateStatus: status => status === 200
             }).then((response) => {
                 this.log.debug('Received forecast response: ' + JSON.stringify(response.data));
                 this.parseForecast(response.data);

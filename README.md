@@ -18,7 +18,7 @@ You need an api key to access the data. The api key you can get for free after r
 
 ## Changelog
 
-### __WORK IN PROGRES__
+### __WORK IN PROGRESS__
 * (Apollon77) Fix crash case when states have invalid metadata
 
 ### 0.2.3 (2022-03-15)

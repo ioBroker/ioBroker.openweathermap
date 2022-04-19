@@ -80,9 +80,9 @@ class Openweathermap extends utils.Adapter {
                 return;
             }
             for (let s = 0; s < states.length; s++) {
-                if (states[s].native.type === 'current') {
+                if (states[s] && states[s].native && states[s].native.type === 'current') {
                     this.currentIds.push(states[s]);
-                } else if (states[s].native.type === 'forecast') {
+                } else if (states[s] && states[s].native && states[s].native.type === 'forecast') {
                     const m = states[s]._id.match(/\.day(\d+)\./);
                     if (m && m[1] !== '0') continue;
                     this.forecastIds.push(states[s]);

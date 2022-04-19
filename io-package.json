@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "news": {
+      "0.2.4": {
+        "en": "Fix crash case when states have invalid metadata",
+        "de": "Absturzfall behoben, wenn Zustände ungültige Metadaten haben",
+        "ru": "Исправить случай сбоя, когда состояния имеют недопустимые метаданные",
+        "pt": "Corrige o caso de falha quando os estados têm metadados inválidos",
+        "nl": "Crashgeval repareren wanneer staten ongeldige metadata hebben",
+        "fr": "Correction d'un cas de plantage lorsque les états ont des métadonnées invalides",
+        "it": "Risolto il caso di arresto anomalo quando gli stati hanno metadati non validi",
+        "es": "Solucione el caso de bloqueo cuando los estados tienen metadatos no válidos",
+        "pl": "Napraw przypadek awarii, gdy stany mają nieprawidłowe metadane",
+        "zh-cn": "修复状态具有无效元数据时的崩溃情况"
+      },
       "0.2.3": {
         "en": "Increase timeout to read data to 10s",
         "de": "Erhöhen Sie das Zeitlimit zum Lesen von Daten auf 10 Sekunden",

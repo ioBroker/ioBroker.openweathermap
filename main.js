@@ -53,20 +53,20 @@ class Openweathermap extends utils.Adapter {
         if (parseInt(this.config.location, 10).toString() === this.config.location) {
             // City ID. List of city ID 'city.list.json.gz' can be downloaded here: http://bulk.openweathermap.org/sample/
 
-            this.log.debug('Request by "ID": ' + this.config.location);
+            this.log.debug(`Request by "ID": ${this.config.location}`);
             queryParams.id = + this.config.location;
         } else if (this.config.location && this.config.location[0] >= '0' && this.config.location[0] <= '9') {
             // Geographical coordinates (latitude, longitude)
 
             const parts = this.config.location.split(',');
-            this.log.debug('Request by "lon/lat" - lat: ' + parts[0] + ' / lon: ' + parts[1]);
+            this.log.debug(`Request by "lon/lat" - lat: ${parts[0]} / lon: ${parts[1]}`);
 
             queryParams.lat = parts[0];
             queryParams.lon = parts[1];
         } else {
             // City name, state code and country code divided by comma, Please, refer to ISO 3166 for the state codes or country codes.
 
-            this.log.debug('Request by "q": ' + this.config.location);
+            this.log.debug(`Request by "q": ${this.config.location}`);
 
             queryParams.q = this.config.location;
         }
@@ -75,7 +75,7 @@ class Openweathermap extends utils.Adapter {
         queryParams.appid = this.config.apikey;
         queryParams.units = (this.config.imperial ? 'imperial': 'metric');
 
-        this.getStatesOf('forecast', '', (err, states) => {
+        this.getStatesOf('forecast', '', async (err, states) => {
             if (err || !states) {
                 return;
             }
@@ -89,11 +89,11 @@ class Openweathermap extends utils.Adapter {
                 }
             }
 
-            this.checkUnits();
+            await this.checkUnits();
 
             if (this.config.location.startsWith('file:')) {
                 const json = JSON.parse(require('fs').readFileSync(this.config.location, 'utf-8'));
-                this.parseForecast(json);
+                await this.parseForecast(json);
                 this.end();
             } else {
                 this.requestCurrent(queryParams)
@@ -106,36 +106,37 @@ class Openweathermap extends utils.Adapter {
         });
     }
 
-    processTasks() {
-        if (this.unloaded) {
-            this.tasks = []; // Clear pot still existing tasks
-        }
-        if (this.tasks.length) {
-            const task = this.tasks.shift();
-            if (task.val !== undefined) {
-                if (task.obj) {
-                    this.getObject(task.id, (err, obj) => {
-                        if (!obj) {
-                            obj = JSON.parse(JSON.stringify(task.obj));
-                            obj._id = task.id;
-                            obj.common.role = obj.common.role.replace(/\.\d+$/, '.' + task.day);
-                            this.setObject(task.id, obj, err => {
-                                this.setState(task.id, task.val, true, err => setImmediate(this.processTasks.bind(this)));
-                            });
+    async processTasks() {
+        if (!this.unloaded) {
+            if (this.tasks.length) {
+                for (const task of this.tasks) {
+                    if (this.unloaded) {
+                        break;
+                    }
+                    if (task.val !== undefined) {
+                        if (task.obj) {
+                            let obj = await this.getObjectAsync(task.id);
+                            if (!obj) {
+                                obj = JSON.parse(JSON.stringify(task.obj));
+                                obj._id = task.id;
+                                obj.common.role = obj.common.role.replace(/\.\d+$/, `.${task.day}`);
+                                await this.setObjectAsync(task.id, obj);
+                                await this.setStateAsync(task.id, task.val, true);
+                            } else {
+                                await this.setStateAsync(task.id, task.val, true);
+                            }
                         } else {
-                            this.setState(task.id, task.val, true, err => setImmediate(this.processTasks.bind(this)));
+                            await this.setStateAsync(task.id, task.val, true);
                         }
-                    });
-                } else {
-                    this.setState(task.id, task.val, true, err => setImmediate(this.processTasks.bind(this)));
+                    } else if (task.obj !== undefined) {
+                        await this.setObjectAsync(task.id, task.obj);
+                    } else {
+                        this.log.error(`Unknown task: ${JSON.stringify(task)}`);
+                    }
                 }
-            } else if (task.obj !== undefined) {
-                this.setObject(task.id, task.obj, err => setImmediate(this.processTasks.bind(this)));
-            } else {
-                this.log.error('Unknown task: ' + JSON.stringify(task));
-                setImmediate(this.processTasks.bind(this));
             }
         }
+        this.tasks = [];
     }
 
     extractValue(data, path, i) {
@@ -172,7 +173,7 @@ class Openweathermap extends utils.Adapter {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
         }
 
-        result.icon = result.icon ? 'https://openweathermap.org/img/w/' + result.icon + '.png' : null;
+        result.icon = result.icon ? `https://openweathermap.org/img/w/${result.icon}.png` : null;
 
         if (result.sunrise) {
             result.sunrise *= 1000;
@@ -186,19 +187,17 @@ class Openweathermap extends utils.Adapter {
         return result;
     }
 
-    parseCurrent(data) {
+    async parseCurrent(data) {
         const result = this.extractValues(data, this.currentIds);
         const isStart = !this.tasks.length;
         for (const attr in result) {
             if (!result.hasOwnProperty(attr)) continue;
-            this.tasks.push({id: 'forecast.current.' + attr, val: result[attr]});
+            this.tasks.push({id: `forecast.current.${attr}`, val: result[attr]});
         }
-        if (isStart) {
-            this.processTasks();
-        }
+        await this.processTasks();
     }
 
-    calculateAverage(sum, day) {
+    async calculateAverage(sum, day) {
         const counts = {};
 
         const result = {
@@ -299,22 +298,19 @@ class Openweathermap extends utils.Adapter {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
         }
 
-        const isStart = !this.tasks.length;
+        this.log.debug(`Process forecast for day ${day}`);
         for (const attr in result) {
             if (!result.hasOwnProperty(attr)) continue;
-            this.tasks.push({id: 'forecast.day' + day + '.' + attr, val: result[attr], obj: this.forecastIds.find(obj => obj._id.split('.').pop() === attr), day});
+            this.tasks.push({id: `forecast.day${day}.${attr}`, val: result[attr], obj: this.forecastIds.find(obj => obj._id.split('.').pop() === attr), day});
         }
-        if (isStart) {
-            this.processTasks();
-        }
+        await this.processTasks();
     }
 
-    parseForecast(data) {
+    async parseForecast(data) {
         let sum = [];
         let date = null;
         let day = 0;
 
-        const isStart = !this.tasks.length;
         for (let period = 0; period < data.list.length; period++) {
             const values = this.extractValues(data.list[period], this.forecastIds);
             const curDate = new Date(values.date).getDate();
@@ -323,7 +319,7 @@ class Openweathermap extends utils.Adapter {
                 date = curDate;
             } else if (date !== curDate) {
                 date = curDate;
-                this.calculateAverage(sum, day);
+                await this.calculateAverage(sum, day);
                 day++;
                 sum = [values];
             } else {
@@ -332,7 +328,7 @@ class Openweathermap extends utils.Adapter {
 
             Object.keys(values).forEach(attr =>
                 this.tasks.push({
-                    id: 'forecast.period' + period + '.' + attr,
+                    id: `forecast.period${period}.${attr}`,
                     val: values[attr],
                     obj: this.forecastIds.find(obj => obj._id.split('.').pop() === attr),
                     period
@@ -340,11 +336,9 @@ class Openweathermap extends utils.Adapter {
             );
         }
         if (sum.length) {
-            this.calculateAverage(sum, day);
+            await this.calculateAverage(sum, day);
         }
-        if (isStart) {
-            this.processTasks();
-        }
+        await this.processTasks();
     }
 
     requestCurrent(queryParams) {
@@ -357,9 +351,9 @@ class Openweathermap extends utils.Adapter {
                 timeout: 10000,
                 responseType: 'json',
                 validateStatus: status => status === 200
-            }).then((response) => {
-                this.log.debug('Received current response: ' + JSON.stringify(response.data));
-                this.parseCurrent(response.data);
+            }).then(async (response) => {
+                this.log.debug(`Received current response: ${JSON.stringify(response.data)}`);
+                await this.parseCurrent(response.data);
                 resolve();
             }).catch((error) => {
                 if (error.response) {
@@ -384,9 +378,9 @@ class Openweathermap extends utils.Adapter {
                 timeout: 10000,
                 responseType: 'json',
                 validateStatus: status => status === 200
-            }).then((response) => {
-                this.log.debug('Received forecast response: ' + JSON.stringify(response.data));
-                this.parseForecast(response.data);
+            }).then(async (response) => {
+                this.log.debug(`Received forecast response: ${JSON.stringify(response.data)}`);
+                await this.parseForecast(response.data);
                 resolve();
             }).catch((error) => {
                 if (error.response) {
@@ -401,8 +395,7 @@ class Openweathermap extends utils.Adapter {
         });
     }
 
-    checkUnits() {
-        const isStart = !this.tasks.length;
+    async checkUnits() {
         for (let i = 0; i < this.currentIds.length; i++) {
             if (!this.currentIds[i].native.imperial) continue;
             if (this.config.imperial) {
@@ -417,16 +410,12 @@ class Openweathermap extends utils.Adapter {
                 }
             }
         }
-        isStart && this.processTasks();
+        await this.processTasks();
     }
 
     end() {
         if (this.unloaded) return;
-        if (!this.tasks.length) {
-            this.stop();
-        } else {
-            setTimeout(() => this.stop(), 2000);
-        }
+        this.stop();
     }
 
     onUnload(callback) {

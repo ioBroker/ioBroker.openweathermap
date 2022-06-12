@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.2.4",
+    "version": "0.2.5",
     "news": {
+      "0.2.5": {
+        "en": "Make sure all forecast data are processed correctly",
+        "de": "Stellen Sie sicher, dass alle Prognosedaten korrekt verarbeitet werden",
+        "ru": "Убедитесь, что все данные прогноза обрабатываются правильно",
+        "pt": "Certifique-se de que todos os dados de previsão são processados corretamente",
+        "nl": "Zorg ervoor dat alle gegevens correct worden verwerkt",
+        "fr": "Assurez-vous que toutes les données de prévision sont traitées correctement",
+        "it": "Assicurarsi che tutti i dati previsti siano trattati correttamente",
+        "es": "Asegúrese de que todos los datos de pronóstico se procesan correctamente",
+        "pl": "Poprawione dane są poprawnie przetwarzane",
+        "zh-cn": "确保所有预报数据都得到正确处理"
+      },
       "0.2.4": {
         "en": "Fix crash case when states have invalid metadata",
         "de": "Absturzfall behoben, wenn Zustände ungültige Metadaten haben",

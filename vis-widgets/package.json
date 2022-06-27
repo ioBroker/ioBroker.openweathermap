@@ -1,0 +1,54 @@
+{
+    "name": "iobroker.vis-widget-thermostat",
+    "private": true,
+    "version": "1.13.0",
+    "dependencies": {
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "@iobroker/adapter-react-v5": "^3.0.16",
+        "@mui/icons-material": "^5.6.2",
+        "@mui/material": "^5.7.0",
+        "@mui/styles": "^5.7.0",
+        "ace-builds": "^1.6.0",
+        "clsx": "^1.1.1",
+        "eslint-plugin-eqeqeq-fix": "^1.0.3",
+        "eslint-plugin-only-warn": "^1.0.3",
+        "node-sass": "^7.0.1",
+        "prop-types": "^15.8.1",
+        "react": "^18.1.0",
+        "react-ace": "^10.1.0",
+        "react-dom": "^18.1.0",
+        "react-icons": "^4.3.1",
+        "react-scripts": "^5.0.1"
+    },
+    "scripts": {
+        "start": "set PORT=4173 && craco start",
+        "old-start": "set PORT=4173 && react-scripts start",
+        "lint": "eslint --fix --ext .js,.jsx src",
+        "build": "craco build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "devDependencies": {
+        "@craco/craco": "^6.4.3",
+        "craco-esbuild": "^0.5.1",
+        "craco-module-federation": "^1.1.0",
+        "eslint": "^8.17.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-jsx-a11y": "^6.5.1",
+        "eslint-plugin-react": "^7.30.0",
+        "eslint-plugin-react-hooks": "^4.5.0",
+        "sass": "^1.52.1"
+    },
+    "homepage": ".",
+    "browserslist": [
+        ">0.2%",
+        "not dead",
+        "not ie <= 11",
+        "not op_mini all"
+    ]
+}

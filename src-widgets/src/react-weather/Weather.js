@@ -1,8 +1,9 @@
 import React, {
     createRef, useEffect, useRef, useState, useCallback,
 } from 'react';
-import { i18n as I18n, Utils } from '@iobroker/adapter-react-v5';
-import IconAdapter from '@iobroker/adapter-react-v5/Components/Icon';
+
+import { i18n as I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
+
 import cls from './style.module.scss';
 import clearSky from './iconsWeather/clearSky.svg';
 import fewClouds from './iconsWeather/fewClouds.svg';
@@ -209,14 +210,14 @@ const Weather = ({
                 }
             }
         };
-    }, [temperatureMinRefs]);
+    }, [temperatureMinRefs, data]);
 
     // eslint-disable-next-line consistent-return
-    return <div className={cls.whetherkWrapper}>
+    return <div className={cls.weatherWrapper}>
         <div className={cls.wrapperBlock} style={{ display: hideCurrent ? 'none' : undefined }}>
             <div className={cls.iconWrapper}>
-                <div className={Utils.clsx(cls.iconWhetherWrapper, (!arrLength || hideDays) && cls.noteArrayIcon)}>
-                    <IconAdapter className={cls.iconWhether} src={getIcon(iconName, true) || clearSky} />
+                <div className={Utils.clsx(cls.iconWeatherWrapper, (!arrLength || hideDays) && cls.noteArrayIcon)}>
+                    <Icon className={cls.iconWeather} src={getIcon(iconName, true) || clearSky} />
                 </div>
                 <div className={cls.styleText}>{title}</div>
             </div>
@@ -228,7 +229,7 @@ const Weather = ({
         {arrLength > 0 && <div className={cls.wrapperBottomBlock} style={{ display: hideDays ? 'none' : undefined }}>
             {data.days.map((e, idx) => <div className={cls.wrapperBottomBlockCurrent} key={idx}>
                 <div className={cls.date}>{I18n.t(getWeekDay(date, idx + 1))}</div>
-                <div><IconAdapter className={cls.iconWhetherMin} src={getIcon(iconNames[idx], true) || clearSky} /></div>
+                <div><Icon className={cls.iconWeatherMin} src={getIcon(iconNames[idx], true) || clearSky} /></div>
                 <div ref={temperatureMaxRefs[idx]} className={cls.temperature}>-°C</div>
                 <div className={cls.temperature}>
                     <span ref={temperatureMinRefs[idx]}>-°C</span>

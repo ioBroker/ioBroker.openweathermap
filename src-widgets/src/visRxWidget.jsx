@@ -25,9 +25,8 @@ class visRxWidget extends React.Component {
             return;
         }
         const values = JSON.parse(JSON.stringify(this.state.values));
-        Object.keys(state).forEach(key => {
-            values[`${id}.${key}`] = state[key];
-        });
+        Object.keys(state).forEach(key =>
+            values[`${id}.${key}`] = state[key]);
         this.setState({ values });
     }
 
@@ -43,11 +42,13 @@ class visRxWidget extends React.Component {
                 }
             });
         });
+
         this.linkContext.IDs.forEach(oid => this.getIdSubscribeState(oid, this.onStateChanged));
     }
 
     componentWillUnmount() {
-        this.linkContext.IDs.forEach(oid => this.props.socket.unsubscribeState(oid, this.onStateChanged));
+        this.linkContext.IDs.forEach(oid =>
+            this.props.socket.unsubscribeState(oid, this.onStateChanged));
     }
 
     render() {

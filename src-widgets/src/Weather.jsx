@@ -9,8 +9,8 @@ import WeatherComponent from './react-weather/Weather';
 class Weather extends (window.visRxWidget || VisRxWidget) {
     static getWidgetInfo() {
         return {
-            id: 'tplMaterialWeather',
-            visSet: 'material-widgets',
+            id: 'tplOpenWeatherMapWeather',
+            visSet: 'openweathermap',
             visName: 'Weather',
             visAttrs: [
                 {

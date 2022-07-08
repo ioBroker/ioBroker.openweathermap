@@ -1,11 +1,8 @@
 import React from 'react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-
 import withStyles from '@mui/styles/withStyles';
 
-import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
-import i18n from '@iobroker/adapter-react-v5/i18n';
-import Loader from '@iobroker/adapter-react-v5/Components/Loader';
+import { GenericApp, i18n as I18n, Loader } from '@iobroker/adapter-react-v5/GenericApp';
 
 import Weather from './Weather';
 
@@ -55,13 +52,30 @@ class App extends GenericApp {
 
             console.log(this.translations);
             // init translations
-            i18n.setTranslations(this.translations);
+            I18n.setTranslations(this.translations);
         })();
-        i18n.setLanguage((navigator.language || navigator.userLanguage || 'en').substring(0, 2).toLowerCase());
+
+        I18n.setLanguage((navigator.language || navigator.userLanguage || 'en').substring(0, 2).toLowerCase());
     }
 
     componentDidMount() {
         super.componentDidMount();
+    }
+
+    renderWidget() {
+        return <div>
+            Weather:
+            <Weather
+                socket={this.socket}
+                style={{
+                    width: 600,
+                    height: 200,
+                }}
+                data={{
+                    type: 'all',
+                }}
+            />
+        </div>;
     }
 
     render() {
@@ -76,19 +90,7 @@ class App extends GenericApp {
         return <StyledEngineProvider injectFirst>
             <ThemeProvider theme={this.state.theme}>
                 <div className={this.props.classes.app}>
-                    <div>
-Weather:
-                        <Weather
-                            socket={this.socket}
-                            style={{
-                                width: 600,
-                                height: 600,
-                            }}
-                            data={{
-                                type: 'current',
-                            }}
-                        />
-                    </div>
+                    {this.renderWidget()}
                 </div>
             </ThemeProvider>
         </StyledEngineProvider>;

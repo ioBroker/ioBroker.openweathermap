@@ -2,7 +2,8 @@ import React from 'react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import withStyles from '@mui/styles/withStyles';
 
-import { GenericApp, i18n as I18n, Loader } from '@iobroker/adapter-react-v5/GenericApp';
+import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
+import { i18n as I18n, Loader } from '@iobroker/adapter-react-v5';
 
 import Weather from './Weather';
 

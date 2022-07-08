@@ -56,7 +56,7 @@ export const getIcon = (nameUri, decode) => {
     if (search) {
         return search.icon;
     }
-    return icons[0].icon;
+    return null;
 };
 
 const getWeekDay = (date, index) => {
@@ -80,12 +80,16 @@ const Weather = ({
     const titleCallBack = (_, state) => {
         if (state?.val) {
             setTitle(state.val);
+        } else {
+            setTitle(null);
         }
     };
 
     const iconCallBack = (_, state) => {
         if (state?.val) {
             setIconName(state.val || '');
+        } else {
+            setIconName(null);
         }
     };
 
@@ -101,7 +105,7 @@ const Weather = ({
             data.current.state && socket.unsubscribeState(data.current.state, titleCallBack);
             data.current.icon && socket.unsubscribeState(data.current.icon, iconCallBack);
         };
-    }, []);
+    }, [data]);
 
     const temperature = useRef();
     const humidity = useRef();
@@ -125,7 +129,7 @@ const Weather = ({
         socket.getState(id)
             .then(result => cb(id, result));
 
-        socket.subscribeState(id, (resultId, result) => cb(id, result));
+        socket.subscribeState(id, cb);
     };
 
     useEffect(() => {
@@ -146,38 +150,42 @@ const Weather = ({
     const getIndex = (idx, callBack) => (_, state) => callBack(state, idx);
 
     const temperatureMinCallBack = (state, idx) => {
-        if (state?.val && temperatureMinRefs[idx]?.current) {
-            temperatureMinRefs[idx].current.innerHTML = `${Math.round(state.val)}°C`;
+        if (temperatureMinRefs[idx]?.current) {
+            temperatureMinRefs[idx].current.innerHTML = state?.val ? `${Math.round(state.val)}°C` : null;
         }
     };
 
     const temperatureMaxCallBack = (state, idx) => {
-        if (state?.val && temperatureMaxRefs[idx]?.current) {
-            temperatureMaxRefs[idx].current.innerHTML = `${Math.round(state.val)}°C`;
+        if (temperatureMaxRefs[idx]?.current) {
+            temperatureMaxRefs[idx].current.innerHTML = state?.val ? `${Math.round(state.val)}°C` : null;
         }
     };
 
     const titleMinCallBack = (state, idx) => {
         if (state?.val) {
             setTitleRefs(titleRefs => titleRefs.map((_, i) => (i === idx ? state.val : titleRefs[i])));
+        } else {
+            setTitleRefs(titleRefs => titleRefs.map((_, i) => (i === idx ? null : titleRefs[i])));
         }
     };
 
     const iconsCallBack = (state, idx) => {
         if (state?.val) {
             setIconNames(_iconNames => _iconNames.map((_, i) => (i === idx ? state.val : _iconNames[i])));
+        } else {
+            setIconNames(_iconNames => _iconNames.map((_, i) => (i === idx ? null : _iconNames[i])));
         }
     };
 
     const temperatureCallBack = (_, state) => {
-        if (state?.val && temperature.current) {
-            temperature.current.innerHTML = `${Math.round(state.val)}°C`;
+        if (temperature.current) {
+            temperature.current.innerHTML = state?.val ? `${Math.round(state.val)}°C` : null;
         }
     };
 
     const humidityCallBack = (_, state) => {
-        if (state?.val && humidity.current) {
-            humidity.current.innerHTML = `${Math.round(state.val)}%`;
+        if (humidity.current) {
+            humidity.current.innerHTML = state?.val ? `${Math.round(state.val)}%` : null;
         }
     };
 
@@ -217,7 +225,7 @@ const Weather = ({
         <div className={cls.wrapperBlock} style={{ display: hideCurrent ? 'none' : undefined }}>
             <div className={cls.iconWrapper}>
                 <div className={Utils.clsx(cls.iconWeatherWrapper, (!arrLength || hideDays) && cls.noteArrayIcon)}>
-                    <Icon className={cls.iconWeather} src={getIcon(iconName, true) || clearSky} />
+                    <Icon className={cls.iconWeather} src={getIcon(iconName, true)} />
                 </div>
                 <div className={cls.styleText}>{title}</div>
             </div>
@@ -229,7 +237,7 @@ const Weather = ({
         {arrLength > 0 && <div className={cls.wrapperBottomBlock} style={{ display: hideDays ? 'none' : undefined }}>
             {data.days.map((e, idx) => <div className={cls.wrapperBottomBlockCurrent} key={idx}>
                 <div className={cls.date}>{I18n.t(getWeekDay(date, idx + 1))}</div>
-                <div><Icon className={cls.iconWeatherMin} src={getIcon(iconNames[idx], true) || clearSky} /></div>
+                <div><Icon className={cls.iconWeatherMin} src={getIcon(iconNames[idx], true)} /></div>
                 <div ref={temperatureMaxRefs[idx]} className={cls.temperature}>-°C</div>
                 <div className={cls.temperature}>
                     <span ref={temperatureMinRefs[idx]}>-°C</span>

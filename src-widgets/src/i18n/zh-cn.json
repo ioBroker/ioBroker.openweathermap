@@ -1,8 +1,14 @@
 {
-  "User:": "用户：",
-  "Text:": "文本：",
-  "Instance:": "实例：",
-  "Sends message via telegram": "通过电报发送消息",
-  "Telegram": "Telegram",
-  "You can use %s in the text to display current trigger value or %id to display the triggered object ID": "您可以在文本中使用 %s 显示当前触发值或使用 %id 显示触发对象 ID"
+  "openweathermap_Sat": "周六",
+  "openweathermap_Sun": "星期日",
+  "openweathermap_Mon": "周一",
+  "openweathermap_Tue": "周二",
+  "openweathermap_Wed": "周三",
+  "openweathermap_Thu": "周四",
+  "openweathermap_Fri": "星期五",
+  "openweathermap_type": "类型",
+  "openweathermap_instance": "实例",
+  "openweathermap_type_all": "全部",
+  "openweathermap_type_current": "当前信息",
+  "openweathermap_type_days": "天"
 }

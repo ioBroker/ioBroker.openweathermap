@@ -50,6 +50,14 @@
     "del": "^6.1.1"
   },
   "main": "main.js",
+  "files": [
+    "admin/",
+    "lib/",
+    "widgets/",
+    "main.js",
+    "io-package.json",
+    "LICENSE"
+  ],
   "scripts": {
     "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
     "test:package": "mocha test/package --exit",

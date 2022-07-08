@@ -3,7 +3,7 @@ import {
     Card, CardContent,
 } from '@mui/material';
 
-import VisRxWidget from './visRxWidget';
+import VisRxWidget from '@iobroker/vis-widgets-react-dev/visRxWidget';
 import WeatherComponent from './react-weather/Weather';
 
 class Weather extends (window.visRxWidget || VisRxWidget) {
@@ -18,11 +18,17 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                     fields: [
                         {
                             name: 'type',
+                            label: 'openweathermap_type',
                             type: 'select',
-                            options: ['all', 'current', 'days'],
+                            options: [
+                                { value: 'all',     label: 'openweathermap_type_all' },
+                                { value: 'current', label: 'openweathermap_type_current' },
+                                { value: 'days',    label: 'openweathermap_type_days' },
+                            ],
                             default: 'all',
                         },
                         {
+                            label: 'openweathermap_instance',
                             name: 'instance',
                             type: 'instance',
                             adapter: 'openweathermap',
@@ -32,7 +38,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                     ],
                 },
             ],
-            visPrev: 'widgets/material-widgets/img/prev_switch.png',
+            visPrev: 'widgets/openweathermap/img/prev_weather.png',
         };
     }
 

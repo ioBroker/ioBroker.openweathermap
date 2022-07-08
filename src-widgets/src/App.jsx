@@ -1,101 +1,43 @@
 import React from 'react';
-import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
-import withStyles from '@mui/styles/withStyles';
 
-import GenericApp from '@iobroker/adapter-react-v5/GenericApp';
-import { i18n as I18n, Loader } from '@iobroker/adapter-react-v5';
+import WidgetDemoApp from '@iobroker/vis-widgets-react-dev/widgetDemoApp';
+import { i18n as I18n } from '@iobroker/adapter-react-v5';
 
 import Weather from './Weather';
 
-const styles = theme => ({
-    app: {
-        backgroundColor: theme.palette.background.default,
-        color: theme.palette.text.primary,
-        height: '100%',
-        width: '100%',
-        overflow: 'auto',
-    },
-});
 
-class App extends GenericApp {
+class App extends WidgetDemoApp {
     constructor(props) {
-        const extendedProps = { ...props };
-        super(props, extendedProps);
+        super(props);
 
-        (async () => {
-            this.translations = {
-                en: require('@iobroker/adapter-react-v5/i18n/en.json'),
-                de: require('@iobroker/adapter-react-v5/i18n/de.json'),
-                ru: require('@iobroker/adapter-react-v5/i18n/ru.json'),
-                pt: require('@iobroker/adapter-react-v5/i18n/pt.json'),
-                nl: require('@iobroker/adapter-react-v5/i18n/nl.json'),
-                fr: require('@iobroker/adapter-react-v5/i18n/fr.json'),
-                it: require('@iobroker/adapter-react-v5/i18n/it.json'),
-                es: require('@iobroker/adapter-react-v5/i18n/es.json'),
-                pl: require('@iobroker/adapter-react-v5/i18n/pl.json'),
-                'zh-cn': require('@iobroker/adapter-react-v5/i18n/zh-cn.json'),
-            };
-
-            const translations = {
-                en: require('./i18n/en.json'),
-                de: require('./i18n/de.json'),
-                ru: require('./i18n/ru.json'),
-                pt: require('./i18n/pt.json'),
-                nl: require('./i18n/nl.json'),
-                fr: require('./i18n/fr.json'),
-                it: require('./i18n/it.json'),
-                es: require('./i18n/es.json'),
-                pl: require('./i18n/pl.json'),
-                'zh-cn': require('./i18n/zh-cn.json'),
-            };
-            // merge together
-            Object.keys(translations).forEach(lang => this.translations[lang] = Object.assign(this.translations[lang], translations[lang]));
-
-            console.log(this.translations);
-            // init translations
-            I18n.setTranslations(this.translations);
-        })();
-
-        I18n.setLanguage((navigator.language || navigator.userLanguage || 'en').substring(0, 2).toLowerCase());
-    }
-
-    componentDidMount() {
-        super.componentDidMount();
+        const translations = {
+            en: require('./i18n/en.json'),
+            de: require('./i18n/de.json'),
+            ru: require('./i18n/ru.json'),
+            pt: require('./i18n/pt.json'),
+            nl: require('./i18n/nl.json'),
+            fr: require('./i18n/fr.json'),
+            it: require('./i18n/it.json'),
+            es: require('./i18n/es.json'),
+            pl: require('./i18n/pl.json'),
+            'zh-cn': require('./i18n/zh-cn.json'),
+        };
+        // init translations
+        I18n.extendTranslations(translations);
     }
 
     renderWidget() {
-        return <div>
-            Weather:
-            <Weather
-                socket={this.socket}
-                style={{
-                    width: 600,
-                    height: 200,
-                }}
-                data={{
-                    type: 'all',
-                }}
-            />
-        </div>;
-    }
-
-    render() {
-        if (!this.state.loaded) {
-            return <StyledEngineProvider injectFirst>
-                <ThemeProvider theme={this.state.theme}>
-                    <Loader theme={this.state.themeType} />
-                </ThemeProvider>
-            </StyledEngineProvider>;
-        }
-
-        return <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={this.state.theme}>
-                <div className={this.props.classes.app}>
-                    {this.renderWidget()}
-                </div>
-            </ThemeProvider>
-        </StyledEngineProvider>;
+        return <Weather
+            socket={this.socket}
+            style={{
+                width: 600,
+                height: 200,
+            }}
+            data={{
+                type: 'all',
+            }}
+        />;
     }
 }
 
-export default withStyles(styles)(App);
+export default App;

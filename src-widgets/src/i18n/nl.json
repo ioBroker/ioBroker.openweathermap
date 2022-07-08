@@ -1,8 +1,14 @@
 {
-  "User:": "Gebruiker:",
-  "Text:": "Tekst:",
-  "Instance:": "Voorbeeld:",
-  "Sends message via telegram": "Stuurt bericht via telegram",
-  "Telegram": "Telegram",
-  "You can use %s in the text to display current trigger value or %id to display the triggered object ID": "U kunt %s in de tekst gebruiken om de huidige triggerwaarde weer te geven of %id om de getriggerde object-ID weer te geven"
+  "openweathermap_Sat": "Zat",
+  "openweathermap_Sun": "Zon",
+  "openweathermap_Mon": "Maa",
+  "openweathermap_Tue": "Din",
+  "openweathermap_Wed": "Woe",
+  "openweathermap_Thu": "Don",
+  "openweathermap_Fri": "Vri",
+  "openweathermap_type": "Type",
+  "openweathermap_instance": "Voorbeeld",
+  "openweathermap_type_all": "Allemaal",
+  "openweathermap_type_current": "Actuele info",
+  "openweathermap_type_days": "dagen"
 }

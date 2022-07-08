@@ -17,34 +17,35 @@ import mist from './iconsWeather/mist.svg';
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const icons = [{
-    icon: clearSky,
-    name: ['01d', '01n'],
-}, {
-    icon: fewClouds,
-    name: ['02d', '02n'],
-}, {
-    icon: scatteredClouds,
-    name: ['03d', '03n'],
-}, {
-    icon: brokenClouds,
-    name: ['04d', '04n'],
-}, {
-    icon: showerRain,
-    name: ['09d', '09n'],
-}, {
-    icon: rain,
-    name: ['10d', '10n'],
-}, {
-    icon: thunderstorm,
-    name: ['11d', '11n'],
-}, {
-    icon: snow,
-    name: ['13d', '13n'],
-}, {
-    icon: mist,
-    name: ['50d', '50n'],
-},
+const icons = [
+    {
+        icon: clearSky,
+        name: ['01d', '01n'],
+    }, {
+        icon: fewClouds,
+        name: ['02d', '02n'],
+    }, {
+        icon: scatteredClouds,
+        name: ['03d', '03n'],
+    }, {
+        icon: brokenClouds,
+        name: ['04d', '04n'],
+    }, {
+        icon: showerRain,
+        name: ['09d', '09n'],
+    }, {
+        icon: rain,
+        name: ['10d', '10n'],
+    }, {
+        icon: thunderstorm,
+        name: ['11d', '11n'],
+    }, {
+        icon: snow,
+        name: ['13d', '13n'],
+    }, {
+        icon: mist,
+        name: ['50d', '50n'],
+    },
 ];
 
 export const getIcon = (nameUri, decode) => {
@@ -61,7 +62,7 @@ export const getIcon = (nameUri, decode) => {
 
 const getWeekDay = (date, index) => {
     const dayNumber = date.getDay();
-    const idx = (dayNumber + index) > 6 ? (dayNumber + index) - 7 : (dayNumber + index);
+    const idx = dayNumber + index > 6 ? (dayNumber + index) - 7 : (dayNumber + index);
     return days[idx];
 };
 
@@ -121,10 +122,6 @@ const Weather = ({
     const [titleRefs, setTitleRefs] = useState([]);
     const [iconNames, setIconNames] = useState([]);
 
-    const onValueChanged = useCallback((id, state) => {
-        // find function for ID
-    }, []);
-
     const getSubscribeState = (id, cb) => {
         socket.getState(id)
             .then(result => cb(id, result));
@@ -139,8 +136,8 @@ const Weather = ({
         setTemperatureMaxRefs(_temperatureMaxRefs => (
             Array(arrLength).fill().map((_, i) => _temperatureMaxRefs[i] || createRef())
         ));
-        setTitleRefs(titleRefs => (
-            Array(arrLength).fill().map((_, i) => titleRefs[i] || '')
+        setTitleRefs(_titleRefs => (
+            Array(arrLength).fill().map((_, i) => _titleRefs[i] || '')
         ));
         setIconNames(_iconNames => (
             Array(arrLength).fill().map((_, i) => _iconNames[i] || '')
@@ -163,9 +160,9 @@ const Weather = ({
 
     const titleMinCallBack = (state, idx) => {
         if (state?.val) {
-            setTitleRefs(titleRefs => titleRefs.map((_, i) => (i === idx ? state.val : titleRefs[i])));
+            setTitleRefs(_titleRefs => _titleRefs.map((_, i) => (i === idx ? state.val : _titleRefs[i])));
         } else {
-            setTitleRefs(titleRefs => titleRefs.map((_, i) => (i === idx ? null : titleRefs[i])));
+            setTitleRefs(_titleRefs => _titleRefs.map((_, i) => (i === idx ? null : _titleRefs[i])));
         }
     };
 
@@ -236,13 +233,12 @@ const Weather = ({
         </div>
         {arrLength > 0 && <div className={cls.wrapperBottomBlock} style={{ display: hideDays ? 'none' : undefined }}>
             {data.days.map((e, idx) => <div className={cls.wrapperBottomBlockCurrent} key={idx}>
-                <div className={cls.date}>{I18n.t(getWeekDay(date, idx + 1))}</div>
+                <div className={cls.date}>{I18n.t('openweathermap_' + getWeekDay(date, idx + 1))}</div>
                 <div><Icon className={cls.iconWeatherMin} src={getIcon(iconNames[idx], true)} /></div>
                 <div ref={temperatureMaxRefs[idx]} className={cls.temperature}>-°C</div>
                 <div className={cls.temperature}>
                     <span ref={temperatureMinRefs[idx]}>-°C</span>
                 </div>
-                {/* <div>30°C<span>19°C</span></div> */}
             </div>)}
         </div>}
     </div>;

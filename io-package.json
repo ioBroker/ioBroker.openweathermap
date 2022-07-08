@@ -143,13 +143,15 @@
     "visWidgets": {
       "Weather": {
         "name": "Weather",
-        "url1": "openweathermap/customWidgets.js",
-        "url": "http://localhost:4173/customWidgets.js",
+        "url": "openweathermap/customWidgets.js",
+        "url1": "http://localhost:4173/customWidgets.js",
         "components": [
           "Weather"
         ]
-      }
-    }
+      },
+      "i18n": true
+    },
+    "restartAdapters": ["vis"]
   },
   "native": {
     "apikey": "",

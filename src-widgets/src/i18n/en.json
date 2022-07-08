@@ -1,8 +1,14 @@
 {
-  "User:": "User:",
-  "Text:": "Text:",
-  "Instance:": "Instance:",
-  "Sends message via telegram": "Sends message via telegram",
-  "Telegram": "Telegram",
-  "You can use %s in the text to display current trigger value or %id to display the triggered object ID": "You can use %s in the text to display current trigger value or %id to display the triggered object ID"
+  "openweathermap_Sat": "Sat",
+  "openweathermap_Sun": "Sun",
+  "openweathermap_Mon": "Mon",
+  "openweathermap_Tue": "Tue",
+  "openweathermap_Wed": "Wed",
+  "openweathermap_Thu": "Thu",
+  "openweathermap_Fri": "Fri",
+  "openweathermap_type": "Type",
+  "openweathermap_instance": "Instance",
+  "openweathermap_type_all": "All",
+  "openweathermap_type_current": "Current info",
+  "openweathermap_type_days": "Days"
 }

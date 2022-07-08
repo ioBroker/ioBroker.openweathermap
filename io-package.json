@@ -139,6 +139,15 @@
       "sentry": {
         "dsn": "https://bc7b672977224d73935e25afee3bdc87@sentry.iobroker.net/175"
       }
+    },
+    "visWidgets": {
+      "Weather": {
+        "name": "Weather",
+        "url": "openweathermap/customWidgets.js",
+        "components": [
+          "Weather"
+        ]
+      }
     }
   },
   "native": {

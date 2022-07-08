@@ -6,9 +6,9 @@
 
 const gulp = require('gulp');
 const fs = require('fs');
-const pkg = require('./package.json');
 const iopackage = require('./io-package.json');
-const version = (pkg && pkg.version) ? pkg.version : iopackage.common.version;
+const cp = require('child_process');
+const del = require('del');
 const fileName = 'words.js';
 const EMPTY = '';
 const translate = require('./lib/tools').translateText;
@@ -233,55 +233,6 @@ gulp.task('adminLanguages2words', function (done) {
     done();
 });
 
-gulp.task('updatePackages', function (done) {
-    iopackage.common.version = pkg.version;
-    iopackage.common.news = iopackage.common.news || {};
-    if (!iopackage.common.news[pkg.version]) {
-        const news = iopackage.common.news;
-        const newNews = {};
-
-        newNews[pkg.version] = {
-            en: 'news',
-            de: 'neues',
-            ru: 'новое',
-            pt: 'novidades',
-            nl: 'nieuws',
-            fr: 'nouvelles',
-            it: 'notizie',
-            es: 'noticias',
-            pl: 'nowości',
-            'zh-cn': '新'
-        };
-        iopackage.common.news = Object.assign(newNews, news);
-    }
-    fs.writeFileSync('io-package.json', JSON.stringify(iopackage, null, 4));
-    done();
-});
-
-gulp.task('updateReadme', function (done) {
-    const readme = fs.readFileSync('README.md').toString();
-    const pos = readme.indexOf('## Changelog\n');
-    if (pos !== -1) {
-        const readmeStart = readme.substring(0, pos + '## Changelog\n'.length);
-        const readmeEnd = readme.substring(pos + '## Changelog\n'.length);
-
-        if (readme.indexOf(version) === -1) {
-            const timestamp = new Date();
-            const date = timestamp.getFullYear() + '-' +
-                ('0' + (timestamp.getMonth() + 1).toString(10)).slice(-2) + '-' +
-                ('0' + (timestamp.getDate()).toString(10)).slice(-2);
-
-            let news = '';
-            if (iopackage.common.news && iopackage.common.news[pkg.version]) {
-                news += '* ' + iopackage.common.news[pkg.version].en;
-            }
-
-            fs.writeFileSync('README.md', readmeStart + '### ' + version + ' (' + date + ')\n' + (news ? news + '\n\n' : '\n') + readmeEnd);
-        }
-    }
-    done();
-});
-
 gulp.task('translate', async function (done) {
 
     let yandex;
@@ -334,4 +285,85 @@ gulp.task('translate', async function (done) {
 
 gulp.task('translateAndUpdateWordsJS', gulp.series('translate', 'adminLanguages2words', 'adminWords2languages'));
 
-gulp.task('default', gulp.series('updatePackages', 'updateReadme'));
+const src = __dirname + '/src-widgets/';
+
+function npmInstallRules() {
+    return new Promise((resolve, reject) => {
+        // Install node modules
+        const cwd = src.replace(/\\/g, '/');
+
+        const cmd = `npm install -f`;
+        console.log(`"${cmd} in ${cwd}`);
+
+        // System call used for update of js-controller itself,
+        // because during installation npm packet will be deleted too, but some files must be loaded even during the install process.
+        const exec = cp.exec;
+        const child = exec(cmd, {cwd});
+
+        child.stderr.pipe(process.stderr);
+        child.stdout.pipe(process.stdout);
+
+        child.on('exit', (code /* , signal */) => {
+            // code 1 is strange error that cannot be explained. Everything is installed but error :(
+            if (code && code !== 1) {
+                reject('Cannot install: ' + code);
+            } else {
+                console.log(`"${cmd} in ${cwd} finished.`);
+                // command succeeded
+                resolve();
+            }
+        });
+    });
+}
+
+function buildRules() {
+    const version = JSON.parse(fs.readFileSync(__dirname + '/package.json').toString('utf8')).version;
+    const data    = JSON.parse(fs.readFileSync(src + 'package.json').toString('utf8'));
+
+    data.version = version;
+
+    fs.writeFileSync(src + 'package.json', JSON.stringify(data, null, 4));
+
+    return new Promise((resolve, reject) => {
+        const options = {
+            stdio: 'pipe',
+            cwd: src
+        };
+
+        console.log(options.cwd);
+
+        let script = src + 'node_modules/@craco/craco/bin/craco.js';
+        if (!fs.existsSync(script)) {
+            script = __dirname + '/node_modules/@craco/craco/bin/craco.js';
+        }
+        if (!fs.existsSync(script)) {
+            console.error('Cannot find execution file: ' + script);
+            reject('Cannot find execution file: ' + script);
+        } else {
+            const child = cp.fork(script, ['build'], options);
+            child.stdout.on('data', data => console.log(data.toString()));
+            child.stderr.on('data', data => console.log(data.toString()));
+            child.on('close', code => {
+                console.log(`child process exited with code ${code}`);
+                code ? reject('Exit code: ' + code) : resolve();
+            });
+        }
+    });
+}
+
+gulp.task('widget-0-clean', () => del(['admin/rules/**/*', 'src-widgets/build/**/*']));
+
+gulp.task('widget-1-npm', async () => npmInstallRules());
+
+gulp.task('widget-2-compile', async () => buildRules());
+
+gulp.task('widget-3-copy', () => Promise.all([
+    gulp.src(['src-widgets/build/*.js']).pipe(gulp.dest('widgets/openweathermap')),
+    gulp.src(['src-widgets/build/*.map']).pipe(gulp.dest('widgets/openweathermap')),
+    gulp.src(['src-widgets/build/static/**/*']).pipe(gulp.dest('widgets/openweathermap/static')),
+    gulp.src(['src-widgets/src/i18n/*.json']).pipe(gulp.dest('widgets/openweathermap/i18n')),
+]));
+
+gulp.task('widget-build', gulp.series(['widget-0-clean', 'widget-1-npm', 'widget-2-compile', 'widget-3-copy']));
+
+gulp.task('default', gulp.series('widget-build'));

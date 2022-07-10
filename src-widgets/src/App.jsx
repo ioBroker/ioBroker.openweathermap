@@ -31,7 +31,7 @@ class App extends WidgetDemoApp {
             socket={this.socket}
             style={{
                 width: 600,
-                height: 200,
+                height: 600,
             }}
             data={{
                 type: 'all',

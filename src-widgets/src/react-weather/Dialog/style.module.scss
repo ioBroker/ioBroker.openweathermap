@@ -1,0 +1,1410 @@
+.paper {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    height: 100%;
+    max-height: calc(100% - 60px) !important;
+    margin: 0 !important;
+    max-width: 700px !important;
+}
+.filterBlur{
+    backdrop-filter: blur(8px);
+    transition: backdrop-filter 0.5s;
+}
+.dialogContent {
+    position: relative;
+}
+.displayNone {
+    display: none !important;
+}
+
+.backgroundDialog {
+    background-color: var(--backgroundDialog) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--borderDialog) !important;
+}
+.rootDialog {
+    background-color: rgb(0 0 0 / 30%);
+    * {
+        &::-webkit-scrollbar-thumb {
+            background: var(--generalColor);
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--borderBottomHeader);
+        }
+
+        // For Internet Explorer
+        & {
+            scrollbar-face-color: var(--generalColor);
+            scrollbar-track-color: var(--borderBottomHeader);
+        }
+    }
+    // filter: blur(50px);
+}
+.displayFlex {
+    justify-content: center;
+    display: flex;
+    width: 100%;
+}
+.overflowHidden {
+    overflow: hidden !important;
+}
+.boostButton {
+    position: absolute !important;
+    top: 0;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    left: 0;
+    right: 0;
+}
+.powerButton {
+    position: absolute !important;
+    top: 3em;
+    left: 7em;
+}
+.partyButton {
+    position: absolute !important;
+    top: 7.3em;
+    left: 0;
+}
+.swingButton {
+    position: absolute !important;
+    top: 7.3em;
+    right: 0;
+}
+.swingGroup {
+    position: absolute !important;
+    top: 0;
+    right: 0;
+    legend {
+        color: var(--generalColor) !important;
+        margin-bottom: 4px;
+    }
+}
+.modeButton {
+    position: absolute !important;
+    bottom: 0;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    left: 0;
+    right: 0;
+    width: fit-content;
+    legend {
+        color: var(--generalColor) !important;
+        margin-bottom: 4px;
+    }
+}
+.stateVacuum {
+    position: absolute !important;
+    bottom: 56px;
+    right: 130px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    color: var(--generalColor);
+    border-radius: 5px;
+    background-color: var(--editBackground);
+    border: 1px solid var(--generalColor);
+    padding: 4px 8px;
+    span {
+        font-size: 10px;
+    }
+    .titleVacuum {
+        color: var(--generalColor);
+    }
+}
+.wrapperThermostat {
+    max-width: 500px;
+    max-height: 500px;
+    position: relative;
+    margin: auto;
+    padding: 50px;
+    width: 100%;
+    height: calc(100% - 100px);
+}
+.wrapperVacuum {
+    max-width: 500px;
+    max-height: 500px;
+    position: relative;
+    margin: auto;
+    padding: 50px;
+    width: 100%;
+    height: calc(100% - 100px);
+}
+.wrapperControl {
+    // padding: 50px;
+    // margin: auto;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    max-width: 400px;
+    max-height: 400px;
+    margin: auto;
+}
+.wrapperModalContent {
+    // margin: auto;
+    display: flex;
+    height: 100%;
+}
+.styleCharts {
+    height: 50px !important;
+    * {
+        cursor: pointer !important;
+    }
+}
+.wrapperCharts {
+    width: 100px;
+    margin: 5px 0;
+    border: 1px solid var(--editBorder);
+    border-radius: 5px;
+    background-color: var(--backgroundDraver);
+    transition: opacity 1s, background-color 0.6s;
+    cursor: pointer !important;
+    overflow: hidden;
+    &:hover {
+        // opacity: 0.7;
+        background-color: var(--backgroundHeader);
+    }
+}
+.chartsName {
+    font-size: 9px;
+    margin: 3px;
+    font-weight: 900;
+    color: var(--generalColor);
+}
+.charts {
+    position: absolute;
+    bottom: 0;
+    left: -5px;
+}
+.div {
+    height: 57vmin;
+    width: 57vmin;
+    position: relative;
+    display: flex;
+    max-width: 300px;
+    max-height: 300px;
+}
+.wrapperTemperature {
+    justify-content: space-around;
+    padding: 10px 10px 20px 10px;
+    border: 1px solid var(--editBorder);
+    border-radius: 5px;
+    background-color: var(--backgroundDraver);
+    height: 50vmin;
+    width: 50vmin;
+}
+.wrapperDiv {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.dimmerSlider {
+    width: calc(100% - 10px);
+    height: 50px;
+    // max-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.width300 {
+    max-width: 300px;
+}
+.cursor {
+    border: 2px solid var(--backgroundDraver);
+}
+.marginAuto {
+    margin: auto 0;
+}
+.colorCircle {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 50%;
+    object-fit: contain;
+    overflow: hidden;
+    border: 2px solid var(--backgroundDraver);
+}
+.colorBackground {
+    border-radius: 50%;
+    filter: blur(50px);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    &::after,
+    &::before {
+        position: absolute;
+        content: "";
+        background: linear-gradient(60deg, rgba(0, 255, 0, 1) 50%, transparent 50%),
+            linear-gradient(120deg, rgba(255, 255, 0, 1) 50%, transparent 50%),
+            linear-gradient(180deg, rgba(255, 0, 0, 1) 50%, transparent 50%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 50%;
+        background-size: 100% 200%;
+    }
+    &::after {
+        bottom: 0;
+        background: linear-gradient(240deg, rgba(255, 0, 255, 1) 50%, transparent 50%),
+            linear-gradient(300deg, rgba(0, 0, 255, 1) 50%, transparent 50%),
+            linear-gradient(360deg, rgba(0, 255, 255, 1) 50%, transparent 50%);
+        z-index: -1;
+    }
+    // transform: rotate(30deg);
+}
+.rotate {
+    transform: rotate(30deg);
+    width: calc(100% + 4px);
+    height: 100%;
+}
+.rotateCT {
+    transform: rotate(-65deg);
+    opacity: 0.8;
+    width: calc(100% + 4px);
+    height: 100%;
+}
+.colorBackgroundCT {
+    border-radius: 50%;
+    filter: blur(2px);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    &::after,
+    &::before {
+        position: absolute;
+        content: "";
+        background: linear-gradient(0deg, #ff9226 50%, transparent 50%),
+            linear-gradient(10deg, #ff9226 50%, transparent 50%), linear-gradient(20deg, #ff9837 50%, transparent 50%),
+            linear-gradient(30deg, #ff9e46 50%, transparent 50%), linear-gradient(40deg, #ffa452 50%, transparent 50%),
+            linear-gradient(50deg, #ffa95c 50%, transparent 50%), linear-gradient(60deg, #ffae68 50%, transparent 50%),
+            linear-gradient(70deg, #ffb372 50%, transparent 50%), linear-gradient(80deg, #ffb87b 50%, transparent 50%),
+            linear-gradient(90deg, #ffbc84 50%, transparent 50%), linear-gradient(100deg, #ffc08c 50%, transparent 50%),
+            linear-gradient(120deg, #ffc494 50%, transparent 50%), linear-gradient(130deg, #ffcca3 50%, transparent 50%),
+            linear-gradient(140deg, #ffcfa9 50%, transparent 50%), linear-gradient(150deg, #ffd3af 50%, transparent 50%),
+            linear-gradient(160deg, #ffd6b5 50%, transparent 50%), linear-gradient(170deg, #ffdabc 50%, transparent 50%),
+            linear-gradient(180deg, #ffddc1 50%, transparent 50%);
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 50%;
+        background-size: 100% 200%;
+    }
+    &::after {
+        bottom: 0;
+        background: linear-gradient(190deg, #ffe0c7 50%, transparent 50%),
+            linear-gradient(200deg, #ffe3cb 50%, transparent 50%), linear-gradient(210deg, #ffe6d1 50%, transparent 50%),
+            linear-gradient(220deg, #ffe9d6 50%, transparent 50%), linear-gradient(230deg, #ffebda 50%, transparent 50%),
+            linear-gradient(240deg, #ffeede 50%, transparent 50%), linear-gradient(250deg, #fff0e3 50%, transparent 50%),
+            linear-gradient(260deg, #fff2e7 50%, transparent 50%), linear-gradient(270deg, #fff5eb 50%, transparent 50%),
+            linear-gradient(280deg, #fff7ef 50%, transparent 50%), linear-gradient(290deg, #fffaf3 50%, transparent 50%),
+            linear-gradient(300deg, #fffcf7 50%, transparent 50%), linear-gradient(310deg, white 50%, transparent 50%);
+        // linear-gradient(320deg, rgba(255, 255, 0, 1) 50%, transparent 50%);
+        // linear-gradient(330deg, rgba(255, 255, 0, 1) 50%, transparent 50%),
+        // linear-gradient(340deg, rgba(255, 255, 0, 1) 50%, transparent 50%)
+        // linear-gradient(350deg, rgba(255, 255, 0, 1) 50%, transparent 50%),
+        // linear-gradient(380deg, rgba(255, 0, 0, 1) 50%, transparent 50%);
+        z-index: -1;
+    }
+}
+.wrapperModalContentColor {
+    // margin: auto;
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+.buttonMode {
+    position: absolute !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 20px !important;
+    padding: 0 !important;
+    left: 72px;
+}
+.buttonUseOn {
+    position: absolute !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 20px !important;
+    padding: 0 !important;
+}
+.wrapperSlider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.textSlider {
+    margin-bottom: 20px;
+    color: var(--generalColor);
+}
+//weather
+.wrapperBlockWeather {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 22px);
+    justify-content: center;
+    padding: 10px;
+    color: var(--silverColor);
+    .currentDiv {
+        height: 200px;
+        position: relative;
+        margin: 4px;
+        overflow: hidden;
+        border: 1px solid var(--editBorder);
+        border-radius: 5px;
+        background-color: var(--backgroundDraver);
+    }
+    .daysDiv {
+        overflow-x: hidden;
+        // overflow-y: auto;
+        display: flex;
+    }
+    .dayDiv {
+        height: 140px;
+        width: 100%;
+        position: relative;
+        border: 1px solid var(--editBorder);
+        border-radius: 5px;
+        background-color: var(--backgroundDraver);
+        margin: 4px;
+        padding: 4px;
+        flex: 1;
+        overflow: hidden;
+    }
+    .currentIconDiv {
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        z-index: 0;
+        left: -50px;
+        top: 40px;
+    }
+    .currentIconIcon {
+        width: 100%;
+        z-index: 0;
+    }
+    .currentIconTemperature {
+        position: absolute;
+        width: 100%;
+        font-size: 40px;
+        z-index: 1;
+        font-weight: normal;
+        text-align: right;
+        color: var(--silverColor);
+        top: 8px;
+        right: -70px;
+    }
+    .currentDateDiv {
+        position: absolute;
+        z-index: 1;
+        width: calc(100% - 2em);
+        top: 16px;
+        left: 16px;
+    }
+    .currentDateDate {
+        font-weight: 900;
+        display: inline-block;
+        color: var(--generalColor);
+    }
+    .currentDateLocation {
+        font-weight: 900;
+        color: var(--generalColor);
+        display: inline-block;
+        position: absolute;
+        text-overflow: ellipsis;
+        width: calc(100% - 75px);
+        white-space: nowrap;
+        right: 0;
+        text-align: right;
+    }
+    .todayStateName {
+        font-weight: 900;
+        color: var(--generalColor);
+    }
+    .todayStateDiv {
+        position: absolute;
+        z-index: 1;
+        width: calc(100% - 90px);
+        font-weight: 600;
+        bottom: 16px;
+        left: 160px;
+        text-align: left;
+        font-size: 14px;
+        color: var(--silverColor);
+    }
+    .tempMax {
+        font-weight: 900;
+    }
+    .todayTempDiv {
+        position: absolute;
+        z-index: 1;
+        font-weight: normal;
+        top: 35px;
+        max-width: calc(100% - 2em - 90px);
+        right: 16px;
+        text-align: right;
+        color: var(--silverColor);
+        font-weight: 600;
+    }
+    .dayIconDiv {
+        z-index: 0;
+        position: absolute;
+        width: 75px;
+        height: 75px;
+        bottom: -17px;
+        left: -18px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center center;
+        display: flex;
+        align-items: center;
+    }
+    .dayIconTemperature {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--silverColor);
+        display: flex;
+        z-index: 1;
+        top: 5px;
+        position: absolute;
+        right: -55px;
+        &:first-child {
+            font-weight: 900;
+        }
+    }
+    .dayDateDiv {
+        // position: absolute;
+        z-index: 1;
+        // width: calc(100% - 2em);
+        // top: 16px;
+        // left: 16px;
+    }
+    .dayDateDate {
+        font-weight: bold;
+        display: flex;
+        font-size: 13px;
+        width: 100%;
+        justify-content: center;
+        color: var(--generalColor);
+    }
+    .dayStateDiv {
+        // position: absolute;
+        z-index: 1;
+        // width: calc(100% - 90px);
+        margin-top: 4px;
+        font-weight: normal;
+        bottom: 16px;
+        left: 118px;
+        text-align: left;
+    }
+    .dayTempDiv {
+        font-weight: normal;
+        text-align: right;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .dayStateWind {
+        white-space: nowrap;
+        // overflow: hidden;
+        font-size: 14px;
+    }
+    .wrapperSpecialIcon {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: var(--silverColor);
+        margin-left: 3px;
+    }
+    .specialIcon {
+        width: 14px;
+        height: 14px;
+        margin-right: 3px;
+    }
+}
+.wrapperVacuumCleaner {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    // overflow: hidden;
+    min-width: 170px;
+    min-height: 170px;
+    pointer-events: none;
+    .vacuumCleaner {
+        min-width: 170px;
+        min-height: 170px;
+        display: flex;
+        width: 64%;
+        height: 64%;
+        fill: var(--backgroundDraver);
+        color: var(--backgroundDraver);
+        transition: fill 0.5s ease 0s;
+        stroke: var(--editBorder);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        // transition: all 1s;
+        z-index: -1;
+        transform: rotate(0deg);
+        margin: auto !important;
+    }
+    .vacuumCleanerWork {
+        animation: moveIcon 5s linear infinite;
+    }
+    @keyframes moveIcon {
+        0% {
+            bottom: 0px;
+            stroke: var(--editBorder);
+        }
+        11% {
+            bottom: 12px;
+            stroke: rgba(88, 248, 24, 0.774);
+        }
+        22% {
+            bottom: 0px;
+            transform: rotate(0deg);
+            stroke: var(--editBorder);
+        } //1
+        33% {
+            bottom: 0px;
+            transform: rotate(35deg);
+            left: 0;
+        }
+        44% {
+            transform: rotate(35deg);
+            bottom: 12px;
+            left: 12px;
+            stroke: rgba(88, 248, 24, 0.774);
+        }
+        55% {
+            transform: rotate(0deg);
+            bottom: 0;
+            left: 0;
+            stroke: var(--editBorder);
+        } //2
+        66% {
+            transform: rotate(-35deg);
+            bottom: 0px;
+        }
+        77% {
+            transform: rotate(-35deg);
+            bottom: 12px;
+            left: -12px;
+            stroke: rgba(88, 248, 24, 0.774);
+        }
+        88% {
+            transform: rotate(0deg);
+            bottom: 0;
+            left: 0;
+            stroke: var(--editBorder);
+        }
+        100% {
+            bottom: 0px;
+        }
+    }
+    .vacuumCleanerPause {
+        animation: pauseIcon 5s linear infinite;
+    }
+    @keyframes pauseIcon {
+        0% {
+            transform: rotate(0deg);
+            stroke: var(--editBorder);
+        }
+        25% {
+            transform: rotate(4deg);
+            stroke: rgba(233, 248, 24, 0.623);
+        }
+        40% {
+            transform: rotate(0deg);
+            stroke: var(--editBorder);
+        }
+        50% {
+            transform: rotate(0deg);
+            stroke: var(--editBorder);
+        }
+        60% {
+            transform: rotate(-4deg);
+            stroke: rgba(233, 248, 24, 0.623);
+        }
+        75% {
+            transform: rotate(0deg);
+            stroke: var(--editBorder);
+        }
+        100% {
+            transform: rotate(0deg);
+            stroke: var(--editBorder);
+        }
+    }
+
+    .refVacuumAnimation {
+        border-radius: 65%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .batteryAnimation {
+        display: flex;
+        width: 64%;
+        height: 64%;
+        border-radius: 64%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: -1;
+        transform: rotate(0deg) !important;
+        margin: auto !important;
+        overflow: hidden;
+        position: absolute;
+        stroke: none !important;
+        justify-content: center;
+        align-items: center;
+        min-width: 170px;
+        min-height: 170px;
+    }
+    .circle1 {
+        width: 550px;
+        position: absolute;
+        height: 100%;
+        right: 0;
+        animation: circle1 5s linear infinite;
+        overflow: initial;
+        color: #11dc111c;
+        g {
+            path {
+                transform: translate(-100%, 0px);
+            }
+        }
+    }
+
+    @keyframes circle1 {
+        0% {
+            right: 0;
+        }
+        100% {
+            right: -200%;
+        }
+    }
+    .circle2 {
+        width: 500px;
+        position: absolute;
+        height: 100%;
+        left: 0%;
+        animation: circle2 3s linear infinite;
+        color: #0ce60c12;
+        top: 10px;
+        overflow: initial;
+        g {
+            path {
+                transform: translate(100%, 0px);
+            }
+        }
+    }
+
+    @keyframes circle2 {
+        0% {
+            right: 0%;
+        }
+        100% {
+            left: -200%;
+        }
+    }
+    .batteryVacuum {
+        position: absolute !important;
+        bottom: 0;
+        right: 0;
+        top: 10px;
+        left: 0;
+        color: var(--generalColor);
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 25px;
+        pointer-events: none;
+    }
+}
+.wrapperState {
+    position: absolute !important;
+    right: 23%;
+    top: 10px;
+    color: var(--generalColor);
+    font-size: 16px;
+    flex-direction: column;
+}
+.batteryVacuumTop,
+.waterVacuumTop,
+.wasteVacuumTop {
+    align-items: center;
+    display: flex;
+    margin: 6px 0;
+}
+.wasteVacuumTop {
+    svg {
+        margin-right: 3px;
+    }
+}
+.styleImageState {
+    display: flex;
+    width: 64%;
+    height: 64%;
+    position: absolute;
+    border-radius: 15px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    margin: auto !important;
+    object-fit: contain;
+    min-width: 170px;
+    min-height: 170px;
+}
+.infoBlockVacuum {
+    display: flex;
+    position: absolute;
+    bottom: 64px;
+    left: 0px;
+    justify-content: center;
+    background: var(--editBackground);
+    color: var(--generalColor);
+    border: 1px solid var(--editIconColor);
+    border-radius: 4px;
+    cursor: pointer;
+    .currentItemInfo:first-child {
+        border-left: none;
+    }
+    .currentItemInfo {
+        padding: 6px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px solid var(--editIconColor);
+        svg {
+            margin-right: 3px;
+        }
+    }
+}
+.infoBlockVacuumMiddle {
+    right: 0;
+    width: fit-content;
+    margin: auto;
+}
+.sliderStyle {
+    border: 1px solid var(--editIconColor);
+    height: 100%;
+    z-index: 11;
+    overflow: hidden;
+    position: relative;
+    background: var(--editBackground);
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+    border-radius: 10px;
+    margin: 12px 0;
+}
+.sliderText {
+    position: absolute;
+    top: calc(50% - 0.55em);
+    user-select: none;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+}
+.wrapperSliderBlock {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 202px;
+    max-height: 400px;
+}
+.wrapperSlider {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+.wrapperKnob {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+//map
+.mapWrapper {
+    // background: #c0c0c094;
+    // margin: 10px;
+    padding: 4px;
+    width: 100%;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    opacity: 0.9;
+    overflow: hidden;
+}
+.map {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    [class*="leaflet-control-zoom leaflet-bar leaflet-control"] {
+        margin-top: 45px !important;
+    }
+}
+.mapCircle {
+    stroke: var(--backgroundDraver) !important;
+    stroke-width: 1px;
+}
+.mapPolyline {
+    stroke: var(--backgroundDraver) !important;
+}
+.iconStyle {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: -33px;
+    left: -14px;
+    color: var(--editIconColor);
+    stroke: var(--generalColor);
+    stroke-width: 4px;
+    object-fit: cover;
+}
+.iconRadius {
+    border-radius: 50%;
+}
+.wrapperName {
+    position: absolute;
+    z-index: 1111;
+    top: 4px;
+    color: var(--editBackground);
+    background: var(--editIconColor);
+    padding: 6px;
+    border-radius: 10px 0 4px 0;
+    font-size: 20px;
+    font-weight: 900;
+}
+.wrapperMapState {
+    position: absolute;
+    z-index: 1111;
+    bottom: 4px;
+    color: var(--editBackground);
+    background: var(--editIconColor);
+    padding: 5px;
+    border-radius: 0 4px 0 10px;
+    font-size: 15px;
+}
+.mapCenter {
+    position: absolute !important;
+    right: 12px;
+    top: 12px;
+    z-index: 2222;
+    padding: 0px !important;
+}
+//widget
+.wrapperWidgets {
+    width: 100%;
+    background: var(--backgroundDialog);
+    border: 1px solid var(--borderDialog);
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+.widgetName {
+    font-size: 20px;
+    color: var(--generalColor);
+    font-weight: 900;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+.widgetNames {
+    font-size: 14px;
+    color: var(--editIconColor);
+    margin-left: 14px;
+}
+.wrapperBlockWidgets {
+    pointer-events: none;
+    opacity: 0.8;
+    cursor: pointer;
+    transition: background 0.5s, filter 0.5s, opacity 0.5s;
+    &::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: visible;
+        transition: background 0.5s, filter 0.5s;
+    }
+    &:hover {
+        opacity: 1;
+        &::after {
+            // filter: blur(2px);
+            background: var(--generalColorOpacity);
+        }
+    }
+}
+.widgetWrapperItem {
+    margin: 10px;
+}
+//echart
+.iframeModal {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    opacity: 0.9;
+    border: 2px solid var(--borderDialog);
+    background: var(--backgroundDialog);
+}
+.iframeName {
+    position: absolute;
+    z-index: 1111;
+    left: 24px;
+    top: 8px;
+    border-radius: 5px 0px 5px 0px;
+    color: var(--colorTextDialog);
+    background: var(--editIconColor);
+    padding: 2px 10px 0px 10px;
+    // border-radius: 5px 5px 0px 0px;
+    font-size: 15px;
+    opacity: 0.7;
+}
+//camera
+.wrapperModalContentCamera {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .cameraAutoFocus {
+        position: absolute;
+        top: 20px;
+        left: 10px;
+    }
+    .cameraAutoWhiteBalance {
+        position: absolute;
+        right: 10px;
+        top: 20px;
+    }
+    .cameraBrightness {
+        position: absolute;
+        left: 10px;
+    }
+    .cameraNightMode {
+        position: absolute;
+        right: 10px;
+    }
+    .cameraPTZ {
+        position: absolute;
+        bottom: 5px;
+        width: 200px !important;
+    }
+    .textSliderPtz {
+        margin-bottom: 10px;
+        color: var(--generalColor);
+        svg {
+            margin-right: 5px;
+        }
+    }
+}
+.wrapCamera {
+    max-width: 300px;
+    max-height: 300px;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--editIconColor);
+    background: var(--borderBottomHeader);
+    padding: 4px;
+}
+.camera {
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+//dialog info
+.wrapperList {
+    background-color: var(--backgroundDialog) !important;
+    box-shadow: none !important;
+    border: 1px solid var(--borderDialog) !important;
+    padding: 10px !important;
+    border-radius: 6px;
+    height: calc(100% - 22px);
+    overflow-y: auto;
+}
+.devider {
+    opacity: 0.4;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgb(255, 255, 255) 13%,
+        rgb(255, 255, 255) 83%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+.knobControl {
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: 12em;
+    height: 12em;
+    position: absolute;
+    background: var(--gradientAddBorder) !important;
+    border: none !important;
+}
+.buttonStopStyle {
+    left: calc(50% + 10em);
+    width: 2.5em !important;
+    bottom: 4.5em;
+    height: 2em !important;
+    position: absolute !important;
+}
+.buttonToggleStyle {
+    right: calc(50% + 10em);
+    width: 2.5em !important;
+    bottom: 4.5em;
+    height: 2em !important;
+    position: absolute !important;
+}
+@mixin media($maxNumber, $heightMedia: true, $widthMedia: true) {
+    $resolution: $maxNumber;
+    @if $heightMedia {
+        @media screen and (max-height: $resolution) {
+            @content;
+        }
+    }
+    @if $widthMedia {
+        @media screen and (max-width: $resolution) {
+            @content;
+        }
+    }
+}
+@include media(600px) {
+    .paper {
+        max-height: 100% !important;
+    }
+    .backgroundDialog{
+        max-height: calc(100% - 4px) !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    .dialogContent {
+        padding: 6px !important;
+    }
+}
+@include media(400px) {
+    .paper {
+        max-height: calc(100% - 0px) !important;
+    }
+    .dialogActions {
+        height: 0px;
+        padding: 2px !important;
+        position: absolute;
+        bottom: 28px;
+        right: 8px;
+        z-index: 1;
+        opacity: 0.7;
+    }
+    .widgetWrapperItem{
+        margin: 10px 0;
+    }
+    .wrapperWidgets{
+        padding: 9px;
+    }
+}
+
+@include media(600px) {
+    .wrapperVacuum {
+        font-size: 2.2vmin !important;
+        * {
+            font-size: 2.2vmin !important;
+        }
+        .powerButton {
+            top: 0;
+            left: 0;
+        }
+        .infoBlockVacuum {
+            left: 0;
+            right: 0;
+            width: fit-content;
+            margin: auto;
+            bottom: 40px;
+        }
+        .stateVacuum {
+            left: 0;
+            right: 0;
+            width: fit-content;
+            margin: auto;
+            margin-left: 0 !important;
+            bottom: 66px;
+        }
+    }
+    .wrapperModalContentCamera {
+        font-size: 2.2vmin !important;
+        * {
+            font-size: 2.2vmin !important;
+        }
+        .cameraBrightness,
+        .cameraNightMode {
+            top: 60px;
+        }
+        .wrapCamera {
+            width: 65vmin;
+            height: 65vmin;
+            min-width: 200px;
+            min-height: 200px;
+        }
+    }
+}
+
+@include media(400px) {
+    .wrapperVacuum {
+        font-size: 10px !important;
+        * {
+            font-size: 10px !important;
+        }
+        .wrapperState {
+            left: 0;
+            top: 44px;
+        }
+    }
+
+    .wrapperModalContentCamera {
+        font-size: 10px !important;
+        * {
+            font-size: 10px !important;
+        }
+    }
+    .wrapperSlider {
+        .buttonStopStyle {
+            top: 10px;
+            right: 10px;
+            left: auto;
+        }
+        .buttonToggleStyle {
+            top: 10px;
+            left: 10px;
+        }
+    }
+}
+//media thermostat
+@include media(600px) {
+    .wrapperThermostat {
+        .boostButton,
+        .powerButton,
+        .partyButton,
+        .swingGroup,
+        .modeButton,
+        .swingButton {
+            * {
+                font-size: 2.2vmin !important;
+            }
+        }
+        .boostButton {
+            margin-right: 0 !important;
+        }
+        .powerButton {
+            top: 0;
+            left: 0;
+            right: 0;
+            width: fit-content;
+            margin: auto;
+        }
+        .partyButton {
+            top: 0;
+        }
+        .modeButton {
+        }
+        .swingGroup,
+        .swingButton {
+            top: 40px;
+        }
+        .charts {
+        }
+    }
+    .wrapperModalContent {
+        .iframeName {
+            left: 8px;
+            top: 8px;
+            border-radius: 5px 0px 5px 0px;
+            opacity: 0.9;
+        }
+        .iframeModal {
+            font-size: 2.2vmin !important;
+            * {
+                font-size: 2.2vmin !important;
+            }
+        }
+    }
+}
+
+@include media(400px) {
+    .wrapperThermostat {
+        .boostButton,
+        .powerButton,
+        .partyButton,
+        .swingGroup,
+        .modeButton,
+        .swingButton {
+            * {
+                font-size: 10px !important;
+            }
+        }
+    }
+}
+
+@include media(700px) {
+    .wrapperBlockWeather {
+        .dayIconTemperature {
+            font-size: 2.7vmin;
+            left: 73%;
+            right: auto;
+        }
+        .dayIconDiv {
+            .wrapperSpecialIcon {
+                left: 90%;
+                position: absolute;
+                font-size: 1.8vmin;
+            }
+        }
+        .dayStateDiv {
+            .wrapperSpecialIcon {
+                font-size: 1.8vmin;
+            }
+        }
+    }
+}
+
+@include media(600px) {
+    .wrapperBlockWeather {
+        .dayDateDate {
+            font-size: 2.2vmin;
+        }
+        .dayIconWeather {
+            position: relative;
+            top: 10px;
+            right: 10px;
+        }
+        .dayIconTemperature {
+            left: 63%;
+        }
+        .dayIconDiv {
+            .wrapperSpecialIcon {
+                left: 80%;
+            }
+        }
+        .dayStateDiv {
+            .wrapperSpecialIcon {
+                font-size: 1.8vmin;
+            }
+        }
+    }
+}
+
+@include media(500px) {
+    .wrapperBlockWeather {
+        padding: 0;
+        .dayIconTemperature {
+            left: 53%;
+        }
+        .dayIconDiv {
+            .wrapperSpecialIcon {
+                left: 70%;
+            }
+        }
+    }
+}
+@include media(450px) {
+    .wrapperBlockWeather {
+        .currentIconTemperature {
+            top: -33px;
+        }
+        .dayIconWeather {
+            position: relative;
+            top: 10px;
+            right: 5px;
+            width: 80%;
+            height: 80%;
+        }
+        .dayIconTemperature {
+            left: 43%;
+        }
+        .dayIconDiv {
+            .wrapperSpecialIcon {
+                left: 60%;
+            }
+        }
+    }
+}
+
+@include media(400px) {
+    .wrapperBlockWeather {
+        .dayDiv {
+            height: 115px;
+        }
+        .dayIconWeather {
+            position: relative;
+            top: 10px;
+            right: 5px;
+            width: 80%;
+            height: 80%;
+        }
+        .dayIconTemperature {
+            left: 43%;
+        }
+        .dayIconDiv {
+            .wrapperSpecialIcon {
+                left: 16px;
+                top: -10px;
+            }
+        }
+    }
+}
+@media screen and (max-height: 450px),screen and (max-width: 700px) {
+    .wrapperBlockWeather {
+        .dayDiv {
+            height: calc(100% - 18px);
+        }
+        .daysDiv{
+            height: 50%;
+            max-height: 130px;
+        }
+        .currentDiv{
+            height: 50%;
+            max-height: 200px;
+        }
+    }
+}
+
+@include media(950px,false) {
+    .chartPaper {
+        max-height: calc(100% - 4px) !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    .dialogContentChart {
+        padding: 6px !important;
+    }
+}
+
+.dialog {
+    background-color: transparent;
+    box-shadow: none;
+    background-image: none;
+}

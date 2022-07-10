@@ -56,20 +56,8 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
             <CardContent>
                 <WeatherComponent
                     socket={this.props.socket}
-                    data={{
-                        current: {
-                            temperature: `openweathermap.${this.state.data.instance || 0}.forecast.current.temperature`,
-                            humidity: `openweathermap.${this.state.data.instance || 0}.forecast.current.humidity`,
-                            state: `openweathermap.${this.state.data.instance || 0}.forecast.current.state`,
-                            icon: `openweathermap.${this.state.data.instance || 0}.forecast.current.icon`,
-                        },
-                        days: [0, 1, 2, 3, 4, 5].map(day => ({
-                            temperatureMin: `openweathermap.${this.state.data.instance || 0}.forecast.day${day}.temperatureMin`,
-                            temperatureMax: `openweathermap.${this.state.data.instance || 0}.forecast.day${day}.temperatureMax`,
-                            state: `openweathermap.${this.state.data.instance || 0}.forecast.day${day}.state`,
-                            icon: `openweathermap.${this.state.data.instance || 0}.forecast.day${day}.icon`,
-                        })),
-                    }}
+                    instance={this.state.data.instance || 0}
+                    daysCount={6}
                     hideDays={this.state.data.type === 'current'}
                     hideCurrent={this.state.data.type === 'days'}
                 />

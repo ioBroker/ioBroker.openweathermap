@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.2.5",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "Added new widget for vis2.0",
+        "de": "Neues Widget für vis2.0 hinzugefügt",
+        "ru": "Добавлен новый виджет для vis2.0",
+        "pt": "Adicionado novo widget para vis2.0",
+        "nl": "Vertaling:",
+        "fr": "Ajout de nouveaux widgets pour vis2.0",
+        "it": "Aggiunto nuovo widget per vis2.0",
+        "es": "Añadido nuevo widget para vis2.0",
+        "pl": "Wtedy nowy widget for vis2.0",
+        "zh-cn": "增加新的令人不安的目标"
+      },
       "0.2.5": {
         "en": "Make sure all forecast data are processed correctly",
         "de": "Stellen Sie sicher, dass alle Prognosedaten korrekt verarbeitet werden",
@@ -151,7 +163,9 @@
       },
       "i18n": true
     },
-    "restartAdapters": ["vis"]
+    "restartAdapters": [
+      "vis"
+    ]
   },
   "native": {
     "apikey": "",

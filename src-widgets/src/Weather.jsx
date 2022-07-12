@@ -28,6 +28,14 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                             default: 'all',
                         },
                         {
+                            name: 'days',
+                            label: 'openweathermap_days',
+                            type: 'select',
+                            hidden: 'widget.type === "current"',
+                            options: ['6', '5', '4', '3', '2', '1'],
+                            default: '6',
+                        },
+                        {
                             label: 'openweathermap_instance',
                             name: 'instance',
                             type: 'instance',
@@ -50,14 +58,12 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
     renderWidgetBody(props) {
         super.renderWidgetBody(props);
 
-        return <Card
-            style={{ width: '100%', height: '100%' }}
-        >
+        return <Card style={{ width: '100%', height: '100%' }}>
             <CardContent>
                 <WeatherComponent
                     socket={this.props.socket}
                     instance={this.state.data.instance || 0}
-                    daysCount={6}
+                    daysCount={this.state.data.days ? parseInt(this.state.data.days, 10) : 6}
                     hideDays={this.state.data.type === 'current'}
                     hideCurrent={this.state.data.type === 'days'}
                 />

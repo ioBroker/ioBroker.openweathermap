@@ -1,5 +1,5 @@
 import React, {
-    useEffect, useState, useCallback,
+    useEffect, useState,
 } from 'react';
 
 import { i18n as I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
@@ -7,61 +7,9 @@ import { Info as IconInfo } from '@mui/icons-material';
 
 import { IconButton } from '@mui/material';
 import cls from './style.module.scss';
-import clearSky from './iconsWeather/clearSky.svg';
-import fewClouds from './iconsWeather/fewClouds.svg';
-import scatteredClouds from './iconsWeather/scatteredClouds.svg';
-import brokenClouds from './iconsWeather/brokenClouds.svg';
-import showerRain from './iconsWeather/showerRain.svg';
-import rain from './iconsWeather/rain.svg';
-import thunderstorm from './iconsWeather/thunderstorm.svg';
-import snow from './iconsWeather/snow.svg';
-import mist from './iconsWeather/mist.svg';
-import WeatherDialog from './Dialog/WeatherDialog';
+import WeatherDialog, { getIcon } from './Dialog/WeatherDialog';
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
-const icons = [
-    {
-        icon: clearSky,
-        name: ['01d', '01n'],
-    }, {
-        icon: fewClouds,
-        name: ['02d', '02n'],
-    }, {
-        icon: scatteredClouds,
-        name: ['03d', '03n'],
-    }, {
-        icon: brokenClouds,
-        name: ['04d', '04n'],
-    }, {
-        icon: showerRain,
-        name: ['09d', '09n'],
-    }, {
-        icon: rain,
-        name: ['10d', '10n'],
-    }, {
-        icon: thunderstorm,
-        name: ['11d', '11n'],
-    }, {
-        icon: snow,
-        name: ['13d', '13n'],
-    }, {
-        icon: mist,
-        name: ['50d', '50n'],
-    },
-];
-
-export const getIcon = (nameUri, decode) => {
-    let name = nameUri;
-    if (decode && nameUri) {
-        name = decodeURI(nameUri.toString().split('/').pop().split('.')[0]);
-    }
-    const search = icons.find(el => el.name.find(nameIcon => nameIcon === name));
-    if (search) {
-        return search.icon;
-    }
-    return null;
-};
 
 const getWeekDay = (date, index) => {
     const dayNumber = date.getDay();
@@ -106,6 +54,13 @@ const Weather = ({
     const dayCallback = (day, field, state) =>
         setWeatherState(newWeather => newWeather.days[day][field] = state?.val || null);
 
+    const getSubscribeState = (id, cb) => {
+        socket.getState(id)
+            .then(result => cb(id, result));
+
+        socket.subscribeState(id, cb);
+    };
+
     useEffect(() => {
         const callbacks = {};
         const dayCallbacks = [];
@@ -142,24 +97,21 @@ const Weather = ({
 
     const date = new Date();
 
-    const getSubscribeState = (id, cb) => {
-        socket.getState(id)
-            .then(result => cb(id, result));
-
-        socket.subscribeState(id, cb);
-    };
-
     useEffect(() => {
-        setWeatherState(newWeather => Array(daysCount).fill().map((_, i) => {
-            if (!newWeather.days[i]) {
-                newWeather.days[i] = {
-                    temperatureMin: null,
-                    temperatureMax: null,
-                    title: null,
-                    icon: null,
-                };
-            }
-        }));
+        setWeatherState(newWeather => {
+            Array(daysCount).fill().forEach((_, i) => {
+                if (!newWeather.days[i]) {
+                    newWeather.days[i] = {
+                        temperatureMin: null,
+                        temperatureMax: null,
+                        title: null,
+                        icon: null,
+                    };
+                }
+            });
+
+            return newWeather;
+        });
     }, [daysCount, hideCurrent, hideDays]);
 
     const mainIcon = getIcon(weather.current.icon, true);
@@ -171,7 +123,7 @@ const Weather = ({
                 <div className={Utils.clsx(cls.iconWeatherWrapper, (!daysCount || hideDays) && cls.noteArrayIcon)}>
                     {mainIcon ? <Icon className={cls.iconWeather} src={mainIcon} /> : null}
                 </div>
-                <div className={cls.styleText}>{I18n.t('openweathermap_' + weather.current.title).replace('openweathermap_', '')}</div>
+                <div className={cls.styleText}>{I18n.t(`openweathermap_${weather.current.title}`).replace('openweathermap_', '')}</div>
             </div>
             <div>
                 <div className={cls.temperatureTop}>{`${Math.round(weather.current.temperature)}°C` || '-°C'}</div>
@@ -188,7 +140,7 @@ const Weather = ({
                     <div className={cls.temperature}>
                         <span>{`${Math.round(weather.days[idx]?.temperatureMin)}°C` || '-°C'}</span>
                     </div>
-                </div>
+                </div>;
             })}
         </div>}
         <div style={{ textAlign: 'right' }}>

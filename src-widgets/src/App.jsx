@@ -5,7 +5,6 @@ import { i18n as I18n } from '@iobroker/adapter-react-v5';
 
 import Weather from './Weather';
 
-
 class App extends WidgetDemoApp {
     constructor(props) {
         super(props);

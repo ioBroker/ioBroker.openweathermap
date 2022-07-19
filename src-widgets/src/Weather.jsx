@@ -31,7 +31,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                             name: 'days',
                             label: 'openweathermap_days',
                             type: 'select',
-                            hidden: 'widget.type === "current"',
+                            hidden: 'data.type === "current"',
                             options: ['6', '5', '4', '3', '2', '1'],
                             default: '6',
                         },

@@ -23,7 +23,6 @@ import {
 
 import { Utils, i18n as I18n, IconAdapter } from '@iobroker/adapter-react-v5';
 
-import clsx from 'clsx';
 import IconHydro from './icons/Humidity';
 import iconPrecipitation from './icons/precipitation.svg';
 import iconPressure from './icons/pressure.svg';
@@ -430,7 +429,7 @@ class WeatherDialog extends React.Component {
 
         /// delete
         return <div key={`dayIcon${d}`} className={cls.dayIconDiv}>
-            {icon ? <img className={clsx(cls.dayIconWeather, classes['dayIcon-icon'])} src={getIcon(icon, true) || icon} alt={this.props.weather.days[d].title || ''} /> : null}
+            {icon ? <img className={Utils.clsx(cls.dayIconWeather, classes['dayIcon-icon'])} src={getIcon(icon, true) || icon} alt={this.props.weather.days[d].title || ''} /> : null}
             {/* <div className={cls.dayIconTemperature}>{22}°</div> */}
             {temp !== null && temp !== undefined ? <div className={cls.dayIconTemperature}>{temp}</div> : null}
             {humidity !== null && humidity !== undefined ?

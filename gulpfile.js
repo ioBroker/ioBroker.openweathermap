@@ -42,7 +42,7 @@ function npmInstall() {
     });
 }
 
-function buildRules() {
+function build() {
     const version = JSON.parse(fs.readFileSync(__dirname + '/package.json').toString('utf8')).version;
     const data    = JSON.parse(fs.readFileSync(src + 'package.json').toString('utf8'));
 
@@ -81,7 +81,7 @@ gulp.task('widget-0-clean', () => del([`${SRC}build/**/*`, `widgets/**/*`]));
 
 gulp.task('widget-1-npm', async () => npmInstall());
 
-gulp.task('widget-2-compile', async () => buildRules());
+gulp.task('widget-2-compile', async () => build());
 
 gulp.task('widget-3-copy', () => Promise.all([
     gulp.src([`${SRC}build/*.js`]).pipe(gulp.dest(`widgets/${adapterName}`)),
@@ -219,9 +219,9 @@ gulp.task('widget-3-copy', () => Promise.all([
             if (fs.existsSync(`widgets/${adapterName}/static/media`) &&
                 !fs.readdirSync(`widgets/${adapterName}/static/media`).length
             ) {
-                fs.rmdirSync(`widgets/${adapterName}/static/media`)
+                fs.rmdirSync(`widgets/${adapterName}/static/media`);
             }
-            resolve();
+            resolve(null);
         }, 500)
     )
 ]));

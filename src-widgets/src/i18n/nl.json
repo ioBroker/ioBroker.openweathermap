@@ -51,5 +51,8 @@
   "openweathermap_Ash": "As",
   "openweathermap_Squall": "bui",
   "openweathermap_Tornado": "Tornado",
-  "openweathermap_Clouds": "wolken"
+  "openweathermap_Clouds": "wolken",
+  "openweathermap_set_label": "Weerkaart openen",
+  "openweathermap_weather": "Het weer",
+  "openweathermap_Precip.": "Neerslag"
 }

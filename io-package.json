@@ -153,8 +153,10 @@
       }
     },
     "visWidgets": {
-      "Weather": {
-        "name": "Weather",
+      "openweathermap": {
+        "name": "openweathermap",
+        "color": "#30de00",
+        "label": "openweathermap_set_label",
         "url": "openweathermap/customWidgets.js",
         "url1": "http://localhost:4173/customWidgets.js",
         "components": [

@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Ash",
   "openweathermap_Squall": "Squall",
   "openweathermap_Tornado": "Tornado",
-  "openweathermap_Clouds": "Clouds"
+  "openweathermap_Clouds": "Clouds",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "Weather",
+  "openweathermap_Precip.": "Precip."
 }

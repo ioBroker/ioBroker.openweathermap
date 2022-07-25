@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Popiół",
   "openweathermap_Squall": "Szkwał",
   "openweathermap_Tornado": "Tornado",
-  "openweathermap_Clouds": "Chmury"
+  "openweathermap_Clouds": "Chmury",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "Pogoda",
+  "openweathermap_Precip.": "Opad"
 }

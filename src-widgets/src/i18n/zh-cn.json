@@ -51,5 +51,8 @@
   "openweathermap_Ash": "灰",
   "openweathermap_Squall": "飑",
   "openweathermap_Tornado": "龙卷风",
-  "openweathermap_Clouds": "云"
+  "openweathermap_Clouds": "云",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "天气",
+  "openweathermap_Precip.": "沉淀"
 }

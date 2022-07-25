@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Ceniza",
   "openweathermap_Squall": "Chubasco",
   "openweathermap_Tornado": "Tornado",
-  "openweathermap_Clouds": "nubes"
+  "openweathermap_Clouds": "nubes",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "Clima",
+  "openweathermap_Precip.": "Precip."
 }

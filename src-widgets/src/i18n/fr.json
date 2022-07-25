@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Cendre",
   "openweathermap_Squall": "Bourrasque",
   "openweathermap_Tornado": "Tornade",
-  "openweathermap_Clouds": "Des nuages"
+  "openweathermap_Clouds": "Des nuages",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "Temps",
+  "openweathermap_Precip.": "Précip."
 }

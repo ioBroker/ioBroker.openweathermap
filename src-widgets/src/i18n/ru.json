@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Пепел",
   "openweathermap_Squall": "Шквал",
   "openweathermap_Tornado": "Торнадо",
-  "openweathermap_Clouds": "Облака"
+  "openweathermap_Clouds": "Облака",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "Погода",
+  "openweathermap_Precip.": "Осадки"
 }

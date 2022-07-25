@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Asche",
   "openweathermap_Squall": "Bö",
   "openweathermap_Tornado": "Tornado",
-  "openweathermap_Clouds": "Wolken"
+  "openweathermap_Clouds": "Wolken",
+  "openweathermap_set_label": "OpenWeatherMap",
+  "openweathermap_weather": "Wetter",
+  "openweathermap_Precip.": "Nieder."
 }

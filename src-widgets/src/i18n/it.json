@@ -51,5 +51,8 @@
   "openweathermap_Ash": "Cenere",
   "openweathermap_Squall": "Squall",
   "openweathermap_Tornado": "Tornado",
-  "openweathermap_Clouds": "Nuvole"
+  "openweathermap_Clouds": "Nuvole",
+  "openweathermap_set_label": "Apri Mappa Meteo",
+  "openweathermap_weather": "Tempo atmosferico",
+  "openweathermap_Precip.": "Precip."
 }

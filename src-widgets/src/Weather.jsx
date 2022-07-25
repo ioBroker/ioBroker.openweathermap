@@ -3,7 +3,7 @@ import {
     Card, CardContent,
 } from '@mui/material';
 
-import VisRxWidget from '@iobroker/vis-widgets-react-dev/visRxWidget';
+import VisRxWidget from './visRxWidget';
 import WeatherComponent from './react-weather/Weather';
 
 class Weather extends (window.visRxWidget || VisRxWidget) {
@@ -11,6 +11,9 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
         return {
             id: 'tplOpenWeatherMapWeather',
             visSet: 'openweathermap',
+            visSetLabel: 'openweathermap_set_label', // Label of widget set
+            visSetColor: '#30de00', // Color of widget set
+            visWidgetLabel: 'openweathermap_weather',  // Label of widget
             visName: 'Weather',
             visAttrs: [
                 {
@@ -46,6 +49,10 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                     ],
                 },
             ],
+            visDefaultStyle: {
+                width: 330,
+                height: 185,
+            },
             visPrev: 'widgets/openweathermap/img/prev_weather.png',
         };
     }

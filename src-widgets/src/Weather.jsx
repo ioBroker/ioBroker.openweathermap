@@ -50,8 +50,9 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                 },
             ],
             visDefaultStyle: {
-                width: 330,
+                width: '100%',
                 height: 185,
+                position: 'relative',
             },
             visPrev: 'widgets/openweathermap/img/prev_weather.png',
         };

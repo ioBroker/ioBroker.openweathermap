@@ -5,11 +5,11 @@
     "dependencies": {
         "@emotion/react": "^11.10.0",
         "@emotion/styled": "^11.10.0",
-        "@iobroker/adapter-react-v5": "^3.1.24",
-        "@iobroker/vis-widgets-react-dev": "^0.2.2",
+        "@iobroker/adapter-react-v5": "^3.1.27",
+        "@iobroker/vis-2-widgets-react-dev": "^0.3.0",
         "@mui/icons-material": "^5.8.4",
-        "@mui/material": "^5.9.2",
-        "@mui/styles": "^5.9.2",
+        "@mui/material": "^5.9.3",
+        "@mui/styles": "^5.9.3",
         "eslint-plugin-eqeqeq-fix": "^1.0.3",
         "eslint-plugin-only-warn": "^1.0.3",
         "node-sass": "^7.0.1",
@@ -25,7 +25,7 @@
         "build": "craco build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "i18n": "node node_modules/@iobroker/vis-widgets-react-dev/searchI18n openweathermap"
+        "i18n": "node node_modules/@iobroker/vis-2-widgets-react-dev/searchI18n openweathermap"
     },
     "eslintConfig": {
         "extends": "react-app"

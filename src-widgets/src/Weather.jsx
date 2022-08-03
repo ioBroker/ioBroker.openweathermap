@@ -70,10 +70,10 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
             <CardContent>
                 <WeatherComponent
                     socket={this.props.socket}
-                    instance={this.state.data.instance || 0}
-                    daysCount={this.state.data.days ? parseInt(this.state.data.days, 10) : 6}
-                    hideDays={this.state.data.type === 'current'}
-                    hideCurrent={this.state.data.type === 'days'}
+                    instance={this.state.rxData.instance || 0}
+                    daysCount={this.state.rxData.days ? parseInt(this.state.rxData.days, 10) : 6}
+                    hideDays={this.state.rxData.type === 'current'}
+                    hideCurrent={this.state.rxData.type === 'days'}
                 />
             </CardContent>
         </Card>;

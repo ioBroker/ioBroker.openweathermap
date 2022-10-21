@@ -24,7 +24,7 @@ You need an api key to access the data. The api key you can get for free after r
 * (Bluefox) Updated widget for vis 2.0
 
 ### 0.3.0 (2022-07-12)
-* (Bluefox) Added new widget for vis2.0
+* (Bluefox) Added new widget for vis 2.0
 
 ### 0.2.5 (2022-06-12)
 * (Apollon77) Make sure all forecast data are processed correctly

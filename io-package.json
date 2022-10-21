@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "Updated widget for vis 2.0",
+        "de": "Aktualisiertes Widget für vis 2.0",
+        "ru": "Обновленный виджет для vis 2.0",
+        "pt": "Widget atualizado para vis 2.0",
+        "nl": "Verkleed widget voor vis 2.0",
+        "fr": "Widget mis à jour pour vis 2.0",
+        "it": "Widget aggiornato per vis 2.0",
+        "es": "Widget actualizado para vis 2.0",
+        "pl": "Widgetowanie wiz 2.0",
+        "uk": "Оновлений віджет для vis 2.0",
+        "zh-cn": "A. 令人遗憾的是的2.0目标"
+      },
       "0.3.0": {
         "en": "Added new widget for vis2.0",
         "de": "Neues Widget für vis2.0 hinzugefügt",
@@ -74,18 +87,6 @@
         "es": "Mueva el horario si se usa el predeterminado y ajústelo a una vez por hora para distribuir mejor las solicitudes a lo largo del tiempo para evitar picos; Además, agregue un retraso aleatorio en el minuto de inicio\nactualizado todo\nmanejo actualizado de descarga/parada",
         "pl": "Przenieś harmonogram, jeśli używany jest domyślny i dostosuj go raz na godzinę, aby lepiej rozłożyć żądania w czasie, aby zapobiec szczytom; Dodatkowo dodaj losowe opóźnienie w minucie startu\nzaktualizowałem wszystko\nzaktualizowany rozładunek/zatrzymanie obsługi",
         "zh-cn": "如果使用默认设置，则移动计划并调整为每小时一次，以更好地随着时间的推移分散请求以防止出现高峰；另外在开始分钟添加随机延迟\n更新了一切\n更新卸载/停止处理"
-      },
-      "0.1.0": {
-        "en": "initial commit",
-        "de": "anfängliches Commit",
-        "ru": "начальная фиксация",
-        "pt": "commit inicial",
-        "nl": "initiële commit",
-        "fr": "validation initiale",
-        "it": "impegno iniziale",
-        "es": "Compromiso inicial",
-        "pl": "początkowe zatwierdzenie",
-        "zh-cn": "初始提交"
       }
     },
     "title": "openweathermap.org",

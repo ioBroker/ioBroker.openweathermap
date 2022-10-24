@@ -54,5 +54,6 @@
   "openweathermap_Clouds": "Des nuages",
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Temps",
-  "openweathermap_Precip.": "Précip."
+  "openweathermap_Precip.": "Précip.",
+  "openweathermap_null": "nul"
 }

@@ -54,5 +54,6 @@
   "openweathermap_Clouds": "云",
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "天气",
-  "openweathermap_Precip.": "沉淀"
+  "openweathermap_Precip.": "沉淀",
+  "openweathermap_null": "无效的"
 }

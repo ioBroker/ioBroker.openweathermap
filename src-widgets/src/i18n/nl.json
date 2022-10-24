@@ -54,5 +54,6 @@
   "openweathermap_Clouds": "wolken",
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Het weer",
-  "openweathermap_Precip.": "Neerslag"
+  "openweathermap_Precip.": "Neerslag",
+  "openweathermap_null": "nul"
 }

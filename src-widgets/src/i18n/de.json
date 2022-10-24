@@ -54,5 +54,6 @@
   "openweathermap_Clouds": "Wolken",
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Wetter",
-  "openweathermap_Precip.": "Nieder."
+  "openweathermap_Precip.": "Nieder.",
+  "openweathermap_null": "Null"
 }

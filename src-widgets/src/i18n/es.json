@@ -54,5 +54,6 @@
   "openweathermap_Clouds": "nubes",
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Clima",
-  "openweathermap_Precip.": "Precip."
+  "openweathermap_Precip.": "Precip.",
+  "openweathermap_null": "nulo"
 }

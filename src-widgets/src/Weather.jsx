@@ -37,6 +37,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                             hidden: 'data.type === "current"',
                             options: ['6', '5', '4', '3', '2', '1'],
                             default: '6',
+                            noTranslation: true,
                         },
                         {
                             label: 'openweathermap_instance',

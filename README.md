@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### 0.3.2 (2022-10-24)
+### **WORK IN PROGRESS**
 * (Bluefox) Updated widget for vis 2.0
 
 ### 0.3.0 (2022-07-12)

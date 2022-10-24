@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "news": {
+      "0.3.3": {
+        "en": "Updated widget for vis 2.0",
+        "de": "Aktualisiertes Widget für vis 2.0",
+        "ru": "Обновленный виджет для vis 2.0",
+        "pt": "Widget atualizado para vis 2.0",
+        "nl": "Verkleed widget voor vis 2.0",
+        "fr": "Widget mis à jour pour vis 2.0",
+        "it": "Widget aggiornato per vis 2.0",
+        "es": "Widget actualizado para vis 2.0",
+        "pl": "Widgetowanie wiz 2.0",
+        "uk": "Оновлений віджет для vis 2.0",
+        "zh-cn": "A. 令人遗憾的是的2.0目标"
+      },
       "0.3.0": {
         "en": "Added new widget for vis2.0",
         "de": "Neues Widget für vis2.0 hinzugefügt",

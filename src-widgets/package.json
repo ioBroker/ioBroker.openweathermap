@@ -9,7 +9,7 @@
         "@iobroker/vis-2-widgets-react-dev": "^0.3.9",
         "@mui/icons-material": "^5.10.9",
         "@mui/material": "^5.10.12",
-        "@mui/styles": "^5.10.10",
+        "@mui/styles": "^5.10.16",
         "eslint-plugin-eqeqeq-fix": "^1.0.3",
         "eslint-plugin-only-warn": "^1.0.3",
         "node-sass": "^8.0.0",

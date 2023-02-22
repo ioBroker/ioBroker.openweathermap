@@ -7,12 +7,30 @@
 const gulp = require('gulp');
 const fs = require('fs');
 const cp = require('child_process');
-const del = require('del');
 const adapterName = require('./package.json').name.replace('iobroker.', '');
 
 const SRC = 'src-widgets/';
-const src = __dirname + '/' + SRC;
+const src = `${__dirname}/${SRC}`;
 
+function deleteFoldersRecursive(path, exceptions) {
+    if (fs.existsSync(path)) {
+        const files = fs.readdirSync(path);
+        for (const file of files) {
+            const curPath = `${path}/${file}`;
+            if (exceptions && exceptions.find(e => curPath.endsWith(e))) {
+                continue;
+            }
+
+            const stat = fs.statSync(curPath);
+            if (stat.isDirectory()) {
+                deleteFoldersRecursive(curPath);
+                fs.rmdirSync(curPath);
+            } else {
+                fs.unlinkSync(curPath);
+            }
+        }
+    }
+}
 function npmInstall() {
     return new Promise((resolve, reject) => {
         // Install node modules
@@ -32,7 +50,7 @@ function npmInstall() {
         child.on('exit', (code /* , signal */) => {
             // code 1 is strange error that cannot be explained. Everything is installed but error :(
             if (code && code !== 1) {
-                reject('Cannot install: ' + code);
+                reject(`Cannot install: ${code}`);
             } else {
                 console.log(`"${cmd} in ${cwd} finished.`);
                 // command succeeded
@@ -43,41 +61,45 @@ function npmInstall() {
 }
 
 function build() {
-    const version = JSON.parse(fs.readFileSync(__dirname + '/package.json').toString('utf8')).version;
-    const data    = JSON.parse(fs.readFileSync(src + 'package.json').toString('utf8'));
+    const version = JSON.parse(fs.readFileSync(`${__dirname}/package.json`).toString('utf8')).version;
+    const data    = JSON.parse(fs.readFileSync(`${src}package.json`).toString('utf8'));
 
     data.version = version;
 
-    fs.writeFileSync(src + 'package.json', JSON.stringify(data, null, 4));
+    fs.writeFileSync(`${src}package.json`, JSON.stringify(data, null, 4));
 
     return new Promise((resolve, reject) => {
         const options = {
             stdio: 'pipe',
-            cwd: src
+            cwd: src,
         };
 
         console.log(options.cwd);
 
-        let script = src + 'node_modules/@craco/craco/bin/craco.js';
+        let script = `${src}node_modules/@craco/craco/dist/bin/craco.js`;
         if (!fs.existsSync(script)) {
-            script = __dirname + '/node_modules/@craco/craco/bin/craco.js';
+            script = `${__dirname}/node_modules/@craco/dist/craco/bin/craco.js`;
         }
         if (!fs.existsSync(script)) {
-            console.error('Cannot find execution file: ' + script);
-            reject('Cannot find execution file: ' + script);
+            console.error(`Cannot find execution file: ${script}`);
+            reject(`Cannot find execution file: ${script}`);
         } else {
             const child = cp.fork(script, ['build'], options);
             child.stdout.on('data', data => console.log(data.toString()));
             child.stderr.on('data', data => console.log(data.toString()));
             child.on('close', code => {
                 console.log(`child process exited with code ${code}`);
-                code ? reject('Exit code: ' + code) : resolve();
+                code ? reject(`Exit code: ${code}`) : resolve();
             });
         }
     });
 }
 
-gulp.task('widget-0-clean', () => del([`${SRC}build/**/*`, `widgets/**/*`]));
+gulp.task('widget-0-clean', done => {
+    deleteFoldersRecursive(`${src}build`);
+    deleteFoldersRecursive(`${__dirname}/widgets`);
+    done();
+});
 
 gulp.task('widget-1-npm', async () => npmInstall());
 

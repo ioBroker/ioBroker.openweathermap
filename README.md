@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.3.4 (2023-02-22)
 * (Bluefox) Updated packages
 
 ### 0.3.3 (2022-10-24)

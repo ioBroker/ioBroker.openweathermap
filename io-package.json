@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "news": {
+      "0.3.4": {
+        "en": "Updated packages",
+        "de": "Aktualisierte Pakete",
+        "ru": "Обновленные пакеты",
+        "pt": "Pacotes atualizados",
+        "nl": "Verouderde pakketten",
+        "fr": "Forfaits mis à jour",
+        "it": "Pacchetti aggiornati",
+        "es": "Paquetes actualizados",
+        "pl": "Pakiet upoważniony",
+        "uk": "Оновлені пакети",
+        "zh-cn": "最新一揽子计划"
+      },
       "0.3.3": {
         "en": "Updated widget for vis 2.0",
         "de": "Aktualisiertes Widget für vis 2.0",
@@ -75,18 +88,6 @@
         "es": "Solucionar caso de bloqueo (Sentry IOBROKER-OPENWEATHERMAP-1)",
         "pl": "Napraw przypadek awarii (Sentry IOBROKER-OPENWEATHERMAP-1)",
         "zh-cn": "修复崩溃案例 (Sentry IOBROKER-OPENWEATHERMAP-1)"
-      },
-      "0.2.1": {
-        "en": "Move schedule if default is used and adjust to once an hour to better spread the requests over time to prevent peaks; Additionally add a random delay in the start minute\nupdated everything\nupdated unload/stop handling",
-        "de": "Verschieben Sie den Zeitplan, wenn der Standard verwendet wird, und passen Sie ihn auf einmal pro Stunde an, um die Anfragen besser über die Zeit zu verteilen und Spitzen zu vermeiden; Fügen Sie zusätzlich eine zufällige Verzögerung in der Startminute hinzu\nalles aktualisiert\naktualisiertes Entladen/Stopp-Handling",
-        "ru": "Переместите расписание, если используется значение по умолчанию, и измените его на один раз в час, чтобы лучше распределить запросы по времени и предотвратить пиковые нагрузки; Дополнительно добавить случайную задержку в стартовой минуте\nобновил все\nобновлена обработка выгрузки/остановки",
-        "pt": "Mova o agendamento se o padrão for usado e ajuste para uma vez por hora para distribuir melhor as solicitações ao longo do tempo para evitar picos; Além disso, adicione um atraso aleatório no minuto de início\natualizou tudo\ndescarregar/parar manuseio atualizado",
-        "nl": "Verplaats schema als standaard wordt gebruikt en pas aan naar eenmaal per uur om de verzoeken beter over de tijd te spreiden om pieken te voorkomen; Voeg bovendien een willekeurige vertraging toe aan de startminuut\nalles geüpdatet\nbijgewerkt lossen/stoppen met verwerken",
-        "fr": "Déplacer l'horaire si la valeur par défaut est utilisée et ajuster à une fois par heure pour mieux répartir les demandes dans le temps afin d'éviter les pics ; Ajoutez également un délai aléatoire dans la minute de démarrage\ntout mis à jour\nmise à jour de la gestion du déchargement/arrêt",
-        "it": "Sposta la pianificazione se viene utilizzata l'impostazione predefinita e adatta a una volta all'ora per distribuire meglio le richieste nel tempo ed evitare picchi; Aggiungi inoltre un ritardo casuale nel minuto di inizio\naggiornato tutto\ngestione di scarico/arresto aggiornata",
-        "es": "Mueva el horario si se usa el predeterminado y ajústelo a una vez por hora para distribuir mejor las solicitudes a lo largo del tiempo para evitar picos; Además, agregue un retraso aleatorio en el minuto de inicio\nactualizado todo\nmanejo actualizado de descarga/parada",
-        "pl": "Przenieś harmonogram, jeśli używany jest domyślny i dostosuj go raz na godzinę, aby lepiej rozłożyć żądania w czasie, aby zapobiec szczytom; Dodatkowo dodaj losowe opóźnienie w minucie startu\nzaktualizowałem wszystko\nzaktualizowany rozładunek/zatrzymanie obsługi",
-        "zh-cn": "如果使用默认设置，则移动计划并调整为每小时一次，以更好地随着时间的推移分散请求以防止出现高峰；另外在开始分钟添加随机延迟\n更新了一切\n更新卸载/停止处理"
       }
     },
     "title": "openweathermap.org",
@@ -167,7 +168,8 @@
       }
     },
     "restartAdapters": [
-      "vis", "vis-2-beta"
+      "vis",
+      "vis-2-beta"
     ]
   },
   "native": {

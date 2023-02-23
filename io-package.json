@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.4",
+    "version": "0.3.5",
     "news": {
+      "0.3.5": {
+        "en": "Installation from GitHub does not possible anymore",
+        "de": "Installation von GitHub ist nicht mehr möglich",
+        "ru": "Установка от GitHub больше не возможна",
+        "pt": "A instalação do GitHub já não é possível",
+        "nl": "Installatie van GitHub is niet meer mogelijk",
+        "fr": "Installation de GitHub n'est plus possible",
+        "it": "Installazione da GitHub non è più possibile",
+        "es": "La instalación de GitHub ya no es posible",
+        "pl": "Instalacja z GitHub nie jest możliwe",
+        "uk": "Монтаж від GitHub неможливий",
+        "zh-cn": "GitHub的断绝不可能"
+      },
       "0.3.4": {
         "en": "Updated packages",
         "de": "Aktualisierte Pakete",
@@ -76,18 +89,6 @@
         "es": "Aumente el tiempo de espera para leer datos a 10 s",
         "pl": "Zwiększ limit czasu odczytu danych do 10s",
         "zh-cn": "将读取数据的超时时间增加到 10s"
-      },
-      "0.2.2": {
-        "en": "Fix crash case (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "de": "Absturzfall behoben (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "ru": "Исправить случай сбоя (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "pt": "Corrigir caso de falha (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "nl": "Crashgeval repareren (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "fr": "Correction du cas de plantage (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "it": "Risolto crash case (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "es": "Solucionar caso de bloqueo (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "pl": "Napraw przypadek awarii (Sentry IOBROKER-OPENWEATHERMAP-1)",
-        "zh-cn": "修复崩溃案例 (Sentry IOBROKER-OPENWEATHERMAP-1)"
       }
     },
     "title": "openweathermap.org",

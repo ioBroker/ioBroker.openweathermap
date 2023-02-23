@@ -143,6 +143,7 @@
     "connectionType": "cloud",
     "dataSource": "poll",
     "tier": 2,
+    "nogit": true,
     "materialize": true,
     "dependencies": [
       {

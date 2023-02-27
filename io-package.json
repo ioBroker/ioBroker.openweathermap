@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.5",
+    "version": "0.3.6",
     "news": {
+      "0.3.6": {
+        "en": "Installation from GitHub does not possible anymore",
+        "de": "Installation von GitHub ist nicht mehr möglich",
+        "ru": "Установка от GitHub больше не возможна",
+        "pt": "A instalação do GitHub já não é possível",
+        "nl": "Installatie van GitHub is niet meer mogelijk",
+        "fr": "Installation de GitHub n'est plus possible",
+        "it": "Installazione da GitHub non è più possibile",
+        "es": "La instalación de GitHub ya no es posible",
+        "pl": "Instalacja z GitHub nie jest możliwe",
+        "uk": "Монтаж від GitHub неможливий",
+        "zh-cn": "GitHub的断绝不可能"
+      },
       "0.3.4": {
         "en": "Updated packages",
         "de": "Aktualisierte Pakete",

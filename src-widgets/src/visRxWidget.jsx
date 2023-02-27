@@ -15,13 +15,12 @@ class visRxWidget extends React.Component {
 
     }
 
-    getIdSubscribeState = (id, cb) => {
-        return this.props.socket.getState(id)
-            .then(result => {
-                cb(id, result);
-                return this.props.socket.subscribeState(id, (resultId, result) => cb(id, result));
+    getIdSubscribeState = (id, cb) =>
+        this.props.socket.getState(id)
+            .then(state => {
+                cb(id, state);
+                return this.props.socket.subscribeState(id, (resultId, _result) => cb(id, _result));
             });
-    };
 
     onStateChanged(id, state) {
         if (!state) {

@@ -3,7 +3,7 @@ import {
     Card, CardContent,
 } from '@mui/material';
 
-import VisRxWidget from './visRxWidget';
+import { VisRxWidget } from '@iobroker/vis-2-widgets-react-dev';
 import WeatherComponent from './react-weather/Weather';
 
 class Weather extends (window.visRxWidget || VisRxWidget) {
@@ -67,17 +67,15 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
     renderWidgetBody(props) {
         super.renderWidgetBody(props);
 
-        return <Card style={{ width: '100%', height: '100%' }}>
-            <CardContent>
-                <WeatherComponent
-                    socket={this.props.socket}
-                    instance={this.state.rxData.instance || 0}
-                    daysCount={this.state.rxData.days ? parseInt(this.state.rxData.days, 10) : 6}
-                    hideDays={this.state.rxData.type === 'current'}
-                    hideCurrent={this.state.rxData.type === 'days'}
-                />
-            </CardContent>
-        </Card>;
+        const content = <WeatherComponent
+            socket={this.props.socket}
+            instance={this.state.rxData.instance || 0}
+            daysCount={this.state.rxData.days ? parseInt(this.state.rxData.days, 10) : 6}
+            hideDays={this.state.rxData.type === 'current'}
+            hideCurrent={this.state.rxData.type === 'days'}
+        />;
+
+        return this.wrapContent(content, null, null, null, null, { Card, CardContent });
     }
 }
 

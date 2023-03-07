@@ -3,15 +3,10 @@
 }
 
 .weatherWrapper {
-    // background: #c0c0c094;
-    // margin: 10px;
     padding: 10px;
     border-radius: 7px;
-    // width: calc(200px * var(--widthBlock));
-    // width: 100%;
     flex-direction: column;
     display: flex;
-    // justify-content: center;
 }
 .iconWeatherWrapper{
     width: calc(40px * var(--widthBlock));
@@ -20,7 +15,6 @@
 .noteArrayIcon{
     width: calc(100px * var(--widthBlock));
     height: calc(100px * var(--widthBlock));
-    // position: absolute;
     bottom: -20px;
     left: -18px;
 }
@@ -60,7 +54,6 @@
     font-size: calc(10px * var(--widthBlock));
     span {
         color: silver;
-        // margin-left: 5px;
     }
 }
 .temperatureTop {

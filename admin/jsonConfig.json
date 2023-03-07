@@ -1,0 +1,41 @@
+{
+  "type": "panel",
+  "i18n": true,
+  "items": {
+    "apikey": {
+      "type": "text",
+      "label": "API Key",
+      "help": "Get your key here",
+      "sm": 12,
+      "md": 6,
+      "lg": 4
+    },
+    "location": {
+      "newLine": true,
+      "type": "position",
+      "label": "Place",
+      "system": true,
+      "browser": true,
+      "sm": 12,
+      "md": 6,
+      "lg": 4
+    },
+    "language": {
+      "newLine": true,
+      "type": "language",
+      "label": "Language",
+      "system": true,
+      "sm": 12,
+      "md": 6,
+      "lg": 4
+    },
+    "imperial": {
+      "newLine": true,
+      "type": "checkbox",
+      "label": "Use english metric system",
+      "sm": 12,
+      "md": 6,
+      "lg": 4
+    }
+  }
+}

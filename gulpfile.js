@@ -1,6 +1,6 @@
 /*!
  * ioBroker gulpfile
- * Date: 2022-07-08
+ * Date: 2023-03-07
  */
 'use strict';
 
@@ -31,6 +31,7 @@ function deleteFoldersRecursive(path, exceptions) {
         }
     }
 }
+
 function npmInstall() {
     return new Promise((resolve, reject) => {
         // Install node modules

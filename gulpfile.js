@@ -250,6 +250,9 @@ gulp.task('widget-3-copy', () => Promise.all([
         `!${SRC}build/static/media/Workshop.*.svg`,
         `!${SRC}build/static/media/Workspace.*.svg`,
     ]).pipe(gulp.dest(`widgets/${adapterName}/static`)),
+    gulp.src([
+        `${SRC}build/static/js/vendors-node_modules_iobroker_vis-2-widgets-react-dev_index_jsx*.*`,
+    ]).pipe(gulp.dest(`widgets/${adapterName}/static/js`)),
     gulp.src([`${SRC}src/i18n/*.json`]).pipe(gulp.dest(`widgets/${adapterName}/i18n`)),
     new Promise(resolve =>
         setTimeout(() => {

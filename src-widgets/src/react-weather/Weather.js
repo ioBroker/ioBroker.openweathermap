@@ -39,6 +39,7 @@ const Weather = ({
         },
         days: [],
     });
+
     const setWeatherState = modify => {
         setWeather(oldWeather => {
             const newWeather = JSON.parse(JSON.stringify(oldWeather));

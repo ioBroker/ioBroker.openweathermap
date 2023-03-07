@@ -3,10 +3,10 @@
 }
 
 .weatherWrapper {
-    padding: 10px;
     border-radius: 7px;
     flex-direction: column;
     display: flex;
+    width: 100%;
 }
 .iconWeatherWrapper{
     width: calc(40px * var(--widthBlock));

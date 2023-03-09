@@ -1,6 +1,6 @@
 {
   "name": "iobroker.openweathermap",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "ioBroker Openweathermap Adapter",
   "author": "bluefox <dogafox@gmail.com>",
   "contributors": [

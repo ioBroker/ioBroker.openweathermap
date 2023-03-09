@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.6",
+    "version": "0.3.7",
     "news": {
+      "0.3.7": {
+        "en": "update packages",
+        "de": "update-pakete",
+        "ru": "обновление пакетов",
+        "pt": "pacotes de atualização",
+        "nl": "vertaling:",
+        "fr": "mettre à jour les paquets",
+        "it": "pacchetti di aggiornamento",
+        "es": "actualizar paquetes",
+        "pl": "pakiet aktualizacji",
+        "uk": "оновлення пакетів",
+        "zh-cn": "更新包"
+      },
       "0.3.6": {
         "en": "Installation from GitHub does not possible anymore",
         "de": "Installation von GitHub ist nicht mehr möglich",
@@ -77,18 +90,6 @@
         "es": "Solucione el caso de bloqueo cuando los estados tienen metadatos no válidos",
         "pl": "Napraw przypadek awarii, gdy stany mają nieprawidłowe metadane",
         "zh-cn": "修复状态具有无效元数据时的崩溃情况"
-      },
-      "0.2.3": {
-        "en": "Increase timeout to read data to 10s",
-        "de": "Erhöhen Sie das Zeitlimit zum Lesen von Daten auf 10 Sekunden",
-        "ru": "Увеличьте время ожидания для чтения данных до 10 сек.",
-        "pt": "Aumente o tempo limite para ler os dados para 10s",
-        "nl": "Verhoog de time-out om gegevens te lezen tot 10s",
-        "fr": "Augmenter le délai de lecture des données à 10 s",
-        "it": "Aumenta il timeout per leggere i dati a 10 secondi",
-        "es": "Aumente el tiempo de espera para leer datos a 10 s",
-        "pl": "Zwiększ limit czasu odczytu danych do 10s",
-        "zh-cn": "将读取数据的超时时间增加到 10s"
       }
     },
     "title": "openweathermap.org",

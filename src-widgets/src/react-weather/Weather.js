@@ -6,6 +6,7 @@ import { i18n as I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
 import { Info as IconInfo } from '@mui/icons-material';
 
 import { IconButton } from '@mui/material';
+
 import cls from './style.module.scss';
 import WeatherDialog, { getIcon } from './Dialog/WeatherDialog';
 

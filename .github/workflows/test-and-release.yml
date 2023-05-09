@@ -16,6 +16,11 @@ on:
       - "v?[0-9]+.[0-9]+.[0-9]+-**"
   pull_request: {}
 
+# Cancel previous PR/branch runs when a new commit is pushed
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   # Performs quick checks before the expensive test runs
   check-and-lint:
@@ -25,24 +30,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js 16
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.x
 
       - name: Install Dependencies
         run: npm i
       - name: Build widgets
         run: npm run build
-
-#      - name: Perform a type check
-#        run: npm run check:ts
-#        env:
-#          CI: true
-      # - name: Lint TypeScript code
-      #   run: npm run lint
-#      - name: Test package files
-#        run: npm run test:package
 
   # Runs adapter tests on all supported node versions and OSes
   adapter-tests:
@@ -58,6 +54,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -68,8 +65,6 @@ jobs:
 
       - name: Run local tests
         run: npm test
-#      - name: Run unit tests
-#        run: npm run test:unit
       - name: Run integration tests # (linux/osx)
         if: startsWith(runner.OS, 'windows') == false
         run: DEBUG=testing:* npm run test:integration
@@ -77,9 +72,41 @@ jobs:
         if: startsWith(runner.OS, 'windows')
         run: set DEBUG=testing:* & npm run test:integration
 
+  adapter-tests-gui:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+
+#    needs: [adapter-tests]
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Build
+        run: npm run build
+
+      - name: Run local tests
+        run: npm run test-gui
+
+      - name: Archive screenshots
+        if: always()
+        # if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          path: tmp/screenshots/**/*.png
+          retention-days: 3
+
   # Deploys the final package to NPM
   deploy:
-    needs: [adapter-tests]
+    needs: [adapter-tests-gui]
 
     # Trigger this step only when a commit on master is tagged with a version number
     if: |
@@ -92,10 +119,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Use Node.js 16
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: npm i
 
       - name: Extract the version and commit body from the tag
         id: extract_release
@@ -110,9 +140,6 @@ jobs:
           BODY="${BODY//$'\n'/'%0A'}"
           BODY="${BODY//$'\r'/'%0D'}"
           echo "::set-output name=BODY::$BODY"
-
-      - name: Install Dependencies
-        run: npm i
 
 #      - name: Create a clean build
 #        run: npm run build

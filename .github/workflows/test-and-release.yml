@@ -23,54 +23,54 @@ concurrency:
 
 jobs:
   # Performs quick checks before the expensive test runs
-#  check-and-lint:
-#    if: contains(github.event.head_commit.message, '[skip ci]') == false
-#
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - uses: actions/checkout@v3
-#      - name: Use Node.js 16.x
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: 16.x
-#
-#      - name: Install Dependencies
-#        run: npm i
-#      - name: Build widgets
-#        run: npm run build
+  check-and-lint:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Install Dependencies
+        run: npm i
+      - name: Build widgets
+        run: npm run build
 
   # Runs adapter tests on all supported node versions and OSes
-#  adapter-tests:
-#    if: contains(github.event.head_commit.message, '[skip ci]') == false
-#
-#    needs: [check-and-lint]
-#
-#    runs-on: ${{ matrix.os }}
-#    strategy:
-#      matrix:
-#        node-version: [16.x, 18.x]
-#        os: [ubuntu-latest]
-#
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - name: Use Node.js ${{ matrix.node-version }}
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: ${{ matrix.node-version }}
-#
-#      - name: Install Dependencies
-#        run: npm i
-#
-#      - name: Run local tests
-#        run: npm test
-#      - name: Run integration tests # (linux/osx)
-#        if: startsWith(runner.OS, 'windows') == false
-#        run: DEBUG=testing:* npm run test:integration
-#      - name: Run integration tests # (windows)
-#        if: startsWith(runner.OS, 'windows')
-#        run: set DEBUG=testing:* & npm run test:integration
+  adapter-tests:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+
+    needs: [check-and-lint]
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: [ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Run local tests
+        run: npm test
+      - name: Run integration tests # (linux/osx)
+        if: startsWith(runner.OS, 'windows') == false
+        run: DEBUG=testing:* npm run test:integration
+      - name: Run integration tests # (windows)
+        if: startsWith(runner.OS, 'windows')
+        run: set DEBUG=testing:* & npm run test:integration
 
   adapter-tests-gui:
     if: contains(github.event.head_commit.message, '[skip ci]') == false

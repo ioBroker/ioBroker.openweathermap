@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.8",
+    "version": "0.3.9",
     "news": {
+      "0.3.9": {
+        "en": "updated build process",
+        "de": "aktualisierung des build-prozesses",
+        "ru": "обновленный процесс сборки",
+        "pt": "processo de construção atualizado",
+        "nl": "vertaling:",
+        "fr": "mise à jour du processus de construction",
+        "it": "processo di costruzione aggiornato",
+        "es": "proceso de construcción actualizado",
+        "pl": "aktualizacja procesu budowy",
+        "uk": "оновлений процес будівництва",
+        "zh-cn": "更新的建设进程"
+      },
       "0.3.8": {
         "en": "update packages",
         "de": "update-pakete",
@@ -78,18 +91,6 @@
         "es": "Asegúrese de que todos los datos de pronóstico se procesan correctamente",
         "pl": "Poprawione dane są poprawnie przetwarzane",
         "zh-cn": "确保所有预报数据都得到正确处理"
-      },
-      "0.2.4": {
-        "en": "Fix crash case when states have invalid metadata",
-        "de": "Absturzfall behoben, wenn Zustände ungültige Metadaten haben",
-        "ru": "Исправить случай сбоя, когда состояния имеют недопустимые метаданные",
-        "pt": "Corrige o caso de falha quando os estados têm metadados inválidos",
-        "nl": "Crashgeval repareren wanneer staten ongeldige metadata hebben",
-        "fr": "Correction d'un cas de plantage lorsque les états ont des métadonnées invalides",
-        "it": "Risolto il caso di arresto anomalo quando gli stati hanno metadati non validi",
-        "es": "Solucione el caso de bloqueo cuando los estados tienen metadatos no válidos",
-        "pl": "Napraw przypadek awarii, gdy stany mają nieprawidłowe metadane",
-        "zh-cn": "修复状态具有无效元数据时的崩溃情况"
       }
     },
     "title": "openweathermap.org",

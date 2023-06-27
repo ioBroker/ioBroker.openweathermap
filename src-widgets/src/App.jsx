@@ -16,7 +16,7 @@ class App extends WidgetDemoApp {
 
     renderWidget() {
         return <Weather
-            socket={this.socket}
+            context={{ socket: this.socket }}
             style={{
                 width: 600,
                 height: 600,

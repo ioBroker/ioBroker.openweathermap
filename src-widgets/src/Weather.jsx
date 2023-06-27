@@ -68,7 +68,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
         super.renderWidgetBody(props);
 
         const content = <WeatherComponent
-            socket={this.props.socket}
+            socket={this.props.context.socket}
             instance={this.state.rxData.instance || 0}
             daysCount={this.state.rxData.days ? parseInt(this.state.rxData.days, 10) : 6}
             hideDays={this.state.rxData.type === 'current'}

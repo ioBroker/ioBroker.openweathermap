@@ -21,7 +21,7 @@ You need an api key to access the data. The api key you can get for free after r
 -->
 ## Changelog
 ### **WORK IN PROGRESS**
-* (bluefox) Added support of the new vis
+* (bluefox) Added support for the new vis
 
 ### 0.3.9 (2023-06-07)
 * (bluefox) updated build process

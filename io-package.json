@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.9",
+    "version": "0.3.10",
     "news": {
+      "0.3.10": {
+        "en": "Added support for the new vis",
+        "de": "Unterstützung für den neuen vis",
+        "ru": "Добавлена поддержка новых вис",
+        "pt": "Adicionado suporte para o novo vis",
+        "nl": "Aangepast voor de nieuwe vis",
+        "fr": "Ajout du soutien à la nouvelle vis",
+        "it": "Aggiunto il supporto per il nuovo vis",
+        "es": "Apoyo añadido para la nueva vis",
+        "pl": "Wsparcie dla nowej wizy",
+        "uk": "Додана підтримка нових вій",
+        "zh-cn": "增加对新情况的支持"
+      },
       "0.3.9": {
         "en": "updated build process",
         "de": "aktualisierung des build-prozesses",
@@ -79,18 +92,6 @@
         "es": "Añadido nuevo widget para vis2.0",
         "pl": "Wtedy nowy widget for vis2.0",
         "zh-cn": "增加新的令人不安的目标"
-      },
-      "0.2.5": {
-        "en": "Make sure all forecast data are processed correctly",
-        "de": "Stellen Sie sicher, dass alle Prognosedaten korrekt verarbeitet werden",
-        "ru": "Убедитесь, что все данные прогноза обрабатываются правильно",
-        "pt": "Certifique-se de que todos os dados de previsão são processados corretamente",
-        "nl": "Zorg ervoor dat alle gegevens correct worden verwerkt",
-        "fr": "Assurez-vous que toutes les données de prévision sont traitées correctement",
-        "it": "Assicurarsi che tutti i dati previsti siano trattati correttamente",
-        "es": "Asegúrese de que todos los datos de pronóstico se procesan correctamente",
-        "pl": "Poprawione dane są poprawnie przetwarzane",
-        "zh-cn": "确保所有预报数据都得到正确处理"
       }
     },
     "title": "openweathermap.org",

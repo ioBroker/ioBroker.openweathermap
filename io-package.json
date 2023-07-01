@@ -160,8 +160,8 @@
       }
     },
     "visWidgets": {
-      "i18n": "component",
       "openweathermap": {
+        "i18n": "component",
         "name": "openweathermap",
         "color": "#30de00",
         "label": "openweathermap_set_label",

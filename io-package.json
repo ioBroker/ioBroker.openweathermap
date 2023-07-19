@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.3.10",
+    "version": "0.3.11",
     "news": {
+      "0.3.11": {
+        "en": "Small layout changes",
+        "de": "Kleine Layoutänderungen",
+        "ru": "Небольшие изменения планировки",
+        "pt": "Pequenas mudanças de layout",
+        "nl": "Kleine lay-out verandert",
+        "fr": "Changements de mise en page",
+        "it": "Piccoli cambiamenti di layout",
+        "es": "Cambios de diseño pequeños",
+        "pl": "Drobne zmiany",
+        "uk": "Невеликі зміни макета",
+        "zh-cn": "小规模的改变"
+      },
       "0.3.10": {
         "en": "Added support for the new vis",
         "de": "Unterstützung für den neuen vis",
@@ -80,18 +93,6 @@
         "pl": "Widgetowanie wiz 2.0",
         "uk": "Оновлений віджет для vis 2.0",
         "zh-cn": "A. 令人遗憾的是的2.0目标"
-      },
-      "0.3.0": {
-        "en": "Added new widget for vis2.0",
-        "de": "Neues Widget für vis2.0 hinzugefügt",
-        "ru": "Добавлен новый виджет для vis2.0",
-        "pt": "Adicionado novo widget para vis2.0",
-        "nl": "Vertaling:",
-        "fr": "Ajout de nouveaux widgets pour vis2.0",
-        "it": "Aggiunto nuovo widget per vis2.0",
-        "es": "Añadido nuevo widget para vis2.0",
-        "pl": "Wtedy nowy widget for vis2.0",
-        "zh-cn": "增加新的令人不安的目标"
       }
     },
     "title": "openweathermap.org",

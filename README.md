@@ -20,6 +20,9 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Small layout changes
+
 ### 0.3.10 (2023-06-28)
 * (bluefox) Added support for the new vis
 

@@ -586,7 +586,6 @@ class WeatherDialog extends React.Component {
 
         const state = this.props.weather.current.title;
         return <div key="todayWind" className={cls.todayStateDiv}>
-
             {windChill !== null && windChill !== undefined ?
                 <div key="windChill" className={classes['todayState-windChill']}>
                     <span className={cls.todayStateName}>
@@ -628,7 +627,7 @@ class WeatherDialog extends React.Component {
                 </div>
                 : null}
 
-            {state ? <div key="state" className={classes['todayState-state']}>{state}</div> : null}
+            {state ? <div key="state" className={classes['todayState-state']}>{I18n.t(`openweathermap_${state}`).replace('openweathermap_', '')}</div> : null}
         </div>;
     }
 

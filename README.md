@@ -33,7 +33,7 @@ You need an api key to access the data. The api key you can get for free after r
 * (bluefox) update packages
 
 ### 0.3.6 (2023-02-27)
-* (Bluefox) Installation from GitHub does not possible anymore
+* (Bluefox) Installation from GitHub is not possible anymore
 
 ### 0.3.4 (2023-02-22)
 * (Bluefox) Updated packages
@@ -48,7 +48,7 @@ You need an api key to access the data. The api key you can get for free after r
 * (Apollon77) Make sure all forecast data are processed correctly
 
 ### 0.2.4 (2022-04-19)
-* (Apollon77) Fix crash case when states have invalid metadata
+* (Apollon77) Fixed a crash case when states have invalid metadata
 
 ### 0.2.3 (2022-03-15)
 * (Apollon77) Increase timeout to read data to 10s

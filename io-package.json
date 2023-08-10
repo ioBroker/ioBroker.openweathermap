@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "news": {
+      "0.4.1": {
+        "en": "Optimized the state subscription in vis-2 widget",
+        "de": "Das State-Abonnement in vis-2 Widget optimiert",
+        "ru": "Оптимизированная государственная подписка в виджете vis-2",
+        "pt": "Otimizou a assinatura do estado no widget vis-2",
+        "nl": "Optimistisch de staatsvoorschrift in vis-2 widget",
+        "fr": "Optimisé l'abonnement à l'état en widget vis-2",
+        "it": "Ottimizzato l'abbonamento di stato in vis-2 widget",
+        "es": "Optimizado la suscripción estatal en vis-2 widget",
+        "pl": "Oświadczona subskrypcja państwowa wiz-2 widget",
+        "uk": "Оптимізовано державну підписку в Vis-2 віджет",
+        "zh-cn": "取消对-2目标的国家说明"
+      },
       "0.3.11": {
         "en": "Small layout changes",
         "de": "Kleine Layoutänderungen",

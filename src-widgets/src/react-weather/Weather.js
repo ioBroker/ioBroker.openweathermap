@@ -1,5 +1,5 @@
 import React, {
-    useEffect, useState,
+    useEffect, useRef, useState,
 } from 'react';
 
 import { i18n as I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
@@ -18,6 +18,8 @@ const getWeekDay = (date, index) => {
     return days[idx];
 };
 
+const DAY_PARAMETERS = ['temperatureMin', 'temperatureMax', 'state', 'icon', 'humidity', 'windDirection', 'windSpeed'];
+const TODAY_PARAMETERS = ['temperature', 'humidity', 'title', 'icon', 'temperatureMin', 'temperatureMax', 'pressure', 'windDirection', 'windSpeed'];
 const Weather = ({
     socket,
     hideCurrent,
@@ -30,6 +32,7 @@ const Weather = ({
     }
 
     const [dialogOpen, setDialogOpen] = useState(false);
+    const mapping = useRef({});
 
     const [weather, setWeather] = useState({
         current: {
@@ -50,50 +53,51 @@ const Weather = ({
         });
     };
 
-    const currentCallback = (field, state) =>
-        setWeatherState(newWeather => newWeather.current[field] = state?.val || null);
-
-    const dayCallback = (day, field, state) =>
-        setWeatherState(newWeather => newWeather.days[day][field] = state?.val || null);
-
-    const getSubscribeState = (id, cb) => {
-        socket.getState(id)
-            .then(result => cb(id, result));
-
-        socket.subscribeState(id, cb);
+    const getSubscribeState = async (id, cb) => {
+        if (socket.subscribeStateAsync) {
+            await socket.subscribeStateAsync(id, cb);
+        } else {
+            await socket.subscribeState(id, cb);
+            // wait a bit to avoid too many requests
+            await new Promise(resolve => {
+                setTimeout(resolve, 50);
+            });
+        }
     };
 
     useEffect(() => {
-        const callbacks = {};
-        const dayCallbacks = [];
-        ['temperature', 'humidity', 'title', 'icon', 'temperatureMin', 'temperatureMax', 'pressure', 'windDirection', 'windSpeed']
-            .forEach(field => {
-                const callback = (id, state) => currentCallback(field, state);
-                getSubscribeState(`openweathermap.${instance || 0}.forecast.current.${field}`, callback);
-                callbacks[field] = callback;
-            });
-
-        for (let i = 0; i < daysCount; i++) {
-            ['temperatureMin', 'temperatureMax', 'state', 'icon', 'humidity', 'windDirection', 'windSpeed']
-                .forEach(field => {
-                    const callback = (id, state) => dayCallback(i, field, state);
-                    getSubscribeState(`openweathermap.${instance || 0}.forecast.day${i}.${field}`, callback);
-                    if (!dayCallbacks[i]) {
-                        dayCallbacks[i] = {};
-                    }
-                    dayCallbacks[i][field] = callback;
-                });
-        }
-
-        return () => {
-            for (const field in callbacks) {
-                socket.unsubscribeState(`openweathermap.${instance || 0}.forecast.current.${field}`, callbacks[field]);
-            }
-            for (let i = 0; i < daysCount; i++) {
-                for (const field in callbacks) {
-                    socket.unsubscribeState(`openweathermap.${instance || 0}.forecast.day${i}.${field}`, dayCallbacks[i][field]);
+        const callback = (id, state) => {
+            // find out the mapping
+            if (mapping.current[id]) {
+                if (mapping.current[id].day === undefined) {
+                    setWeatherState(newWeather => newWeather.current[mapping.current[id].field] = state ? state.val : null);
+                } else {
+                    setWeatherState(newWeather => newWeather.days[mapping.current[id].day][mapping.current[id].field] = state ? state.val : null);
                 }
             }
+        };
+        const subscribes = [];
+
+        for (let t = 0; t < TODAY_PARAMETERS.length; t++) {
+            const field = TODAY_PARAMETERS[t];
+            const id = `openweathermap.${instance || 0}.forecast.current.${field}`;
+            mapping.current[id] = { field };
+            subscribes.push(id);
+        }
+
+        for (let i = 0; i < daysCount; i++) {
+            for (let d = 0; d < DAY_PARAMETERS.length; d++) {
+                const field = DAY_PARAMETERS[d];
+                const id = `openweathermap.${instance || 0}.forecast.day${i}.${field}`;
+                mapping.current[id] = { field, day: i };
+                subscribes.push(id);
+            }
+        }
+
+        socket.subscribeState(subscribes, callback);
+
+        return () => {
+            socket.unsubscribeState(subscribes, callback);
         };
     }, [instance]);
 
@@ -101,16 +105,14 @@ const Weather = ({
 
     useEffect(() => {
         setWeatherState(newWeather => {
-            Array(daysCount).fill().forEach((_, i) => {
-                if (!newWeather.days[i]) {
-                    newWeather.days[i] = {
-                        temperatureMin: null,
-                        temperatureMax: null,
-                        title: null,
-                        icon: null,
-                    };
-                }
-            });
+            for (let d = 0; d < daysCount; d++) {
+                newWeather.days[d] = newWeather.days[d] || {
+                    temperatureMin: null,
+                    temperatureMax: null,
+                    title: null,
+                    icon: null,
+                };
+            }
 
             return newWeather;
         });
@@ -150,14 +152,13 @@ const Weather = ({
                 <IconInfo />
             </IconButton>
         </div>
-        <WeatherDialog
+        {dialogOpen ? <WeatherDialog
             dialogKey="weather"
-            open={dialogOpen}
             onClose={() => setDialogOpen(false)}
             weather={weather}
             showCurrent={!hideCurrent}
             showDays={!hideDays}
-        />
+        /> : null}
     </div>;
 };
 

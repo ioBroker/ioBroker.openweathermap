@@ -776,7 +776,7 @@ class WeatherDialog extends React.Component {
 
     render() {
         return <Dialog
-            open={this.props.open}
+            open={!0}
             onClose={this.props.onClose}
             fullWidth
             maxWidth="md"

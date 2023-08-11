@@ -53,18 +53,6 @@ const Weather = ({
         });
     };
 
-    const getSubscribeState = async (id, cb) => {
-        if (socket.subscribeStateAsync) {
-            await socket.subscribeStateAsync(id, cb);
-        } else {
-            await socket.subscribeState(id, cb);
-            // wait a bit to avoid too many requests
-            await new Promise(resolve => {
-                setTimeout(resolve, 50);
-            });
-        }
-    };
-
     useEffect(() => {
         const callback = (id, state) => {
             // find out the mapping

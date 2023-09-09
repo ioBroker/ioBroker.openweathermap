@@ -47,6 +47,18 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                             isShort: true,
                             default: '0',
                         },
+                        {
+                            name: 'current_temp_oid',
+                            label: 'openweathermap_current_temp_oid',
+                            tooltip: 'openweathermap_current_temp_oid_tooltip',
+                            type: 'id',
+                        },
+                        {
+                            name: 'current_humidity_oid',
+                            label: 'openweathermap_current_humidity_oid',
+                            tooltip: 'openweathermap_current_temp_oid_tooltip',
+                            type: 'id',
+                        },
                     ],
                 },
             ],
@@ -73,6 +85,9 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
             daysCount={this.state.rxData.days ? parseInt(this.state.rxData.days, 10) : 6}
             hideDays={this.state.rxData.type === 'current'}
             hideCurrent={this.state.rxData.type === 'days'}
+            currentTemp={this.state.rxData.current_temp_oid ? this.state.values[`${this.state.rxData.current_temp_oid}.val`] : null}
+            currentHumidity={this.state.rxData.current_humidity_oid ? this.state.values[`${this.state.rxData.current_humidity_oid}.val`] : null}
+            isFloatComma={this.props.context?.systemConfig?.common?.isFloatComma}
         />;
 
         return this.wrapContent(content, null, null, null, null, { Card, CardContent });

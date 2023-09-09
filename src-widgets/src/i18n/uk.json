@@ -55,5 +55,8 @@
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Погода",
   "openweathermap_Precip.": "Осадки",
-  "openweathermap_null": "нуль"
+  "openweathermap_null": "нуль",
+  "openweathermap_current_temp_oid": "ID поточної температури",
+  "openweathermap_current_temp_oid_tooltip": "Ви можете надати OID реального датчика",
+  "openweathermap_current_humidity_oid": "Ідентифікатор поточної вологості"
 }

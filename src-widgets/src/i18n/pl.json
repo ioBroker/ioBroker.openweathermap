@@ -55,5 +55,8 @@
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Pogoda",
   "openweathermap_Precip.": "Opad",
-  "openweathermap_null": "zero"
+  "openweathermap_null": "zero",
+  "openweathermap_current_temp_oid": "Identyfikator aktualnej temperatury",
+  "openweathermap_current_temp_oid_tooltip": "Możesz podać OID prawdziwego czujnika",
+  "openweathermap_current_humidity_oid": "Aktualny identyfikator wilgotności"
 }

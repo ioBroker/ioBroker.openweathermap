@@ -55,5 +55,8 @@
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Het weer",
   "openweathermap_Precip.": "Neerslag",
-  "openweathermap_null": "nul"
+  "openweathermap_null": "nul",
+  "openweathermap_current_temp_oid": "Huidige temperatuur-ID",
+  "openweathermap_current_temp_oid_tooltip": "U kunt de OID van een echte sensor opgeven",
+  "openweathermap_current_humidity_oid": "Huidige vochtigheids-ID"
 }

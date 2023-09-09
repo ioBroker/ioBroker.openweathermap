@@ -55,5 +55,8 @@
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "Temps",
   "openweathermap_Precip.": "Précip.",
-  "openweathermap_null": "nul"
+  "openweathermap_null": "nul",
+  "openweathermap_current_temp_oid": "ID de température actuelle",
+  "openweathermap_current_temp_oid_tooltip": "Vous pouvez fournir l'OID du capteur réel",
+  "openweathermap_current_humidity_oid": "ID d'humidité actuel"
 }

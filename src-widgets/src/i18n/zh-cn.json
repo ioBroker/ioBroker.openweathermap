@@ -55,5 +55,8 @@
   "openweathermap_set_label": "Vis 2 - OpenWeatherMap",
   "openweathermap_weather": "天气",
   "openweathermap_Precip.": "沉淀",
-  "openweathermap_null": "无效的"
+  "openweathermap_null": "无效的",
+  "openweathermap_current_temp_oid": "当前温度ID",
+  "openweathermap_current_temp_oid_tooltip": "您可以提供真实传感器的OID",
+  "openweathermap_current_humidity_oid": "当前湿度 ID"
 }

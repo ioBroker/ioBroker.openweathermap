@@ -26,6 +26,9 @@ const Weather = ({
     hideDays,
     instance,
     daysCount,
+    currentTemp,
+    currentHumidity,
+    isFloatComma,
 }) => {
     if (instance === undefined) {
         return;
@@ -84,9 +87,7 @@ const Weather = ({
 
         socket.subscribeState(subscribes, callback);
 
-        return () => {
-            socket.unsubscribeState(subscribes, callback);
-        };
+        return () => socket.unsubscribeState(subscribes, callback);
     }, [instance]);
 
     const date = new Date();
@@ -108,6 +109,13 @@ const Weather = ({
 
     const mainIcon = getIcon(weather.current.icon, true);
 
+    let temp = currentTemp !== null ? Math.round(currentTemp * 10) / 10 : Math.round(weather.current.temperature);
+    const humidity = currentHumidity !== null ? Math.round(currentHumidity) : Math.round(weather.current.humidity);
+
+    if (isFloatComma) {
+        temp = temp.toString().replace('.', ',');
+    }
+
     // eslint-disable-next-line consistent-return
     return <div className={cls.weatherWrapper}>
         <div className={cls.wrapperBlock} style={{ display: hideCurrent ? 'none' : undefined }}>
@@ -118,15 +126,15 @@ const Weather = ({
                 <div className={cls.styleText}>{I18n.t(`openweathermap_${weather.current.title}`).replace('openweathermap_', '')}</div>
             </div>
             <div>
-                <div className={cls.temperatureTop}>{`${Math.round(weather.current.temperature)}°C` || '-°C'}</div>
-                <div className={cls.humidity}>{`${Math.round(weather.current.humidity)}%` || '-%'}</div>
+                <div className={cls.temperatureTop}>{`${temp}°C` || '-°C'}</div>
+                <div className={cls.humidity}>{`${humidity}%` || '-%'}</div>
             </div>
         </div>
         {daysCount > 0 && <div className={cls.wrapperBottomBlock} style={{ display: hideDays ? 'none' : undefined }}>
             {new Array(daysCount).fill(0).map((e, idx) => {
                 const secIcon = getIcon(weather.days[idx]?.icon, true);
                 return <div className={cls.wrapperBottomBlockCurrent} key={idx}>
-                    <div className={cls.date}>{I18n.t(`openweathermap_${getWeekDay(date, idx + 1)}`)}</div>
+                    <div className={cls.date}>{I18n.t(`openweathermap_${getWeekDay(date, idx)}`)}</div>
                     <div>{secIcon ? <Icon className={cls.iconWeatherMin} src={secIcon} /> : null}</div>
                     <div className={cls.temperature}>{`${Math.round(weather.days[idx]?.temperatureMax)}°C` || '-°C'}</div>
                     <div className={cls.temperature}>
@@ -156,6 +164,8 @@ Weather.defaultProps = {
     dayOfWeekParams: false,
     date: false,
     doubleSize: false,
+    currentTemp: null,
+    currentHumidity: null,
 };
 
 export default Weather;

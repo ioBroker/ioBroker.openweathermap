@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.4.2",
+    "version": "0.4.3",
     "news": {
+      "0.4.3": {
+        "en": "Corrected vis-2 widget",
+        "de": "Korrigiert vis-2 Widget",
+        "ru": "Исправлен виджет vis-2",
+        "pt": "Corrigido vis-2 widget",
+        "nl": "Vertaling:",
+        "fr": "Corrigé vis-2 widget",
+        "it": "Corretto vis-2 widget",
+        "es": "Corregido vis-2 widget",
+        "pl": "Poprawka wizowa 2",
+        "uk": "Corrected vis-2 віджет",
+        "zh-cn": "更正"
+      },
       "0.4.2": {
         "en": "Optimized the state subscription in vis-2 widget",
         "de": "Das State-Abonnement in vis-2 Widget optimiert",
@@ -80,19 +93,6 @@
         "pl": "Instalacja z GitHub nie jest możliwe",
         "uk": "Монтаж від GitHub неможливий",
         "zh-cn": "GitHub的断绝不可能"
-      },
-      "0.3.4": {
-        "en": "Updated packages",
-        "de": "Aktualisierte Pakete",
-        "ru": "Обновленные пакеты",
-        "pt": "Pacotes atualizados",
-        "nl": "Verouderde pakketten",
-        "fr": "Forfaits mis à jour",
-        "it": "Pacchetti aggiornati",
-        "es": "Paquetes actualizados",
-        "pl": "Pakiet upoważniony",
-        "uk": "Оновлені пакети",
-        "zh-cn": "最新一揽子计划"
       }
     },
     "title": "openweathermap.org",

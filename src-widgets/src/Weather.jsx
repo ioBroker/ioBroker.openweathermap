@@ -12,7 +12,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
             id: 'tplOpenWeatherMapWeather',
             visSet: 'openweathermap',
             visSetLabel: 'openweathermap_set_label', // Label of widget set
-            visSetColor: '#1d8700', // Color of widget set
+            visSetColor: '#1d8700', // Color of a widget set
             visWidgetLabel: 'openweathermap_weather',  // Label of widget
             visName: 'Weather',
             visAttrs: [

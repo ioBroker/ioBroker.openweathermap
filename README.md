@@ -20,6 +20,9 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (feuer-sturm) changed german translation
+
 ### 0.4.4 (2023-09-29)
 * (bluefox) Updated packages
 

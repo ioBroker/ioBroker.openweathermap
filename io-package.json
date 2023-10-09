@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.4.4",
+    "version": "0.4.5",
     "news": {
+      "0.4.5": {
+        "en": "changed german translation",
+        "de": "deutsch übersetzung",
+        "ru": "изменен немецкий перевод",
+        "pt": "tradução alemã alterada",
+        "nl": "vertaling:",
+        "fr": "traduction allemande changée",
+        "it": "cambiato traduzione tedesca",
+        "es": "traducción de alemán",
+        "pl": "zmieniono tłumaczenie germanowe",
+        "uk": "змінив німецький переклад",
+        "zh-cn": "更换"
+      },
       "0.4.4": {
         "en": "Updated packages",
         "de": "Aktualisierte Pakete",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja procesu budowy",
         "uk": "оновлений процес будівництва",
         "zh-cn": "更新的建设进程"
-      },
-      "0.3.8": {
-        "en": "update packages",
-        "de": "update-pakete",
-        "ru": "обновление пакетов",
-        "pt": "pacotes de atualização",
-        "nl": "vertaling:",
-        "fr": "mettre à jour les paquets",
-        "it": "pacchetti di aggiornamento",
-        "es": "actualizar paquetes",
-        "pl": "pakiet aktualizacji",
-        "uk": "оновлення пакетів",
-        "zh-cn": "更新包"
       }
     },
     "title": "openweathermap.org",

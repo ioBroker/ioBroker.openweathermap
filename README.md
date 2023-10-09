@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 0.4.5 (2023-10-09)
 * (feuer-sturm) changed german translation
 
 ### 0.4.4 (2023-09-29)

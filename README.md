@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### 1.0.2 (2023-12-05)
+### **WORK IN PROGRESS**
 * (bluefox) Used the JSON config for configuration dialog
 * (bluefox) Added title to widget
 

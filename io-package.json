@@ -149,7 +149,9 @@
     "dataSource": "poll",
     "tier": 2,
     "nogit": true,
-    "materialize": true,
+    "adminUI": {
+      "config": "json"
+    },
     "dependencies": [
       {
         "js-controller": ">=3.3.0"

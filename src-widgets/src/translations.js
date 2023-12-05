@@ -10,6 +10,7 @@ const translations = {
     pl: require('./i18n/pl.json'),
     uk: require('./i18n/uk.json'),
     'zh-cn': require('./i18n/zh-cn.json'),
+    prefix: true,
 };
 
 export default translations;

@@ -11,28 +11,33 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
         return {
             id: 'tplOpenWeatherMapWeather',
             visSet: 'openweathermap',
-            visSetLabel: 'openweathermap_set_label', // Label of widget set
+            visSetLabel: 'set_label', // Label of widget set
             visSetColor: '#1d8700', // Color of a widget set
-            visWidgetLabel: 'openweathermap_weather',  // Label of widget
+            visWidgetLabel: 'weather',  // Label of widget
             visName: 'Weather',
             visAttrs: [
                 {
                     name: 'common', // groupname
                     fields: [
                         {
+                            name: 'widgetTitle',
+                            label: 'title',
+                            type: 'text',
+                        },
+                        {
                             name: 'type',
-                            label: 'openweathermap_type',
+                            label: 'type',
                             type: 'select',
                             options: [
-                                { value: 'all',     label: 'openweathermap_type_all' },
-                                { value: 'current', label: 'openweathermap_type_current' },
-                                { value: 'days',    label: 'openweathermap_type_days' },
+                                { value: 'all',     label: 'type_all' },
+                                { value: 'current', label: 'type_current' },
+                                { value: 'days',    label: 'type_days' },
                             ],
                             default: 'all',
                         },
                         {
                             name: 'days',
-                            label: 'openweathermap_days',
+                            label: 'days',
                             type: 'select',
                             hidden: 'data.type === "current"',
                             options: ['6', '5', '4', '3', '2', '1'],
@@ -40,7 +45,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                             noTranslation: true,
                         },
                         {
-                            label: 'openweathermap_instance',
+                            label: 'instance',
                             name: 'instance',
                             type: 'instance',
                             adapter: 'openweathermap',
@@ -49,14 +54,14 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
                         },
                         {
                             name: 'current_temp_oid',
-                            label: 'openweathermap_current_temp_oid',
-                            tooltip: 'openweathermap_current_temp_oid_tooltip',
+                            label: 'current_temp_oid',
+                            tooltip: 'current_temp_oid_tooltip',
                             type: 'id',
                         },
                         {
                             name: 'current_humidity_oid',
-                            label: 'openweathermap_current_humidity_oid',
-                            tooltip: 'openweathermap_current_temp_oid_tooltip',
+                            label: 'current_humidity_oid',
+                            tooltip: 'current_temp_oid_tooltip',
                             type: 'id',
                         },
                     ],
@@ -69,6 +74,10 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
             },
             visPrev: 'widgets/openweathermap/img/prev_weather.png',
         };
+    }
+
+    static getI18nPrefix() {
+        return 'openweathermap_';
     }
 
     // eslint-disable-next-line class-methods-use-this

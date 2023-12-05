@@ -10,9 +10,14 @@
       "md": 6,
       "lg": 4
     },
+    "_staticText": {
+        "type": "staticText",
+        "text": "API-Key needs up to 2 hours to be activated. Please be patient.",
+        "sm": 12
+    },
     "location": {
       "newLine": true,
-      "type": "position",
+      "type": "coordinates",
       "label": "Place",
       "system": true,
       "browser": true,

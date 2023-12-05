@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "0.4.5",
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "Used the JSON config for configuration dialog\nAdded title to widget",
+        "de": "JSON config für Konfigurationsdialog verwendet\nHinzugefügt Titel zu Widget",
+        "ru": "Используется конфиг JSON для диалога конфигурации\nДобавлено название в виджет",
+        "pt": "Usado a configuração JSON para a caixa de diálogo de configuração\nTítulo adicionado ao widget",
+        "nl": "Gebruikte de JSON configuratie dialog\nVoeg de titel toe aan Widget",
+        "fr": "Utiliser la configuration JSON pour le dialogue de configuration\nAjout du titre à widget",
+        "it": "Utilizzato la configurazione JSON per la finestra di dialogo di configurazione\nAggiunto titolo al widget",
+        "es": "Utiliza el configuración JSON para el diálogo de configuración\nTítulo añadido al widget",
+        "pl": "Używanie formatu JSON dla dialogów konfiguracyjnych\nOficjalna strona Widget",
+        "uk": "Використовуйте налаштування JSON для діалогу конфігурації\nДодано назву віджету",
+        "zh-cn": "利用联合协商会联索会的口号\n添加供植物用的标题"
+      },
       "0.4.5": {
         "en": "changed german translation",
         "de": "deutsch übersetzung",
@@ -80,19 +93,6 @@
         "pl": "Wsparcie dla nowej wizy",
         "uk": "Додана підтримка нових вій",
         "zh-cn": "增加对新情况的支持"
-      },
-      "0.3.9": {
-        "en": "updated build process",
-        "de": "aktualisierung des build-prozesses",
-        "ru": "обновленный процесс сборки",
-        "pt": "processo de construção atualizado",
-        "nl": "vertaling:",
-        "fr": "mise à jour du processus de construction",
-        "it": "processo di costruzione aggiornato",
-        "es": "proceso de construcción actualizado",
-        "pl": "aktualizacja procesu budowy",
-        "uk": "оновлений процес будівництва",
-        "zh-cn": "更新的建设进程"
       }
     },
     "title": "openweathermap.org",

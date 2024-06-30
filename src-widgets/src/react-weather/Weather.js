@@ -2,8 +2,8 @@ import React, {
     useEffect, useRef, useState,
 } from 'react';
 
-import { i18n as I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
 import { Info as IconInfo } from '@mui/icons-material';
+import { I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
 
 import { IconButton } from '@mui/material';
 

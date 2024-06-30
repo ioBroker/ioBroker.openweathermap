@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WidgetDemoApp from '@iobroker/vis-2-widgets-react-dev/widgetDemoApp';
-import { i18n as I18n } from '@iobroker/adapter-react-v5';
+import { I18n } from '@iobroker/adapter-react-v5';
 
 import Weather from './Weather';
 import translations from './translations';

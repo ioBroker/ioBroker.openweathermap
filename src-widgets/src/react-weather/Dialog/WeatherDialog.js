@@ -20,7 +20,7 @@ import {
     Paper, Dialog,
 } from '@mui/material';
 
-import { Utils, I18n, IconAdapter } from '@iobroker/adapter-react-v5';
+import { Utils, I18n, Icon } from '@iobroker/adapter-react-v5';
 
 import IconHydro from './icons/Humidity';
 import iconPrecipitation from './icons/precipitation.svg';
@@ -475,7 +475,7 @@ class WeatherDialog extends Component {
             {windChill !== null && windChill !== undefined ?
                 <div key={`windChill${d}`} className={cls.wrapperSpecialIcon}>
                     {/* <span className={cls.todayStateName}>{I18n.t('openweathermap_Windchill')}: </span> */}
-                    <IconAdapter src={iconWindChill} className={cls.specialIcon} />
+                    <Icon src={iconWindChill} className={cls.specialIcon} />
                     <span style={styles['dayState-windChillValue']}>
                         {/* {windChill} */}
                         {windSpeed}
@@ -515,7 +515,7 @@ class WeatherDialog extends Component {
         return <div key={`dayTemp${d}`} className={cls.dayTempDiv}>
             {precipitation !== null && precipitation !== undefined ?
                 <div key={`precipitation${d}`} className={cls.wrapperSpecialIcon}>
-                    <IconAdapter src={iconPrecipitation} className={cls.specialIcon} />
+                    <Icon src={iconPrecipitation} className={cls.specialIcon} />
                     <span style={styles['dayTemp-precipitationValue']}>
                         {precipitation}
 %
@@ -524,7 +524,7 @@ class WeatherDialog extends Component {
                 : null}
             {pressure !== null && pressure !== undefined ?
                 <div key={`pressure${d}`} className={cls.wrapperSpecialIcon}>
-                    <IconAdapter src={iconPressure} className={cls.specialIcon} />
+                    <Icon src={iconPressure} className={cls.specialIcon} />
                     <span style={styles['dayTemp-pressureValue']}>
                         {pressure}
                         {this.props.pressureUnit}

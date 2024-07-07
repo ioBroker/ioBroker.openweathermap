@@ -29,6 +29,7 @@ const Weather = ({
     currentTemp,
     currentHumidity,
     isFloatComma,
+    theme,
 }) => {
     if (instance === undefined) {
         return;
@@ -154,6 +155,7 @@ const Weather = ({
             weather={weather}
             showCurrent={!hideCurrent}
             showDays={!hideDays}
+            theme={theme}
         /> : null}
     </div>;
 };

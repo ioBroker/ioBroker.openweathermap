@@ -97,6 +97,7 @@ class Weather extends (window.visRxWidget || VisRxWidget) {
             currentTemp={this.state.rxData.current_temp_oid ? this.state.values[`${this.state.rxData.current_temp_oid}.val`] : null}
             currentHumidity={this.state.rxData.current_humidity_oid ? this.state.values[`${this.state.rxData.current_humidity_oid}.val`] : null}
             isFloatComma={this.props.context?.systemConfig?.common?.isFloatComma}
+            theme={this.props.context.theme}
         />;
 
         return this.wrapContent(content, null, null, null, null, { Card, CardContent });

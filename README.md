@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 1.1.2 (2024-07-07)
 * (bluefox) Removed withStyles package
 
 ### 1.0.4 (2023-12-05)

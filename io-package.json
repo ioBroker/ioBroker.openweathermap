@@ -175,6 +175,10 @@
         ]
       }
     },
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
     "restartAdapters": [
       "vis-2"
     ]

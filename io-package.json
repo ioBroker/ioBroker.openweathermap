@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "1.0.4",
+    "version": "1.1.0",
     "news": {
+      "1.1.0": {
+        "en": "Removed withStyles package",
+        "de": "MitStyles-Paket entfernt",
+        "ru": "Удаленный пакет со Стайлз",
+        "pt": "Removido com pacote Estilos",
+        "nl": "Verwijderd metStyles pakket",
+        "fr": "Enlever avec le paquetStyles",
+        "it": "Rimosso con pacchettoStyles",
+        "es": "Retire el paquete de estilos",
+        "pl": "Usunięty z pakietem Styles",
+        "uk": "Видаліть пакет \"Стиль\"",
+        "zh-cn": "用 Styles 软件包删除"
+      },
       "1.0.4": {
         "en": "Used the JSON config for configuration dialog\nAdded title to widget",
         "de": "JSON config für Konfigurationsdialog verwendet\nHinzugefügt Titel zu Widget",
@@ -80,19 +93,6 @@
         "pl": "Drobne zmiany",
         "uk": "Невеликі зміни макета",
         "zh-cn": "小规模的改变"
-      },
-      "0.3.10": {
-        "en": "Added support for the new vis",
-        "de": "Unterstützung für den neuen vis",
-        "ru": "Добавлена поддержка новых вис",
-        "pt": "Adicionado suporte para o novo vis",
-        "nl": "Aangepast voor de nieuwe vis",
-        "fr": "Ajout du soutien à la nouvelle vis",
-        "it": "Aggiunto il supporto per il nuovo vis",
-        "es": "Apoyo añadido para la nueva vis",
-        "pl": "Wsparcie dla nowej wizy",
-        "uk": "Додана підтримка нових вій",
-        "zh-cn": "增加对新情况的支持"
       }
     },
     "title": "openweathermap.org",

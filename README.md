@@ -20,6 +20,9 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (bluefox) Removed withStyles package
+
 ### 1.0.4 (2023-12-05)
 * (bluefox) Used the JSON config for configuration dialog
 * (bluefox) Added title to widget
@@ -84,7 +87,7 @@ You need an api key to access the data. The api key you can get for free after r
 
 The MIT License (MIT)
 
-Copyright (c) 2018-2023 bluefox <dogafox@gmail.com>
+Copyright (c) 2018-2024 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

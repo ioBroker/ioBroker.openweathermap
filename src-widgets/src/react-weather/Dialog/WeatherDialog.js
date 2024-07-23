@@ -1,5 +1,5 @@
 /**
- * Copyright 2018-2022 bluefox <dogafox@gmail.com>
+ * Copyright 2018-2024 bluefox <dogafox@gmail.com>
  *
  * Licensed under the Creative Commons Attribution-NonCommercial License, Version 4.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,9 @@ import iconPrecipitation from './icons/precipitation.svg';
 import iconPressure from './icons/pressure.svg';
 import iconWind from './icons/wind.svg';
 import iconWindChill from './icons/windChill.svg';
+
 import cls from './style.module.scss';
+
 import clearSky from '../iconsWeather/clearSky.svg';
 import fewClouds from '../iconsWeather/fewClouds.svg';
 import scatteredClouds from '../iconsWeather/scatteredClouds.svg';

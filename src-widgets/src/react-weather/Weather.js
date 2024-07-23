@@ -2,10 +2,11 @@ import React, {
     useEffect, useRef, useState,
 } from 'react';
 
-import { Info as IconInfo } from '@mui/icons-material';
-import { I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
-
 import { IconButton } from '@mui/material';
+
+import { Info as IconInfo } from '@mui/icons-material';
+
+import { I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
 
 import cls from './style.module.scss';
 import WeatherDialog, { getIcon } from './Dialog/WeatherDialog';

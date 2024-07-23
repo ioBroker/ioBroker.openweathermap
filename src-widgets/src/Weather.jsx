@@ -3,10 +3,9 @@ import {
     Card, CardContent,
 } from '@mui/material';
 
-import { VisRxWidget } from '@iobroker/vis-2-widgets-react-dev';
 import WeatherComponent from './react-weather/Weather';
 
-class Weather extends (window.visRxWidget || VisRxWidget) {
+class Weather extends window.visRxWidget {
     static getWidgetInfo() {
         return {
             id: 'tplOpenWeatherMapWeather',

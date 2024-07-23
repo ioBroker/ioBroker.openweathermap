@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "1.1.2",
+    "version": "1.2.0",
     "news": {
+      "1.2.0": {
+        "en": "Widget was partly ported to Typescript",
+        "de": "Widget wurde teilweise zu Typescript portiert",
+        "ru": "Виджет был частично перенесен в Typescript",
+        "pt": "Widget foi parcialmente portado para Typescript",
+        "nl": "Widget is gedeeltelijk geporteerd naar Typescript",
+        "fr": "Widget a été partiellement porté sur Typescript",
+        "it": "Widget è stato parzialmente portato a Typescript",
+        "es": "Widget fue parcialmente portado a Tiposcript",
+        "pl": "Widget został częściowo przeniesiony do Typescript",
+        "uk": "Віджет був частково переданий до Typescript",
+        "zh-cn": "部件部分移植到 Typescription"
+      },
       "1.1.2": {
         "en": "Removed withStyles package",
         "de": "MitStyles-Paket entfernt",
@@ -80,19 +93,6 @@
         "pl": "Oświadczona subskrypcja państwowa wiz-2 widget",
         "uk": "Оптимізовано державну підписку в Vis-2 віджет",
         "zh-cn": "取消对-2目标的国家说明"
-      },
-      "0.3.11": {
-        "en": "Small layout changes",
-        "de": "Kleine Layoutänderungen",
-        "ru": "Небольшие изменения планировки",
-        "pt": "Pequenas mudanças de layout",
-        "nl": "Kleine lay-out verandert",
-        "fr": "Changements de mise en page",
-        "it": "Piccoli cambiamenti di layout",
-        "es": "Cambios de diseño pequeños",
-        "pl": "Drobne zmiany",
-        "uk": "Невеликі зміни макета",
-        "zh-cn": "小规模的改变"
       }
     },
     "title": "openweathermap.org",

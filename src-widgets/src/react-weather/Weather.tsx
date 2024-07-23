@@ -6,21 +6,39 @@ import { IconButton } from '@mui/material';
 
 import { Info as IconInfo } from '@mui/icons-material';
 
-import { I18n, Utils, Icon } from '@iobroker/adapter-react-v5';
+import {
+    I18n, Utils,
+    Icon, type LegacyConnection,
+} from '@iobroker/adapter-react-v5';
+
+import type { VisTheme } from '@iobroker/types-vis-2';
 
 import cls from './style.module.scss';
-import WeatherDialog, { getIcon } from './Dialog/WeatherDialog';
+import WeatherDialog, { getIcon, type WeatherData } from './Dialog/WeatherDialog.tsx';
 
 const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-const getWeekDay = (date, index) => {
+function getWeekDay(date: Date, index: number): string {
     const dayNumber = date.getDay();
     const idx = dayNumber + index > 6 ? (dayNumber + index) - 7 : (dayNumber + index);
     return days[idx];
-};
+}
 
 const DAY_PARAMETERS = ['temperatureMin', 'temperatureMax', 'state', 'icon', 'humidity', 'windDirection', 'windSpeed'];
 const TODAY_PARAMETERS = ['temperature', 'humidity', 'title', 'icon', 'temperatureMin', 'temperatureMax', 'pressure', 'windDirection', 'windSpeed'];
+
+interface WeatherProps {
+    socket: LegacyConnection;
+    hideCurrent: boolean;
+    hideDays: boolean;
+    instance: number;
+    daysCount: number;
+    currentTemp: number;
+    currentHumidity: number;
+    isFloatComma: boolean;
+    theme: VisTheme;
+}
+
 const Weather = ({
     socket,
     hideCurrent,
@@ -31,7 +49,7 @@ const Weather = ({
     currentHumidity,
     isFloatComma,
     theme,
-}) => {
+}: WeatherProps) => {
     if (instance === undefined) {
         return;
     }
@@ -39,7 +57,7 @@ const Weather = ({
     const [dialogOpen, setDialogOpen] = useState(false);
     const mapping = useRef({});
 
-    const [weather, setWeather] = useState({
+    const [weather, setWeather] = useState<WeatherData>({
         current: {
             temperature: null,
             humidity: null,
@@ -69,7 +87,7 @@ const Weather = ({
                 }
             }
         };
-        const subscribes = [];
+        const subscribes: string[] = [];
 
         for (let t = 0; t < TODAY_PARAMETERS.length; t++) {
             const field = TODAY_PARAMETERS[t];
@@ -111,11 +129,12 @@ const Weather = ({
 
     const mainIcon = getIcon(weather.current.icon, true);
 
-    let temp = currentTemp !== null ? Math.round(currentTemp * 10) / 10 : Math.round(weather.current.temperature);
-    const humidity = currentHumidity !== null ? Math.round(currentHumidity) : Math.round(weather.current.humidity);
+    let temp: number | null = currentTemp !== null ? Math.round(currentTemp * 10) / 10 : (weather.current.temperature !== undefined && weather.current.temperature !== null ? Math.round(weather.current.temperature) : null);
+    const humidity: number | null = currentHumidity !== null ? Math.round(currentHumidity) : (weather.current.humidity !== undefined && weather.current.humidity !== null ? Math.round(weather.current.humidity) : null);
 
+    let tempStr: string = temp !== null ? temp.toString() : '--';
     if (isFloatComma) {
-        temp = temp.toString().replace('.', ',');
+        tempStr = tempStr.replace('.', ',');
     }
 
     // eslint-disable-next-line consistent-return
@@ -128,19 +147,25 @@ const Weather = ({
                 <div className={cls.styleText}>{I18n.t(`openweathermap_${weather.current.title}`).replace('openweathermap_', '')}</div>
             </div>
             <div>
-                <div className={cls.temperatureTop}>{`${temp}°C` || '-°C'}</div>
-                <div className={cls.humidity}>{`${humidity}%` || '-%'}</div>
+                <div className={cls.temperatureTop}>{`${tempStr}°C` || '-°C'}</div>
+                <div className={cls.humidity}>{`${humidity === null ? '--' : humidity}%` || '-%'}</div>
             </div>
         </div>
-        {daysCount > 0 && <div className={cls.wrapperBottomBlock} style={{ display: hideDays ? 'none' : undefined }}>
-            {new Array(daysCount).fill(0).map((e, idx) => {
+        {daysCount > 0 && <div
+            className={cls.wrapperBottomBlock}
+            style={{ display: hideDays ? 'none' : undefined }}
+        >
+            {new Array(daysCount).fill(0).map((_e, idx) => {
                 const secIcon = getIcon(weather.days[idx]?.icon, true);
+                const max = weather.days[idx]?.temperatureMax;
+                const min = weather.days[idx]?.temperatureMin;
+
                 return <div className={cls.wrapperBottomBlockCurrent} key={idx}>
                     <div className={cls.date}>{I18n.t(`openweathermap_${getWeekDay(date, idx)}`)}</div>
                     <div>{secIcon ? <Icon className={cls.iconWeatherMin} src={secIcon} /> : null}</div>
-                    <div className={cls.temperature}>{`${Math.round(weather.days[idx]?.temperatureMax)}°C` || '-°C'}</div>
+                    <div className={cls.temperature}>{`${max !== null && max !== undefined ? Math.round(max) : '--'}°C` || '-°C'}</div>
                     <div className={cls.temperature}>
-                        <span>{`${Math.round(weather.days[idx]?.temperatureMin)}°C` || '-°C'}</span>
+                        <span>{`${min !== null && min !== undefined ? Math.round(min) : '--'}°C` || '-°C'}</span>
                     </div>
                 </div>;
             })}

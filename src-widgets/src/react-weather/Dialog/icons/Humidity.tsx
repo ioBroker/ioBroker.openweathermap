@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-function SvgHumidity(props) {
+function SvgHumidity(props: { className?: string }): React.JSX.Element {
     return <svg viewBox="0 0 511.448 511.448" {...props}>
         <path
             d="M344.556 112.216C318.38 78.84 291.34 44.344 269.516 7.32c-5.76-9.76-21.824-9.76-27.552 0-21.856 37.024-48.896 71.52-75.072 104.896-53.056 67.68-103.168 131.616-103.168 207.232 0 105.888 86.112 192 192 192s192-86.112 192-192c0-75.616-50.112-139.552-103.168-207.232z"

@@ -3,7 +3,7 @@ import {
     Card, CardContent,
 } from '@mui/material';
 
-import WeatherComponent from './react-weather/Weather';
+import WeatherComponent from './react-weather/Weather.tsx';
 
 class Weather extends window.visRxWidget {
     static getWidgetInfo() {
@@ -73,10 +73,6 @@ class Weather extends window.visRxWidget {
             },
             visPrev: 'widgets/openweathermap/img/prev_weather.png',
         };
-    }
-
-    static getI18nPrefix() {
-        return 'openweathermap_';
     }
 
     // eslint-disable-next-line class-methods-use-this

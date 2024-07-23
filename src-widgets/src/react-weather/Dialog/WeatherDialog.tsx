@@ -14,15 +14,15 @@
  * limitations under the License.
  * */
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 
 import {
     Paper, Dialog,
 } from '@mui/material';
 
 import { Utils, I18n, Icon } from '@iobroker/adapter-react-v5';
+import type { VisTheme } from '@iobroker/types-vis-2';
 
-import IconHydro from './icons/Humidity';
+import IconHydro from './icons/Humidity.tsx';
 import iconPrecipitation from './icons/precipitation.svg';
 import iconPressure from './icons/pressure.svg';
 import iconWind from './icons/wind.svg';
@@ -45,50 +45,53 @@ const HEIGHT_CURRENT = 200;
 const HEIGHT_DAY = 140;
 const HEIGHT_CHART = 160;
 
-const icons = [
+const icons: { icon: string; name: string[] }[] = [
     {
-        icon: clearSky,
+        icon: clearSky as string,
         name: ['01d', '01n'],
     }, {
-        icon: fewClouds,
+        icon: fewClouds as string,
         name: ['02d', '02n'],
     }, {
-        icon: scatteredClouds,
+        icon: scatteredClouds as string,
         name: ['03d', '03n'],
     }, {
-        icon: brokenClouds,
+        icon: brokenClouds as string,
         name: ['04d', '04n'],
     }, {
-        icon: showerRain,
+        icon: showerRain as string,
         name: ['09d', '09n'],
     }, {
-        icon: rain,
+        icon: rain as string,
         name: ['10d', '10n'],
     }, {
-        icon: thunderstorm,
+        icon: thunderstorm as string,
         name: ['11d', '11n'],
     }, {
-        icon: snow,
+        icon: snow as string,
         name: ['13d', '13n'],
     }, {
-        icon: mist,
+        icon: mist as string,
         name: ['50d', '50n'],
     },
 ];
 
-export const getIcon = (nameUri, decode) => {
+export function getIcon(nameUri: string | undefined | null, decode: boolean): string | null {
     let name = nameUri;
     if (decode && nameUri) {
-        name = decodeURI(nameUri.toString().split('/').pop().split('.')[0]);
+        const fileName: string | undefined = nameUri.toString().split('/').pop();
+        if (fileName) {
+            name = decodeURI(fileName.split('.')[0]);
+        }
     }
     const search = icons.find(el => el.name.find(nameIcon => nameIcon === name));
     if (search) {
         return search.icon;
     }
     return null;
-};
+}
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
     'header-div': {
         width: 'calc(100% - 1em)',
         position: 'relative',
@@ -390,7 +393,46 @@ const styles = {
     },
 };
 
-class WeatherDialog extends Component {
+export interface WeatherData {
+    current: {
+        temperature?: number | null;
+        temperatureMin?: number;
+        temperatureMax?: number;
+        humidity?: number | null;
+        icon?: string | null;
+        windchill?: number;
+        windDirection?: number;
+        windSpeed?: number;
+        windIcon?: string;
+        precipitation?: number;
+        pressure?: number;
+        title?: string | null;
+    };
+    days: {
+        temperatureMin?: number;
+        temperatureMax?: number;
+        temperature?: number;
+        humidity?: number;
+        icon?: string;
+        windchill?: number;
+        windDirection?: number;
+        windSpeed?: number;
+        windIcon?: string;
+        precipitation?: number;
+        pressure?: number;
+        title?: string;
+    }[];
+}
+
+interface WeatherDialogProps {
+    weather: WeatherData;
+    theme: VisTheme;
+    windUnit: string;
+    pressureUnit: string;
+    onClose: () => void;
+}
+
+class WeatherDialog extends Component<WeatherDialogProps> {
     getDayIconDiv(d) {
         // const temp = this.ids.days[d].temperature && this.state[this.ids.days[d].temperature];
         let tempMin = this.props.weather.days[d].temperatureMin;
@@ -448,7 +490,7 @@ class WeatherDialog extends Component {
         </div>;
     }
 
-    static getDayDateDiv(d) {
+    static getDayDateDiv(d: number) {
         const now = new Date();
         now.setDate(now.getDate() + d + 1);
         const date = Utils.date2string(now);
@@ -458,18 +500,19 @@ class WeatherDialog extends Component {
         </div>;
     }
 
-    getDayWindDiv(d) {
+    getDayWindDiv(d: number) {
         const windChill = this.props.weather.days[d].windchill;
-        let windDir = this.props.weather.days[d].windDirection;
+        let windDir: number | undefined = this.props.weather.days[d].windDirection;
+        let windDirStr: string | undefined;
         if (windDir !== null && windDir !== undefined && (typeof windDir === 'number' || parseInt(windDir, 10) === windDir)) {
-            windDir = I18n.t(`openweathermap_wind_${Utils.getWindDirection(windDir)}`).replace('openweathermap_wind_', '');
+            windDirStr = I18n.t(`openweathermap_wind_${Utils.getWindDirection(windDir)}`).replace('openweathermap_wind_', '');
         }
         const windSpeed = this.props.weather.days[d].windSpeed;
         const windIcon = this.props.weather.days[d].windIcon;
 
         const state = this.props.weather.days[d].title;
 
-        if (!state && !windChill && windChill !== 0 && !windDir && !windSpeed && windSpeed !== 0) {
+        if (!state && !windChill && windChill !== 0 && !windDirStr && !windSpeed && windSpeed !== 0) {
             return null;
         }
 
@@ -486,13 +529,13 @@ class WeatherDialog extends Component {
                 </div>
                 : null}
 
-            {(windDir !== null && windDir !== undefined) || (windSpeed !== null && windSpeed !== undefined) ?
+            {(windDirStr !== undefined) || (windSpeed !== null && windSpeed !== undefined) ?
                 <div key={`wind${d}`} className={cls.wrapperSpecialIcon}>
                     {/* <span key={'windTitle' + d} className={cls.todayStateName}>{I18n.t('openweathermap_Wind')}:</span> */}
                     <img src={iconWind} className={cls.specialIcon} alt="" />
                     <div>
                         {windIcon ? <img style={styles['dayState-windIcon']} src={getIcon(windIcon, true) || windIcon} alt="state" /> : null}
-                        {windDir ? <span style={styles['dayState-windDir']}>{windDir}</span> : null}
+                        {windDirStr ? <span style={styles['dayState-windDir']}>{windDirStr}</span> : null}
                         {windSpeed !== null && windSpeed !== undefined && !Number.isNaN(windSpeed) ? <span key={`daySpeed${d}`} style={styles['dayState-windSpeed']}>
                             {Math.round(windSpeed)}
                             {I18n.t('openweathermap_m_s')}
@@ -559,7 +602,7 @@ class WeatherDialog extends Component {
             <img className={cls.currentIconIcon} src={getIcon(this.props.weather.current?.icon, true) || ''} alt="current" />
             {temp !== null && temp !== undefined ? <div className={cls.currentIconTemperature}>
                 {Math.round(temp)}
-°C
+                °C
             </div> : null}
         </div>;
     }
@@ -577,8 +620,9 @@ class WeatherDialog extends Component {
     getTodayWindDiv() {
         const windChill = this.props.weather.current.windchill;
         let windDir = this.props.weather.current.windDirection;
+        let windDirStr: string | undefined;
         if (windDir !== null && windDir !== undefined && (typeof windDir === 'number' || parseInt(windDir, 10) === windDir)) {
-            windDir = I18n.t(`openweathermap_wind_${Utils.getWindDirection(windDir)}`).replace('openweathermap_wind_', '');
+            windDirStr = I18n.t(`openweathermap_wind_${Utils.getWindDirection(windDir)}`).replace('openweathermap_wind_', '');
         }
 
         const windSpeed = this.props.weather.current.windSpeed;
@@ -591,25 +635,24 @@ class WeatherDialog extends Component {
                 <div key="windChill" style={styles['todayState-windChill']}>
                     <span className={cls.todayStateName}>
                         {I18n.t('openweathermap_Windchill')}
-:
+                        :
                         {' '}
                     </span>
                     <span style={styles['todayState-windChillValue']}>{windChill}</span>
                 </div>
                 : null}
 
-            {(windDir !== null && windDir !== undefined) || (windSpeed !== null && windSpeed !== undefined) ?
+            {(windDirStr !== undefined) || (windSpeed !== null && windSpeed !== undefined) ?
                 <div key="wind" style={styles['todayState-wind']}>
                     <span key="windTitle" className={cls.todayStateName}>
                         {I18n.t('openweathermap_Wind')}
-:
+                        :
                     </span>
                     {windIcon ? <img style={styles['todayState-windIcon']} src={getIcon(windIcon, true) || windIcon} alt="state" /> : null}
-                    {windDir ? <span style={styles['todayState-windDir']}>{windDir}</span> : null}
+                    {windDirStr ? <span style={styles['todayState-windDir']}>{windDirStr}</span> : null}
                     {windSpeed !== null && windSpeed !== undefined && !Number.isNaN(windSpeed) ? <span key="windSpeed" style={styles['todayState-windSpeed']}>
                         {Math.round(windSpeed)}
                         {' m/s'}
-
                     </span> : null}
                 </div>
                 : null}
@@ -618,12 +661,12 @@ class WeatherDialog extends Component {
                 <div key="humidity" style={styles['todayState-humidity']}>
                     <span className={cls.todayStateName}>
                         {I18n.t('openweathermap_Humidity')}
-:
+                        :
                         {' '}
                     </span>
                     <span style={styles['todayState-humidityValue']}>
                         {humidity}
-%
+                        %
                     </span>
                 </div>
                 : null}
@@ -643,12 +686,12 @@ class WeatherDialog extends Component {
             temp = [
                 <span key="max" className={cls.tempMax}>
                     {Math.round(tempMax)}
-°
+                    °
                 </span>,
                 <span key="mid"> / </span>,
                 <span key="min">
                     {Math.round(tempMin)}
-°
+                    °
                 </span>,
             ];
         }
@@ -776,7 +819,7 @@ class WeatherDialog extends Component {
     render() {
         return <Dialog
             open={!0}
-            onClose={this.props.onClose}
+            onClose={() => this.props.onClose()}
             fullWidth
             maxWidth="md"
             classes={{
@@ -789,23 +832,5 @@ class WeatherDialog extends Component {
         </Dialog>;
     }
 }
-
-WeatherDialog.propTypes = {
-    /*
-        name: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.object,
-        ]),
-    */
-    // dialogKey: PropTypes.string.isRequired,
-    // windowWidth: PropTypes.number,
-    onClose: PropTypes.func.isRequired,
-    // objects: PropTypes.object,
-    // states: PropTypes.object,
-    // onCollectIds: PropTypes.func,
-    // enumNames: PropTypes.array,
-    // ids: PropTypes.object.isRequired,
-    // settings: PropTypes.object,
-};
 
 export default WeatherDialog;

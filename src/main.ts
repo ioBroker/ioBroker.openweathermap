@@ -518,7 +518,7 @@ class Openweathermap extends Adapter {
                 validateStatus: status => status === 200,
             } as AxiosRequestConfig)
                 .then(async response => {
-                    this.log.debug(`Received current response: ${JSON.stringify(response.data)}`);
+                    // this.log.debug(`Received current response: ${JSON.stringify(response.data)}`);
                     await this.parseCurrent(response.data);
                     resolve();
                 })
@@ -546,7 +546,7 @@ class Openweathermap extends Adapter {
                 validateStatus: status => status === 200,
             } as AxiosRequestConfig)
                 .then(async response => {
-                    this.log.debug(`Received forecast response: ${JSON.stringify(response.data)}`);
+                    // this.log.debug(`Received forecast response: ${JSON.stringify(response.data)}`);
                     await this.parseForecast(response.data);
                     resolve();
                 })

@@ -122,7 +122,6 @@
         },
         "authors": ["bluefox <dogafox@gmail.com>", "Matthias Kleine <info@haus-automatisierung.com>"],
         "keywords": ["weather", "forecast", "temperature", "rain", "openweathermap", "meteorology"],
-        "license": "MIT",
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "openweathermap.svg",

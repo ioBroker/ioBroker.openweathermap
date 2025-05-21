@@ -16,3 +16,5 @@ admin/i18n/*/flat.txt
 /widgets
 /package-lock.json
 /main.js.map
+src-widgets/.__mf__temp
+src-widgets/build

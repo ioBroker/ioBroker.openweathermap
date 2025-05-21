@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 1.3.0 (2025-05-21)
 * (bluefox) Widget was completely ported to TypeScript
 * (bluefox) Backend was completely ported to TypeScript
 

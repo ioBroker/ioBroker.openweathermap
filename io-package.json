@@ -1,808 +1,799 @@
 {
-  "common": {
-    "name": "openweathermap",
-    "version": "1.3.0",
-    "news": {
-      "1.3.0": {
-        "en": "Widget was completely ported to TypeScript\nBackend was completely ported to TypeScript",
-        "de": "Widget wurde vollständig zu TypeScript portiert\nBackend wurde komplett zu TypeScript portiert",
-        "ru": "Widget полностью портируется на TypeScript\nBackend полностью портируется на TypeScript",
-        "pt": "Widget foi completamente portado para TypeScript\nBackend foi completamente portado para TypeScript",
-        "nl": "Widget is volledig naar TypeScript geporteerd\nBackend is volledig geporteerd naar TypeScript",
-        "fr": "Widget a été complètement porté sur TypeScript\nBackend a été complètement porté sur TypeScript",
-        "it": "Widget è stato completamente portato a TypeScript\nBackend è stato completamente portato a TypeScript",
-        "es": "Widget fue completamente portado a TipoScript\nBackend fue completamente portado a TipoScript",
-        "pl": "Widget został całkowicie przeniesiony do TypeScript\nBackend został całkowicie przeniesiony do TypeScript",
-        "uk": "Віджет був повністю переданий до TypeScript\nBackend був повністю відреставрований на TypeScript",
-        "zh-cn": "部件被完全移植到 TypeScript\n后端已完全移植到 TypeScript"
-      },
-      "1.2.0": {
-        "en": "Widget was partly ported to Typescript",
-        "de": "Widget wurde teilweise zu Typescript portiert",
-        "ru": "Виджет был частично перенесен в Typescript",
-        "pt": "Widget foi parcialmente portado para Typescript",
-        "nl": "Widget is gedeeltelijk geporteerd naar Typescript",
-        "fr": "Widget a été partiellement porté sur Typescript",
-        "it": "Widget è stato parzialmente portato a Typescript",
-        "es": "Widget fue parcialmente portado a Tiposcript",
-        "pl": "Widget został częściowo przeniesiony do Typescript",
-        "uk": "Віджет був частково переданий до Typescript",
-        "zh-cn": "部件部分移植到 Typescription"
-      },
-      "1.1.2": {
-        "en": "Removed withStyles package",
-        "de": "MitStyles-Paket entfernt",
-        "ru": "Удаленный пакет со Стайлз",
-        "pt": "Removido com pacote Estilos",
-        "nl": "Verwijderd metStyles pakket",
-        "fr": "Enlever avec le paquetStyles",
-        "it": "Rimosso con pacchettoStyles",
-        "es": "Retire el paquete de estilos",
-        "pl": "Usunięty z pakietem Styles",
-        "uk": "Видаліть пакет \"Стиль\"",
-        "zh-cn": "用 Styles 软件包删除"
-      },
-      "1.0.4": {
-        "en": "Used the JSON config for configuration dialog\nAdded title to widget",
-        "de": "JSON config für Konfigurationsdialog verwendet\nHinzugefügt Titel zu Widget",
-        "ru": "Используется конфиг JSON для диалога конфигурации\nДобавлено название в виджет",
-        "pt": "Usado a configuração JSON para a caixa de diálogo de configuração\nTítulo adicionado ao widget",
-        "nl": "Gebruikte de JSON configuratie dialog\nVoeg de titel toe aan Widget",
-        "fr": "Utiliser la configuration JSON pour le dialogue de configuration\nAjout du titre à widget",
-        "it": "Utilizzato la configurazione JSON per la finestra di dialogo di configurazione\nAggiunto titolo al widget",
-        "es": "Utiliza el configuración JSON para el diálogo de configuración\nTítulo añadido al widget",
-        "pl": "Używanie formatu JSON dla dialogów konfiguracyjnych\nOficjalna strona Widget",
-        "uk": "Використовуйте налаштування JSON для діалогу конфігурації\nДодано назву віджету",
-        "zh-cn": "利用联合协商会联索会的口号\n添加供植物用的标题"
-      },
-      "0.4.5": {
-        "en": "changed german translation",
-        "de": "deutsch übersetzung",
-        "ru": "изменен немецкий перевод",
-        "pt": "tradução alemã alterada",
-        "nl": "vertaling:",
-        "fr": "traduction allemande changée",
-        "it": "cambiato traduzione tedesca",
-        "es": "traducción de alemán",
-        "pl": "zmieniono tłumaczenie germanowe",
-        "uk": "змінив німецький переклад",
-        "zh-cn": "更换"
-      },
-      "0.4.4": {
-        "en": "Updated packages",
-        "de": "Aktualisierte Pakete",
-        "ru": "Обновленные пакеты",
-        "pt": "Pacotes atualizados",
-        "nl": "Verouderde pakketten",
-        "fr": "Forfaits mis à jour",
-        "it": "Pacchetti aggiornati",
-        "es": "Paquetes actualizados",
-        "pl": "Pakiet upoważniony",
-        "uk": "Оновлені пакети",
-        "zh-cn": "最新一揽子计划"
-      },
-      "0.4.3": {
-        "en": "Corrected vis-2 widget",
-        "de": "Korrigiert vis-2 Widget",
-        "ru": "Исправлен виджет vis-2",
-        "pt": "Corrigido vis-2 widget",
-        "nl": "Vertaling:",
-        "fr": "Corrigé vis-2 widget",
-        "it": "Corretto vis-2 widget",
-        "es": "Corregido vis-2 widget",
-        "pl": "Poprawka wizowa 2",
-        "uk": "Corrected vis-2 віджет",
-        "zh-cn": "更正"
-      }
-    },
-    "title": "openweathermap.org",
-    "titleLang": {
-      "en": "openweathermap.org weather",
-      "de": "openweathermap.org Wetter",
-      "ru": "openweathermap.org погода",
-      "pt": "clima openweathermap.org",
-      "nl": "openweathermap.org weer",
-      "fr": "météo openweathermap.org",
-      "it": "openweathermap.org meteo",
-      "es": "tiempo en openweathermap.org",
-      "pl": "openweathermap.org pogoda",
-      "zh-cn": "openweathermap.org 天气"
-    },
-    "desc": {
-      "en": "Fetches 60h weather forecast from openweathermap.org",
-      "de": "Ruft die 60-Stunden-Wettervorhersage von openweathermap.org ab",
-      "ru": "Получает прогноз погоды на 60 часов с openweathermap.org",
-      "pt": "Obtém a previsão do tempo de 60 horas em openweathermap.org",
-      "nl": "Haalt 60 uur weersvoorspelling van openweathermap.org",
-      "fr": "Récupère les prévisions météo à 60h de openweathermap.org",
-      "it": "Recupera le previsioni del tempo a 60 ore da openweathermap.org",
-      "es": "Obtiene el pronóstico del tiempo a 60 horas de openweathermap.org",
-      "pl": "Pobiera 60-godzinną prognozę pogody z openweathermap.org",
-      "zh-cn": "从 openweathermap.org 获取 60 小时天气预报"
-    },
-    "authors": [
-      "bluefox <dogafox@gmail.com>",
-      "Matthias Kleine <info@haus-automatisierung.com>"
-    ],
-    "keywords": [
-      "weather",
-      "forecast",
-      "temperature",
-      "rain",
-      "openweathermap",
-      "meteorology"
-    ],
-    "platform": "Javascript/Node.js",
-    "main": "main.js",
-    "icon": "openweathermap.svg",
-    "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.openweathermap/master/admin/openweathermap.svg",
-    "enabled": true,
-    "readme": "https://github.com/ioBroker/ioBroker.openweathermap/blob/master/README.md",
-    "loglevel": "info",
-    "mode": "schedule",
-    "allowInit": true,
-    "schedule": "11 * * * *",
-    "type": "weather",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "poll",
-    "tier": 2,
-    "nogit": true,
-    "adminUI": {
-      "config": "json"
-    },
-    "dependencies": [
-      {
-        "js-controller": ">=3.3.0"
-      }
-    ],
-    "plugins": {
-      "sentry": {
-        "dsn": "https://bc7b672977224d73935e25afee3bdc87@sentry.iobroker.net/175"
-      }
-    },
-    "visWidgets": {
-      "openweathermap": {
-        "i18n": "component",
+    "common": {
         "name": "openweathermap",
-        "color": "#30de00",
-        "bundlerType": "module",
-        "label": "openweathermap_set_label",
-        "url": "openweathermap/customWidgets.js",
-        "url1": "http://localhost:4173/customWidgets.js",
-        "components": [
-          "Weather"
-        ]
-      }
+        "version": "1.3.0",
+        "news": {
+            "1.3.0": {
+                "en": "Widget was completely ported to TypeScript\nBackend was completely ported to TypeScript",
+                "de": "Widget wurde vollständig zu TypeScript portiert\nBackend wurde komplett zu TypeScript portiert",
+                "ru": "Widget полностью портируется на TypeScript\nBackend полностью портируется на TypeScript",
+                "pt": "Widget foi completamente portado para TypeScript\nBackend foi completamente portado para TypeScript",
+                "nl": "Widget is volledig naar TypeScript geporteerd\nBackend is volledig geporteerd naar TypeScript",
+                "fr": "Widget a été complètement porté sur TypeScript\nBackend a été complètement porté sur TypeScript",
+                "it": "Widget è stato completamente portato a TypeScript\nBackend è stato completamente portato a TypeScript",
+                "es": "Widget fue completamente portado a TipoScript\nBackend fue completamente portado a TipoScript",
+                "pl": "Widget został całkowicie przeniesiony do TypeScript\nBackend został całkowicie przeniesiony do TypeScript",
+                "uk": "Віджет був повністю переданий до TypeScript\nBackend був повністю відреставрований на TypeScript",
+                "zh-cn": "部件被完全移植到 TypeScript\n后端已完全移植到 TypeScript"
+            },
+            "1.2.0": {
+                "en": "Widget was partly ported to Typescript",
+                "de": "Widget wurde teilweise zu Typescript portiert",
+                "ru": "Виджет был частично перенесен в Typescript",
+                "pt": "Widget foi parcialmente portado para Typescript",
+                "nl": "Widget is gedeeltelijk geporteerd naar Typescript",
+                "fr": "Widget a été partiellement porté sur Typescript",
+                "it": "Widget è stato parzialmente portato a Typescript",
+                "es": "Widget fue parcialmente portado a Tiposcript",
+                "pl": "Widget został częściowo przeniesiony do Typescript",
+                "uk": "Віджет був частково переданий до Typescript",
+                "zh-cn": "部件部分移植到 Typescription"
+            },
+            "1.1.2": {
+                "en": "Removed withStyles package",
+                "de": "MitStyles-Paket entfernt",
+                "ru": "Удаленный пакет со Стайлз",
+                "pt": "Removido com pacote Estilos",
+                "nl": "Verwijderd metStyles pakket",
+                "fr": "Enlever avec le paquetStyles",
+                "it": "Rimosso con pacchettoStyles",
+                "es": "Retire el paquete de estilos",
+                "pl": "Usunięty z pakietem Styles",
+                "uk": "Видаліть пакет \"Стиль\"",
+                "zh-cn": "用 Styles 软件包删除"
+            },
+            "1.0.4": {
+                "en": "Used the JSON config for configuration dialog\nAdded title to widget",
+                "de": "JSON config für Konfigurationsdialog verwendet\nHinzugefügt Titel zu Widget",
+                "ru": "Используется конфиг JSON для диалога конфигурации\nДобавлено название в виджет",
+                "pt": "Usado a configuração JSON para a caixa de diálogo de configuração\nTítulo adicionado ao widget",
+                "nl": "Gebruikte de JSON configuratie dialog\nVoeg de titel toe aan Widget",
+                "fr": "Utiliser la configuration JSON pour le dialogue de configuration\nAjout du titre à widget",
+                "it": "Utilizzato la configurazione JSON per la finestra di dialogo di configurazione\nAggiunto titolo al widget",
+                "es": "Utiliza el configuración JSON para el diálogo de configuración\nTítulo añadido al widget",
+                "pl": "Używanie formatu JSON dla dialogów konfiguracyjnych\nOficjalna strona Widget",
+                "uk": "Використовуйте налаштування JSON для діалогу конфігурації\nДодано назву віджету",
+                "zh-cn": "利用联合协商会联索会的口号\n添加供植物用的标题"
+            },
+            "0.4.5": {
+                "en": "changed german translation",
+                "de": "deutsch übersetzung",
+                "ru": "изменен немецкий перевод",
+                "pt": "tradução alemã alterada",
+                "nl": "vertaling:",
+                "fr": "traduction allemande changée",
+                "it": "cambiato traduzione tedesca",
+                "es": "traducción de alemán",
+                "pl": "zmieniono tłumaczenie germanowe",
+                "uk": "змінив німецький переклад",
+                "zh-cn": "更换"
+            },
+            "0.4.4": {
+                "en": "Updated packages",
+                "de": "Aktualisierte Pakete",
+                "ru": "Обновленные пакеты",
+                "pt": "Pacotes atualizados",
+                "nl": "Verouderde pakketten",
+                "fr": "Forfaits mis à jour",
+                "it": "Pacchetti aggiornati",
+                "es": "Paquetes actualizados",
+                "pl": "Pakiet upoważniony",
+                "uk": "Оновлені пакети",
+                "zh-cn": "最新一揽子计划"
+            },
+            "0.4.3": {
+                "en": "Corrected vis-2 widget",
+                "de": "Korrigiert vis-2 Widget",
+                "ru": "Исправлен виджет vis-2",
+                "pt": "Corrigido vis-2 widget",
+                "nl": "Vertaling:",
+                "fr": "Corrigé vis-2 widget",
+                "it": "Corretto vis-2 widget",
+                "es": "Corregido vis-2 widget",
+                "pl": "Poprawka wizowa 2",
+                "uk": "Corrected vis-2 віджет",
+                "zh-cn": "更正"
+            }
+        },
+        "title": "openweathermap.org",
+        "titleLang": {
+            "en": "openweathermap.org weather",
+            "de": "openweathermap.org Wetter",
+            "ru": "openweathermap.org погода",
+            "pt": "clima openweathermap.org",
+            "nl": "openweathermap.org weer",
+            "fr": "météo openweathermap.org",
+            "it": "openweathermap.org meteo",
+            "es": "tiempo en openweathermap.org",
+            "pl": "openweathermap.org pogoda",
+            "zh-cn": "openweathermap.org 天气"
+        },
+        "desc": {
+            "en": "Fetches 60h weather forecast from openweathermap.org",
+            "de": "Ruft die 60-Stunden-Wettervorhersage von openweathermap.org ab",
+            "ru": "Получает прогноз погоды на 60 часов с openweathermap.org",
+            "pt": "Obtém a previsão do tempo de 60 horas em openweathermap.org",
+            "nl": "Haalt 60 uur weersvoorspelling van openweathermap.org",
+            "fr": "Récupère les prévisions météo à 60h de openweathermap.org",
+            "it": "Recupera le previsioni del tempo a 60 ore da openweathermap.org",
+            "es": "Obtiene el pronóstico del tiempo a 60 horas de openweathermap.org",
+            "pl": "Pobiera 60-godzinną prognozę pogody z openweathermap.org",
+            "zh-cn": "从 openweathermap.org 获取 60 小时天气预报"
+        },
+        "authors": ["bluefox <dogafox@gmail.com>", "Matthias Kleine <info@haus-automatisierung.com>"],
+        "keywords": ["weather", "forecast", "temperature", "rain", "openweathermap", "meteorology"],
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "openweathermap.svg",
+        "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.openweathermap/master/admin/openweathermap.svg",
+        "enabled": true,
+        "readme": "https://github.com/ioBroker/ioBroker.openweathermap/blob/master/README.md",
+        "loglevel": "info",
+        "mode": "schedule",
+        "allowInit": true,
+        "schedule": "11 * * * *",
+        "type": "weather",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "poll",
+        "tier": 2,
+        "nogit": true,
+        "adminUI": {
+            "config": "json"
+        },
+        "dependencies": [
+            {
+                "js-controller": ">=5.0.19"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=6.0.0"
+            }
+        ],
+        "plugins": {
+            "sentry": {
+                "dsn": "https://bc7b672977224d73935e25afee3bdc87@sentry.iobroker.net/175"
+            }
+        },
+        "visWidgets": {
+            "openweathermap": {
+                "i18n": "component",
+                "name": "openweathermap",
+                "color": "#30de00",
+                "bundlerType": "module",
+                "label": "openweathermap_set_label",
+                "url": "openweathermap/customWidgets.js",
+                "url1": "http://localhost:4173/customWidgets.js",
+                "components": ["Weather"]
+            }
+        },
+        "licenseInformation": {
+            "type": "free",
+            "license": "MIT"
+        },
+        "ifInstalledDependencies": {
+            "vis-2": ">=2.12.8"
+        },
+        "restartAdapters": ["vis-2"]
     },
-    "licenseInformation": {
-      "type": "free",
-      "license": "MIT"
+    "native": {
+        "apikey": "",
+        "location": "",
+        "language": "",
+        "imperial": false
     },
-    "ifInstalledDependencies": {
-      "vis-2": ">=2.12.8"
-    },
-    "restartAdapters": [
-      "vis-2"
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "forecast",
+            "type": "device",
+            "common": {
+                "name": "Actual weather or forecast",
+                "role": "weather"
+            },
+            "native": {}
+        },
+        {
+            "_id": "forecast.current",
+            "type": "channel",
+            "common": {
+                "name": "Actual weather for today",
+                "role": "weather.current"
+            },
+            "native": {}
+        },
+        {
+            "_id": "forecast.current.date",
+            "type": "state",
+            "common": {
+                "name": "Actual date",
+                "type": "number",
+                "role": "date",
+                "read": true,
+                "write": false,
+                "desc": "Actual date as string"
+            },
+            "native": {
+                "path": "dt",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.icon",
+            "type": "state",
+            "common": {
+                "name": "Actual icon",
+                "type": "string",
+                "role": "weather.icon",
+                "read": true,
+                "write": false,
+                "desc": "URL to icon"
+            },
+            "native": {
+                "path": "weather.0.icon",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.state",
+            "type": "state",
+            "common": {
+                "name": "Actual state",
+                "type": "string",
+                "role": "weather.state",
+                "read": true,
+                "write": false,
+                "desc": "Description of current weather"
+            },
+            "native": {
+                "path": "weather.0.description",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.title",
+            "type": "state",
+            "common": {
+                "name": "Actual title",
+                "type": "string",
+                "role": "weather.title",
+                "read": true,
+                "write": false,
+                "desc": "Title of current weather"
+            },
+            "native": {
+                "path": "weather.0.main",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.temperature",
+            "type": "state",
+            "common": {
+                "name": "Actual temperature for today",
+                "type": "number",
+                "role": "value.temperature",
+                "read": true,
+                "write": false,
+                "unit": "°C",
+                "desc": "Actual temperature"
+            },
+            "native": {
+                "path": "main.temp",
+                "metric": "°C",
+                "imperial": "°F",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.temperatureMin",
+            "type": "state",
+            "common": {
+                "name": "Minimal temperature for today",
+                "type": "number",
+                "role": "value.temperature.min",
+                "read": true,
+                "write": false,
+                "unit": "°C",
+                "desc": "Minimal temperature for today"
+            },
+            "native": {
+                "path": "main.temp_min",
+                "metric": "°C",
+                "imperial": "°F",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.temperatureMax",
+            "type": "state",
+            "common": {
+                "name": "Maximal temperature for today",
+                "type": "number",
+                "role": "value.temperature.max",
+                "read": true,
+                "write": false,
+                "unit": "°C",
+                "desc": "Maximal temperature for today"
+            },
+            "native": {
+                "path": "main.temp_max",
+                "metric": "°C",
+                "imperial": "°F",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.clouds",
+            "type": "state",
+            "common": {
+                "name": "Actual Cloudiness for today",
+                "type": "number",
+                "role": "value.clouds",
+                "unit": "%",
+                "read": true,
+                "write": false,
+                "min": 0,
+                "max": 100,
+                "desc": "Actual Cloudiness in percent 0 - clear sky, 100 - clouds"
+            },
+            "native": {
+                "path": "clouds.all",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.windDirection",
+            "type": "state",
+            "common": {
+                "name": "Actual wind direction",
+                "type": "number",
+                "role": "value.direction.wind",
+                "unit": "°",
+                "read": true,
+                "write": false,
+                "desc": "Actual wind direction"
+            },
+            "native": {
+                "path": "wind.deg",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.windSpeed",
+            "type": "state",
+            "common": {
+                "name": "Actual wind speed",
+                "type": "number",
+                "role": "value.speed.wind",
+                "read": true,
+                "write": false,
+                "unit": "m/s",
+                "desc": "Actual wind speed in m/s"
+            },
+            "native": {
+                "path": "wind.speed",
+                "metric": "m/s",
+                "imperial": "m/h",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.windGust",
+            "type": "state",
+            "common": {
+                "name": "Actual wind gust",
+                "type": "number",
+                "role": "value.gust.wind",
+                "read": true,
+                "write": false,
+                "unit": "m/s",
+                "desc": "Actual wind gust in m/s"
+            },
+            "native": {
+                "path": "wind.gust",
+                "metric": "m/s",
+                "imperial": "m/h",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.pressure",
+            "type": "state",
+            "common": {
+                "name": "Actual pressure",
+                "type": "number",
+                "role": "value.pressure",
+                "read": true,
+                "write": false,
+                "unit": "hPa",
+                "desc": "Current pressure in hPa"
+            },
+            "native": {
+                "path": "main.pressure",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.humidity",
+            "type": "state",
+            "common": {
+                "name": "Actual humidity",
+                "type": "number",
+                "role": "value.humidity",
+                "read": true,
+                "write": false,
+                "unit": "%",
+                "desc": "Actual humidity in %"
+            },
+            "native": {
+                "path": "main.humidity",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.visibility",
+            "type": "state",
+            "common": {
+                "name": "Actual visibility",
+                "type": "number",
+                "role": "value.distance.visibility",
+                "read": true,
+                "write": false,
+                "unit": "m",
+                "desc": "Actual visibility in meters"
+            },
+            "native": {
+                "path": "visibility",
+                "metric": "meters",
+                "imperial": "miles",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.sunrise",
+            "type": "state",
+            "common": {
+                "name": "Today sunrise",
+                "type": "number",
+                "role": "date.sunrise",
+                "read": true,
+                "write": false,
+                "desc": "Time of sunrise for today"
+            },
+            "native": {
+                "path": "sys.sunrise",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.sunset",
+            "type": "state",
+            "common": {
+                "name": "Today sunset",
+                "type": "number",
+                "role": "date.sunset",
+                "read": true,
+                "write": false,
+                "desc": "Time of sunset for today"
+            },
+            "native": {
+                "path": "sys.sunset",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.precipitation",
+            "type": "state",
+            "common": {
+                "name": "Actual rain and snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation",
+                "read": true,
+                "write": false,
+                "unit": "mm",
+                "desc": "Actual rain and snow volume in mm"
+            },
+            "native": {
+                "metric": "mm",
+                "imperial": "in",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.precipitationRain",
+            "type": "state",
+            "common": {
+                "name": "Rain precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.rain",
+                "read": true,
+                "write": false,
+                "unit": "mm",
+                "desc": "Actual rain volume in mm"
+            },
+            "native": {
+                "path": "rain.1h",
+                "metric": "mm",
+                "imperial": "in",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.precipitationSnow",
+            "type": "state",
+            "common": {
+                "name": "Snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.snow",
+                "read": true,
+                "write": false,
+                "unit": "mm",
+                "desc": "Actual snow volume in mm"
+            },
+            "native": {
+                "path": "snow.1h",
+                "metric": "mm",
+                "imperial": "in",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.day0",
+            "type": "channel",
+            "common": {
+                "name": "Actual weather or forecast",
+                "role": "weather.forecast"
+            },
+            "native": {}
+        },
+        {
+            "_id": "forecast.day0.date",
+            "type": "state",
+            "common": {
+                "name": "Forecast date",
+                "type": "number",
+                "role": "date.forecast.0",
+                "read": true,
+                "write": false,
+                "desc": "Actual date as string"
+            },
+            "native": {
+                "path": "dt",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.icon",
+            "type": "state",
+            "common": {
+                "name": "Forecast icon",
+                "type": "string",
+                "role": "weather.icon.forecast.0",
+                "read": true,
+                "write": false,
+                "desc": "URL to icon"
+            },
+            "native": {
+                "path": "weather.0.icon",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.state",
+            "type": "state",
+            "common": {
+                "name": "Forecast state",
+                "type": "string",
+                "role": "weather.state.forecast.0",
+                "read": true,
+                "write": false,
+                "desc": "Description of weather"
+            },
+            "native": {
+                "path": "weather.0.description",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.title",
+            "type": "state",
+            "common": {
+                "name": "Forecast title",
+                "type": "string",
+                "role": "weather.title.forecast.0",
+                "read": true,
+                "write": false,
+                "desc": "Title weather"
+            },
+            "native": {
+                "path": "weather.0.main",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.temperatureMin",
+            "type": "state",
+            "common": {
+                "name": "Forecast of temperature",
+                "type": "number",
+                "role": "value.temperature.min.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "°C",
+                "desc": "Forecast of temperature. Minimum value."
+            },
+            "native": {
+                "path": "main.temp_min",
+                "metric": "°C",
+                "imperial": "°F",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.temperatureMax",
+            "type": "state",
+            "common": {
+                "name": "Forecast of temperature",
+                "type": "number",
+                "role": "value.temperature.max.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "°C",
+                "desc": "Forecast of temperature. Maximum value."
+            },
+            "native": {
+                "path": "main.temp_max",
+                "metric": "°C",
+                "imperial": "°F",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.clouds",
+            "type": "state",
+            "common": {
+                "name": "Forecast clouds",
+                "type": "number",
+                "role": "value.clouds.forecast.0",
+                "unit": "%",
+                "read": true,
+                "write": false,
+                "min": 0,
+                "max": 100,
+                "desc": "Forecast clouds state in percent (0 - clear sky, 100 - clouds)"
+            },
+            "native": {
+                "path": "clouds.all",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.precipitation",
+            "type": "state",
+            "common": {
+                "name": "Forecast of rain and snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "mm",
+                "desc": "Forecast for rain or snow level in mm"
+            },
+            "native": {
+                "metric": "mm",
+                "imperial": "in",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.precipitationRain",
+            "type": "state",
+            "common": {
+                "name": "Forecast of rain precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.rain.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "mm",
+                "desc": "Forecast for rain level in mm"
+            },
+            "native": {
+                "path": "rain.3h",
+                "metric": "mm",
+                "imperial": "in",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.precipitationSnow",
+            "type": "state",
+            "common": {
+                "name": "Forecast of snow precipitation level",
+                "type": "number",
+                "role": "weather.precipitation.snow.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "mm",
+                "desc": "Forecast for snow level in mm"
+            },
+            "native": {
+                "path": "snow.3h",
+                "metric": "mm",
+                "imperial": "in",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.windDirection",
+            "type": "state",
+            "common": {
+                "name": "Forecast for wind direction",
+                "type": "number",
+                "role": "value.direction.wind.forecast.0",
+                "unit": "°",
+                "read": true,
+                "write": false,
+                "desc": "Forecast for wind direction"
+            },
+            "native": {
+                "path": "wind.deg",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.windSpeed",
+            "type": "state",
+            "common": {
+                "name": "Forecast for wind speed",
+                "type": "number",
+                "role": "value.speed.wind.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "m/s",
+                "desc": "Forecast for wind speed in m/s"
+            },
+            "native": {
+                "path": "wind.speed",
+                "metric": "m/s",
+                "imperial": "m/h",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.pressure",
+            "type": "state",
+            "common": {
+                "name": "Forecast for pressure",
+                "type": "number",
+                "role": "value.pressure.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "hPa",
+                "desc": "Forecast for pressure in hPa"
+            },
+            "native": {
+                "path": "main.pressure",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.humidity",
+            "type": "state",
+            "common": {
+                "name": "Forecast for humidity",
+                "type": "number",
+                "role": "value.humidity.forecast.0",
+                "read": true,
+                "write": false,
+                "unit": "%",
+                "desc": "Forecast for humidity in %"
+            },
+            "native": {
+                "path": "main.humidity",
+                "type": "forecast"
+            }
+        }
     ]
-  },
-  "native": {
-    "apikey": "",
-    "location": "",
-    "language": "",
-    "imperial": false
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "forecast",
-      "type": "device",
-      "common": {
-        "name": "Actual weather or forecast",
-        "role": "weather"
-      },
-      "native": {}
-    },
-    {
-      "_id": "forecast.current",
-      "type": "channel",
-      "common": {
-        "name": "Actual weather for today",
-        "role": "weather.current"
-      },
-      "native": {}
-    },
-    {
-      "_id": "forecast.current.date",
-      "type": "state",
-      "common": {
-        "name": "Actual date",
-        "type": "number",
-        "role": "date",
-        "read": true,
-        "write": false,
-        "desc": "Actual date as string"
-      },
-      "native": {
-        "path": "dt",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.icon",
-      "type": "state",
-      "common": {
-        "name": "Actual icon",
-        "type": "string",
-        "role": "weather.icon",
-        "read": true,
-        "write": false,
-        "desc": "URL to icon"
-      },
-      "native": {
-        "path": "weather.0.icon",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.state",
-      "type": "state",
-      "common": {
-        "name": "Actual state",
-        "type": "string",
-        "role": "weather.state",
-        "read": true,
-        "write": false,
-        "desc": "Description of current weather"
-      },
-      "native": {
-        "path": "weather.0.description",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.title",
-      "type": "state",
-      "common": {
-        "name": "Actual title",
-        "type": "string",
-        "role": "weather.title",
-        "read": true,
-        "write": false,
-        "desc": "Title of current weather"
-      },
-      "native": {
-        "path": "weather.0.main",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.temperature",
-      "type": "state",
-      "common": {
-        "name": "Actual temperature for today",
-        "type": "number",
-        "role": "value.temperature",
-        "read": true,
-        "write": false,
-        "unit": "°C",
-        "desc": "Actual temperature"
-      },
-      "native": {
-        "path": "main.temp",
-        "metric": "°C",
-        "imperial": "°F",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.temperatureMin",
-      "type": "state",
-      "common": {
-        "name": "Minimal temperature for today",
-        "type": "number",
-        "role": "value.temperature.min",
-        "read": true,
-        "write": false,
-        "unit": "°C",
-        "desc": "Minimal temperature for today"
-      },
-      "native": {
-        "path": "main.temp_min",
-        "metric": "°C",
-        "imperial": "°F",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.temperatureMax",
-      "type": "state",
-      "common": {
-        "name": "Maximal temperature for today",
-        "type": "number",
-        "role": "value.temperature.max",
-        "read": true,
-        "write": false,
-        "unit": "°C",
-        "desc": "Maximal temperature for today"
-      },
-      "native": {
-        "path": "main.temp_max",
-        "metric": "°C",
-        "imperial": "°F",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.clouds",
-      "type": "state",
-      "common": {
-        "name": "Actual Cloudiness for today",
-        "type": "number",
-        "role": "value.clouds",
-        "unit": "%",
-        "read": true,
-        "write": false,
-        "min": 0,
-        "max": 100,
-        "desc": "Actual Cloudiness in percent 0 - clear sky, 100 - clouds"
-      },
-      "native": {
-        "path": "clouds.all",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.windDirection",
-      "type": "state",
-      "common": {
-        "name": "Actual wind direction",
-        "type": "number",
-        "role": "value.direction.wind",
-        "unit": "°",
-        "read": true,
-        "write": false,
-        "desc": "Actual wind direction"
-      },
-      "native": {
-        "path": "wind.deg",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.windSpeed",
-      "type": "state",
-      "common": {
-        "name": "Actual wind speed",
-        "type": "number",
-        "role": "value.speed.wind",
-        "read": true,
-        "write": false,
-        "unit": "m/s",
-        "desc": "Actual wind speed in m/s"
-      },
-      "native": {
-        "path": "wind.speed",
-        "metric": "m/s",
-        "imperial": "m/h",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.windGust",
-      "type": "state",
-      "common": {
-        "name": "Actual wind gust",
-        "type": "number",
-        "role": "value.gust.wind",
-        "read": true,
-        "write": false,
-        "unit": "m/s",
-        "desc": "Actual wind gust in m/s"
-      },
-      "native": {
-        "path": "wind.gust",
-        "metric": "m/s",
-        "imperial": "m/h",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.pressure",
-      "type": "state",
-      "common": {
-        "name": "Actual pressure",
-        "type": "number",
-        "role": "value.pressure",
-        "read": true,
-        "write": false,
-        "unit": "hPa",
-        "desc": "Current pressure in hPa"
-      },
-      "native": {
-        "path": "main.pressure",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.humidity",
-      "type": "state",
-      "common": {
-        "name": "Actual humidity",
-        "type": "number",
-        "role": "value.humidity",
-        "read": true,
-        "write": false,
-        "unit": "%",
-        "desc": "Actual humidity in %"
-      },
-      "native": {
-        "path": "main.humidity",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.visibility",
-      "type": "state",
-      "common": {
-        "name": "Actual visibility",
-        "type": "number",
-        "role": "value.distance.visibility",
-        "read": true,
-        "write": false,
-        "unit": "m",
-        "desc": "Actual visibility in meters"
-      },
-      "native": {
-        "path": "visibility",
-        "metric": "meters",
-        "imperial": "miles",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.sunrise",
-      "type": "state",
-      "common": {
-        "name": "Today sunrise",
-        "type": "number",
-        "role": "date.sunrise",
-        "read": true,
-        "write": false,
-        "desc": "Time of sunrise for today"
-      },
-      "native": {
-        "path": "sys.sunrise",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.sunset",
-      "type": "state",
-      "common": {
-        "name": "Today sunset",
-        "type": "number",
-        "role": "date.sunset",
-        "read": true,
-        "write": false,
-        "desc": "Time of sunset for today"
-      },
-      "native": {
-        "path": "sys.sunset",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.precipitation",
-      "type": "state",
-      "common": {
-        "name": "Actual rain and snow precipitation level",
-        "type": "number",
-        "role": "weather.precipitation",
-        "read": true,
-        "write": false,
-        "unit": "mm",
-        "desc": "Actual rain and snow volume in mm"
-      },
-      "native": {
-        "metric": "mm",
-        "imperial": "in",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.precipitationRain",
-      "type": "state",
-      "common": {
-        "name": "Rain precipitation level",
-        "type": "number",
-        "role": "weather.precipitation.rain",
-        "read": true,
-        "write": false,
-        "unit": "mm",
-        "desc": "Actual rain volume in mm"
-      },
-      "native": {
-        "path": "rain.1h",
-        "metric": "mm",
-        "imperial": "in",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.current.precipitationSnow",
-      "type": "state",
-      "common": {
-        "name": "Snow precipitation level",
-        "type": "number",
-        "role": "weather.precipitation.snow",
-        "read": true,
-        "write": false,
-        "unit": "mm",
-        "desc": "Actual snow volume in mm"
-      },
-      "native": {
-        "path": "snow.1h",
-        "metric": "mm",
-        "imperial": "in",
-        "type": "current"
-      }
-    },
-    {
-      "_id": "forecast.day0",
-      "type": "channel",
-      "common": {
-        "name": "Actual weather or forecast",
-        "role": "weather.forecast"
-      },
-      "native": {}
-    },
-    {
-      "_id": "forecast.day0.date",
-      "type": "state",
-      "common": {
-        "name": "Forecast date",
-        "type": "number",
-        "role": "date.forecast.0",
-        "read": true,
-        "write": false,
-        "desc": "Actual date as string"
-      },
-      "native": {
-        "path": "dt",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.icon",
-      "type": "state",
-      "common": {
-        "name": "Forecast icon",
-        "type": "string",
-        "role": "weather.icon.forecast.0",
-        "read": true,
-        "write": false,
-        "desc": "URL to icon"
-      },
-      "native": {
-        "path": "weather.0.icon",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.state",
-      "type": "state",
-      "common": {
-        "name": "Forecast state",
-        "type": "string",
-        "role": "weather.state.forecast.0",
-        "read": true,
-        "write": false,
-        "desc": "Description of weather"
-      },
-      "native": {
-        "path": "weather.0.description",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.title",
-      "type": "state",
-      "common": {
-        "name": "Forecast title",
-        "type": "string",
-        "role": "weather.title.forecast.0",
-        "read": true,
-        "write": false,
-        "desc": "Title weather"
-      },
-      "native": {
-        "path": "weather.0.main",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.temperatureMin",
-      "type": "state",
-      "common": {
-        "name": "Forecast of temperature",
-        "type": "number",
-        "role": "value.temperature.min.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "°C",
-        "desc": "Forecast of temperature. Minimum value."
-      },
-      "native": {
-        "path": "main.temp_min",
-        "metric": "°C",
-        "imperial": "°F",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.temperatureMax",
-      "type": "state",
-      "common": {
-        "name": "Forecast of temperature",
-        "type": "number",
-        "role": "value.temperature.max.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "°C",
-        "desc": "Forecast of temperature. Maximum value."
-      },
-      "native": {
-        "path": "main.temp_max",
-        "metric": "°C",
-        "imperial": "°F",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.clouds",
-      "type": "state",
-      "common": {
-        "name": "Forecast clouds",
-        "type": "number",
-        "role": "value.clouds.forecast.0",
-        "unit": "%",
-        "read": true,
-        "write": false,
-        "min": 0,
-        "max": 100,
-        "desc": "Forecast clouds state in percent (0 - clear sky, 100 - clouds)"
-      },
-      "native": {
-        "path": "clouds.all",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.precipitation",
-      "type": "state",
-      "common": {
-        "name": "Forecast of rain and snow precipitation level",
-        "type": "number",
-        "role": "weather.precipitation.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "mm",
-        "desc": "Forecast for rain or snow level in mm"
-      },
-      "native": {
-        "metric": "mm",
-        "imperial": "in",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.precipitationRain",
-      "type": "state",
-      "common": {
-        "name": "Forecast of rain precipitation level",
-        "type": "number",
-        "role": "weather.precipitation.rain.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "mm",
-        "desc": "Forecast for rain level in mm"
-      },
-      "native": {
-        "path": "rain.3h",
-        "metric": "mm",
-        "imperial": "in",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.precipitationSnow",
-      "type": "state",
-      "common": {
-        "name": "Forecast of snow precipitation level",
-        "type": "number",
-        "role": "weather.precipitation.snow.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "mm",
-        "desc": "Forecast for snow level in mm"
-      },
-      "native": {
-        "path": "snow.3h",
-        "metric": "mm",
-        "imperial": "in",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.windDirection",
-      "type": "state",
-      "common": {
-        "name": "Forecast for wind direction",
-        "type": "number",
-        "role": "value.direction.wind.forecast.0",
-        "unit": "°",
-        "read": true,
-        "write": false,
-        "desc": "Forecast for wind direction"
-      },
-      "native": {
-        "path": "wind.deg",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.windSpeed",
-      "type": "state",
-      "common": {
-        "name": "Forecast for wind speed",
-        "type": "number",
-        "role": "value.speed.wind.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "m/s",
-        "desc": "Forecast for wind speed in m/s"
-      },
-      "native": {
-        "path": "wind.speed",
-        "metric": "m/s",
-        "imperial": "m/h",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.pressure",
-      "type": "state",
-      "common": {
-        "name": "Forecast for pressure",
-        "type": "number",
-        "role": "value.pressure.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "hPa",
-        "desc": "Forecast for pressure in hPa"
-      },
-      "native": {
-        "path": "main.pressure",
-        "type": "forecast"
-      }
-    },
-    {
-      "_id": "forecast.day0.humidity",
-      "type": "state",
-      "common": {
-        "name": "Forecast for humidity",
-        "type": "number",
-        "role": "value.humidity.forecast.0",
-        "read": true,
-        "write": false,
-        "unit": "%",
-        "desc": "Forecast for humidity in %"
-      },
-      "native": {
-        "path": "main.humidity",
-        "type": "forecast"
-      }
-    }
-  ]
 }

@@ -1,0 +1,9 @@
+{
+  "API key": "Ключ API",
+  "API-Key needs up to 2 hours to be activated. Please be patient.": "Для активации API-ключа требуется до 2 часов. Пожалуйста, будьте терпеливы.",
+  "Get your key here": "Получите ваш ключ здесь <a href=\"https://home.openweathermap.org/api_keys\">OpenWeatherMap</a>",
+  "Language": "Язык",
+  "Place": "Место",
+  "Send missing translations to iobroker.net": "Отправить недостающие переводы на iobroker.net",
+  "Use english metric system": "Используйте английскую метрическую систему (°F, мили)"
+}

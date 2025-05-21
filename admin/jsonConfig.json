@@ -1,46 +1,46 @@
 {
-  "type": "panel",
-  "i18n": true,
-  "items": {
-    "apikey": {
-      "type": "text",
-      "label": "API Key",
-      "help": "Get your key here",
-      "sm": 12,
-      "md": 6,
-      "lg": 4
-    },
-    "_staticText": {
-        "type": "staticText",
-        "text": "API-Key needs up to 2 hours to be activated. Please be patient.",
-        "sm": 12
-    },
-    "location": {
-      "newLine": true,
-      "type": "coordinates",
-      "label": "Place",
-      "system": true,
-      "browser": true,
-      "sm": 12,
-      "md": 6,
-      "lg": 4
-    },
-    "language": {
-      "newLine": true,
-      "type": "language",
-      "label": "Language",
-      "system": true,
-      "sm": 12,
-      "md": 6,
-      "lg": 4
-    },
-    "imperial": {
-      "newLine": true,
-      "type": "checkbox",
-      "label": "Use english metric system",
-      "sm": 12,
-      "md": 6,
-      "lg": 4
+    "type": "panel",
+    "i18n": true,
+    "items": {
+        "apikey": {
+            "type": "text",
+            "label": "API Key",
+            "help": "Get your key here",
+            "sm": 12,
+            "md": 6,
+            "lg": 4
+        },
+        "_staticText": {
+            "type": "staticText",
+            "text": "API-Key needs up to 2 hours to be activated. Please be patient.",
+            "sm": 12
+        },
+        "location": {
+            "newLine": true,
+            "type": "coordinates",
+            "label": "Place",
+            "system": true,
+            "browser": true,
+            "sm": 12,
+            "md": 6,
+            "lg": 4
+        },
+        "language": {
+            "newLine": true,
+            "type": "language",
+            "label": "Language",
+            "system": true,
+            "sm": 12,
+            "md": 6,
+            "lg": 4
+        },
+        "imperial": {
+            "newLine": true,
+            "type": "checkbox",
+            "label": "Use english metric system",
+            "sm": 12,
+            "md": 6,
+            "lg": 4
+        }
     }
-  }
 }

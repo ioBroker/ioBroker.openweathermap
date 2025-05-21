@@ -1,9 +1,0 @@
-{
-  "API key": "API 密钥",
-  "Get your key here": "在此处获取您的钥匙 <a href=\"https://home.openweathermap.org/api_keys\">OpenWeatherMap</a>",
-  "Language": "语言",
-  "Place": "地方",
-  "Send missing translations to iobroker.net": "将缺失的翻译发送到 iobroker.net",
-  "Use english metric system": "使用英制（°F，英里）",
-  "API-Key needs up to 2 hours to be activated. Please be patient.": "API-Key 最多需要 2 小时才能激活。请耐心等待。"
-}

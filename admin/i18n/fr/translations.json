@@ -1,9 +1,0 @@
-{
-  "API key": "Clé API",
-  "Get your key here": "Obtenez votre clé ici <a href=\"https://home.openweathermap.org/api_keys\">OpenWeatherMap</a>",
-  "Language": "La langue",
-  "Place": "Endroit",
-  "Send missing translations to iobroker.net": "Envoyer des traductions manquantes à iobroker.net",
-  "Use english metric system": "Utiliser le système métrique anglais (°F, miles)",
-  "API-Key needs up to 2 hours to be activated. Please be patient.": "L'API-Key a besoin de 2 heures maximum pour être activée. S'il vous plaît soyez patient."
-}

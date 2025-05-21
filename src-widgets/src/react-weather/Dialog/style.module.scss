@@ -7,7 +7,7 @@
     margin: 0 !important;
     max-width: 700px !important;
 }
-.filterBlur{
+.filterBlur {
     backdrop-filter: blur(8px);
     transition: backdrop-filter 0.5s;
 }
@@ -158,7 +158,9 @@
     border: 1px solid var(--editBorder);
     border-radius: 5px;
     background-color: var(--backgroundDraver);
-    transition: opacity 1s, background-color 0.6s;
+    transition:
+        opacity 1s,
+        background-color 0.6s;
     cursor: pointer !important;
     overflow: hidden;
     &:hover {
@@ -236,8 +238,9 @@
     &::after,
     &::before {
         position: absolute;
-        content: "";
-        background: linear-gradient(60deg, rgba(0, 255, 0, 1) 50%, transparent 50%),
+        content: '';
+        background:
+            linear-gradient(60deg, rgba(0, 255, 0, 1) 50%, transparent 50%),
             linear-gradient(120deg, rgba(255, 255, 0, 1) 50%, transparent 50%),
             linear-gradient(180deg, rgba(255, 0, 0, 1) 50%, transparent 50%);
         top: 0;
@@ -248,7 +251,8 @@
     }
     &::after {
         bottom: 0;
-        background: linear-gradient(240deg, rgba(255, 0, 255, 1) 50%, transparent 50%),
+        background:
+            linear-gradient(240deg, rgba(255, 0, 255, 1) 50%, transparent 50%),
             linear-gradient(300deg, rgba(0, 0, 255, 1) 50%, transparent 50%),
             linear-gradient(360deg, rgba(0, 255, 255, 1) 50%, transparent 50%);
         z-index: -1;
@@ -275,17 +279,20 @@
     &::after,
     &::before {
         position: absolute;
-        content: "";
-        background: linear-gradient(0deg, #ff9226 50%, transparent 50%),
-            linear-gradient(10deg, #ff9226 50%, transparent 50%), linear-gradient(20deg, #ff9837 50%, transparent 50%),
-            linear-gradient(30deg, #ff9e46 50%, transparent 50%), linear-gradient(40deg, #ffa452 50%, transparent 50%),
-            linear-gradient(50deg, #ffa95c 50%, transparent 50%), linear-gradient(60deg, #ffae68 50%, transparent 50%),
-            linear-gradient(70deg, #ffb372 50%, transparent 50%), linear-gradient(80deg, #ffb87b 50%, transparent 50%),
-            linear-gradient(90deg, #ffbc84 50%, transparent 50%), linear-gradient(100deg, #ffc08c 50%, transparent 50%),
-            linear-gradient(120deg, #ffc494 50%, transparent 50%), linear-gradient(130deg, #ffcca3 50%, transparent 50%),
-            linear-gradient(140deg, #ffcfa9 50%, transparent 50%), linear-gradient(150deg, #ffd3af 50%, transparent 50%),
-            linear-gradient(160deg, #ffd6b5 50%, transparent 50%), linear-gradient(170deg, #ffdabc 50%, transparent 50%),
-            linear-gradient(180deg, #ffddc1 50%, transparent 50%);
+        content: '';
+        background:
+            linear-gradient(0deg, #ff9226 50%, transparent 50%), linear-gradient(10deg, #ff9226 50%, transparent 50%),
+            linear-gradient(20deg, #ff9837 50%, transparent 50%), linear-gradient(30deg, #ff9e46 50%, transparent 50%),
+            linear-gradient(40deg, #ffa452 50%, transparent 50%), linear-gradient(50deg, #ffa95c 50%, transparent 50%),
+            linear-gradient(60deg, #ffae68 50%, transparent 50%), linear-gradient(70deg, #ffb372 50%, transparent 50%),
+            linear-gradient(80deg, #ffb87b 50%, transparent 50%), linear-gradient(90deg, #ffbc84 50%, transparent 50%),
+            linear-gradient(100deg, #ffc08c 50%, transparent 50%),
+            linear-gradient(120deg, #ffc494 50%, transparent 50%),
+            linear-gradient(130deg, #ffcca3 50%, transparent 50%),
+            linear-gradient(140deg, #ffcfa9 50%, transparent 50%),
+            linear-gradient(150deg, #ffd3af 50%, transparent 50%),
+            linear-gradient(160deg, #ffd6b5 50%, transparent 50%),
+            linear-gradient(170deg, #ffdabc 50%, transparent 50%), linear-gradient(180deg, #ffddc1 50%, transparent 50%);
         top: 0;
         left: 0;
         right: 0;
@@ -294,12 +301,18 @@
     }
     &::after {
         bottom: 0;
-        background: linear-gradient(190deg, #ffe0c7 50%, transparent 50%),
-            linear-gradient(200deg, #ffe3cb 50%, transparent 50%), linear-gradient(210deg, #ffe6d1 50%, transparent 50%),
-            linear-gradient(220deg, #ffe9d6 50%, transparent 50%), linear-gradient(230deg, #ffebda 50%, transparent 50%),
-            linear-gradient(240deg, #ffeede 50%, transparent 50%), linear-gradient(250deg, #fff0e3 50%, transparent 50%),
-            linear-gradient(260deg, #fff2e7 50%, transparent 50%), linear-gradient(270deg, #fff5eb 50%, transparent 50%),
-            linear-gradient(280deg, #fff7ef 50%, transparent 50%), linear-gradient(290deg, #fffaf3 50%, transparent 50%),
+        background:
+            linear-gradient(190deg, #ffe0c7 50%, transparent 50%),
+            linear-gradient(200deg, #ffe3cb 50%, transparent 50%),
+            linear-gradient(210deg, #ffe6d1 50%, transparent 50%),
+            linear-gradient(220deg, #ffe9d6 50%, transparent 50%),
+            linear-gradient(230deg, #ffebda 50%, transparent 50%),
+            linear-gradient(240deg, #ffeede 50%, transparent 50%),
+            linear-gradient(250deg, #fff0e3 50%, transparent 50%),
+            linear-gradient(260deg, #fff2e7 50%, transparent 50%),
+            linear-gradient(270deg, #fff5eb 50%, transparent 50%),
+            linear-gradient(280deg, #fff7ef 50%, transparent 50%),
+            linear-gradient(290deg, #fffaf3 50%, transparent 50%),
             linear-gradient(300deg, #fffcf7 50%, transparent 50%), linear-gradient(310deg, white 50%, transparent 50%);
         // linear-gradient(320deg, rgba(255, 255, 0, 1) 50%, transparent 50%);
         // linear-gradient(330deg, rgba(255, 255, 0, 1) 50%, transparent 50%),
@@ -804,7 +817,10 @@
     overflow: hidden;
     position: relative;
     background: var(--editBackground);
-    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+    box-shadow:
+        0px 3px 5px -1px rgb(0 0 0 / 20%),
+        0px 6px 10px 0px rgb(0 0 0 / 14%),
+        0px 1px 18px 0px rgb(0 0 0 / 12%);
     border-radius: 10px;
     margin: 12px 0;
 }
@@ -855,7 +871,7 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    [class*="leaflet-control-zoom leaflet-bar leaflet-control"] {
+    [class*='leaflet-control-zoom leaflet-bar leaflet-control'] {
         margin-top: 45px !important;
     }
 }
@@ -937,14 +953,19 @@
     pointer-events: none;
     opacity: 0.8;
     cursor: pointer;
-    transition: background 0.5s, filter 0.5s, opacity 0.5s;
+    transition:
+        background 0.5s,
+        filter 0.5s,
+        opacity 0.5s;
     &::after {
-        content: "";
+        content: '';
         position: absolute;
         width: 100%;
         height: 100%;
         pointer-events: visible;
-        transition: background 0.5s, filter 0.5s;
+        transition:
+            background 0.5s,
+            filter 0.5s;
     }
     &:hover {
         opacity: 1;
@@ -1100,7 +1121,7 @@
     .paper {
         max-height: 100% !important;
     }
-    .backgroundDialog{
+    .backgroundDialog {
         max-height: calc(100% - 4px) !important;
         width: 100% !important;
         margin: 0 !important;
@@ -1122,10 +1143,10 @@
         z-index: 1;
         opacity: 0.7;
     }
-    .widgetWrapperItem{
+    .widgetWrapperItem {
         margin: 10px 0;
     }
-    .wrapperWidgets{
+    .wrapperWidgets {
         padding: 9px;
     }
 }
@@ -1377,23 +1398,23 @@
         }
     }
 }
-@media screen and (max-height: 450px),screen and (max-width: 700px) {
+@media screen and (max-height: 450px), screen and (max-width: 700px) {
     .wrapperBlockWeather {
         .dayDiv {
             height: calc(100% - 18px);
         }
-        .daysDiv{
+        .daysDiv {
             height: 50%;
             max-height: 130px;
         }
-        .currentDiv{
+        .currentDiv {
             height: 50%;
             max-height: 200px;
         }
     }
 }
 
-@include media(950px,false) {
+@include media(950px, false) {
     .chartPaper {
         max-height: calc(100% - 4px) !important;
         margin: 0 !important;

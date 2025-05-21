@@ -1,0 +1,9 @@
+{
+  "API key": "API-Schlüssel",
+  "API-Key needs up to 2 hours to be activated. Please be patient.": "API-Key benötigt bis zu 2 Stunden, um aktiviert zu werden. Bitte haben Sie Geduld.",
+  "Get your key here": "Ihren API-Schlüssel hier <a href=\"https://home.openweathermap.org/api_keys\">OpenWeatherMap</a> holen",
+  "Language": "Sprache",
+  "Place": "Ort",
+  "Send missing translations to iobroker.net": "Fehlende Übersetzungen an iobroker.net senden",
+  "Use english metric system": "Das Imperial-System (°F, Meilen) verwenden"
+}

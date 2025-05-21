@@ -1,9 +1,0 @@
-{
-  "API key": "API sleutel",
-  "Get your key here": "Haal hier uw sleutel <a href=\"https://home.openweathermap.org/api_keys\">OpenWeatherMap</a>",
-  "Language": "Taal",
-  "Place": "Plaats",
-  "Send missing translations to iobroker.net": "Verzend ontbrekende vertalingen naar iobroker.net",
-  "Use english metric system": "Gebruik het Engelse metrische systeem (°F, mijl)",
-  "API-Key needs up to 2 hours to be activated. Please be patient.": "API-Key heeft maximaal 2 uur nodig om te activeren. Wees alstublieft geduldig."
-}

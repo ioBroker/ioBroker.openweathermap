@@ -15,13 +15,13 @@ export default [
     },
     {
         ignores: [
-            'src-admin/**/*',
+            'widgets/**/*',
+            'src-widgets/**/*',
             'admin/**/*',
-            'admin-config/**/*',
-            'detection/*',
-            'lib/**/*',
+            'build/**/*',
             'node_modules/**/*',
             'test/**/*',
+            'tasks.js',
         ],
     },
     {

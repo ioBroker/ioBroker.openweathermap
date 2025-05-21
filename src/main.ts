@@ -283,7 +283,7 @@ class Openweathermap extends Adapter {
         this.tasks = [];
     }
 
-    extractValue(data: any, path: string | string[], i: number = 0): any {
+    extractValue(data: Record<string, any>, path: string | string[], i: number = 0): any {
         if (typeof path === 'string') {
             path = path.split('.');
         }
@@ -507,7 +507,15 @@ class Openweathermap extends Adapter {
         await this.processTasks();
     }
 
-    requestCurrent(queryParams: Record<string, any>): Promise<void> {
+    requestCurrent(queryParams: {
+        lat?: string;
+        lon?: string;
+        q?: string;
+        id?: number;
+        lang?: string;
+        appid?: string;
+        units?: 'imperial' | 'metric';
+    }): Promise<void> {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'get',

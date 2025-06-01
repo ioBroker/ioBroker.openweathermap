@@ -4,7 +4,7 @@
     "version": "1.3.0",
     "type": "module",
     "dependencies": {
-        "@iobroker/adapter-react-v5": "^7.6.17",
+        "@iobroker/adapter-react-v5": "^7.6.18",
         "@iobroker/types-vis-2": "^2.12.9",
         "@mui/icons-material": "^6.4.11",
         "@mui/material": "^6.4.11",

@@ -11,6 +11,7 @@ class Openweathermap extends adapter_core_1.Adapter {
     forecastIds = [];
     tasks = [];
     unloaded = false;
+    tempValWind;
     constructor(options = {}) {
         super({
             ...options,
@@ -102,22 +103,53 @@ class Openweathermap extends adapter_core_1.Adapter {
                     if (this.unloaded) {
                         break;
                     }
+                    let tempId = task.id.split('.');
+                    tempId = tempId[tempId.length - 1];
                     if (task.val !== undefined) {
+                        if (tempId === 'windDirection') {
+                            this.tempValWind = task.val;
+                            this.log.debug(`Wind direction value: ${this.tempValWind}, task.id: ${task.id}`);
+                        }
                         if (task.obj) {
                             let obj = (await this.getObjectAsync(task.id));
                             if (!obj) {
+                                this.log.debug(`Object ${task.id} not found, creating it`);
                                 obj = JSON.parse(JSON.stringify(task.obj));
                                 obj._id = task.id;
                                 obj.common.role = obj.common.role.replace(/\.\d+$/, `.${task.day}`);
                                 await this.setObjectAsync(task.id, obj);
-                                await this.setStateAsync(task.id, task.val, true);
+                                if (tempId === 'windDirectionText') {
+                                    await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
+                                    this.log.debug(
+                                        `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
+                                    );
+                                }
+                                else {
+                                    await this.setStateAsync(task.id, task.val, true);
+                                }
+                            }
+                            else {
+                                if (tempId === 'windDirectionText') {
+                                    await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
+                                    this.log.debug(
+                                        `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
+                                    );
+                                }
+                                else {
+                                    await this.setStateAsync(task.id, task.val, true);
+                                }
+                            }
+                        }
+                        else {
+                            if (tempId === 'windDirectionText') {
+                                await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
+                                this.log.debug(
+                                    `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
+                                );
                             }
                             else {
                                 await this.setStateAsync(task.id, task.val, true);
                             }
-                        }
-                        else {
-                            await this.setStateAsync(task.id, task.val, true);
                         }
                     }
                     else if (task.obj !== undefined) {
@@ -199,6 +231,9 @@ class Openweathermap extends adapter_core_1.Adapter {
                 }
                 if (!result.date) {
                     result.date = sum[i].date;
+                }
+                if (!result.windDirectionText) {
+                    result.windDirectionText = sum[i].windDirectionText;
                 }
             }
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
@@ -399,6 +434,39 @@ class Openweathermap extends adapter_core_1.Adapter {
             }
         }
         await this.processTasks();
+    }
+    gradeToDirection(grade) {
+        grade = parseFloat(grade);
+        let dir;
+        if (isNaN(grade) || grade < 0.0 || grade > 360.0) {
+            dir = '--';
+        }
+        if (grade < 11.25 || grade >= 348.75) {
+            dir = 'N';
+        }
+        const directions = {
+            NNO: 22.5,
+            NO: 45.0,
+            ONO: 67.5,
+            O: 90.0,
+            OSO: 112.5,
+            SO: 135.0,
+            SSO: 157.5,
+            S: 180.0,
+            SSW: 202.5,
+            SW: 225.0,
+            WSW: 247.5,
+            W: 270.0,
+            WNW: 292.5,
+            NW: 315.0,
+            NNW: 337.5,
+        };
+        for (const [key, val] of Object.entries(directions)) {
+            if (grade >= val - 11.25 && grade < val + 11.25) {
+                dir = key;
+            }
+        }
+        return dir || '--';
     }
     end() {
         if (this.unloaded) {

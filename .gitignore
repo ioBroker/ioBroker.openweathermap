@@ -18,3 +18,7 @@ admin/i18n/*/flat.txt
 /main.js.map
 src-widgets/.__mf__temp
 src-widgets/build
+
+
+# ioBroker dev-server
+.dev-server/

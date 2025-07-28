@@ -172,9 +172,6 @@
             "type": "free",
             "license": "MIT"
         },
-        "ifInstalledDependencies": {
-            "vis-2": ">=2.12.8"
-        },
         "restartAdapters": ["vis-2"]
     },
     "native": {

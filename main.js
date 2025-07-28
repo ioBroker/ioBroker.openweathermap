@@ -120,9 +120,7 @@ class Openweathermap extends adapter_core_1.Adapter {
                                 await this.setObjectAsync(task.id, obj);
                                 if (tempId === 'windDirectionText') {
                                     await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
-                                    this.log.debug(
-                                        `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
-                                    );
+                                    this.log.debug(`Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`);
                                 }
                                 else {
                                     await this.setStateAsync(task.id, task.val, true);
@@ -131,9 +129,7 @@ class Openweathermap extends adapter_core_1.Adapter {
                             else {
                                 if (tempId === 'windDirectionText') {
                                     await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
-                                    this.log.debug(
-                                        `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
-                                    );
+                                    this.log.debug(`Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`);
                                 }
                                 else {
                                     await this.setStateAsync(task.id, task.val, true);
@@ -143,9 +139,7 @@ class Openweathermap extends adapter_core_1.Adapter {
                         else {
                             if (tempId === 'windDirectionText') {
                                 await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
-                                this.log.debug(
-                                    `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
-                                );
+                                this.log.debug(`Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`);
                             }
                             else {
                                 await this.setStateAsync(task.id, task.val, true);

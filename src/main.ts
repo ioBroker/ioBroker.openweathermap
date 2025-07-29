@@ -271,7 +271,7 @@ class Openweathermap extends Adapter {
                         if (task.obj) {
                             let obj = (await this.getObjectAsync(task.id)) as ioBroker.StateObject | null;
                             if (!obj) {
-                                this.log.warn(`Object ${task.id} not found, creating it`);
+                                this.log.debug(`Object ${task.id} not found, creating it`);
                                 obj = JSON.parse(JSON.stringify(task.obj));
                                 obj!._id = task.id;
                                 obj!.common.role = obj!.common.role.replace(/\.\d+$/, `.${task.day}`);

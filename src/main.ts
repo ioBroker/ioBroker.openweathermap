@@ -629,38 +629,29 @@ class Openweathermap extends Adapter {
 
     gradeToDirection(grade: any): string {
         grade = parseFloat(grade);
-        let dir: string | undefined;
         if (isNaN(grade) || grade < 0.0 || grade > 360.0) {
-            dir = '--';
+            return '--';
         }
-
-        if (grade < 11.25 || grade >= 348.75) {
-            dir = 'N';
-        }
-        const directions = {
-            NNO: 22.5,
-            NO: 45.0,
-            ONO: 67.5,
-            O: 90.0,
-            OSO: 112.5,
-            SO: 135.0,
-            SSO: 157.5,
-            S: 180.0,
-            SSW: 202.5,
-            SW: 225.0,
-            WSW: 247.5,
-            W: 270.0,
-            WNW: 292.5,
-            NW: 315.0,
-            NNW: 337.5,
-        };
-
-        for (const [key, val] of Object.entries(directions)) {
-            if (grade >= val - 11.25 && grade < val + 11.25) {
-                dir = key;
-            }
-        }
-        return dir || '--';
+        const directions = [
+            'N',
+            'NNE',
+            'NE',
+            'ENE',
+            'E',
+            'ESE',
+            'SE',
+            'SSE',
+            'S',
+            'SSW',
+            'SW',
+            'WSW',
+            'W',
+            'WNW',
+            'NW',
+            'NNW',
+        ];
+        const index = Math.round((grade % 360) / 22.5) % 16;
+        return directions[index];
     }
 
     end(): void {

@@ -41,7 +41,7 @@ class Openweathermap extends adapter_core_1.Adapter {
         const delay = Math.floor(Math.random() * 30000);
         this.log.debug(`Delay execution by ${delay}ms to better spread API calls`);
         await this.sleep(delay);
-        this.config.language = this.config.language || 'en';
+        this.config.language ||= 'en';
         this.config.location = (this.config.location || '').trim();
         const queryParams = {};
         if (parseInt(this.config.location, 10).toString() === this.config.location) {
@@ -161,7 +161,7 @@ class Openweathermap extends adapter_core_1.Adapter {
         if (typeof path === 'string') {
             path = path.split('.');
         }
-        i = i || 0;
+        i ||= 0;
         if (Object.prototype.hasOwnProperty.call(data, path[i])) {
             data = data[path[i]];
             if (i === path.length - 1) {
@@ -416,7 +416,8 @@ class Openweathermap extends adapter_core_1.Adapter {
         if (isNaN(grade) || grade < 0.0 || grade > 360.0) {
             return '--';
         }
-        const directions = [
+        // Todo translate to the configured language
+        let directions = [
             'N',
             'NNE',
             'NE',
@@ -434,6 +435,166 @@ class Openweathermap extends adapter_core_1.Adapter {
             'NW',
             'NNW',
         ];
+        if (this.config.language === 'de') {
+            directions = [
+                'N',
+                'NNO',
+                'NO',
+                'ONO',
+                'O',
+                'OSO',
+                'SO',
+                'SSO',
+                'S',
+                'SSW',
+                'SW',
+                'WSW',
+                'W',
+                'WNW',
+                'NW',
+                'NNW',
+            ];
+        }
+        if (this.config.language === 'ru') {
+            directions = [
+                'С',
+                'ССВ',
+                'СВ',
+                'ВСВ',
+                'В',
+                'ВЮВ',
+                'ЮВ',
+                'ЮЮВ',
+                'Ю',
+                'ЮЮЗ',
+                'ЮЗ',
+                'ЗЮЗ',
+                'З',
+                'ЗСЗ',
+                'СЗ',
+                'ССЗ',
+            ];
+        }
+        if (this.config.language === 'pt') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'nl') {
+            directions = [
+                'N',
+                'NNO',
+                'NO',
+                'ONO',
+                'O',
+                'OSO',
+                'ZO',
+                'ZSO',
+                'Z',
+                'ZZW',
+                'ZW',
+                'WZW',
+                'W',
+                'WNW',
+                'NW',
+                'NNW',
+            ];
+        }
+        if (this.config.language === 'fr') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'it') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'es') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'pl') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSW',
+                'SW',
+                'WSW',
+                'W',
+                'WNW',
+                'NW',
+                'NNW',
+            ];
+        }
         const index = Math.round((grade % 360) / 22.5) % 16;
         return directions[index];
     }

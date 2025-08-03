@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 1.4.0 (2025-08-03)
 * (@tt-tom17) Added wind direction as text
 
 ### 1.3.0 (2025-05-21)

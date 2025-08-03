@@ -234,6 +234,22 @@
       }
     },
     {
+      "_id": "forecast.current.id",
+      "type": "state",
+      "common": {
+        "name": "Actual weather ID",
+        "type": "number",
+        "role": "state",
+        "read": true,
+        "write": false,
+        "desc": "ID weather"
+      },
+      "native": {
+        "path": "weather.0.id",
+        "type": "current"
+      }
+    },
+    {
       "_id": "forecast.current.icon",
       "type": "state",
       "common": {
@@ -592,6 +608,22 @@
       },
       "native": {
         "path": "dt",
+        "type": "forecast"
+      }
+    },
+    {
+      "_id": "forecast.day0.id",
+      "type": "state",
+      "common": {
+        "name": "Forecast weather ID",
+        "type": "number",
+        "role": "state.forecast.0",
+        "read": true,
+        "write": false,
+        "desc": "ID weather"
+      },
+      "native": {
+        "path": "weather.0.id",
         "type": "forecast"
       }
     },

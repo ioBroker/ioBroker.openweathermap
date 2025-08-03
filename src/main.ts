@@ -117,6 +117,7 @@ interface OpenWeatherMapForecast {
 }
 
 interface ForecastWeatherResult {
+    id: number;
     clouds: number;
     date: number;
     humidity: number;
@@ -386,6 +387,7 @@ class Openweathermap extends Adapter {
     async calculateAverage(sum: ForecastWeatherResult[], day: number): Promise<void> {
         const counts: Record<string, number> = {};
         const result: {
+            id?: number;
             clouds?: number;
             date?: number;
             humidity?: number;
@@ -409,6 +411,7 @@ class Openweathermap extends Adapter {
                 result.title ||= sum[i].title;
                 result.date ||= sum[i].date;
                 result.windDirectionText ||= sum[i].windDirectionText;
+                result.id ||= sum[i].id;
             }
 
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
@@ -480,6 +483,8 @@ class Openweathermap extends Adapter {
         result.state ||= sum[sum.length - 1].state;
         result.title ||= sum[sum.length - 1].title;
         result.date ||= sum[sum.length - 1].date;
+        result.windDirectionText ||= sum[sum.length - 1].windDirectionText;
+        result.id ||= sum[sum.length - 1].id;
 
         if (result.precipitationRain === null && result.precipitationSnow === null) {
             result.precipitation = null;

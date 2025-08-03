@@ -172,9 +172,6 @@
             "type": "free",
             "license": "MIT"
         },
-        "ifInstalledDependencies": {
-            "vis-2": ">=2.12.8"
-        },
         "restartAdapters": ["vis-2"]
     },
     "native": {
@@ -357,6 +354,23 @@
             },
             "native": {
                 "path": "wind.deg",
+                "type": "current"
+            }
+        },
+        {
+            "_id": "forecast.current.windDirectionText",
+            "type": "state",
+            "common": {
+                "name": "Actual wind direction",
+                "type": "string",
+                "role": "value.direction.wind",
+                "unit": "",
+                "read": true,
+                "write": false,
+                "desc": "Actual wind direction"
+            },
+            "native": {
+                "path": "wind.dir",
                 "type": "current"
             }
         },
@@ -739,6 +753,23 @@
             },
             "native": {
                 "path": "wind.deg",
+                "type": "forecast"
+            }
+        },
+        {
+            "_id": "forecast.day0.windDirectionText",
+            "type": "state",
+            "common": {
+                "name": "Forecast for wind direction",
+                "type": "string",
+                "role": "value.direction.wind.forecast.0",
+                "unit": "",
+                "read": true,
+                "write": false,
+                "desc": "Forecast for wind direction"
+            },
+            "native": {
+                "path": "wind.dir",
                 "type": "forecast"
             }
         },

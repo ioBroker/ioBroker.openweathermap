@@ -64,7 +64,7 @@
         ,
           "@mui/material": {
             name: "@mui/material",
-            version: "6.4.11",
+            version: "6.5.0",
             scope: ["default"],
             loaded: false,
             from: "openweathermap",
@@ -90,7 +90,7 @@
         ,
           "@mui/icons-material": {
             name: "@mui/icons-material",
-            version: "6.4.11",
+            version: "6.5.0",
             scope: ["default"],
             loaded: false,
             from: "openweathermap",
@@ -116,7 +116,7 @@
         ,
           "@iobroker/adapter-react-v5": {
             name: "@iobroker/adapter-react-v5",
-            version: "7.6.17",
+            version: "7.7.2",
             scope: ["default"],
             loaded: false,
             from: "openweathermap",

@@ -155,7 +155,7 @@ export default function Weather({
     useEffect(() => {
         setWeatherState((newWeather: WeatherData) => {
             for (let d = 0; d < daysCount; d++) {
-                newWeather.days[d] = newWeather.days[d] || {
+                newWeather.days[d] ||= {
                     temperatureMin: null,
                     temperatureMax: null,
                     title: null,

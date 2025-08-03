@@ -148,7 +148,7 @@ class Openweathermap extends Adapter {
     forecastIds: ioBroker.StateObject[] = [];
     tasks: Task[] = [];
     unloaded: boolean = false;
-    tempValWind: ioBroker.StateValue | undefined;
+    lastWindAngle: ioBroker.StateValue | undefined;
 
     public constructor(options: Partial<AdapterOptions> = {}) {
         super({
@@ -184,7 +184,7 @@ class Openweathermap extends Adapter {
         this.log.debug(`Delay execution by ${delay}ms to better spread API calls`);
         await this.sleep(delay);
 
-        this.config.language = this.config.language || 'en';
+        this.config.language ||= 'en';
         this.config.location = (this.config.location || '').trim();
 
         const queryParams: {
@@ -265,8 +265,8 @@ class Openweathermap extends Adapter {
                     tempId = tempId[tempId.length - 1];
                     if (task.val !== undefined) {
                         if (tempId === 'windDirection') {
-                            this.tempValWind = task.val;
-                            this.log.debug(`Wind direction value: ${this.tempValWind}, task.id: ${task.id}`);
+                            this.lastWindAngle = task.val;
+                            this.log.debug(`Wind direction value: ${this.lastWindAngle}, task.id: ${task.id}`);
                         }
                         if (task.obj) {
                             let obj = (await this.getObjectAsync(task.id)) as ioBroker.StateObject | null;
@@ -277,18 +277,26 @@ class Openweathermap extends Adapter {
                                 obj!.common.role = obj!.common.role.replace(/\.\d+$/, `.${task.day}`);
                                 await this.setObjectAsync(task.id, obj!);
                                 if (tempId === 'windDirectionText') {
-                                    await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
+                                    await this.setStateAsync(
+                                        task.id,
+                                        this.angleToDirectionString(this.lastWindAngle),
+                                        true,
+                                    );
                                     this.log.debug(
-                                        `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
+                                        `Wind direction value: ${this.angleToDirectionString(this.lastWindAngle)}, task.id: ${task.id}`,
                                     );
                                 } else {
                                     await this.setStateAsync(task.id, task.val, true);
                                 }
                             } else {
                                 if (tempId === 'windDirectionText') {
-                                    await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
+                                    await this.setStateAsync(
+                                        task.id,
+                                        this.angleToDirectionString(this.lastWindAngle),
+                                        true,
+                                    );
                                     this.log.debug(
-                                        `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
+                                        `Wind direction value: ${this.angleToDirectionString(this.lastWindAngle)}, task.id: ${task.id}`,
                                     );
                                 } else {
                                     await this.setStateAsync(task.id, task.val, true);
@@ -296,9 +304,13 @@ class Openweathermap extends Adapter {
                             }
                         } else {
                             if (tempId === 'windDirectionText') {
-                                await this.setStateAsync(task.id, this.gradeToDirection(this.tempValWind), true);
+                                await this.setStateAsync(
+                                    task.id,
+                                    this.angleToDirectionString(this.lastWindAngle),
+                                    true,
+                                );
                                 this.log.debug(
-                                    `Wind direction value: ${this.gradeToDirection(this.tempValWind)}, task.id: ${task.id}`,
+                                    `Wind direction value: ${this.angleToDirectionString(this.lastWindAngle)}, task.id: ${task.id}`,
                                 );
                             } else {
                                 await this.setStateAsync(task.id, task.val, true);
@@ -319,7 +331,7 @@ class Openweathermap extends Adapter {
         if (typeof path === 'string') {
             path = path.split('.');
         }
-        i = i || 0;
+        i ||= 0;
         if (Object.prototype.hasOwnProperty.call(data, path[i])) {
             data = data[path[i]];
             if (i === path.length - 1) {
@@ -392,21 +404,11 @@ class Openweathermap extends Adapter {
         } = {};
         for (let i = 0; i < sum.length; i++) {
             if (new Date(sum[i].date).getHours() >= 12) {
-                if (!result.icon) {
-                    result.icon = sum[i].icon;
-                }
-                if (!result.state) {
-                    result.state = sum[i].state;
-                }
-                if (!result.title) {
-                    result.title = sum[i].title;
-                }
-                if (!result.date) {
-                    result.date = sum[i].date;
-                }
-                if (!result.windDirectionText) {
-                    result.windDirectionText = sum[i].windDirectionText;
-                }
+                result.icon ||= sum[i].icon;
+                result.state ||= sum[i].state;
+                result.title ||= sum[i].title;
+                result.date ||= sum[i].date;
+                result.windDirectionText ||= sum[i].windDirectionText;
             }
 
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
@@ -415,43 +417,43 @@ class Openweathermap extends Adapter {
             if (result.temperatureMax === undefined || result.temperatureMax < sum[i].temperatureMax) {
                 result.temperatureMax = sum[i].temperatureMax;
             }
-            result.clouds = result.clouds || 0;
-            counts.clouds = counts.clouds || 0;
+            result.clouds ||= 0;
+            counts.clouds ||= 0;
             if (sum[i].clouds !== null) {
                 result.clouds += sum[i].clouds;
                 counts.clouds++;
             }
 
-            result.humidity = result.humidity || 0;
-            counts.humidity = counts.humidity || 0;
+            result.humidity ||= 0;
+            counts.humidity ||= 0;
             if (sum[i].humidity !== null) {
                 result.humidity += sum[i].humidity;
                 counts.humidity++;
             }
 
-            result.pressure = result.pressure || 0;
-            counts.pressure = counts.pressure || 0;
+            result.pressure ||= 0;
+            counts.pressure ||= 0;
             if (sum[i].pressure !== null) {
                 result.pressure += sum[i].pressure;
                 counts.pressure++;
             }
 
-            result.precipitationRain = result.precipitationRain || 0;
-            counts.precipitationRain = counts.precipitationRain || 0;
+            result.precipitationRain ||= 0;
+            counts.precipitationRain ||= 0;
             if (sum[i].precipitationRain !== null) {
                 result.precipitationRain += sum[i].precipitationRain!;
                 counts.precipitationRain++;
             }
 
-            result.precipitationSnow = result.precipitationSnow || 0;
-            counts.precipitationSnow = counts.precipitationSnow || 0;
+            result.precipitationSnow ||= 0;
+            counts.precipitationSnow ||= 0;
             if (sum[i].precipitationSnow !== null) {
                 result.precipitationSnow += sum[i].precipitationSnow!;
                 counts.precipitationSnow++;
             }
 
-            result.windDirection = result.windDirection || 0;
-            counts.windDirection = counts.windDirection || 0;
+            result.windDirection ||= 0;
+            counts.windDirection ||= 0;
             if (sum[i].windDirection !== null) {
                 result.windDirection += sum[i].windDirection;
                 counts.windDirection++;
@@ -474,18 +476,10 @@ class Openweathermap extends Adapter {
             }
         }
 
-        if (!result.icon) {
-            result.icon = sum[sum.length - 1].icon;
-        }
-        if (!result.state) {
-            result.state = sum[sum.length - 1].state;
-        }
-        if (!result.title) {
-            result.title = sum[sum.length - 1].title;
-        }
-        if (!result.date) {
-            result.date = sum[sum.length - 1].date;
-        }
+        result.icon ||= sum[sum.length - 1].icon;
+        result.state ||= sum[sum.length - 1].state;
+        result.title ||= sum[sum.length - 1].title;
+        result.date ||= sum[sum.length - 1].date;
 
         if (result.precipitationRain === null && result.precipitationSnow === null) {
             result.precipitation = null;
@@ -627,12 +621,13 @@ class Openweathermap extends Adapter {
         await this.processTasks();
     }
 
-    gradeToDirection(grade: any): string {
+    angleToDirectionString(grade: any): string {
         grade = parseFloat(grade);
         if (isNaN(grade) || grade < 0.0 || grade > 360.0) {
             return '--';
         }
-        const directions = [
+        // Todo translate to the configured language
+        let directions = [
             'N',
             'NNE',
             'NE',
@@ -650,6 +645,167 @@ class Openweathermap extends Adapter {
             'NW',
             'NNW',
         ];
+        if (this.config.language === 'de') {
+            directions = [
+                'N',
+                'NNO',
+                'NO',
+                'ONO',
+                'O',
+                'OSO',
+                'SO',
+                'SSO',
+                'S',
+                'SSW',
+                'SW',
+                'WSW',
+                'W',
+                'WNW',
+                'NW',
+                'NNW',
+            ];
+        }
+        if (this.config.language === 'ru') {
+            directions = [
+                'С',
+                'ССВ',
+                'СВ',
+                'ВСВ',
+                'В',
+                'ВЮВ',
+                'ЮВ',
+                'ЮЮВ',
+                'Ю',
+                'ЮЮЗ',
+                'ЮЗ',
+                'ЗЮЗ',
+                'З',
+                'ЗСЗ',
+                'СЗ',
+                'ССЗ',
+            ];
+        }
+        if (this.config.language === 'pt') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'nl') {
+            directions = [
+                'N',
+                'NNO',
+                'NO',
+                'ONO',
+                'O',
+                'OSO',
+                'ZO',
+                'ZSO',
+                'Z',
+                'ZZW',
+                'ZW',
+                'WZW',
+                'W',
+                'WNW',
+                'NW',
+                'NNW',
+            ];
+        }
+        if (this.config.language === 'fr') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'it') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'es') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSO',
+                'SO',
+                'OSO',
+                'O',
+                'ONO',
+                'NO',
+                'NNO',
+            ];
+        }
+        if (this.config.language === 'pl') {
+            directions = [
+                'N',
+                'NNE',
+                'NE',
+                'ENE',
+                'E',
+                'ESE',
+                'SE',
+                'SSE',
+                'S',
+                'SSW',
+                'SW',
+                'WSW',
+                'W',
+                'WNW',
+                'NW',
+                'NNW',
+            ];
+        }
+
         const index = Math.round((grade % 360) / 22.5) % 16;
         return directions[index];
     }

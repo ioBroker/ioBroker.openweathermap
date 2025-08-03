@@ -388,18 +388,18 @@ export interface WeatherData {
         title?: string | null;
     };
     days: {
-        temperatureMin?: number;
-        temperatureMax?: number;
+        temperatureMin?: number | null;
+        temperatureMax?: number | null;
         temperature?: number;
         humidity?: number;
-        icon?: string;
+        icon?: string | null;
         windchill?: number;
         windDirection?: number;
         windSpeed?: number;
         windIcon?: string;
         precipitation?: number;
         pressure?: number;
-        title?: string;
+        title?: string | null;
     }[];
 }
 

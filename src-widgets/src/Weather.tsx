@@ -64,7 +64,6 @@ export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<
                             name: 'instance',
                             type: 'instance',
                             adapter: 'openweathermap',
-                            // @ts-expect-error fixed in vis-2 types
                             isShort: true,
                             default: '0',
                         },

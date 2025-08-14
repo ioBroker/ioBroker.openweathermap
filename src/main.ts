@@ -117,6 +117,7 @@ interface OpenWeatherMapForecast {
 }
 
 interface ForecastWeatherResult {
+    id: number;
     clouds: number;
     date: number;
     humidity: number;
@@ -257,6 +258,7 @@ class Openweathermap extends Adapter {
     async processTasks(): Promise<void> {
         if (!this.unloaded) {
             if (this.tasks.length) {
+                this.lastWindAngle = undefined;
                 for (const task of this.tasks) {
                     if (this.unloaded) {
                         break;
@@ -266,7 +268,7 @@ class Openweathermap extends Adapter {
                     if (task.val !== undefined) {
                         if (tempId === 'windDirection') {
                             this.lastWindAngle = task.val;
-                            this.log.debug(`Wind direction value: ${this.lastWindAngle}, task.id: ${task.id}`);
+                            this.log.debug(`Wind direction value: ${this.lastWindAngle} from task.id: ${task.id}`);
                         }
                         if (task.obj) {
                             let obj = (await this.getObjectAsync(task.id)) as ioBroker.StateObject | null;
@@ -276,45 +278,21 @@ class Openweathermap extends Adapter {
                                 obj!._id = task.id;
                                 obj!.common.role = obj!.common.role.replace(/\.\d+$/, `.${task.day}`);
                                 await this.setObjectAsync(task.id, obj!);
-                                if (tempId === 'windDirectionText') {
-                                    await this.setStateAsync(
-                                        task.id,
-                                        this.angleToDirectionString(this.lastWindAngle),
-                                        true,
-                                    );
-                                    this.log.debug(
-                                        `Wind direction value: ${this.angleToDirectionString(this.lastWindAngle)}, task.id: ${task.id}`,
-                                    );
-                                } else {
-                                    await this.setStateAsync(task.id, task.val, true);
-                                }
-                            } else {
-                                if (tempId === 'windDirectionText') {
-                                    await this.setStateAsync(
-                                        task.id,
-                                        this.angleToDirectionString(this.lastWindAngle),
-                                        true,
-                                    );
-                                    this.log.debug(
-                                        `Wind direction value: ${this.angleToDirectionString(this.lastWindAngle)}, task.id: ${task.id}`,
-                                    );
-                                } else {
-                                    await this.setStateAsync(task.id, task.val, true);
-                                }
                             }
-                        } else {
-                            if (tempId === 'windDirectionText') {
-                                await this.setStateAsync(
-                                    task.id,
-                                    this.angleToDirectionString(this.lastWindAngle),
-                                    true,
-                                );
-                                this.log.debug(
-                                    `Wind direction value: ${this.angleToDirectionString(this.lastWindAngle)}, task.id: ${task.id}`,
-                                );
-                            } else {
-                                await this.setStateAsync(task.id, task.val, true);
+                        }
+                        if (this.lastWindAngle !== undefined) {
+                            const windDirectionText = this.angleToDirectionString(this.lastWindAngle);
+                            this.log.debug(`Wind direction text: ${windDirectionText}`);
+                            const tempTaskId = task.id.replace(/\.windDirection$/, '.windDirectionText');
+                            if (((await this.getObjectAsync(tempTaskId)) as ioBroker.StateObject | null) !== null) {
+                                await this.setStateAsync(tempTaskId, windDirectionText, true);
+                                this.log.debug(`Set state ${tempTaskId} to ${windDirectionText}`);
                             }
+                            this.lastWindAngle = undefined; // Reset after use
+                        }
+                        if (tempId !== 'windDirectionText') {
+                            await this.setStateAsync(task.id, task.val, true);
+                            this.log.debug(`Set state ${task.id} to ${task.val}`);
                         }
                     } else if (task.obj !== undefined) {
                         await this.setObjectAsync(task.id, task.obj);
@@ -386,6 +364,7 @@ class Openweathermap extends Adapter {
     async calculateAverage(sum: ForecastWeatherResult[], day: number): Promise<void> {
         const counts: Record<string, number> = {};
         const result: {
+            id?: number;
             clouds?: number;
             date?: number;
             humidity?: number;
@@ -409,6 +388,7 @@ class Openweathermap extends Adapter {
                 result.title ||= sum[i].title;
                 result.date ||= sum[i].date;
                 result.windDirectionText ||= sum[i].windDirectionText;
+                result.id ||= sum[i].id;
             }
 
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
@@ -480,6 +460,8 @@ class Openweathermap extends Adapter {
         result.state ||= sum[sum.length - 1].state;
         result.title ||= sum[sum.length - 1].title;
         result.date ||= sum[sum.length - 1].date;
+        result.windDirectionText ||= sum[sum.length - 1].windDirectionText;
+        result.id ||= sum[sum.length - 1].id;
 
         if (result.precipitationRain === null && result.precipitationSnow === null) {
             result.precipitation = null;

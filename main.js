@@ -187,7 +187,7 @@ class Openweathermap extends adapter_core_1.Adapter {
         if (result.precipitationSnow == null) {
             result.precipitationSnow = 0;
         }*/
-        if (result.precipitationRain === null && result.precipitationSnow === null) {
+        if (result.precipitationRain === null || result.precipitationSnow === null) {
             result.precipitation = 0;
         }
         else {

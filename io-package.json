@@ -133,7 +133,6 @@
       "meteorology"
     ],
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "openweathermap.svg",
     "extIcon": "https://raw.githubusercontent.com/ioBroker/ioBroker.openweathermap/master/admin/openweathermap.svg",
     "enabled": true,

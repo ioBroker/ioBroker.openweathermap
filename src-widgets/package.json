@@ -8,7 +8,7 @@
         "@iobroker/types-vis-2": "^2.12.12",
         "@mui/icons-material": "^6.5.0",
         "@mui/material": "^6.5.0",
-        "@module-federation/vite": "^1.7.1",
+        "@module-federation/vite": "^1.9.4",
         "@vitejs/plugin-react": "^4.7.0",
         "prop-types": "^15.8.1",
         "react": "^18.3.1",

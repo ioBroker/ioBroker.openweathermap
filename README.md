@@ -93,6 +93,8 @@ You need an api key to access the data. The api key you can get for free after r
 ### 0.1.0
 * (bluefox) first release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 
 The MIT License (MIT)

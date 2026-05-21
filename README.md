@@ -20,6 +20,10 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+
+### **WORK IN PROGRESS**
+- (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now.
+
 ### 1.4.0 (2025-08-03)
 * (@tt-tom17) Added wind direction as text
 

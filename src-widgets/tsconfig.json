@@ -5,23 +5,28 @@
         "lib": ["DOM", "DOM.Iterable", "ESNext"],
         "allowJs": false,
         "skipLibCheck": true,
-        "esModuleInterop": false,
+        "esModuleInterop": true,
         "rootDir": "./src",
-        "allowSyntheticDefaultImports": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
         "module": "ESNext",
-        "moduleResolution": "Node",
+        "moduleResolution": "bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "types": ["@iobroker/types"]
+        "types": ["@iobroker/types"],
+        // @iobroker/types-vis-2 pins adapter-react-v5 7.7.5, so npm nests a second copy
+        // next to our 8.x one and the two LegacyConnection types become incompatible
+        "paths": {
+            "@iobroker/adapter-react-v5": ["./node_modules/@iobroker/adapter-react-v5"],
+            "@iobroker/adapter-react-v5/*": ["./node_modules/@iobroker/adapter-react-v5/*"]
+        }
     },
     "include": ["src"],
     "references": [
         {
             "path": "./tsconfig.node.json"
         }
-    ],
+    ]
 }

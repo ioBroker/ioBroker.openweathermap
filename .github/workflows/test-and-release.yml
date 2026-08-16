@@ -24,9 +24,11 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: ioBroker/testing-action-check@v2.0.0
+            - uses: ioBroker/testing-action-check@v2.0.1
               with:
                   node-version: '24.x'
+                  # package-lock.json is not committed, so setup-node cannot cache
+                  package-cache: 'false'
                   install-command: 'npm run npm'
                   lint: true
                   test-command: 'false'
@@ -47,6 +49,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
                   os: ${{ matrix.os }}
+                  package-cache: 'false'
                   install-command: 'npm run npm'
                   build: true
 
@@ -71,5 +74,7 @@ jobs:
             - uses: ioBroker/testing-action-deploy@v1
               with:
                   node-version: '24.x'
+                  package-cache: 'false'
+                  install-command: 'npm run npm'
                   build: true
                   github-token: ${{ secrets.GITHUB_TOKEN }}

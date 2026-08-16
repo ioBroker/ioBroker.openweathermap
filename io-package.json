@@ -119,6 +119,7 @@
       "it": "openweathermap.org meteo",
       "es": "tiempo en openweathermap.org",
       "pl": "openweathermap.org pogoda",
+      "uk": "openweathermap.org погода",
       "zh-cn": "openweathermap.org 天气"
     },
     "desc": {
@@ -131,6 +132,7 @@
       "it": "Recupera le previsioni del tempo a 60 ore da openweathermap.org",
       "es": "Obtiene el pronóstico del tiempo a 60 horas de openweathermap.org",
       "pl": "Pobiera 60-godzinną prognozę pogody z openweathermap.org",
+      "uk": "Отримує 60-годинний прогноз погоди з openweathermap.org",
       "zh-cn": "从 openweathermap.org 获取 60 小时天气预报"
     },
     "authors": [

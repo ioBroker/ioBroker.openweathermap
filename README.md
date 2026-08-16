@@ -20,6 +20,12 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (@JDCodes) Added feels_like temperature, visibility and the day name (long and short) as text
+* (@JDCodes) Daily rain and snow are now totals and not averages
+* (@JDCodes) Fixed NaN for rain and snow
+* (@GermanBluefox) Minimal supported Node.js version is now 22
+
 ### 1.4.0 (2025-08-03)
 * (@tt-tom17) Added wind direction as text
 
@@ -97,7 +103,7 @@ You need an api key to access the data. The api key you can get for free after r
 
 The MIT License (MIT)
 
-Copyright (c) 2018-2025 bluefox <dogafox@gmail.com>
+Copyright (c) 2018-2026 bluefox <dogafox@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

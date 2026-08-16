@@ -1,6 +1,6 @@
-import { Adapter, type AdapterOptions } from '@iobroker/adapter-core';
-import axios, { type AxiosRequestConfig } from 'axios';
 import { readFileSync } from 'node:fs';
+import axios, { type AxiosRequestConfig } from 'axios';
+import { Adapter, type AdapterOptions } from '@iobroker/adapter-core';
 import type { OpenWeatherMapAdapterConfig } from './types';
 
 interface Task {
@@ -119,15 +119,19 @@ interface OpenWeatherMapForecast {
 interface ForecastWeatherResult {
     clouds: number;
     date: number;
+    day: string;
+    day_short: string;
     humidity: number;
     icon: string;
     precipitationRain: number | null;
     precipitationSnow: number | null;
     pressure: number;
     state: string;
+    temperatureFeel: number;
     temperatureMax: number;
     temperatureMin: number;
     title: string;
+    visibility: number;
     windDirection: number;
     windDirectionText: string;
     windSpeed: number;
@@ -138,7 +142,6 @@ interface CurrentWeatherResult extends ForecastWeatherResult {
     sunrise: number;
     sunset: number;
     temperature: number;
-    visibility: number;
     windGust: number;
 }
 
@@ -352,11 +355,14 @@ class Openweathermap extends Adapter {
                 result[ids[i]._id.split('.').pop() as string] = this.extractValue(data, ids[i].native.path);
             }
         }
-        if (result.precipitationRain === null && result.precipitationSnow === null) {
-            result.precipitation = null;
-        } else {
-            result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
+        // Missing rain/snow means "no precipitation" and not "unknown"
+        if (result.precipitationRain === null) {
+            result.precipitationRain = 0;
         }
+        if (result.precipitationSnow === null) {
+            result.precipitationSnow = 0;
+        }
+        result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
 
         result.icon = result.icon ? `https://openweathermap.org/img/w/${result.icon}.png` : null;
 
@@ -368,6 +374,8 @@ class Openweathermap extends Adapter {
         }
         if (result.date) {
             result.date = result.date * 1000;
+            result.day = new Date(result.date).toLocaleDateString(this.config.language, { weekday: 'long' });
+            result.day_short = new Date(result.date).toLocaleDateString(this.config.language, { weekday: 'short' });
         }
         return result as T;
     }
@@ -388,15 +396,19 @@ class Openweathermap extends Adapter {
         const result: {
             clouds?: number;
             date?: number;
+            day?: string;
+            day_short?: string;
             humidity?: number;
             icon?: string;
             precipitationRain?: number | null;
             precipitationSnow?: number | null;
             pressure?: number;
             state?: string;
+            temperatureFeel?: number;
             temperatureMax?: number;
             temperatureMin?: number;
             title?: string;
+            visibility?: number;
             windDirection?: number;
             windDirectionText?: string;
             windSpeed?: number;
@@ -408,9 +420,16 @@ class Openweathermap extends Adapter {
                 result.state ||= sum[i].state;
                 result.title ||= sum[i].title;
                 result.date ||= sum[i].date;
+                result.day ||= new Date(sum[i].date).toLocaleDateString(this.config.language, { weekday: 'long' });
+                result.day_short ||= new Date(sum[i].date).toLocaleDateString(this.config.language, {
+                    weekday: 'short',
+                });
                 result.windDirectionText ||= sum[i].windDirectionText;
             }
 
+            if (result.temperatureFeel === undefined || result.temperatureFeel > sum[i].temperatureFeel) {
+                result.temperatureFeel = sum[i].temperatureFeel;
+            }
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
                 result.temperatureMin = sum[i].temperatureMin;
             }
@@ -436,6 +455,13 @@ class Openweathermap extends Adapter {
             if (sum[i].pressure !== null) {
                 result.pressure += sum[i].pressure;
                 counts.pressure++;
+            }
+
+            result.visibility ||= 0;
+            counts.visibility ||= 0;
+            if (sum[i].visibility !== null) {
+                result.visibility += sum[i].visibility;
+                counts.visibility++;
             }
 
             result.precipitationRain ||= 0;
@@ -468,6 +494,10 @@ class Openweathermap extends Adapter {
                 continue;
             }
             if (counts[attr]) {
+                // rain and snow must stay a sum over the day and may not be averaged
+                if (attr === 'precipitationRain' || attr === 'precipitationSnow') {
+                    continue;
+                }
                 (result as Record<string, number>)[attr] = Math.round(
                     (result as Record<string, number>)[attr] / counts[attr],
                 );
@@ -480,9 +510,15 @@ class Openweathermap extends Adapter {
         result.state ||= sum[sum.length - 1].state;
         result.title ||= sum[sum.length - 1].title;
         result.date ||= sum[sum.length - 1].date;
+        result.day ||= new Date(sum[sum.length - 1].date).toLocaleDateString(this.config.language, {
+            weekday: 'long',
+        });
+        result.day_short ||= new Date(sum[sum.length - 1].date).toLocaleDateString(this.config.language, {
+            weekday: 'short',
+        });
 
         if (result.precipitationRain === null && result.precipitationSnow === null) {
-            result.precipitation = null;
+            result.precipitation = 0;
         } else {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
         }
@@ -626,7 +662,7 @@ class Openweathermap extends Adapter {
         if (isNaN(grade) || grade < 0.0 || grade > 360.0) {
             return '--';
         }
-        // Todo translate to the configured language
+        // 16 compass points, clockwise starting at north
         let directions = [
             'N',
             'NNE',
@@ -803,6 +839,46 @@ class Openweathermap extends Adapter {
                 'WNW',
                 'NW',
                 'NNW',
+            ];
+        }
+        if (this.config.language === 'uk') {
+            directions = [
+                'Пн',
+                'ПнПнСх',
+                'ПнСх',
+                'СхПнСх',
+                'Сх',
+                'СхПдСх',
+                'ПдСх',
+                'ПдПдСх',
+                'Пд',
+                'ПдПдЗх',
+                'ПдЗх',
+                'ЗхПдЗх',
+                'Зх',
+                'ЗхПнЗх',
+                'ПнЗх',
+                'ПнПнЗх',
+            ];
+        }
+        if (this.config.language === 'zh-cn') {
+            directions = [
+                '北',
+                '东北偏北',
+                '东北',
+                '东北偏东',
+                '东',
+                '东南偏东',
+                '东南',
+                '东南偏南',
+                '南',
+                '西南偏南',
+                '西南',
+                '西南偏西',
+                '西',
+                '西北偏西',
+                '西北',
+                '西北偏北',
             ];
         }
 

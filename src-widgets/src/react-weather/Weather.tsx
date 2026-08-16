@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { IconButton } from '@mui/material';
-
 import { Info as IconInfo } from '@mui/icons-material';
 
 import { I18n, Utils, Icon, type LegacyConnection } from '@iobroker/adapter-react-v5';
-
 import type { VisTheme } from '@iobroker/types-vis-2';
 
 import cls from './style.module.scss';

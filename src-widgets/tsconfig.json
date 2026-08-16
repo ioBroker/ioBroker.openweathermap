@@ -6,6 +6,7 @@
         "allowJs": false,
         "skipLibCheck": true,
         "esModuleInterop": false,
+        "rootDir": "./src",
         "allowSyntheticDefaultImports": true,
         "strict": true,
         "forceConsistentCasingInFileNames": true,
@@ -15,7 +16,6 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "baseUrl": ".",
         "types": ["@iobroker/types"]
     },
     "include": ["src"],

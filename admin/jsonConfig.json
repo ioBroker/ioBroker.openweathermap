@@ -4,7 +4,7 @@
     "items": {
         "apikey": {
             "type": "text",
-            "label": "API Key",
+            "label": "API key",
             "help": "Get your key here",
             "sm": 12,
             "md": 6,

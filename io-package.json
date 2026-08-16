@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "1.5.0",
+    "version": "2.0.0",
     "news": {
+      "2.0.0": {
+        "en": "Added feels_like temperature, visibility and the day name (long and short) as text\nDaily rain and snow are now totals and not averages\nFixed NaN for rain and snow\nMinimal supported Node.js version is now 22\nAdapter requires js-controller >= 6.0.11 now",
+        "de": "Gefühlte Temperatur, Sichtweite und Tagesname (lang und kurz) wurden als Text hinzugefügt.\nDie täglichen Regen- und Schneemengen werden nun als Gesamtmengen und nicht mehr als Durchschnittswerte angegeben.\nNaN-Werte für Regen und Schnee korrigiert\nDie minimal unterstützte Node.js-Version ist nun 22.\nDer Adapter benötigt jetzt js-controller >= 6.0.11.",
+        "ru": "Добавлены параметры feels_like: температура, видимость и название дня недели (полное и краткое) в виде текста.\nТеперь ежедневные данные о дожде и снеге представляют собой суммарные, а не средние значения.\nИсправлены значения NaN для дождя и снега.\nМинимальная поддерживаемая версия Node.js теперь — 22.\nДля работы адаптера теперь требуется js-controller версии >= 6.0.11.",
+        "pt": "Adicionada a sensação térmica, a visibilidade e o nome do dia (completo e abreviado) como texto.\nAgora, os valores diários de chuva e neve são totais, e não médias.\nCorrigido o valor NaN para chuva e neve.\nA versão mínima suportada do Node.js agora é a 22.\nO adaptador agora requer js-controller >= 6.0.11.",
+        "nl": "De gevoelstemperatuur, het zicht en de dagnaam (lange en korte versie) zijn als tekst toegevoegd.\nDe dagelijkse regen- en sneeuwval worden nu weergegeven als totalen in plaats van gemiddelden.\nNaN-waarden voor regen en sneeuw gecorrigeerd.\nDe minimaal ondersteunde Node.js-versie is nu 22.\nDe adapter vereist nu js-controller >= 6.0.11.",
+        "fr": "Ajout de la température ressentie, de la visibilité et du nom du jour (long et court) sous forme de texte\nLes précipitations quotidiennes (pluie et neige) sont désormais exprimées en cumuls et non plus en moyennes.\nCorrection des valeurs NaN pour la pluie et la neige\nLa version minimale de Node.js prise en charge est désormais la 22.\nL'adaptateur requiert désormais js-controller >= 6.0.11",
+        "it": "Aggiunti come testo la temperatura percepita, la visibilità e il nome del giorno (lungo e breve).\nLe precipitazioni giornaliere, sia in termini di pioggia che di neve, sono ora espresse come totali e non più come medie.\nValore NaN fisso per pioggia e neve\nLa versione minima di Node.js supportata è ora la 22\nL'adattatore richiede js-controller >= 6.0.11",
+        "es": "Se agregó la sensación térmica, la visibilidad y el nombre del día (largo y corto) como texto.\nAhora, la lluvia y la nieve diarias se registran como totales y no como promedios.\nSe corrigió el valor NaN para la lluvia y la nieve.\nLa versión mínima de Node.js compatible ahora es la 22.\nEl adaptador ahora requiere js-controller >= 6.0.11",
+        "pl": "Dodano odczuwalną temperaturę, widoczność i nazwę dnia (długą i krótką) jako tekst\nCodzienne opady deszczu i śniegu są teraz podawane jako sumy, a nie wartości średnie\nNaprawiono NaN dla deszczu i śniegu\nMinimalna obsługiwana wersja Node.js to obecnie 22\nAdapter wymaga teraz js-controller >= 6.0.11",
+        "uk": "Додано відчуття температури, видимості та назви дня (довгі та короткі) у вигляді тексту\nЩоденні показники дощу та снігу тепер відображаються як загальні, а не середні значення\nВиправлено NaN для дощу та снігу\nМінімальна підтримувана версія Node.js тепер 22.\nАдаптер тепер вимагає js-controller >= 6.0.11",
+        "zh-cn": "添加了体感温度、能见度和日期名称（全称和简称）文本\n每日降雨量和降雪量现在以总量而非平均值来衡量。\n已修复雨雪的NaN值\n目前支持的最低 Node.js 版本为 22。\n适配器现在需要 js-controller >= 6.0.11。"
+      },
       "1.5.0": {
         "en": "Added feels_like temperature, visibility, day long and short as text. Daily Rain and Snow are now total and not average. NaN fix for rain and snow",
         "de": "Fühlt-sich-an-Temperatur, Sichtweite, Tagesname lang und kurz als Text hinzugefügt. Täglicher Regen und Schnee sind nun Summen und nicht Durchschnitte. NaN-Fehler für Regen und Schnee behoben.",
@@ -80,32 +93,6 @@
         "pl": "Używanie formatu JSON dla dialogów konfiguracyjnych\nOficjalna strona Widget",
         "uk": "Використовуйте налаштування JSON для діалогу конфігурації\nДодано назву віджету",
         "zh-cn": "利用联合协商会联索会的口号\n添加供植物用的标题"
-      },
-      "0.4.5": {
-        "en": "changed german translation",
-        "de": "deutsch übersetzung",
-        "ru": "изменен немецкий перевод",
-        "pt": "tradução alemã alterada",
-        "nl": "vertaling:",
-        "fr": "traduction allemande changée",
-        "it": "cambiato traduzione tedesca",
-        "es": "traducción de alemán",
-        "pl": "zmieniono tłumaczenie germanowe",
-        "uk": "змінив німецький переклад",
-        "zh-cn": "更换"
-      },
-      "0.4.4": {
-        "en": "Updated packages",
-        "de": "Aktualisierte Pakete",
-        "ru": "Обновленные пакеты",
-        "pt": "Pacotes atualizados",
-        "nl": "Verouderde pakketten",
-        "fr": "Forfaits mis à jour",
-        "it": "Pacchetti aggiornati",
-        "es": "Paquetes actualizados",
-        "pl": "Pakiet upoważniony",
-        "uk": "Оновлені пакети",
-        "zh-cn": "最新一揽子计划"
       }
     },
     "titleLang": {

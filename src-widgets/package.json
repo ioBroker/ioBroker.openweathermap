@@ -9,7 +9,7 @@
         "@iobroker/adapter-react-v5": "^8.3.1",
         "@iobroker/types-vis-2": "^2.14.4",
         "@mui/icons-material": "^6.5.0",
-        "@mui/material": "^6.5.0",
+        "@mui/material": "^9.3.1",
         "@module-federation/vite": "^1.7.2",
         "@swc/core": "~1.15.30",
         "@vitejs/plugin-react": "^5.0.4",

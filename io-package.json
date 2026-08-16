@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "news": {
+      "1.5.0": {
+        "en": "Added feels_like temperature, visibility, day long and short as text. Daily Rain and Snow are now total and not average. NaN fix for rain and snow",
+        "de": "Fühlt-sich-an-Temperatur, Sichtweite, Tagesname lang und kurz als Text hinzugefügt. Täglicher Regen und Schnee sind nun Summen und nicht Durchschnitte. NaN-Fehler für Regen und Schnee behoben.",
+        "ru": "Добавлены feels_like, видимость, названия дня (полное и краткое). Суточные значения дождя и снега теперь отображаются как сумма, а не как среднее. Исправлено NaN для дождя и снега.",
+        "pt": "Adicionados feels_like, visibilidade e nomes de dias (longo e curto) como texto. Valores diários de chuva e neve agora são totais e não médias. Corrigido NaN para chuva e neve.",
+        "nl": "Feels_like, zicht en dagnaam (lang en kort) als tekst toegevoegd. Dagelijkse regen- en sneeuwwaarden zijn nu totalen in plaats van gemiddelden. NaN-fout voor regen en sneeuw opgelost.",
+        "fr": "Ajout de feels_like, visibilité et noms de jours (long et court) en texte. Les valeurs quotidiennes de pluie et de neige sont désormais totales et non moyennes. Correction du NaN pour pluie et neige.",
+        "it": "Aggiunti feels_like, visibilità e nomi dei giorni (lunghi e brevi) come testo. I valori giornalieri di pioggia e neve sono ora totali e non medi. Corretto NaN per pioggia e neve.",
+        "es": "Añadidos feels_like, visibilidad y nombres de días (largo y corto) como texto. Los valores diarios de lluvia y nieve ahora son totales y no promedios. Corregido NaN para lluvia y nieve.",
+        "pl": "Dodano feels_like, widoczność oraz nazwy dni (pełne i skrócone) jako tekst. Dzienne wartości deszczu i śniegu są teraz sumą, a nie średnią. Naprawiono błąd NaN dla deszczu i śniegu.",
+        "uk": "Додано feels_like, видимість та назви днів (повна і коротка) як текст. Добові значення дощу та снігу тепер відображаються як сума, а не середнє. Виправлено NaN для дощу та снігу.",
+        "zh-cn": "新增 feels_like、能见度，以及长短形式的日期文本。每日降雨和降雪数值现在为总量而非平均值。修复了雨雪的 NaN 问题。"
+      },
       "1.4.0": {
         "en": "Added wind direction as text",
         "de": "Windrichtung als Text hinzugefügt",
@@ -234,6 +247,38 @@
       }
     },
     {
+      "_id": "forecast.current.day",
+      "type": "state",
+      "common": {
+        "name": "Actual day",
+        "type": "string",
+        "role": "date",
+        "read": true,
+        "write": false,
+        "desc": "Actual day as string"
+      },
+      "native": {
+        "path": "dt",
+        "type": "current"
+      }
+    },
+    {
+      "_id": "forecast.current.day_short",
+      "type": "state",
+      "common": {
+        "name": "Actual day short",
+        "type": "string",
+        "role": "date",
+        "read": true,
+        "write": false,
+        "desc": "Actual day as short string"
+      },
+      "native": {
+        "path": "dt",
+        "type": "current"
+      }
+    },
+    {
       "_id": "forecast.current.icon",
       "type": "state",
       "common": {
@@ -295,6 +340,25 @@
       },
       "native": {
         "path": "main.temp",
+        "metric": "°C",
+        "imperial": "°F",
+        "type": "current"
+      }
+    },
+    {
+      "_id": "forecast.current.temperatureFeel",
+      "type": "state",
+      "common": {
+        "name": "Feel temperature for today",
+        "type": "number",
+        "role": "value.temperature.feel",
+        "read": true,
+        "write": false,
+        "unit": "°C",
+        "desc": "Feel temperature"
+      },
+      "native": {
+        "path": "main.feels_like",
         "metric": "°C",
         "imperial": "°F",
         "type": "current"
@@ -596,6 +660,38 @@
       }
     },
     {
+      "_id": "forecast.day0.day",
+      "type": "state",
+      "common": {
+        "name": "Forecast day",
+        "type": "string",
+        "role": "date.forecast.0",
+        "read": true,
+        "write": false,
+        "desc": "Actual day as string"
+      },
+      "native": {
+        "path": "dt",
+        "type": "forecast"
+      }
+    },
+    {
+      "_id": "forecast.day0.day_short",
+      "type": "state",
+      "common": {
+        "name": "Forecast day short",
+        "type": "string",
+        "role": "date.forecast.0",
+        "read": true,
+        "write": false,
+        "desc": "Actual day as short string"
+      },
+      "native": {
+        "path": "dt",
+        "type": "forecast"
+      }
+    },
+    {
       "_id": "forecast.day0.icon",
       "type": "state",
       "common": {
@@ -640,6 +736,25 @@
       },
       "native": {
         "path": "weather.0.main",
+        "type": "forecast"
+      }
+    },
+    {
+      "_id": "forecast.day0.temperatureFeel",
+      "type": "state",
+      "common": {
+        "name": "Forecast of temperature",
+        "type": "number",
+        "role": "value.temperature.feel.forecast.0",
+        "read": true,
+        "write": false,
+        "unit": "°C",
+        "desc": "Forecast of temperature. Feel value."
+      },
+      "native": {
+        "path": "main.feels_like",
+        "metric": "°C",
+        "imperial": "°F",
         "type": "forecast"
       }
     },
@@ -840,6 +955,25 @@
       },
       "native": {
         "path": "main.humidity",
+        "type": "forecast"
+      }
+    },
+    {
+      "_id": "forecast.day0.visibility",
+      "type": "state",
+      "common": {
+        "name": "Forecast for visibility",
+        "type": "number",
+        "role": "value.distance.visibility",
+        "read": true,
+        "write": false,
+        "unit": "m",
+        "desc": "Actual visibility in meters"
+      },
+      "native": {
+        "path": "visibility",
+        "metric": "meters",
+        "imperial": "miles",
         "type": "forecast"
       }
     }

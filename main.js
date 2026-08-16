@@ -181,8 +181,14 @@ class Openweathermap extends adapter_core_1.Adapter {
                 result[ids[i]._id.split('.').pop()] = this.extractValue(data, ids[i].native.path);
             }
         }
+        if (result.precipitationRain === null) {
+            result.precipitationRain = 0;
+        }
+        if (result.precipitationSnow === null) {
+            result.precipitationSnow = 0;
+        }
         if (result.precipitationRain === null && result.precipitationSnow === null) {
-            result.precipitation = null;
+            result.precipitation = 0;
         }
         else {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);
@@ -196,6 +202,8 @@ class Openweathermap extends adapter_core_1.Adapter {
         }
         if (result.date) {
             result.date = result.date * 1000;
+            result.day = (new Date(result.date).toLocaleDateString(this.config.language, { weekday: 'long' })).toString();
+            result.day_short = (new Date(result.date).toLocaleDateString(this.config.language, { weekday: 'short' })).toString();
         }
         return result;
     }
@@ -218,7 +226,12 @@ class Openweathermap extends adapter_core_1.Adapter {
                 result.state ||= sum[i].state;
                 result.title ||= sum[i].title;
                 result.date ||= sum[i].date;
+                result.day ||= (new Date(sum[i].date).toLocaleDateString(this.config.language, { weekday: 'long' })).toString();
+                result.day_short ||= (new Date(sum[i].date).toLocaleDateString(this.config.language, { weekday: 'short' })).toString();
                 result.windDirectionText ||= sum[i].windDirectionText;
+            }
+            if (result.temperatureFeel === undefined || result.temperatureFeel > sum[i].temperatureFeel) {
+                result.temperatureFeel = sum[i].temperatureFeel;
             }
             if (result.temperatureMin === undefined || result.temperatureMin > sum[i].temperatureMin) {
                 result.temperatureMin = sum[i].temperatureMin;
@@ -243,6 +256,12 @@ class Openweathermap extends adapter_core_1.Adapter {
             if (sum[i].pressure !== null) {
                 result.pressure += sum[i].pressure;
                 counts.pressure++;
+            }
+            result.visibility ||= 0;
+            counts.visibility ||= 0;
+            if (sum[i].visibility !== null) {
+                result.visibility += sum[i].visibility;
+                counts.visibility++;
             }
             result.precipitationRain ||= 0;
             counts.precipitationRain ||= 0;
@@ -271,9 +290,12 @@ class Openweathermap extends adapter_core_1.Adapter {
                 continue;
             }
             if (counts[attr]) {
+                // Regen & Schnee sollen summiert bleiben, nicht gemittelt
+                if (attr === 'precipitationRain' || attr === 'precipitationSnow') {
+                    continue;
+                }
                 result[attr] = Math.round(result[attr] / counts[attr]);
-            }
-            else {
+            } else {
                 result[attr] = null;
             }
         }
@@ -281,8 +303,10 @@ class Openweathermap extends adapter_core_1.Adapter {
         result.state ||= sum[sum.length - 1].state;
         result.title ||= sum[sum.length - 1].title;
         result.date ||= sum[sum.length - 1].date;
+        result.day ||= (new Date(sum[sum.length - 1].date).toLocaleDateString(this.config.language, { weekday: 'long' })).toString();
+        result.day_short ||= (new Date(sum[sum.length - 1].date).toLocaleDateString(this.config.language, { weekday: 'short' })).toString();
         if (result.precipitationRain === null && result.precipitationSnow === null) {
-            result.precipitation = null;
+            result.precipitation = 0;
         }
         else {
             result.precipitation = (result.precipitationRain || 0) + (result.precipitationSnow || 0);

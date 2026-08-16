@@ -25,6 +25,7 @@ You need an api key to access the data. The api key you can get for free after r
 * (@JDCodes) Daily rain and snow are now totals and not averages
 * (@JDCodes) Fixed NaN for rain and snow
 * (@GermanBluefox) Minimal supported Node.js version is now 22
+* (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now
 
 ### 1.4.0 (2025-08-03)
 * (@tt-tom17) Added wind direction as text
@@ -98,6 +99,8 @@ You need an api key to access the data. The api key you can get for free after r
 
 ### 0.1.0
 * (bluefox) first release
+
+[Older changelogs can be found there](CHANGELOG_OLD.md)
 
 ## License
 

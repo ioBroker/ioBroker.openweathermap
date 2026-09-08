@@ -31,6 +31,7 @@ export default [
         rules: {
             'jsdoc/require-jsdoc': 'off',
             'jsdoc/require-param': 'off',
+            'react-hooks/set-state-in-effect': 'off',
         },
     },
 ];

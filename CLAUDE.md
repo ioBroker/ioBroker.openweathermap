@@ -5,10 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run npm            # install root + src-widgets deps (widgets need `npm i -f`)
+npm run npm            # install root + src-widgets + src-admin deps (widgets need `npm i -f`)
 npm run tsc            # compile the backend: src/main.ts -> main.js (tsconfig.build.json)
-npm run build          # tsc + `node tasks` (full widget build incl. copy to widgets/)
-npm run lint           # eslint (backend only; src-widgets has its own config)
+npm run build          # tsc + `node tasks.ts` (widget build -> widgets/, admin build -> admin/custom/)
+npm run lint           # eslint for all three (root, src-widgets, src-admin - each has its own config)
 npm test               # test:unit + test:package
 npm run test:integration   # starts a real js-controller instance
 npm run test-gui       # test/widgets.gui.js, needs a built widget (npm run build first)
@@ -21,23 +21,34 @@ npx mocha test/unit --exit
 npx mocha test/package --exit --grep "The version matches"
 ```
 
-Partial widget builds (`tasks.js` steps, useful when only the widget changed):
+`tasks.ts` is run by Node directly (type stripping, hence `engines.node >= 22.19`) - there is no
+compile step and no `tsx`. It must therefore stay erasable CommonJS: `require` instead of `import`,
+no `enum`/`namespace`/`import x = require()`.
+
+Partial builds (`tasks.ts` steps, useful when only one of the two frontends changed):
 
 ```bash
-node tasks --0-clean   # rm src-widgets/build + widgets/
-node tasks --1-npm     # npm i in src-widgets
-node tasks --2-build   # vite build
-node tasks --3-copy    # copy src-widgets/build -> widgets/openweathermap/
+node tasks.ts --0-clean       # rm src-widgets/build + widgets/
+node tasks.ts --1-npm         # npm i in src-widgets
+node tasks.ts --2-build       # vite build
+node tasks.ts --3-copy        # copy src-widgets/build -> widgets/openweathermap/
+
+node tasks.ts --4-clean-admin # rm src-admin/build + admin/custom/
+node tasks.ts --5-npm-admin   # npm i in src-admin
+node tasks.ts --6-build-admin # vite build
+node tasks.ts --7-copy-admin  # copy src-admin/build -> admin/custom/ (+ generate its i18n)
 ```
 
-Widget dev server: `cd src-widgets && npm start` (vite, port 4173).
+Widget dev server: `cd src-widgets && npm start` (vite, port 4173). The admin component has no dev
+server — iterate on the weather UI in the widget dev server, then rerun steps 6/7.
 
 ## Architecture
 
-Two independent builds live in this repo:
+Three independent builds live in this repo:
 
 1. **Backend adapter** — `src/main.ts`, compiled by `npm run tsc` to `outDir` from `tsconfig.build.json`. Never edit the compiled JS: contributors regularly send PRs against it, and those changes have to be ported into `src/main.ts` and recompiled, not merged as-is. (The output location is mid-migration from the repo root to `build/`; `package.json` `main`/`files` still name `main.js` and need to follow.)
-2. **vis-2 widget** — `src-widgets/` → `widgets/openweathermap/` (also committed, via `node tasks`).
+2. **vis-2 widget** — `src-widgets/` → `widgets/openweathermap/` (via `node tasks.ts`).
+3. **Admin jsonConfig component** — `src-admin/` → `admin/custom/` (via `node tasks.ts`). See *Admin weather preview* below.
 
 ### io-package.json drives the backend
 
@@ -70,12 +81,32 @@ Scheduled adapter (cron): one fetch, then `end()` terminates the instance. On fi
 
 Module federation build via `defineVisWidgetConfig` (`src-widgets/vite.config.ts`), exposing `./Weather` and `./translations`. `src-widgets/src/Weather.tsx` is the vis-2 wrapper class — `getWidgetInfo()` declares `visAttrs` (the widget's config UI) and the widget subscribes to `openweathermap.<instance>.forecast.*`. The rendering lives in `src-widgets/src/react-weather/` (`Weather.tsx` + `Dialog/WeatherDialog.tsx`, SCSS modules, inline SVG icon components).
 
+### Admin weather preview
+
+`admin/jsonConfig.json` embeds the very same rendering as a `"type": "custom"` item, so the instance
+config shows a live preview of what the vis-2 widget will look like. `src-admin/` is a second module
+federation build (name `ConfigCustomOpenWeatherMapSet`, entry `customComponents.js`, exposing
+`./Components`); `src-admin/src/ConfigWeather.tsx` is a `ConfigGeneric` subclass that renders
+`src-widgets/src/react-weather/Weather` with `oContext.socket` / `oContext.instance` / `oContext.theme`.
+
+Consequences of that shared import:
+
+- `react-weather/*` must stay free of vis-2 specifics. It takes an `IobTheme`, **not** a `VisTheme`
+  (`VisTheme extends IobTheme`, so the widget still passes its own theme unchanged).
+- The shared files live next to `src-widgets/node_modules`, so `src-admin/vite.config.ts` needs
+  `resolve.dedupe` for react/emotion/MUI/`@iobroker/gui-components` — otherwise their bare imports
+  resolve to that second copy and the federation `shared` singletons miss.
+- `guiApi: 2` in `jsonConfig.json` must match the component library generation
+  (`@iobroker/gui-components` 10 = React 19 / MUI 9). Admin refuses to start a mismatched component.
+- The bundle carries its own fallback copy of `@iobroker/gui-components`, so **rebuild after every
+  library update** — a stale build renders raw translation keys.
+
 ## Translations
 
 Four separate places, all eleven languages (`en de ru pt nl fr it es pl uk zh-cn`) must be kept in sync — Weblate translates them:
 
-- `admin/i18n/*.json` — labels for `admin/jsonConfig.json` (which sets `"i18n": true`). **The key is the literal English string used in `jsonConfig.json`** — a label that does not match a key verbatim silently stays untranslated.
-- `src-widgets/src/i18n/*.json` — widget labels, re-exported through `src-widgets/src/translations.ts`
+- `admin/i18n/*.json` — labels for `admin/jsonConfig.json` (which sets `"i18n": true`). **The key is the literal English string used in `jsonConfig.json`** — a label that does not match a key verbatim silently stays untranslated. The admin preview component uses this dictionary too, for its own strings.
+- `src-widgets/src/i18n/*.json` — widget labels, re-exported through `src-widgets/src/translations.ts`. `admin/custom/i18n/*.json` is **generated** from these by `buildAdminI18n()` in `tasks.ts` — never edit it by hand. vis-2 prefixes widget keys with the widget set name (`translations.prefix`), which is why the shared components ask for `openweathermap_<key>` and the generator bakes that prefix in.
 - `io-package.json` — `common.news` (one entry per released version), `common.titleLang`, `common.desc`
 - `README.md` changelog must carry the same version entry as `common.news`; `@alcalzone/release-script` keeps them aligned
 

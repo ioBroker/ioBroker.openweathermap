@@ -17,8 +17,7 @@ import React, { Component } from 'react';
 
 import { Paper, Dialog } from '@mui/material';
 
-import { Utils, I18n, Icon } from '@iobroker/adapter-react-v5';
-import type { VisTheme } from '@iobroker/types-vis-2';
+import { Utils, I18n, Icon, type IobTheme } from '@iobroker/gui-components';
 
 import IconHydro from './icons/Humidity';
 import iconPrecipitation from './icons/precipitation.svg';
@@ -405,7 +404,7 @@ export interface WeatherData {
 
 interface WeatherDialogProps {
     weather: WeatherData;
-    theme: VisTheme;
+    theme: IobTheme;
     windUnit: string;
     tempUnit: '°C' | '°F';
     pressureUnit: string;

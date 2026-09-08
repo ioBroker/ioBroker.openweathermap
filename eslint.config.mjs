@@ -16,11 +16,11 @@ export default [
         ignores: [
             'widgets/**/*',
             'src-widgets/**/*',
+            'src-admin/**/*',
             'admin/**/*',
             'build/**/*',
             'node_modules/**/*',
             'test/**/*',
-            'tasks.js',
         ],
     },
     {

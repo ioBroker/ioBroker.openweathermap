@@ -41,6 +41,25 @@
             "sm": 12,
             "md": 6,
             "lg": 4
+        },
+        "_previewHeader": {
+            "newLine": true,
+            "type": "header",
+            "text": "Weather preview",
+            "size": 2,
+            "sm": 12
+        },
+        "_preview": {
+            "newLine": true,
+            "type": "custom",
+            "i18n": true,
+            "url": "custom/customComponents.js",
+            "name": "ConfigCustomOpenWeatherMapSet/Components/ConfigWeather",
+            "guiApi": 2,
+            "days": 6,
+            "sm": 12,
+            "md": 12,
+            "lg": 8
         }
     }
 }

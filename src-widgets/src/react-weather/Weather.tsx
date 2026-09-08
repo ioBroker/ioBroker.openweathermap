@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { IconButton } from '@mui/material';
 import { Info as IconInfo } from '@mui/icons-material';
 
-import { I18n, Utils, Icon, type LegacyConnection } from '@iobroker/adapter-react-v5';
-import type { VisTheme } from '@iobroker/types-vis-2';
+import { I18n, Utils, Icon, type Connection, type IobTheme } from '@iobroker/gui-components';
 
 import cls from './style.module.scss';
 import WeatherDialog, { getIcon, type WeatherData } from './Dialog/WeatherDialog';
@@ -17,13 +16,7 @@ function getWeekDay(date: Date, index: number): string {
     return days[idx];
 }
 type WEATHER_DAY_PARAMETERS =
-    | 'temperatureMin'
-    | 'temperatureMax'
-    | 'state'
-    | 'icon'
-    | 'humidity'
-    | 'windDirection'
-    | 'windSpeed';
+    'temperatureMin' | 'temperatureMax' | 'state' | 'icon' | 'humidity' | 'windDirection' | 'windSpeed';
 
 type WEATHER_TODAY_PARAMETERS =
     | 'temperature'
@@ -57,7 +50,7 @@ const TODAY_PARAMETERS: WEATHER_TODAY_PARAMETERS[] = [
 ];
 
 interface WeatherProps {
-    socket: LegacyConnection;
+    socket: Connection;
     hideCurrent: boolean;
     hideDays: boolean;
     instance: number;
@@ -67,7 +60,7 @@ interface WeatherProps {
     isFloatComma: boolean;
     tempUnit: '°C' | '°F';
     pressureUnit: 'hPa' | 'PSI';
-    theme: VisTheme;
+    theme: IobTheme;
 }
 
 export default function Weather({

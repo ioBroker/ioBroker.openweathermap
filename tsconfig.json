@@ -8,7 +8,6 @@
         "skipLibCheck": true, // Don't report errors in 3rd party definitions
         "noEmitOnError": true,
         "outDir": "./build",
-        "rootDir": "./src",
         "removeComments": false,
         "module": "Node16",
         "moduleResolution": "node16",
@@ -20,8 +19,10 @@
         "sourceMap": true,
         "inlineSourceMap": false,
         "useUnknownInCatchVariables": false,
-        "types": ["@iobroker/types"]
+        // "node" is for `tasks.ts`, which Node runs directly (type stripping) and therefore
+        // uses `require`/`__dirname`. `tsconfig.build.json` narrows this back down for the adapter.
+        "types": ["@iobroker/types", "node"]
     },
-    "include": ["src/**/*.ts"],
+    "include": ["src/**/*.ts", "tasks.ts"],
     "exclude": ["build/**", "node_modules/**", "src-admin/**"]
 }

@@ -1,4 +1,7 @@
 # Older changes
+## 1.1.2 (2024-07-07)
+* (bluefox) Removed withStyles package
+
 ## 1.0.4 (2023-12-05)
 * (bluefox) Used the JSON config for configuration dialog
 * (bluefox) Added title to widget

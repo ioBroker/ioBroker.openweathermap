@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "news": {
+      "2.0.1": {
+        "en": "The weather widget is now shown as a live preview in the admin configuration too",
+        "de": "Das Wetter-Widget gibt es jetzt auch als Live-Vorschau im Admin-Menü",
+        "ru": "Виджет погоды теперь также отображается в режиме предварительного просмотра в конфигурации администратора",
+        "pt": "O widget de clima agora também é exibido ao vivo na configuração admin.",
+        "nl": "De weerwidget wordt nu ook als live preview getoond in de beheerdersconfiguratie.",
+        "fr": "Le widget météo est désormais affiché en direct dans la configuration d'administration",
+        "it": "Il widget meteo è ora mostrato in anteprima anche nel pannello admin",
+        "es": "El widget del tiempo también aparece como vista previa en vivo en la configuración de administración",
+        "pl": "Widżet pogody jest teraz wyświetlany jako podgląd na żywo również w konfiguracji administratora",
+        "uk": "Віджет погоди тепер також відображається як попередній перегляд у конфігурації адміністратора",
+        "zh-cn": "天气小部件现在也在管理员配置中显示为实时预览"
+      },
       "2.0.0": {
         "en": "Added feels_like temperature, visibility and the day name (long and short) as text\nDaily rain and snow are now totals and not averages\nFixed NaN for rain and snow\nMinimal supported Node.js version is now 22\nAdapter requires js-controller >= 6.0.11 now",
         "de": "Gefühlte Temperatur, Sichtweite und Tagesname (lang und kurz) wurden als Text hinzugefügt.\nDie täglichen Regen- und Schneemengen werden nun als Gesamtmengen und nicht mehr als Durchschnittswerte angegeben.\nNaN-Werte für Regen und Schnee korrigiert\nDie minimal unterstützte Node.js-Version ist nun 22.\nDer Adapter benötigt jetzt js-controller >= 6.0.11.",
@@ -80,19 +93,6 @@
         "pl": "Usunięty z pakietem Styles",
         "uk": "Видаліть пакет \"Стиль\"",
         "zh-cn": "用 Styles 软件包删除"
-      },
-      "1.0.4": {
-        "en": "Used the JSON config for configuration dialog\nAdded title to widget",
-        "de": "JSON config für Konfigurationsdialog verwendet\nHinzugefügt Titel zu Widget",
-        "ru": "Используется конфиг JSON для диалога конфигурации\nДобавлено название в виджет",
-        "pt": "Usado a configuração JSON para a caixa de diálogo de configuração\nTítulo adicionado ao widget",
-        "nl": "Gebruikte de JSON configuratie dialog\nVoeg de titel toe aan Widget",
-        "fr": "Utiliser la configuration JSON pour le dialogue de configuration\nAjout du titre à widget",
-        "it": "Utilizzato la configurazione JSON per la finestra di dialogo di configurazione\nAggiunto titolo al widget",
-        "es": "Utiliza el configuración JSON para el diálogo de configuración\nTítulo añadido al widget",
-        "pl": "Używanie formatu JSON dla dialogów konfiguracyjnych\nOficjalna strona Widget",
-        "uk": "Використовуйте налаштування JSON для діалогу конфігурації\nДодано назву віджету",
-        "zh-cn": "利用联合协商会联索会的口号\n添加供植物用的标题"
       }
     },
     "titleLang": {

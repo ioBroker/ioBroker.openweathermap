@@ -1,4 +1,7 @@
 # Older changes
+## 1.2.0 (2024-07-23)
+* (bluefox) Widget was partly ported to TypeScript
+
 ## 1.1.2 (2024-07-07)
 * (bluefox) Removed withStyles package
 

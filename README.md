@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.0.2 (2026-10-13)
 * (@GermanBluefox) Updated packages
 * (@GermanBluefox) Admin 7.6.20+ is required. Fixed the build on CI (missing node types). The API key is protected now. Fixed the schema errors of the configuration
 
@@ -40,9 +40,6 @@ You need an api key to access the data. The api key you can get for free after r
 ### 1.3.0 (2025-05-21)
 * (bluefox) Widget was completely ported to TypeScript
 * (bluefox) Backend was completely ported to TypeScript
-
-### 1.2.0 (2024-07-23)
-* (bluefox) Widget was partly ported to TypeScript
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

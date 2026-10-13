@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "news": {
+      "2.0.2": {
+        "en": "Updated packages\nAdmin 7.6.20+ is required. Fixed the build on CI (missing node types). The API key is protected now. Fixed the schema errors of the configuration",
+        "de": "Neue Pakete\nAdmin 7.6.20+ ist nötig. CI-Build behoben (fehlende Knotentypen). Der API-Key ist nun geschützt. Schemafehler der Konfiguration behoben",
+        "ru": "Обновленные пакеты\nТребуется администратор версии 7.6.20+. Исправлена сборка на CI (отсутствовали типы узлов). Ключ API теперь защищен. Исправлены ошибки схемы конфигурации",
+        "pt": "Pacotes novos\nRequer o Admin 7.6.20+. Corrigido o uso do CI (sem tipos de nós). A API já está protegida. Corrigido o erro de esquema da configuração",
+        "nl": "Bijgewerkte pakketten\nAdmin 7.6.20+ is vereist. De build on CI is opgelost (ontbrekende knooppunttypes). De API-sleutel is nu beschermd. De schemafouten in de configuratie opgelost",
+        "fr": "Packages mis à jour\nAdmin 7.6.20+ est requis. Correction du build sur CI (nœuds manquants). La clé API est désormais protégée. Correction des erreurs de configuration",
+        "it": "Pacchi nuovi\nServe Admin 7.6.20+. Risolto il bug su CI (tipi di nodi mancanti). L'API key è ora protetta. Risolti gli errori di configurazione",
+        "es": "Paquetes nuevos\nSe necesita Admin 7.6.20+. Se corrigió la base de CI (faltan tipos de nodos). La clave API ya está protegida. Corregió los errores de esquema de la configuración",
+        "pl": "Zaktualizowane pakiety\nWymagany jest Admin 7.6.20+. Naprawiono kompilację na CI (brakujące typy węzłów). Klucz API jest teraz chroniony. Naprawiono błędy schematu konfiguracji",
+        "uk": "Оновлені пакети\nАдміністратор 7.6.20+ обов'язковий. Виправлено збірку на CI (відсутні типи вузлів). Ключ API тепер захищений. Виправлені помилки схеми конфігурації",
+        "zh-cn": "更新的软件包\n需要管理员 7.6.20+。修复了 CI 上的构建（缺少节点类型）。API 密钥现已受到保护。修复了配置的架构错误"
+      },
       "2.0.1": {
         "en": "The weather widget is now shown as a live preview in the admin configuration too",
         "de": "Das Wetter-Widget gibt es jetzt auch als Live-Vorschau im Admin-Menü",
@@ -80,19 +93,6 @@
         "pl": "Widget został częściowo przeniesiony do Typescript",
         "uk": "Віджет був частково переданий до Typescript",
         "zh-cn": "部件部分移植到 Typescription"
-      },
-      "1.1.2": {
-        "en": "Removed withStyles package",
-        "de": "MitStyles-Paket entfernt",
-        "ru": "Удаленный пакет со Стайлз",
-        "pt": "Removido com pacote Estilos",
-        "nl": "Verwijderd metStyles pakket",
-        "fr": "Enlever avec le paquetStyles",
-        "it": "Rimosso con pacchettoStyles",
-        "es": "Retire el paquete de estilos",
-        "pl": "Usunięty z pakietem Styles",
-        "uk": "Видаліть пакет \"Стиль\"",
-        "zh-cn": "用 Styles 软件包删除"
       }
     },
     "titleLang": {
@@ -197,7 +197,9 @@
     "language": "",
     "imperial": false
   },
-  "protectedNative": ["apikey"],
+  "protectedNative": [
+    "apikey"
+  ],
   "objects": [],
   "instanceObjects": [
     {

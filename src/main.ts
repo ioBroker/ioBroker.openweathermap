@@ -176,7 +176,7 @@ class Openweathermap extends Adapter {
                 instObj.common.schedule = `${Math.floor(Math.random() * 60)} * * * *`;
                 this.log.info(`Default schedule found and adjusted to spread calls better over the full hour!`);
                 await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, instObj);
-                this.terminate ? this.terminate() : process.exit(0);
+                this.terminate();
                 return;
             }
         } catch (err) {

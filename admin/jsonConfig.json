@@ -6,48 +6,62 @@
             "type": "text",
             "label": "API key",
             "help": "Get your key here",
+            "xs": 12,
             "sm": 12,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "_staticText": {
             "type": "staticText",
             "text": "API-Key needs up to 2 hours to be activated. Please be patient.",
-            "sm": 12
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "location": {
             "newLine": true,
             "type": "coordinates",
             "label": "Place",
-            "system": true,
-            "browser": true,
+            "xs": 12,
             "sm": 12,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "language": {
             "newLine": true,
             "type": "language",
             "label": "Language",
             "system": true,
+            "xs": 12,
             "sm": 12,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "imperial": {
             "newLine": true,
             "type": "checkbox",
             "label": "Use english metric system",
+            "xs": 12,
             "sm": 12,
             "md": 6,
-            "lg": 4
+            "lg": 4,
+            "xl": 4
         },
         "_previewHeader": {
             "newLine": true,
             "type": "header",
             "text": "Weather preview",
             "size": 2,
-            "sm": 12
+            "xs": 12,
+            "sm": 12,
+            "md": 12,
+            "lg": 12,
+            "xl": 12
         },
         "_preview": {
             "newLine": true,
@@ -56,10 +70,11 @@
             "url": "custom/customComponents.js",
             "name": "ConfigCustomOpenWeatherMapSet/Components/ConfigWeather",
             "guiApi": 2,
-            "days": 6,
+            "xs": 12,
             "sm": 12,
             "md": 12,
-            "lg": 8
+            "lg": 8,
+            "xl": 8
         }
     }
 }

@@ -20,6 +20,10 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Updated packages
+* (@GermanBluefox) Admin 7.6.20+ is required. Fixed the build on CI (missing node types). The API key is protected now. Fixed the schema errors of the configuration
+
 ### 2.0.1 (2026-09-08)
 * (@GermanBluefox) The weather widget is now shown as a live preview in the admin configuration too
 

@@ -6,7 +6,7 @@
         "checkJs": false,
         "noEmit": false,
         "declaration": false,
-        "types": ["@iobroker/types"]
+        "types": ["@iobroker/types", "node"]
     },
     "include": ["src/**/*.ts"],
     "exclude": ["src/matter/ControllerNode.ts", "src/**/*.test.ts"]

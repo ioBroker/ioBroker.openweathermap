@@ -20,6 +20,9 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Updated packages
+
 ### 2.0.2 (2026-10-13)
 * (@GermanBluefox) Updated packages
 * (@GermanBluefox) Admin 7.6.20+ is required. Fixed the build on CI (missing node types). The API key is protected now. Fixed the schema errors of the configuration

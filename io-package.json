@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "2.0.2",
+    "version": "2.0.3",
     "news": {
+      "2.0.3": {
+        "en": "Updated packages",
+        "de": "Neue Pakete",
+        "ru": "Обновленные пакеты",
+        "pt": "Pacotes novos",
+        "nl": "Bijgewerkte pakketten",
+        "fr": "Packages mis à jour",
+        "it": "Pacchi nuovi",
+        "es": "Paquetes nuevos",
+        "pl": "Zaktualizowane pakiety",
+        "uk": "Оновлені пакети",
+        "zh-cn": "更新的软件包"
+      },
       "2.0.2": {
         "en": "Updated packages\nAdmin 7.6.20+ is required. Fixed the build on CI (missing node types). The API key is protected now. Fixed the schema errors of the configuration",
         "de": "Neue Pakete\nAdmin 7.6.20+ ist nötig. CI-Build behoben (fehlende Knotentypen). Der API-Key ist nun geschützt. Schemafehler der Konfiguration behoben",
@@ -80,19 +93,6 @@
         "pl": "Widget został całkowicie przeniesiony do TypeScript\nBackend został całkowicie przeniesiony do TypeScript",
         "uk": "Віджет був повністю переданий до TypeScript\nBackend був повністю відреставрований на TypeScript",
         "zh-cn": "部件被完全移植到 TypeScript\n后端已完全移植到 TypeScript"
-      },
-      "1.2.0": {
-        "en": "Widget was partly ported to Typescript",
-        "de": "Widget wurde teilweise zu Typescript portiert",
-        "ru": "Виджет был частично перенесен в Typescript",
-        "pt": "Widget foi parcialmente portado para Typescript",
-        "nl": "Widget is gedeeltelijk geporteerd naar Typescript",
-        "fr": "Widget a été partiellement porté sur Typescript",
-        "it": "Widget è stato parzialmente portato a Typescript",
-        "es": "Widget fue parcialmente portado a Tiposcript",
-        "pl": "Widget został częściowo przeniesiony do Typescript",
-        "uk": "Віджет був частково переданий до Typescript",
-        "zh-cn": "部件部分移植到 Typescription"
       }
     },
     "titleLang": {

@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.0.3 (2026-10-17)
 * (@GermanBluefox) Updated packages
 
 ### 2.0.2 (2026-10-13)
@@ -39,10 +39,6 @@ You need an api key to access the data. The api key you can get for free after r
 
 ### 1.4.0 (2025-08-03)
 * (@tt-tom17) Added wind direction as text
-
-### 1.3.0 (2025-05-21)
-* (bluefox) Widget was completely ported to TypeScript
-* (bluefox) Backend was completely ported to TypeScript
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

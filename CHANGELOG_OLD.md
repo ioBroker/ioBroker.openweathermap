@@ -1,4 +1,8 @@
 # Older changes
+## 1.3.0 (2025-05-21)
+* (bluefox) Widget was completely ported to TypeScript
+* (bluefox) Backend was completely ported to TypeScript
+
 ## 1.2.0 (2024-07-23)
 * (bluefox) Widget was partly ported to TypeScript
 

@@ -1,9 +1,39 @@
 import React from 'react';
 
-import type { RxRenderWidgetProps, RxWidgetInfo, VisRxWidgetState } from '@iobroker/types-vis-2';
+import type { RxRenderWidgetProps, RxWidgetInfo, VisRxWidgetProps, VisRxWidgetState } from '@iobroker/types-vis-2';
 import type VisRxWidget from '@iobroker/types-vis-2/visRxWidget';
+import { I18n } from '@iobroker/gui-components';
 
 import WeatherComponent from './react-weather/Weather';
+import translations from './translations';
+
+let translationsRegistered = false;
+
+/**
+ * vis-2 < 2.20 does not fill the dictionary of the bundled I18n, so register the widget words
+ * (with the `openweathermap_` prefix, as vis-2 does it) by ourselves. Existing words are not overwritten.
+ */
+function registerTranslations(): void {
+    if (translationsRegistered) {
+        return;
+    }
+    translationsRegistered = true;
+    Object.keys(translations).forEach(lang => {
+        if (lang === 'prefix') {
+            return;
+        }
+        const words = translations[lang as keyof typeof translations] as Record<string, string>;
+        const prefixed: Record<string, string> = {};
+        const existing = window.i18nTranslations?.[lang as ioBroker.Languages] || {};
+        Object.keys(words).forEach(word => {
+            const key = `openweathermap_${word}`;
+            if (!existing[key]) {
+                prefixed[key] = words[word];
+            }
+        });
+        I18n.extendTranslations(prefixed, lang as ioBroker.Languages);
+    });
+}
 
 interface WeatherState extends VisRxWidgetState {
     tempUnit: '°C' | '°F';
@@ -21,6 +51,16 @@ interface WeatherRxData {
 
 export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<WeatherRxData, WeatherState> {
     private askedInstance: string | undefined;
+
+    constructor(props: VisRxWidgetProps) {
+        super(props);
+        registerTranslations();
+        // vis-2 < 2.20 does not set the language of the bundled I18n
+        const lang = props.context?.lang || props.context?.systemConfig?.common?.language || 'en';
+        if (I18n.getLanguage() !== lang) {
+            I18n.setLanguage(lang);
+        }
+    }
 
     static getWidgetInfo(): RxWidgetInfo {
         return {

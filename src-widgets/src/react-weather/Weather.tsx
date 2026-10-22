@@ -222,7 +222,9 @@ export default function Weather({
                                 className={cls.wrapperBottomBlockCurrent}
                                 key={idx}
                             >
-                                <div className={cls.date}>{I18n.t(`openweathermap_${getWeekDay(date, idx)}`)}</div>
+                                <div className={cls.date}>
+                                    {I18n.t(`openweathermap_${getWeekDay(date, idx)}`).replace('openweathermap_', '')}
+                                </div>
                                 <div>
                                     {secIcon ? (
                                         <Icon

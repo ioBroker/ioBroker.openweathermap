@@ -21,7 +21,8 @@ You need an api key to access the data. The api key you can get for free after r
 -->
 ## Changelog
 ### **WORK IN PROGRESS**
-* (GermanBluefox) Fixed raw translation keys (e.g. openweathermap_Wed) in the widget with vis-2 2.15.x (#750)
+* (@GermanBluefox) Fixed raw translation keys (e.g. openweathermap_Wed) in the widget with vis-2 2.15.x (#750)
+* (@GermanBluefox) The widget requires vis-2 2.20.2 or newer, if vis-2 is installed
 
 ### 2.0.3 (2026-10-17)
 * (@GermanBluefox) Updated packages

@@ -161,6 +161,9 @@
         "admin": ">=7.6.20"
       }
     ],
+    "ifInstalledDependencies": {
+      "vis-2": ">=2.20.2"
+    },
     "plugins": {
       "sentry": {
         "dsn": "https://bc7b672977224d73935e25afee3bdc87@sentry.iobroker.net/175"

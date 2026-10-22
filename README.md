@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.0.4 (2026-10-22)
 * (@GermanBluefox) Fixed raw translation keys (e.g. openweathermap_Wed) in the widget with vis-2 2.15.x (#750)
 * (@GermanBluefox) The widget requires vis-2 2.20.2 or newer, if vis-2 is installed
 
@@ -40,9 +40,6 @@ You need an api key to access the data. The api key you can get for free after r
 * (@JDCodes) Fixed NaN for rain and snow
 * (@GermanBluefox) Minimal supported Node.js version is now 22
 * (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now
-
-### 1.4.0 (2025-08-03)
-* (@tt-tom17) Added wind direction as text
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

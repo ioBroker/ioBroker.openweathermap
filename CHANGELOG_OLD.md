@@ -1,4 +1,7 @@
 # Older changes
+## 1.4.0 (2025-08-03)
+* (@tt-tom17) Added wind direction as text
+
 ## 1.3.0 (2025-05-21)
 * (bluefox) Widget was completely ported to TypeScript
 * (bluefox) Backend was completely ported to TypeScript

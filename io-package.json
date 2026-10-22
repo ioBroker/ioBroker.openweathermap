@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "2.0.3",
+    "version": "2.0.4",
     "news": {
+      "2.0.4": {
+        "en": "Fixed raw translation keys (e.g. openweathermap_Wed) in the widget with vis-2 2.15.x (#750)\nThe widget requires vis-2 2.20.2 or newer, if vis-2 is installed",
+        "de": "Raw-Keys (z. B. OpenWeatherMap_Wed) im Widget mit Vis-2 2.15.x korrigiert (#750)\nDas Widget benötigt vis-2 2.20.2 oder neuer, falls vis-2",
+        "ru": "Исправлены необработанные ключи перевода (например, OpenWeatherMap_WED) в виджете с помощью vis-2 2.15.x (#750)\nДля виджета требуется vis-2 2.20.2 или новее, если установлена версия vis-2",
+        "pt": "Chaves de tradução brutas fixas (ex: openweathermap_wed) no widget com vis-2 2.15.x (#750)\nO widget exige o vis-2 2.20.2 ou mais novo, se instalado",
+        "nl": "Vaste onbewerkte vertaalsleutels (bijvoorbeeld OpenWeatherMap_wed) in de widget met vis-2 2.15.x (#750)\nDe widget vereist vis-2 2.20.2 of nieuwer, als vis-2 is geïnstalleerd",
+        "fr": "Correction de clés de traduction brutes (OpenWeatherMap_Wed) dans le widget avec vis-2 2.15.x (#750)\nLe widget nécessite Vis-2 2.20.2 ou plus, si Vis-2 est installé",
+        "it": "Chiavi grezze fisse (ad es. OpenWeathermap_WED) nel widget con vis-2 2.15.x (#750)\nIl widget richiede vis-2 2.20.2 o successivo, se è installato",
+        "es": "Se corrigieron las claves de traducción sin procesar (p. ej. OpenWeathermap_Wed) en el widget con vis-2 2.15.x (#750)\nEl widget requiere la vis-2 2.20.2 o posterior, si la vis-2 está instalada",
+        "pl": "Naprawiono surowe klucze translacji (np. OpenWeatherMap_Wed) w widżecie z vis-2 2.15.x (#750)\nWidżet wymaga vis-2 2.20.2 lub nowszego, jeśli zainstalowany jest vis-2",
+        "uk": "Виправлені необроблені ключі перекладу (наприклад, OpenWeatherMap_Wed) у віджеті з vis-2 2.15.x (#750)\nВіджет вимагає vis-2 2.20.2 або новішої версії, якщо встановлено vis-2",
+        "zh-cn": "修复了使用 vis-2 2.15.x 的小工具中的原始翻译密钥（例如 OpenWeatherMap_WED）(#750)\n如果安装了 vis-2，则该小工具需要 vis-2 2.20.2 或更高版本"
+      },
       "2.0.3": {
         "en": "Updated packages",
         "de": "Neue Pakete",
@@ -80,19 +93,6 @@
         "pl": "Dodano kierunek wiatru jako tekst",
         "uk": "Додано напрямок вітру як текст",
         "zh-cn": "添加风向为文本"
-      },
-      "1.3.0": {
-        "en": "Widget was completely ported to TypeScript\nBackend was completely ported to TypeScript",
-        "de": "Widget wurde vollständig zu TypeScript portiert\nBackend wurde komplett zu TypeScript portiert",
-        "ru": "Widget полностью портируется на TypeScript\nBackend полностью портируется на TypeScript",
-        "pt": "Widget foi completamente portado para TypeScript\nBackend foi completamente portado para TypeScript",
-        "nl": "Widget is volledig naar TypeScript geporteerd\nBackend is volledig geporteerd naar TypeScript",
-        "fr": "Widget a été complètement porté sur TypeScript\nBackend a été complètement porté sur TypeScript",
-        "it": "Widget è stato completamente portato a TypeScript\nBackend è stato completamente portato a TypeScript",
-        "es": "Widget fue completamente portado a TipoScript\nBackend fue completamente portado a TipoScript",
-        "pl": "Widget został całkowicie przeniesiony do TypeScript\nBackend został całkowicie przeniesiony do TypeScript",
-        "uk": "Віджет був повністю переданий до TypeScript\nBackend був повністю відреставрований на TypeScript",
-        "zh-cn": "部件被完全移植到 TypeScript\n后端已完全移植到 TypeScript"
       }
     },
     "titleLang": {
@@ -162,7 +162,7 @@
       }
     ],
     "ifInstalledDependencies": {
-      "vis-2": ">=2.20.2"
+      "vis-2": ">=2.12.8"
     },
     "plugins": {
       "sentry": {
@@ -186,9 +186,6 @@
     "licenseInformation": {
       "type": "free",
       "license": "MIT"
-    },
-    "ifInstalledDependencies": {
-      "vis-2": ">=2.12.8"
     },
     "restartAdapters": [
       "vis-2"

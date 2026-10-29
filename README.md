@@ -16,6 +16,16 @@ Fetches 5 days weather forecast from [https://openweathermap.org/](openweatherma
 
 You need an api key to access the data. The api key you can get for free after registration [here](https://home.openweathermap.org/api_keys).
 
+## vis-2 widget
+The widget "Weather" shows the current weather and the forecast for up to six days. The button "i" opens a dialog
+with more details (wind, pressure, precipitation). The temperature and the humidity can be taken from a real sensor
+instead of OpenWeatherMap (settings "Current temperature ID" and "Current humidity ID").
+
+The size of the icons is set with "Icon size (current)" and "Icon size (days)" in pixels. Empty values keep the
+default sizes.
+
+![vis-2 widget](img/vis2-widget-weather.png)
+
 <!--
 	### **WORK IN PROGRESS**
 -->

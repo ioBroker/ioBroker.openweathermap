@@ -61,6 +61,10 @@ interface WeatherProps {
     tempUnit: '°C' | '°F';
     pressureUnit: 'hPa' | 'PSI';
     theme: IobTheme;
+    /** Size of the icon of the current weather in px. Default: 40 (100 if the days are hidden) */
+    iconSize?: number;
+    /** Size of the icons of the forecast days in px. Default: 20 */
+    daysIconSize?: number;
 }
 
 export default function Weather({
@@ -75,6 +79,8 @@ export default function Weather({
     theme,
     tempUnit,
     pressureUnit,
+    iconSize,
+    daysIconSize,
 }: WeatherProps): React.JSX.Element | null {
     const [dialogOpen, setDialogOpen] = useState(false);
     const mapping = useRef<{
@@ -190,7 +196,10 @@ export default function Weather({
                 style={{ display: hideCurrent ? 'none' : undefined }}
             >
                 <div className={cls.iconWrapper}>
-                    <div className={Utils.clsx(cls.iconWeatherWrapper, (!daysCount || hideDays) && cls.noteArrayIcon)}>
+                    <div
+                        className={Utils.clsx(cls.iconWeatherWrapper, (!daysCount || hideDays) && cls.noteArrayIcon)}
+                        style={iconSize ? { width: iconSize, height: iconSize } : undefined}
+                    >
                         {mainIcon ? (
                             <Icon
                                 className={cls.iconWeather}
@@ -230,6 +239,9 @@ export default function Weather({
                                         <Icon
                                             className={cls.iconWeatherMin}
                                             src={secIcon}
+                                            style={
+                                                daysIconSize ? { width: daysIconSize, height: daysIconSize } : undefined
+                                            }
                                         />
                                     ) : null}
                                 </div>

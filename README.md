@@ -20,6 +20,9 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Added settings for the icon size of the current weather and of the forecast days in the vis-2 widget
+
 ### 2.0.4 (2026-10-22)
 * (@GermanBluefox) Fixed raw translation keys (e.g. openweathermap_Wed) in the widget with vis-2 2.15.x (#750)
 * (@GermanBluefox) The widget requires vis-2 2.20.2 or newer, if vis-2 is installed

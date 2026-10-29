@@ -59,5 +59,8 @@
     "current_temp_oid": "ID da temperatura atual",
     "current_temp_oid_tooltip": "Você pode fornecer o OID do sensor real",
     "current_humidity_oid": "ID de umidade atual",
-    "title": "Título"
+    "title": "Título",
+    "icon_size": "Tamanho do ícone (atual)",
+    "days_icon_size": "Tamanho dos ícones (dias)",
+    "icon_size_tooltip": "Tamanho em pixels. Vazio = tamanho padrão"
 }

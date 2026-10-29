@@ -20,7 +20,7 @@ You need an api key to access the data. The api key you can get for free after r
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.1.0 (2026-10-29)
 * (@GermanBluefox) Added settings for the icon size of the current weather and of the forecast days in the vis-2 widget
 
 ### 2.0.4 (2026-10-22)
@@ -36,13 +36,6 @@ You need an api key to access the data. The api key you can get for free after r
 
 ### 2.0.1 (2026-09-08)
 * (@GermanBluefox) The weather widget is now shown as a live preview in the admin configuration too
-
-### 2.0.0 (2026-08-16)
-* (@JDCodes) Added feels_like temperature, visibility and the day name (long and short) as text
-* (@JDCodes) Daily rain and snow are now totals and not averages
-* (@JDCodes) Fixed NaN for rain and snow
-* (@GermanBluefox) Minimal supported Node.js version is now 22
-* (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

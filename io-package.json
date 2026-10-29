@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "2.0.4",
+    "version": "2.1.0",
     "news": {
+      "2.1.0": {
+        "en": "Added settings for the icon size of the current weather and of the forecast days in the vis-2 widget",
+        "de": "Einstellungen für die Icongröße des Wetters und der Prognosetage im Vis-2-Widget hinzugefügt",
+        "ru": "Добавлены настройки размера значков текущей погоды и прогнозируемых дней в виджете vis-2",
+        "pt": "Adição do tamanho do ícone do clima atual e dos dias previstos no widget vis-2",
+        "nl": "Instellingen toegevoegd voor de pictogramgrootte van het huidige weer en van de voorspellingsdagen in de vis-2-widget",
+        "fr": "Ajout de paramètres pour la taille des icônes de la météo actuelle et des prévisions dans le widget Vis-2",
+        "it": "Aggiunte impostazioni per l'icona del meteo attuale e dei giorni previsti nel widget vis-2",
+        "es": "Se han añadido ajustes para el tamaño del icono del tiempo actual y de los días previstos en el widget vis-2",
+        "pl": "Dodano ustawienia rozmiaru ikony bieżącej pogody i dni prognozy w widżecie vis-2",
+        "uk": "Додано налаштування розміру піктограми поточної погоди та прогнозних днів у віджеті vis-2",
+        "zh-cn": "在 vis-2 控件中添加了当前天气和预报天数的图标大小的设置"
+      },
       "2.0.4": {
         "en": "Fixed raw translation keys (e.g. openweathermap_Wed) in the widget with vis-2 2.15.x (#750)\nThe widget requires vis-2 2.20.2 or newer, if vis-2 is installed",
         "de": "Raw-Keys (z. B. OpenWeatherMap_Wed) im Widget mit Vis-2 2.15.x korrigiert (#750)\nDas Widget benötigt vis-2 2.20.2 oder neuer, falls vis-2",
@@ -80,19 +93,6 @@
         "pl": "Dodano feels_like, widoczność oraz nazwy dni (pełne i skrócone) jako tekst. Dzienne wartości deszczu i śniegu są teraz sumą, a nie średnią. Naprawiono błąd NaN dla deszczu i śniegu.",
         "uk": "Додано feels_like, видимість та назви днів (повна і коротка) як текст. Добові значення дощу та снігу тепер відображаються як сума, а не середнє. Виправлено NaN для дощу та снігу.",
         "zh-cn": "新增 feels_like、能见度，以及长短形式的日期文本。每日降雨和降雪数值现在为总量而非平均值。修复了雨雪的 NaN 问题。"
-      },
-      "1.4.0": {
-        "en": "Added wind direction as text",
-        "de": "Windrichtung als Text hinzugefügt",
-        "ru": "Добавлено направление ветра в виде текста",
-        "pt": "Adicionado direção do vento como texto",
-        "nl": "Windrichting toegevoegd als tekst",
-        "fr": "Ajout de la direction du vent comme texte",
-        "it": "Aggiunta direzione del vento come testo",
-        "es": "Dirección de viento agregada como texto",
-        "pl": "Dodano kierunek wiatru jako tekst",
-        "uk": "Додано напрямок вітру як текст",
-        "zh-cn": "添加风向为文本"
       }
     },
     "titleLang": {

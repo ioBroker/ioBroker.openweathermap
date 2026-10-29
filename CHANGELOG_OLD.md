@@ -1,4 +1,11 @@
 # Older changes
+## 2.0.0 (2026-08-16)
+* (@JDCodes) Added feels_like temperature, visibility and the day name (long and short) as text
+* (@JDCodes) Daily rain and snow are now totals and not averages
+* (@JDCodes) Fixed NaN for rain and snow
+* (@GermanBluefox) Minimal supported Node.js version is now 22
+* (ioBroker-Bot) Adapter requires js-controller >= 6.0.11 now
+
 ## 1.4.0 (2025-08-03)
 * (@tt-tom17) Added wind direction as text
 

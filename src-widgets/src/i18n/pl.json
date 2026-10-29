@@ -59,5 +59,8 @@
     "current_temp_oid": "Identyfikator aktualnej temperatury",
     "current_temp_oid_tooltip": "Możesz podać OID prawdziwego czujnika",
     "current_humidity_oid": "Aktualny identyfikator wilgotności",
-    "title": "Tytuł"
+    "title": "Tytuł",
+    "icon_size": "Rozmiar ikony (bieżąca)",
+    "days_icon_size": "Rozmiar ikon (dni)",
+    "icon_size_tooltip": "Rozmiar w pikselach. Puste = rozmiar domyślny"
 }

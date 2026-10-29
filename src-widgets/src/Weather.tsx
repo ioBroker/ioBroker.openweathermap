@@ -47,6 +47,8 @@ interface WeatherRxData {
     instance: `${number}`;
     current_temp_oid: string;
     current_humidity_oid: string;
+    iconSize: number | string;
+    daysIconSize: number | string;
 }
 
 export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<WeatherRxData, WeatherState> {
@@ -119,6 +121,26 @@ export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<
                             tooltip: 'current_temp_oid_tooltip',
                             type: 'id',
                         },
+                        {
+                            name: 'iconSize',
+                            label: 'icon_size',
+                            tooltip: 'icon_size_tooltip',
+                            type: 'slider',
+                            min: 20,
+                            max: 200,
+                            step: 2,
+                            hidden: 'data.type === "days"',
+                        },
+                        {
+                            name: 'daysIconSize',
+                            label: 'days_icon_size',
+                            tooltip: 'icon_size_tooltip',
+                            type: 'slider',
+                            min: 10,
+                            max: 120,
+                            step: 2,
+                            hidden: 'data.type === "current"',
+                        },
                     ],
                 },
             ],
@@ -186,6 +208,8 @@ export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<
                 theme={this.props.context.theme}
                 tempUnit={this.state.tempUnit || '°C'}
                 pressureUnit={this.state.pressureUnit || 'hPa'}
+                iconSize={parseInt(this.state.rxData.iconSize as string, 10) || undefined}
+                daysIconSize={parseInt(this.state.rxData.daysIconSize as string, 10) || undefined}
             />
         );
 

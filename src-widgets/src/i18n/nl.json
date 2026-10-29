@@ -59,5 +59,8 @@
     "current_temp_oid": "Huidige temperatuur-ID",
     "current_temp_oid_tooltip": "U kunt de OID van een echte sensor opgeven",
     "current_humidity_oid": "Huidige vochtigheids-ID",
-    "title": "Titel"
+    "title": "Titel",
+    "icon_size": "Pictogramgrootte (huidig)",
+    "days_icon_size": "Pictogramgrootte (dagen)",
+    "icon_size_tooltip": "Grootte in pixels. Leeg = standaardgrootte"
 }

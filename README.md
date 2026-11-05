@@ -32,6 +32,7 @@ default sizes.
 ## Changelog
 ### **WORK IN PROGRESS**
 * (@GermanBluefox) The place can be selected on a map in the instance settings (needs an admin version with map support for the coordinates field)
+* (@GermanBluefox) Updated packages
 
 ### 2.1.0 (2026-10-29)
 * (@GermanBluefox) Added settings for the icon size of the current weather and of the forecast days in the vis-2 widget

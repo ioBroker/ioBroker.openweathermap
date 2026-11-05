@@ -1,4 +1,7 @@
 # Older changes
+## 2.0.1 (2026-09-08)
+* (@GermanBluefox) The weather widget is now shown as a live preview in the admin configuration too
+
 ## 2.0.0 (2026-08-16)
 * (@JDCodes) Added feels_like temperature, visibility and the day name (long and short) as text
 * (@JDCodes) Daily rain and snow are now totals and not averages

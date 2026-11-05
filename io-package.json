@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "openweathermap",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "news": {
+      "2.2.0": {
+        "en": "The place can be selected on a map in the instance settings (needs an admin version with map support for the coordinates field)\nUpdated packages",
+        "de": "Der Ort kann in den Instanzeinstellungen auf der Karte ausgewählt werden (Admin-Version mit Koordinaten)\nNeue Pakete",
+        "ru": "Место можно выбрать на карте в настройках экземпляра (требуется версия для администратора с поддержкой карты для поля координат)\nОбновленные пакеты",
+        "pt": "O local pode ser selecionado em um mapa nas configurações da instância (requer uma versão de administrador para coordenadas)\nPacotes novos",
+        "nl": "De plaats kan worden geselecteerd op een kaart in de instantie-instellingen (hiervoor is een beheerdersversie nodig met kaartondersteuning voor het coördinatenveld)\nBijgewerkte pakketten",
+        "fr": "Le lieu peut être sélectionné sur une carte dans les paramètres de l'instance (nécessite une version admin avec support cartographique)\nPackages mis à jour",
+        "it": "Il luogo può essere selezionato su una mappa nelle impostazioni dell'istanza (serve una versione admin)\nPacchi nuovi",
+        "es": "El lugar se puede seleccionar en el mapa en la configuración de la instancia (necesita una versión de administrador compatible con el campo de coordenadas)\nPaquetes nuevos",
+        "pl": "Miejsce można wybrać na mapie w ustawieniach instancji (wymaga wersji administracyjnej z obsługą mapy dla pola współrzędnych)\nZaktualizowane pakiety",
+        "uk": "Місце можна вибрати на карті в налаштуваннях екземпляра (потрібна версія адміністратора з підтримкою карти для поля координат)\nОновлені пакети",
+        "zh-cn": "可以在实例设置中在地图上选择该地点（需要具有坐标字段地图支持的管理员版本）\n更新的软件包"
+      },
       "2.1.0": {
         "en": "Added settings for the icon size of the current weather and of the forecast days in the vis-2 widget",
         "de": "Einstellungen für die Icongröße des Wetters und der Prognosetage im Vis-2-Widget hinzugefügt",
@@ -80,19 +93,6 @@
         "pl": "Dodano odczuwalną temperaturę, widoczność i nazwę dnia (długą i krótką) jako tekst\nCodzienne opady deszczu i śniegu są teraz podawane jako sumy, a nie wartości średnie\nNaprawiono NaN dla deszczu i śniegu\nMinimalna obsługiwana wersja Node.js to obecnie 22\nAdapter wymaga teraz js-controller >= 6.0.11",
         "uk": "Додано відчуття температури, видимості та назви дня (довгі та короткі) у вигляді тексту\nЩоденні показники дощу та снігу тепер відображаються як загальні, а не середні значення\nВиправлено NaN для дощу та снігу\nМінімальна підтримувана версія Node.js тепер 22.\nАдаптер тепер вимагає js-controller >= 6.0.11",
         "zh-cn": "添加了体感温度、能见度和日期名称（全称和简称）文本\n每日降雨量和降雪量现在以总量而非平均值来衡量。\n已修复雨雪的NaN值\n目前支持的最低 Node.js 版本为 22。\n适配器现在需要 js-controller >= 6.0.11。"
-      },
-      "1.5.0": {
-        "en": "Added feels_like temperature, visibility, day long and short as text. Daily Rain and Snow are now total and not average. NaN fix for rain and snow",
-        "de": "Fühlt-sich-an-Temperatur, Sichtweite, Tagesname lang und kurz als Text hinzugefügt. Täglicher Regen und Schnee sind nun Summen und nicht Durchschnitte. NaN-Fehler für Regen und Schnee behoben.",
-        "ru": "Добавлены feels_like, видимость, названия дня (полное и краткое). Суточные значения дождя и снега теперь отображаются как сумма, а не как среднее. Исправлено NaN для дождя и снега.",
-        "pt": "Adicionados feels_like, visibilidade e nomes de dias (longo e curto) como texto. Valores diários de chuva e neve agora são totais e não médias. Corrigido NaN para chuva e neve.",
-        "nl": "Feels_like, zicht en dagnaam (lang en kort) als tekst toegevoegd. Dagelijkse regen- en sneeuwwaarden zijn nu totalen in plaats van gemiddelden. NaN-fout voor regen en sneeuw opgelost.",
-        "fr": "Ajout de feels_like, visibilité et noms de jours (long et court) en texte. Les valeurs quotidiennes de pluie et de neige sont désormais totales et non moyennes. Correction du NaN pour pluie et neige.",
-        "it": "Aggiunti feels_like, visibilità e nomi dei giorni (lunghi e brevi) come testo. I valori giornalieri di pioggia e neve sono ora totali e non medi. Corretto NaN per pioggia e neve.",
-        "es": "Añadidos feels_like, visibilidad y nombres de días (largo y corto) como texto. Los valores diarios de lluvia y nieve ahora son totales y no promedios. Corregido NaN para lluvia y nieve.",
-        "pl": "Dodano feels_like, widoczność oraz nazwy dni (pełne i skrócone) jako tekst. Dzienne wartości deszczu i śniegu są teraz sumą, a nie średnią. Naprawiono błąd NaN dla deszczu i śniegu.",
-        "uk": "Додано feels_like, видимість та назви днів (повна і коротка) як текст. Добові значення дощу та снігу тепер відображаються як сума, а не середнє. Виправлено NaN для дощу та снігу.",
-        "zh-cn": "新增 feels_like、能见度，以及长短形式的日期文本。每日降雨和降雪数值现在为总量而非平均值。修复了雨雪的 NaN 问题。"
       }
     },
     "titleLang": {

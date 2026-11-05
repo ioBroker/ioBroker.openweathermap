@@ -25,6 +25,8 @@
             "newLine": true,
             "type": "coordinates",
             "label": "Place",
+            "map": true,
+            "mapZoom": 10,
             "xs": 12,
             "sm": 12,
             "md": 6,

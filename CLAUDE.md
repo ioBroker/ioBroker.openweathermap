@@ -5,10 +5,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run npm            # install root + src-widgets + src-admin deps (widgets need `npm i -f`)
+npm run npm            # install root + src-widgets + src-admin + src-webcomponents deps (widgets need `npm i -f`)
 npm run tsc            # compile the backend: src/main.ts -> main.js (tsconfig.build.json)
-npm run build          # tsc + `node tasks.ts` (widget build -> widgets/, admin build -> admin/custom/)
-npm run lint           # eslint for all three (root, src-widgets, src-admin - each has its own config)
+npm run build          # tsc + `node tasks.ts` (widget -> widgets/, admin -> admin/custom/, web component -> admin/webcomponents/)
+npm run build:wc       # only the web component (`node tasks.ts --wc`)
+npm run lint           # eslint for root, src-widgets, src-admin and src-webcomponents (each has its own config)
 npm test               # test:unit + test:package
 npm run test:integration   # starts a real js-controller instance
 npm run test-gui       # test/widgets.gui.js, needs a built widget (npm run build first)
@@ -37,6 +38,8 @@ node tasks.ts --4-clean-admin # rm src-admin/build + admin/custom/
 node tasks.ts --5-npm-admin   # npm i in src-admin
 node tasks.ts --6-build-admin # vite build
 node tasks.ts --7-copy-admin  # copy src-admin/build -> admin/custom/ (+ generate its i18n)
+
+node tasks.ts --wc            # web component: clean, npm i if missing, vite build, copy -> admin/webcomponents/
 ```
 
 Widget dev server: `cd src-widgets && npm start` (vite, port 4173). The admin component has no dev
@@ -44,11 +47,12 @@ server — iterate on the weather UI in the widget dev server, then rerun steps 
 
 ## Architecture
 
-Three independent builds live in this repo:
+Four independent builds live in this repo:
 
 1. **Backend adapter** — `src/main.ts`, compiled by `npm run tsc` to `outDir` from `tsconfig.build.json`. Never edit the compiled JS: contributors regularly send PRs against it, and those changes have to be ported into `src/main.ts` and recompiled, not merged as-is. (The output location is mid-migration from the repo root to `build/`; `package.json` `main`/`files` still name `main.js` and need to follow.)
 2. **vis-2 widget** — `src-widgets/` → `widgets/openweathermap/` (via `node tasks.ts`).
 3. **Admin jsonConfig component** — `src-admin/` → `admin/custom/` (via `node tasks.ts`). See *Admin weather preview* below.
+4. **Web component** — `src-webcomponents/` → `admin/webcomponents/` (via `node tasks.ts` or `--wc`). See *Web component* below.
 
 ### io-package.json drives the backend
 
@@ -101,12 +105,31 @@ Consequences of that shared import:
 - The bundle carries its own fallback copy of `@iobroker/gui-components`, so **rebuild after every
   library update** — a stale build renders raw translation keys.
 
+### Web component
+
+`<iob-openweathermap-weather>` (`@iobroker/web-components`) shows the same weather in Aura, admin, ioBroker.devices
+and every other host; `common.webComponents` in `io-package.json` lists its manifest
+`webcomponents/openweathermap-weather.json`. Like `widgets/` and `admin/custom/`, the output is not committed - it is
+built by `prepublishOnly`.
+
+- Plain React 19 + CSS in a shadow root, no MUI/emotion/gui-components: React comes from the host
+  (`lib/esm/react-19.js`, `REACT_SPECIFIERS` external in `src-webcomponents/vite.config.ts`), so the module is one
+  file. The weather icons of `src-widgets/src/react-weather/iconsWeather/` are compiled in (`?raw`).
+- It reads the same states as the widget and writes none; units come from the objects of `forecast.current.*`,
+  the decimal separator from `system.config`. A click emits `openweathermap-weather-click` and then opens the
+  details via `openDialog()`.
+- The build writes the manifest from `src-webcomponents/src/manifest.ts` and fails if `checkManifest()` rejects it. Its `name` is the
+  word `weather` of `src-widgets/src/i18n/` - the label of the vis-2 widget - so vis-2 offers only its native widget.
+  The labels and the words the element shows come from the same dictionary (picked at build time into
+  `__OWM_WORDS__`); only the words the widget lacks live in `src-webcomponents/src/i18n.ts`.
+
 ## Translations
 
-Four separate places, all eleven languages (`en de ru pt nl fr it es pl uk zh-cn`) must be kept in sync — Weblate translates them:
+Five separate places, all eleven languages (`en de ru pt nl fr it es pl uk zh-cn`) must be kept in sync — Weblate translates them:
 
 - `admin/i18n/*.json` — labels for `admin/jsonConfig.json` (which sets `"i18n": true`). **The key is the literal English string used in `jsonConfig.json`** — a label that does not match a key verbatim silently stays untranslated. The admin preview component uses this dictionary too, for its own strings.
 - `src-widgets/src/i18n/*.json` — widget labels, re-exported through `src-widgets/src/translations.ts`. `admin/custom/i18n/*.json` is **generated** from these by `buildAdminI18n()` in `tasks.ts` — never edit it by hand. vis-2 prefixes widget keys with the widget set name (`translations.prefix`), which is why the shared components ask for `openweathermap_<key>` and the generator bakes that prefix in.
+- `src-webcomponents/src/i18n.ts` and `src-webcomponents/src/manifest.ts` — the few words of the web component the widget dictionary lacks
 - `io-package.json` — `common.news` (one entry per released version), `common.titleLang`, `common.desc`
 - `README.md` changelog must carry the same version entry as `common.news`; `@alcalzone/release-script` keeps them aligned
 

@@ -20,6 +20,8 @@ src-widgets/build
 src-admin/.__mf__temp
 src-admin/build
 /admin/custom
+src-webcomponents/build
+/admin/webcomponents
 
 
 # ioBroker dev-server

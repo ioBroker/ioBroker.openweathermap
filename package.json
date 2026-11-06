@@ -53,15 +53,16 @@
     "test-gui": "mocha ./test/*.gui.js --exit",
     "prepublishOnly": "node tasks.ts",
     "check": "tsc --noEmit -p tsconfig.check.json",
-    "lint": "eslint -c eslint.config.mjs && cd src-widgets && npm run lint && cd ../src-admin && npm run lint",
+    "lint": "eslint -c eslint.config.mjs && cd src-widgets && npm run lint && cd ../src-admin && npm run lint && cd ../src-webcomponents && npm run lint",
     "build": "npm run tsc && node tasks.ts",
+    "build:wc": "node tasks.ts --wc",
     "tsc": "tsc -p tsconfig.build.json",
     "release": "release-script",
     "release-patch": "release-script patch --yes",
     "release-minor": "release-script minor --yes",
     "release-major": "release-script major --yes",
-    "update-packages": "npx -y npm-check-updates --upgrade && cd src-widgets && npx -y npm-check-updates --upgrade && cd ../src-admin && npx -y npm-check-updates --upgrade",
-    "npm": "npm i && cd src-widgets && npm i && cd ../src-admin && npm i"
+    "update-packages": "npx -y npm-check-updates --upgrade && cd src-widgets && npx -y npm-check-updates --upgrade && cd ../src-admin && npx -y npm-check-updates --upgrade && cd ../src-webcomponents && npx -y npm-check-updates --upgrade",
+    "npm": "npm i && cd src-widgets && npm i && cd ../src-admin && npm i && cd ../src-webcomponents && npm i"
   },
   "bugs": {
     "url": "https://github.com/ioBroker/ioBroker.openweathermap/issues"

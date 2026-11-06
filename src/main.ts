@@ -750,7 +750,7 @@ class Openweathermap extends Adapter {
                 'O',
                 'OSO',
                 'ZO',
-                'ZSO',
+                'ZZO',
                 'Z',
                 'ZZW',
                 'ZW',

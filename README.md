@@ -43,6 +43,7 @@ days (1-6), and optionally the IDs of a real temperature and humidity sensor. Th
 ## Changelog
 ### **WORK IN PROGRESS**
 * (@GermanBluefox) Added the web component `iob-openweathermap-weather` for Aura and other hosts (`common.webComponents`)
+* (@GermanBluefox) Corrected wrong translations of the vis-2 widget and the web component, e.g. the weather "Clear" and the "Close" button
 
 ### 2.2.0 (2026-11-05)
 * (@GermanBluefox) The place can be selected on a map in the instance settings (needs an admin version with map support for the coordinates field)

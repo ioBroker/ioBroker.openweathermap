@@ -78,8 +78,11 @@ tests.integration(path.join(__dirname, '..'), {
                 await new Promise(resolve => setTimeout(resolve, 3000));
 
                 assert.equal((await harness.objects.getObject(INSTANCE_ID)).native.apikey, encrypted);
-                assert.ok(!harness.didAdapterStop());
-                await harness.stopAdapter();
+                // With a short random start delay the adapter may have finished already, and then
+                // stopAdapter() would wait forever for a process that is gone.
+                if (!harness.didAdapterStop()) {
+                    await harness.stopAdapter();
+                }
             });
         });
     },

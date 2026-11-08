@@ -145,6 +145,14 @@ interface CurrentWeatherResult extends ForecastWeatherResult {
     windGust: number;
 }
 
+/**
+ * API keys consist only of letters and digits. An encrypted value never does: it starts with `$/aes-192-cbc:`, or,
+ * on a system with an old secret, it is XOR-encoded and contains control characters.
+ */
+function isPlainApiKey(value: string): boolean {
+    return /^[0-9a-zA-Z]+$/.test(value);
+}
+
 class Openweathermap extends Adapter {
     declare config: OpenWeatherMapAdapterConfig;
     currentIds: ioBroker.StateObject[] = [];
@@ -169,18 +177,34 @@ class Openweathermap extends Adapter {
     async onReady(): Promise<void> {
         try {
             const instObj = await this.getForeignObjectAsync(`system.adapter.${this.namespace}`);
+            let changed = false;
             if (
                 instObj?.common?.schedule &&
                 (instObj.common.schedule === '11 * * * *' || instObj.common.schedule === '*/15 * * * *')
             ) {
                 instObj.common.schedule = `${Math.floor(Math.random() * 60)} * * * *`;
                 this.log.info(`Default schedule found and adjusted to spread calls better over the full hour!`);
+                changed = true;
+            }
+
+            // Versions before `encryptedNative` stored the key as plain text. The controller "decrypted" this
+            // to garbage in `this.config`, so only the object tells what is really stored.
+            const storedKey: unknown = instObj?.native?.apikey;
+            if (instObj && typeof storedKey === 'string' && isPlainApiKey(storedKey.trim())) {
+                // this run works with the right key, even if storing it fails
+                this.config.apikey = storedKey.trim();
+                instObj.native.apikey = this.encrypt(this.config.apikey);
+                this.log.info('API key was stored as plain text and is encrypted now');
+                changed = true;
+            }
+
+            if (instObj && changed) {
                 await this.setForeignObjectAsync(`system.adapter.${this.namespace}`, instObj);
                 this.terminate();
                 return;
             }
         } catch (err) {
-            this.log.error(`Could not check or adjust the schedule: ${(err as Error).message}`);
+            this.log.error(`Could not check or adjust the instance settings: ${(err as Error).message}`);
         }
 
         const delay = Math.floor(Math.random() * 30000);

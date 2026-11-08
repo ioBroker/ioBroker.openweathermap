@@ -203,6 +203,9 @@
   "protectedNative": [
     "apikey"
   ],
+  "encryptedNative": [
+    "apikey"
+  ],
   "objects": [],
   "instanceObjects": [
     {

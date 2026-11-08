@@ -3,7 +3,7 @@
     "i18n": true,
     "items": {
         "apikey": {
-            "type": "text",
+            "type": "password",
             "label": "API key",
             "help": "Get your key here",
             "xs": 12,

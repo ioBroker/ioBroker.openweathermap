@@ -13,6 +13,13 @@ function decrypt(secret, value) {
     return Buffer.concat([decipher.update(Buffer.from(data, 'hex')), decipher.final()]).toString();
 }
 
+function encrypt(secret, value) {
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv('aes-192-cbc', Buffer.from(secret, 'hex'), iv);
+    const encrypted = Buffer.concat([cipher.update(value), cipher.final()]);
+    return `$/aes-192-cbc:${iv.toString('hex')}:${encrypted.toString('hex')}`;
+}
+
 async function waitFor(check, timeout) {
     const end = Date.now() + timeout;
     while (Date.now() < end) {
@@ -29,8 +36,9 @@ async function waitFor(check, timeout) {
 tests.integration(path.join(__dirname, '..'), {
     allowedExitCodes: [11],
     defineAdditionalTests({ suite }) {
-        suite('Encrypted API key', getHarness => {
-            it('encrypts a key stored as plain text by an old version and leaves it alone after that', async function () {
+        // A harness can start the adapter only once, so every start needs its own suite
+        suite('API key stored as plain text', getHarness => {
+            it('is encrypted at the start and the instance terminates to restart', async function () {
                 this.timeout(60000);
                 const harness = getHarness();
 
@@ -49,13 +57,28 @@ tests.integration(path.join(__dirname, '..'), {
                 assert.ok(migrated.native.apikey.startsWith('$/aes-192-cbc:'));
                 const systemConfig = await harness.objects.getObject('system.config');
                 assert.equal(decrypt(systemConfig.native.secret, migrated.native.apikey), PLAIN_KEY);
-                await waitFor(() => !harness.isAdapterRunning(), 10000);
+                await waitFor(() => harness.didAdapterStop(), 10000);
+            });
+        });
 
-                // a second start must not encrypt it again
-                await harness.startAdapter();
-                await new Promise(resolve => setTimeout(resolve, 5000));
-                const current = await harness.objects.getObject(INSTANCE_ID);
-                assert.equal(current.native.apikey, migrated.native.apikey);
+        suite('API key stored encrypted', getHarness => {
+            it('is not changed at the start', async function () {
+                this.timeout(60000);
+                const harness = getHarness();
+
+                const systemConfig = await harness.objects.getObject('system.config');
+                const encrypted = encrypt(systemConfig.native.secret, PLAIN_KEY);
+                const obj = await harness.objects.getObject(INSTANCE_ID);
+                obj.native.apikey = encrypted;
+                // not a default schedule, or the adapter would rewrite it and terminate
+                obj.common.schedule = '5 * * * *';
+                await harness.objects.setObject(INSTANCE_ID, obj);
+
+                await harness.startAdapterAndWait();
+                await new Promise(resolve => setTimeout(resolve, 3000));
+
+                assert.equal((await harness.objects.getObject(INSTANCE_ID)).native.apikey, encrypted);
+                assert.ok(!harness.didAdapterStop());
                 await harness.stopAdapter();
             });
         });

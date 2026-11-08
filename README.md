@@ -41,7 +41,7 @@ days (1-6), and optionally the IDs of a real temperature and humidity sensor. Th
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
-### **WORK IN PROGRESS**
+### 2.3.0 (2026-11-08)
 * (@GermanBluefox) Added the web component `iob-openweathermap-weather` for Aura and other hosts (`common.webComponents`)
 * (@GermanBluefox) Corrected wrong translations of the vis-2 widget and the web component, e.g. the weather "Clear" and the "Close" button
 * (@GermanBluefox) Corrected the Dutch wind direction south-southeast (ZZO instead of ZSO)
@@ -61,10 +61,6 @@ days (1-6), and optionally the IDs of a real temperature and humidity sensor. Th
 
 ### 2.0.3 (2026-10-17)
 * (@GermanBluefox) Updated packages
-
-### 2.0.2 (2026-10-13)
-* (@GermanBluefox) Updated packages
-* (@GermanBluefox) Admin 7.6.20+ is required. Fixed the build on CI (missing node types). The API key is protected now. Fixed the schema errors of the configuration
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 

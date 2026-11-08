@@ -183,6 +183,9 @@
         ]
       }
     },
+    "webComponents": [
+      "webcomponents/openweathermap-weather.json"
+    ],
     "licenseInformation": {
       "type": "free",
       "license": "MIT"
@@ -198,6 +201,9 @@
     "imperial": false
   },
   "protectedNative": [
+    "apikey"
+  ],
+  "encryptedNative": [
     "apikey"
   ],
   "objects": [],

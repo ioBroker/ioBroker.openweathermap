@@ -17,6 +17,7 @@ export default [
             'widgets/**/*',
             'src-widgets/**/*',
             'src-admin/**/*',
+            'src-webcomponents/**/*',
             'admin/**/*',
             'build/**/*',
             'node_modules/**/*',

@@ -26,10 +26,28 @@ default sizes.
 
 ![vis-2 widget](img/vis2-widget-weather.png)
 
+## Web component
+The same weather is also available as the web component `<iob-openweathermap-weather>` (`@iobroker/web-components`,
+listed in `common.webComponents`) for Aura, admin, ioBroker.devices and every other host of web components. vis-2
+offers its native widget "Weather" instead, as both carry the same name.
+
+It shows the current weather above the forecast days (or beside them in a wide and low box) and scales with its box.
+A click shows the details - wind, humidity, pressure and precipitation of today and of every day - in a dialog of the
+host. Settings: the instance, a title, what to show (all, only the current weather, only the days), the number of
+days (1-6), and optionally the IDs of a real temperature and humidity sensor. The units follow the instance setting
+(metric or imperial). The icon sizes of the vis-2 widget are not needed: the icons scale with the box.
+
 <!--
 	### **WORK IN PROGRESS**
 -->
 ## Changelog
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Added the web component `iob-openweathermap-weather` for Aura and other hosts (`common.webComponents`)
+* (@GermanBluefox) Corrected wrong translations of the vis-2 widget and the web component, e.g. the weather "Clear" and the "Close" button
+* (@GermanBluefox) Corrected the Dutch wind direction south-southeast (ZZO instead of ZSO)
+* (@GermanBluefox) The API key is stored encrypted and shown as a password field. An existing key is encrypted automatically at the next start of the instance
+* (@GermanBluefox) The vis-2 widget applies the CSS settings for text color, font and background color to all of its texts, the info button and the card
+
 ### 2.2.0 (2026-11-05)
 * (@GermanBluefox) The place can be selected on a map in the instance settings (needs an admin version with map support for the coordinates field)
 * (@GermanBluefox) Updated packages

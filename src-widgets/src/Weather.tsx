@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Card, type CardProps } from '@mui/material';
+
 import type { RxRenderWidgetProps, RxWidgetInfo, VisRxWidgetProps, VisRxWidgetState } from '@iobroker/types-vis-2';
 import type VisRxWidget from '@iobroker/types-vis-2/visRxWidget';
 import { I18n } from '@iobroker/gui-components';
@@ -33,6 +35,16 @@ function registerTranslations(): void {
         });
         I18n.extendTranslations(prefixed, lang as ioBroker.Languages);
     });
+}
+
+/** In the dark theme MUI lays a light gradient over a card, which would change the configured background color */
+function WidgetCard(props: CardProps): React.JSX.Element {
+    return (
+        <Card
+            {...props}
+            style={props.style?.backgroundColor ? { backgroundImage: 'none', ...props.style } : props.style}
+        />
+    );
 }
 
 interface WeatherState extends VisRxWidgetState {
@@ -187,6 +199,10 @@ export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<
 
         this.detectMetricOrImperial();
 
+        // vis-2 puts the CSS settings of the widget on the card, and the content inherits them from there
+        const fontSize = this.state.rxStyle?.['font-size'];
+        const hasFontSize = fontSize !== null && fontSize !== undefined && fontSize !== '';
+
         const content = (
             <WeatherComponent
                 socket={this.props.context.socket}
@@ -210,9 +226,20 @@ export default class Weather extends (window.visRxWidget as typeof VisRxWidget)<
                 pressureUnit={this.state.pressureUnit || 'hPa'}
                 iconSize={parseInt(this.state.rxData.iconSize as string, 10) || undefined}
                 daysIconSize={parseInt(this.state.rxData.daysIconSize as string, 10) || undefined}
+                inheritFontSize={hasFontSize}
             />
         );
 
-        return this.wrapContent(content);
+        return this.wrapContent(
+            content,
+            null,
+            // A size without a unit is invalid on the card, where vis-2 puts it as it is
+            hasFontSize && /^\d+(\.\d+)?$/.test(String(fontSize)) ? { fontSize: `${fontSize}px` } : undefined,
+            // The title is 24px in vis-2, so keep this ratio to the 14px of the weather texts
+            hasFontSize ? { fontSize: `${24 / 14}em` } : undefined,
+            undefined,
+            // The types of vis-2 declare an instance here, but it renders this value as a component
+            { Card: WidgetCard } as unknown as Record<string, React.Component<any>>,
+        );
     }
 }

@@ -12,7 +12,7 @@
 import type * as NodeFs from 'node:fs';
 import type * as BuildTools from '@iobroker/build-tools';
 
-const { mkdirSync, readdirSync, readFileSync, writeFileSync }: typeof NodeFs = require('node:fs');
+const { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync }: typeof NodeFs = require('node:fs');
 const {
     deleteFoldersRecursive,
     npmInstall,
@@ -27,6 +27,10 @@ const SRC = 'src-widgets/';
 const src = `${__dirname}/${SRC}`;
 const SRC_ADMIN = 'src-admin/';
 const srcAdmin = `${__dirname}/${SRC_ADMIN}`;
+const SRC_WC = 'src-webcomponents/';
+const srcWc = `${__dirname}/${SRC_WC}`;
+/** Served as `/adapter/openweathermap/webcomponents/`; must match `common.webComponents` in io-package.json */
+const WC_DEST = 'admin/webcomponents';
 
 function clean(): void {
     deleteFoldersRecursive(`${src}build`);
@@ -72,6 +76,22 @@ function copyAllAdminFiles(): void {
     buildAdminI18n();
 }
 
+/**
+ * The web component `<iob-openweathermap-weather>` for Aura, admin and every other host of
+ * `@iobroker/web-components`: one ES module and its manifest, `admin/webcomponents/openweathermap-weather.js`
+ * and `.json`. The vite build of `src-webcomponents/` writes and checks the manifest and fails if it is wrong.
+ */
+async function buildWebComponents(): Promise<void> {
+    deleteFoldersRecursive(`${srcWc}build`);
+    deleteFoldersRecursive(`${__dirname}/${WC_DEST}`);
+    if (!existsSync(`${srcWc}node_modules`)) {
+        await npmInstall(srcWc);
+    }
+    // `rootDir` is the folder itself: its version is not the one of the adapter
+    await buildReact(srcWc, { rootDir: srcWc, vite: true });
+    copyFiles([`${SRC_WC}build/*.js`, `${SRC_WC}build/*.json`], WC_DEST);
+}
+
 if (process.argv.includes('--0-clean')) {
     clean();
 } else if (process.argv.includes('--1-npm')) {
@@ -92,6 +112,11 @@ if (process.argv.includes('--0-clean')) {
     );
 } else if (process.argv.includes('--7-copy-admin')) {
     copyAllAdminFiles();
+} else if (process.argv.includes('--wc')) {
+    buildWebComponents().catch((e: unknown) => {
+        console.error(`Cannot build the web components: ${e as Error}`);
+        process.exitCode = 1;
+    });
 } else {
     clean();
     cleanAdmin();
@@ -101,5 +126,6 @@ if (process.argv.includes('--0-clean')) {
         .then(() => npmInstall(srcAdmin))
         .then(() => buildReact(srcAdmin, { rootDir: __dirname, vite: true }))
         .then(() => copyAllAdminFiles())
+        .then(() => buildWebComponents())
         .catch((e: unknown) => console.error(`Cannot build: ${e as Error}`));
 }

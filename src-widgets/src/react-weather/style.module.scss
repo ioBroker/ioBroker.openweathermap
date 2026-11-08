@@ -7,6 +7,11 @@
     flex-direction: column;
     display: flex;
     width: 100%;
+    // All texts below are sized in em relative to this
+    font-size: 14px;
+}
+.inheritFontSize {
+    font-size: inherit;
 }
 .iconWeatherWrapper {
     width: calc(40px * var(--widthBlock));
@@ -34,7 +39,7 @@
 }
 .styleText {
     margin-left: 10px;
-    font-size: calc(12px * var(--widthBlock));
+    font-size: calc(12em / 14 * var(--widthBlock));
 }
 .iconWeatherMin {
     width: calc(20px * var(--widthBlock));
@@ -51,22 +56,20 @@
     display: flex;
 }
 .temperature {
-    font-size: calc(10px * var(--widthBlock));
+    font-size: calc(10em / 14 * var(--widthBlock));
     span {
-        color: silver;
+        // dimmed and not a fixed color, so it follows the text color of the widget
+        opacity: 0.7;
     }
 }
 .temperatureTop {
-    font-size: 25px;
+    font-size: calc(25em / 14);
 }
 .humidity {
-    font-size: 14px;
-    color: var(--generalColor);
     text-align: right;
 }
 .date {
-    color: var(--generalColor);
-    font-size: calc(14px * var(--widthBlock));
+    font-size: calc(1em * var(--widthBlock));
 }
 @media screen and (max-width: 835px) {
 }

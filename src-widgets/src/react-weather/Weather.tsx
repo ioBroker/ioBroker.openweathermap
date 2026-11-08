@@ -65,6 +65,8 @@ interface WeatherProps {
     iconSize?: number;
     /** Size of the icons of the forecast days in px. Default: 20 */
     daysIconSize?: number;
+    /** Take the font size from the parent element instead of the default 14px. All texts scale with it */
+    inheritFontSize?: boolean;
 }
 
 export default function Weather({
@@ -81,6 +83,7 @@ export default function Weather({
     pressureUnit,
     iconSize,
     daysIconSize,
+    inheritFontSize,
 }: WeatherProps): React.JSX.Element | null {
     const [dialogOpen, setDialogOpen] = useState(false);
     const mapping = useRef<{
@@ -190,7 +193,7 @@ export default function Weather({
     }
 
     return (
-        <div className={cls.weatherWrapper}>
+        <div className={Utils.clsx(cls.weatherWrapper, inheritFontSize && cls.inheritFontSize)}>
             <div
                 className={cls.wrapperBlock}
                 style={{ display: hideCurrent ? 'none' : undefined }}
@@ -257,7 +260,10 @@ export default function Weather({
                 </div>
             )}
             <div style={{ textAlign: 'right' }}>
-                <IconButton onClick={() => setDialogOpen(true)}>
+                <IconButton
+                    color="inherit"
+                    onClick={() => setDialogOpen(true)}
+                >
                     <IconInfo />
                 </IconButton>
             </div>

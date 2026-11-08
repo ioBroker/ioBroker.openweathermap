@@ -45,6 +45,8 @@ days (1-6), and optionally the IDs of a real temperature and humidity sensor. Th
 * (@GermanBluefox) Added the web component `iob-openweathermap-weather` for Aura and other hosts (`common.webComponents`)
 * (@GermanBluefox) Corrected wrong translations of the vis-2 widget and the web component, e.g. the weather "Clear" and the "Close" button
 * (@GermanBluefox) Corrected the Dutch wind direction south-southeast (ZZO instead of ZSO)
+* (@GermanBluefox) The API key is stored encrypted and shown as a password field. An existing key is encrypted automatically at the next start of the instance
+* (@GermanBluefox) The vis-2 widget applies the CSS settings for text color, font and background color to all of its texts, the info button and the card
 
 ### 2.2.0 (2026-11-05)
 * (@GermanBluefox) The place can be selected on a map in the instance settings (needs an admin version with map support for the coordinates field)

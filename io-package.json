@@ -184,7 +184,28 @@
       }
     },
     "webComponents": [
-      "webcomponents/openweathermap-weather.json"
+      {
+        "manifest": "webcomponents/openweathermap-weather.json",
+        "tag": "iob-openweathermap-weather",
+        "name": {
+          "en": "Weather",
+          "de": "Wetter",
+          "ru": "Погода",
+          "pt": "Tempo",
+          "nl": "Het weer",
+          "fr": "Temps",
+          "it": "Tempo atmosferico",
+          "es": "Clima",
+          "pl": "Pogoda",
+          "uk": "Погода",
+          "zh-cn": "天气"
+        },
+        "icon": "../openweathermap.png",
+        "size": {
+          "width": 380,
+          "height": 220
+        }
+      }
     ],
     "licenseInformation": {
       "type": "free",

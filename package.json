@@ -34,6 +34,7 @@
     "@iobroker/testing": "^6.3.1",
     "@iobroker/types": "^7.2.5",
     "@iobroker/vis-2-widgets-testing": "^2.0.1",
+    "@iobroker/web-components": "^0.8.0",
     "@types/node": "^22.20.5",
     "typescript": "~6.0.3"
   },
@@ -54,7 +55,7 @@
     "prepublishOnly": "node tasks.ts",
     "check": "tsc --noEmit -p tsconfig.check.json",
     "lint": "eslint -c eslint.config.mjs && cd src-widgets && npm run lint && cd ../src-admin && npm run lint && cd ../src-webcomponents && npm run lint",
-    "build": "npm run tsc && node tasks.ts",
+    "build": "npm run tsc && node tasks.ts && iob-web-components sync-io-package",
     "build:wc": "node tasks.ts --wc",
     "tsc": "tsc -p tsconfig.build.json",
     "release": "release-script",
